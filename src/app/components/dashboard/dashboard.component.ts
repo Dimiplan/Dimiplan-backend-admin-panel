@@ -31,7 +31,7 @@ import { AdminService, SystemStatus, UserStats } from '../../services/admin.serv
           <mat-card class="dashboard-card">
             <mat-card-header>
               <mat-card-title>
-                <mat-icon>computer</mat-icon>
+                <mat-icon>monitor</mat-icon>
                 시스템 상태
               </mat-card-title>
             </mat-card-header>
@@ -111,14 +111,14 @@ import { AdminService, SystemStatus, UserStats } from '../../services/admin.serv
           <mat-card class="dashboard-card">
             <mat-card-header>
               <mat-card-title>
-                <mat-icon>quick_reference</mat-icon>
+                <mat-icon>flash_on</mat-icon>
                 빠른 액션
               </mat-card-title>
             </mat-card-header>
             <mat-card-content>
               <div class="action-buttons">
                 <button mat-raised-button color="primary" (click)="navigateToLogs()">
-                  <mat-icon>description</mat-icon>
+                  <mat-icon>article</mat-icon>
                   로그 보기
                 </button>
                 <button mat-raised-button color="accent" (click)="navigateToDatabase()">
@@ -126,7 +126,7 @@ import { AdminService, SystemStatus, UserStats } from '../../services/admin.serv
                   데이터베이스
                 </button>
                 <button mat-raised-button (click)="navigateToApiDocs()">
-                  <mat-icon>api</mat-icon>
+                  <mat-icon>code</mat-icon>
                   API 문서
                 </button>
                 <button mat-raised-button (click)="refreshData()">
@@ -150,6 +150,14 @@ import { AdminService, SystemStatus, UserStats } from '../../services/admin.serv
       height: 100%;
       display: flex;
       flex-direction: column;
+      border-radius: 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+      transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    }
+
+    .dashboard-card:hover {
+      box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+      transform: translateY(-2px);
     }
 
     .dashboard-card mat-card-header {

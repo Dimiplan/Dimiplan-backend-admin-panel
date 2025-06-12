@@ -8,6 +8,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { FormsModule } from '@angular/forms';
 import { AdminService, ApiDoc } from '../../services/admin.service';
 
@@ -24,6 +25,7 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
     MatProgressSpinnerModule,
     MatFormFieldModule,
     MatInputModule,
+    MatTooltipModule,
     FormsModule
   ],
   template: `
@@ -42,7 +44,7 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
             <mat-icon>refresh</mat-icon>
           </button>
           <button mat-icon-button (click)="regenerateDocs()" [disabled]="loading" matTooltip="JSDoc 재생성">
-            <mat-icon>build</mat-icon>
+            <mat-icon>autorenew</mat-icon>
           </button>
           <button mat-raised-button color="primary" (click)="exportDocs()" [disabled]="!apiDocs.length">
             <mat-icon>download</mat-icon>

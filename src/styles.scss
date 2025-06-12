@@ -1,19 +1,86 @@
 /* You can add global styles to this file, and also import other style files */
-@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+@use '@angular/material' as mat;
+
+// Define Material 3 theme
+@include mat.core();
+
+// Define the palettes for your theme using the Material 3 color system
+$primary-palette: mat.m3-define-palette(mat.$m3-blue-palette);
+$accent-palette: mat.m3-define-palette(mat.$m3-green-palette);
+$warn-palette: mat.m3-define-palette(mat.$m3-red-palette);
+
+// Create the theme object
+$admin-theme: mat.m3-define-light-theme((
+  color: (
+    primary: $primary-palette,
+    tertiary: $accent-palette,
+    error: $warn-palette,
+  ),
+  typography: (
+    brand-family: 'Roboto',
+    plain-family: 'Roboto',
+  ),
+  density: (
+    scale: 0,
+  )
+));
+
+// Include theme styles for core and each component used in your app
+@include mat.all-component-themes($admin-theme);
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 html, body { 
   height: 100%; 
   margin: 0; 
-  font-family: Roboto, "Helvetica Neue", sans-serif; 
+  font-family: 'Roboto', "Helvetica Neue", sans-serif; 
 }
 
-/* Global Material Design customizations */
+/* Material 3 Design customizations */
 .mat-mdc-card {
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24) !important;
+  transition: box-shadow 0.3s cubic-bezier(.25,.8,.25,1) !important;
 }
 
-.mat-mdc-button, .mat-mdc-raised-button {
+.mat-mdc-card:hover {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23) !important;
+}
+
+.mat-mdc-button, .mat-mdc-raised-button, .mat-mdc-outlined-button {
   text-transform: none !important;
+  border-radius: 12px !important;
+  font-weight: 500 !important;
+}
+
+.mat-mdc-raised-button {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
+}
+
+.mat-mdc-raised-button:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3) !important;
+}
+
+.mat-mdc-form-field {
+  .mat-mdc-text-field-wrapper {
+    border-radius: 12px !important;
+  }
+}
+
+.mat-mdc-menu-panel {
+  border-radius: 12px !important;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1) !important;
+}
+
+.mat-mdc-list-item {
+  border-radius: 8px !important;
+}
+
+.mat-expansion-panel {
+  border-radius: 12px !important;
+  margin-bottom: 8px !important;
 }
 
 /* Custom scrollbar */

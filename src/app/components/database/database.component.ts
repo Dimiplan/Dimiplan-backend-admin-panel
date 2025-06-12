@@ -50,7 +50,7 @@ import { AdminService, TableInfo, TableData } from '../../services/admin.service
                 <mat-icon matListItemIcon>table_chart</mat-icon>
                 <div matListItemTitle>{{ table.name }}</div>
                 <div matListItemLine>
-                  <mat-chip [matBadge]="table.rowCount" matBadgeOverlap="false">
+                  <mat-chip>
                     {{ table.rowCount }}개 레코드
                   </mat-chip>
                 </div>

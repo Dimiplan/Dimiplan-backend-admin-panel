@@ -45,7 +45,7 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
                 *ngFor="let file of logFiles" 
                 [class.selected]="selectedFile?.name === file.name"
                 (click)="selectLogFile(file)">
-                <mat-icon matListItemIcon>description</mat-icon>
+                <mat-icon matListItemIcon>article</mat-icon>
                 <div matListItemTitle>{{ file.name }}</div>
                 <div matListItemLine>
                   {{ formatFileSize(file.size) }} - {{ formatDate(file.modified) }}
@@ -104,8 +104,23 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
             <div *ngIf="logContent" class="log-content">
               <div class="log-info">
                 <span>총 {{ logContent.totalLines }}줄 중 {{ logContent.displayedLines }}줄 표시</span>
+                <div class="log-filters">
+                  <button mat-button [class.active]="logFilter === 'all'" (click)="setLogFilter('all')">전체</button>
+                  <button mat-button [class.active]="logFilter === 'error'" (click)="setLogFilter('error')">오류</button>
+                  <button mat-button [class.active]="logFilter === 'warn'" (click)="setLogFilter('warn')">경고</button>
+                  <button mat-button [class.active]="logFilter === 'info'" (click)="setLogFilter('info')">정보</button>
+                </div>
               </div>
-              <pre class="log-text">{{ logContent.content }}</pre>
+              <div class="log-text-container">
+                <div *ngFor="let line of getFilteredLogLines(); let i = index" 
+                     class="log-line" 
+                     [ngClass]="getLogLineClass(line)">
+                  <span class="log-line-number">{{ i + 1 }}</span>
+                  <span class="log-timestamp">{{ extractTimestamp(line) }}</span>
+                  <span class="log-level">{{ extractLogLevel(line) }}</span>
+                  <span class="log-message">{{ extractMessage(line) }}</span>
+                </div>
+              </div>
             </div>
           </mat-card-content>
         </mat-card>
@@ -176,6 +191,9 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
     }
 
     .log-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       padding: 8px 12px;
       background-color: #f5f5f5;
       border-radius: 4px;
@@ -184,18 +202,94 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
       color: rgba(0, 0, 0, 0.7);
     }
 
-    .log-text {
+    .log-filters {
+      display: flex;
+      gap: 4px;
+    }
+
+    .log-filters button {
+      padding: 4px 8px;
+      font-size: 0.8rem;
+      min-width: auto;
+    }
+
+    .log-filters button.active {
+      background-color: #1976d2;
+      color: white;
+    }
+
+    .log-text-container {
       flex: 1;
       background-color: #1e1e1e;
-      color: #d4d4d4;
-      padding: 16px;
+      border-radius: 4px;
+      overflow: auto;
+      max-height: 600px;
+    }
+
+    .log-line {
+      display: flex;
+      align-items: flex-start;
+      padding: 2px 8px;
       font-family: 'Courier New', monospace;
       font-size: 12px;
       line-height: 1.4;
-      overflow: auto;
-      border-radius: 4px;
-      white-space: pre-wrap;
-      word-break: break-all;
+      border-bottom: 1px solid #333;
+    }
+
+    .log-line:hover {
+      background-color: #2a2a2a;
+    }
+
+    .log-line.error {
+      background-color: rgba(244, 67, 54, 0.1);
+      border-left: 3px solid #f44336;
+    }
+
+    .log-line.warn {
+      background-color: rgba(255, 152, 0, 0.1);
+      border-left: 3px solid #ff9800;
+    }
+
+    .log-line.info {
+      background-color: rgba(76, 175, 80, 0.1);
+      border-left: 3px solid #4caf50;
+    }
+
+    .log-line.verbose {
+      background-color: rgba(33, 150, 243, 0.1);
+      border-left: 3px solid #2196f3;
+    }
+
+    .log-line-number {
+      width: 50px;
+      color: #888;
+      text-align: right;
+      margin-right: 12px;
+      user-select: none;
+    }
+
+    .log-timestamp {
+      width: 140px;
+      color: #bbb;
+      margin-right: 12px;
+    }
+
+    .log-level {
+      width: 60px;
+      font-weight: bold;
+      margin-right: 12px;
+      text-transform: uppercase;
+    }
+
+    .log-level.error { color: #f44336; }
+    .log-level.warn { color: #ff9800; }
+    .log-level.info { color: #4caf50; }
+    .log-level.verbose { color: #2196f3; }
+
+    .log-message {
+      flex: 1;
+      color: #d4d4d4;
+      word-break: break-word;
     }
 
     .selected {
@@ -243,6 +337,7 @@ export class LogsComponent implements OnInit {
   displayLines = 100;
   loadingFiles = false;
   loadingContent = false;
+  logFilter = 'all';
 
   constructor(private adminService: AdminService) {}
 
@@ -320,5 +415,44 @@ export class LogsComponent implements OnInit {
 
   formatDate(date: Date): string {
     return new Date(date).toLocaleString('ko-KR');
+  }
+
+  setLogFilter(filter: string) {
+    this.logFilter = filter;
+  }
+
+  getFilteredLogLines(): string[] {
+    if (!this.logContent) return [];
+    
+    const lines = this.logContent.content.split('\n').filter(line => line.trim());
+    
+    if (this.logFilter === 'all') {
+      return lines;
+    }
+    
+    return lines.filter(line => {
+      const level = this.extractLogLevel(line).toLowerCase();
+      return level === this.logFilter;
+    });
+  }
+
+  extractTimestamp(line: string): string {
+    const timestampMatch = line.match(/^(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})/);
+    return timestampMatch ? timestampMatch[1] : '';
+  }
+
+  extractLogLevel(line: string): string {
+    const levelMatch = line.match(/\s(error|warn|info|verbose):/i);
+    return levelMatch ? levelMatch[1].toLowerCase() : '';
+  }
+
+  extractMessage(line: string): string {
+    const messageMatch = line.match(/\s(?:error|warn|info|verbose):\s(.+)/i);
+    return messageMatch ? messageMatch[1] : line;
+  }
+
+  getLogLineClass(line: string): string {
+    const level = this.extractLogLevel(line);
+    return level || '';
   }
 }
