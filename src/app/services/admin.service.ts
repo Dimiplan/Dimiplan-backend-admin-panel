@@ -113,4 +113,8 @@ export class AdminService {
   getApiDocs(): Observable<{ success: boolean; data: ApiDoc[] }> {
     return this.http.get<{ success: boolean; data: ApiDoc[] }>(`${this.baseUrl}/docs`);
   }
+
+  regenerateApiDocs(): Observable<{ success: boolean; message: string; timestamp: string }> {
+    return this.http.post<{ success: boolean; message: string; timestamp: string }>(`${this.baseUrl}/docs/regenerate`, {});
+  }
 }

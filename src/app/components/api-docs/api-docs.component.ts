@@ -38,8 +38,11 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
         </mat-form-field>
         
         <div class="header-actions">
-          <button mat-icon-button (click)="refreshDocs()" [disabled]="loading">
+          <button mat-icon-button (click)="refreshDocs()" [disabled]="loading" matTooltip="새로고침">
             <mat-icon>refresh</mat-icon>
+          </button>
+          <button mat-icon-button (click)="regenerateDocs()" [disabled]="loading" matTooltip="JSDoc 재생성">
+            <mat-icon>build</mat-icon>
           </button>
           <button mat-raised-button color="primary" (click)="exportDocs()" [disabled]="!apiDocs.length">
             <mat-icon>download</mat-icon>
@@ -361,6 +364,26 @@ export class ApiDocsComponent implements OnInit {
 
   refreshDocs() {
     this.loadApiDocs();
+  }
+
+  regenerateDocs() {
+    this.loading = true;
+    this.adminService.regenerateApiDocs().subscribe({
+      next: (response) => {
+        if (response.success) {
+          console.log('JSDoc 재생성 성공:', response.message);
+          // 재생성 후 문서 다시 로드
+          this.loadApiDocs();
+        } else {
+          console.error('JSDoc 재생성 실패');
+          this.loading = false;
+        }
+      },
+      error: (error) => {
+        console.error('JSDoc 재생성 실패:', error);
+        this.loading = false;
+      }
+    });
   }
 
   getMethodColor(method: string): 'primary' | 'accent' | 'warn' | undefined {

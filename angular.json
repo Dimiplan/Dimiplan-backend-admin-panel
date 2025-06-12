@@ -2,7 +2,8 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "cli": {
-    "packageManager": "bun"
+    "packageManager": "bun",
+    "analytics": "130948f7-88b4-47e4-92e7-2941b79f8ab0"
   },
   "newProjectRoot": "projects",
   "projects": {
@@ -62,6 +63,12 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options": {
+            "allowedHosts": [
+              "localhost",
+              "admin.dimiplan.com"
+            ]
+          },
           "configurations": {
             "production": {
               "buildTarget": "admin-panel:build:production"
