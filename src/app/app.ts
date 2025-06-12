@@ -8,12 +8,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   imports: [
     CommonModule,
     RouterOutlet,
+    RouterModule,
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
