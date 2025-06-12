@@ -399,7 +399,7 @@ export class ApiDocsComponent implements OnInit {
   }
 
   generateCurlExample(doc: ApiDoc): string {
-    const baseUrl = 'https://api.dimiplan.com';
+    const baseUrl = 'https://api-dev.dimiplan.com';
     const url = `${baseUrl}${doc.path}`;
 
     switch (doc.method.toUpperCase()) {

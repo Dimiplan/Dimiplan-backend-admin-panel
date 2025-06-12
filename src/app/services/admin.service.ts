@@ -76,7 +76,7 @@ export interface ApiDoc {
   providedIn: 'root'
 })
 export class AdminService {
-  private baseUrl = 'https://api.dimiplan.com/api/admin';
+  private baseUrl = 'https://api-dev.dimiplan.com/api/admin';
 
   constructor(private http: HttpClient) {}
 
