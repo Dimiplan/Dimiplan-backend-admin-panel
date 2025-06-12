@@ -89,7 +89,10 @@ export class AdminService {
   }
 
   getLogContent(filename: string, lines?: number): Observable<{ success: boolean; data: LogContent }> {
-    const params = lines ? { lines: lines.toString() } : {};
+    const params: Record<string, string> = {};
+    if (lines !== undefined) {
+      params['lines'] = lines.toString();
+    }
     return this.http.get<{ success: boolean; data: LogContent }>(`${this.baseUrl}/logs/${filename}`, { params });
   }
 
