@@ -93,7 +93,8 @@ export class AdminService {
     if (lines !== undefined) {
       params['lines'] = lines.toString();
     }
-    return this.http.get<{ success: boolean; data: LogContent }>(`${this.baseUrl}/logs/${filename}`, { params });
+    return this.http.get<{ success: boolean; data: LogContent }>(`${this.baseUrl}/logs/${filename}`, 
+      Object.keys(params).length > 0 ? { params } : {});
   }
 
   getDatabaseTables(): Observable<{ success: boolean; data: TableInfo[] }> {
