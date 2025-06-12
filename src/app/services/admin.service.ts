@@ -76,7 +76,7 @@ export interface ApiDoc {
   providedIn: 'root'
 })
 export class AdminService {
-  private baseUrl = 'https://localhost:3000/api/admin';
+  private baseUrl = 'https://api.dimiplan.com/api/admin';
 
   constructor(private http: HttpClient) {}
 
@@ -93,7 +93,7 @@ export class AdminService {
     if (lines !== undefined) {
       params['lines'] = lines.toString();
     }
-    return this.http.get<{ success: boolean; data: LogContent }>(`${this.baseUrl}/logs/${filename}`, 
+    return this.http.get<{ success: boolean; data: LogContent }>(`${this.baseUrl}/logs/${filename}`,
       Object.keys(params).length > 0 ? { params } : {});
   }
 

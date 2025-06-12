@@ -36,7 +36,7 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
           <input matInput [(ngModel)]="searchTerm" (input)="filterApis()" placeholder="경로나 설명으로 검색...">
           <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
-        
+
         <div class="header-actions">
           <button mat-icon-button (click)="refreshDocs()" [disabled]="loading" matTooltip="새로고침">
             <mat-icon>refresh</mat-icon>
@@ -353,7 +353,7 @@ export class ApiDocsComponent implements OnInit {
     }
 
     const term = this.searchTerm.toLowerCase();
-    this.filteredDocs = this.apiDocs.filter(doc => 
+    this.filteredDocs = this.apiDocs.filter(doc =>
       doc.path.toLowerCase().includes(term) ||
       doc.brief.toLowerCase().includes(term) ||
       doc.details.toLowerCase().includes(term) ||
@@ -397,15 +397,15 @@ export class ApiDocsComponent implements OnInit {
   }
 
   generateCurlExample(doc: ApiDoc): string {
-    const baseUrl = 'https://localhost:3000';
+    const baseUrl = 'https://api.dimiplan.com';
     const url = `${baseUrl}${doc.path}`;
-    
+
     switch (doc.method.toUpperCase()) {
       case 'GET':
         return `curl -X GET "${url}" \\
   -H "Content-Type: application/json" \\
   -H "Authorization: Bearer YOUR_TOKEN"`;
-      
+
       case 'POST':
         return `curl -X POST "${url}" \\
   -H "Content-Type: application/json" \\
@@ -413,7 +413,7 @@ export class ApiDocsComponent implements OnInit {
   -d '{
     "key": "value"
   }'`;
-      
+
       case 'PUT':
         return `curl -X PUT "${url}" \\
   -H "Content-Type: application/json" \\
@@ -421,12 +421,12 @@ export class ApiDocsComponent implements OnInit {
   -d '{
     "key": "value"
   }'`;
-      
+
       case 'DELETE':
         return `curl -X DELETE "${url}" \\
   -H "Content-Type: application/json" \\
   -H "Authorization: Bearer YOUR_TOKEN"`;
-      
+
       default:
         return `curl -X ${doc.method} "${url}" \\
   -H "Content-Type: application/json" \\
@@ -459,7 +459,7 @@ export class ApiDocsComponent implements OnInit {
   private generateMarkdownDocs(): string {
     let markdown = '# API 문서\n\n';
     markdown += `생성일: ${new Date().toLocaleString('ko-KR')}\n\n`;
-    
+
     const groupedDocs = this.apiDocs.reduce((groups, doc) => {
       const group = groups[doc.file] || [];
       group.push(doc);
@@ -469,7 +469,7 @@ export class ApiDocsComponent implements OnInit {
 
     for (const [file, docs] of Object.entries(groupedDocs)) {
       markdown += `## ${file}\n\n`;
-      
+
       for (const doc of docs) {
         markdown += `### ${doc.method} ${doc.path}\n\n`;
         if (doc.brief) {
