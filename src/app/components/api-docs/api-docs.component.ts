@@ -9,6 +9,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { AdminService, ApiDoc } from '../../services/admin.service';
 
@@ -26,6 +27,7 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
     MatFormFieldModule,
     MatInputModule,
     MatTooltipModule,
+    MatSelectModule,
     FormsModule
   ],
   template: `
@@ -33,15 +35,29 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
       <h1 class="md-typescale-headline-large text-md-sys-color-on-surface mb-6">API 문서</h1>
 
       <div class="flex flex-col md:flex-row gap-4 mb-6">
-        <div class="flex-1 max-w-md">
-          <div class="relative">
-            <input
-              type="text"
-              [(ngModel)]="searchTerm"
-              (input)="filterApis()"
-              placeholder="경로나 설명으로 검색..."
-              class="w-full p-3 pr-12 bg-md-sys-color-surface-container-highest text-md-sys-color-on-surface rounded-xl border border-md-sys-color-outline focus:border-md-sys-color-primary focus:outline-none md-typescale-body-large">
-            <mat-icon class="w-5 h-5 absolute right-3 top-1/2 transform -translate-y-1/2 text-md-sys-color-on-surface-variant">search</mat-icon>
+        <div class="flex flex-col md:flex-row gap-4 flex-1">
+          <div class="flex-1 max-w-md">
+            <div class="relative">
+              <input
+                type="text"
+                [(ngModel)]="searchTerm"
+                (input)="filterApis()"
+                placeholder="경로나 설명으로 검색..."
+                class="w-full p-3 pr-12 bg-md-sys-color-surface-container-highest text-md-sys-color-on-surface rounded-xl border border-md-sys-color-outline focus:border-md-sys-color-primary focus:outline-none md-typescale-body-large">
+              <mat-icon class="w-5 h-5 absolute right-3 top-1/2 transform -translate-y-1/2 text-md-sys-color-on-surface-variant">search</mat-icon>
+            </div>
+          </div>
+
+          <div class="w-full md:w-48">
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>파일 필터</mat-label>
+              <mat-select [(value)]="selectedFile" (selectionChange)="filterApis()">
+                <mat-option value="">모든 파일</mat-option>
+                <mat-option *ngFor="let file of getUniqueFiles()" [value]="file">
+                  {{ file }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
         </div>
 
@@ -101,7 +117,7 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
               <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-md-sys-color-surface-container-high rounded-xl">
                 <div class="flex items-center gap-2">
                   <span class="md-typescale-body-medium font-medium text-md-sys-color-on-surface-variant">파일:</span>
-                  <span class="font-mono md-typescale-body-medium text-md-sys-color-on-surface">{{ doc.file }}.mjs</span>
+                  <span class="font-mono md-typescale-body-medium text-md-sys-color-on-surface">{{ doc.file }}</span>
                 </div>
                 <div class="flex items-center gap-2">
                   <span class="md-typescale-body-medium font-medium text-md-sys-color-on-surface-variant">메소드:</span>
@@ -128,7 +144,7 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
                   <div *ngFor="let routeParam of doc.routeParams" class="p-3 bg-md-sys-color-primary-container rounded-lg">
                     <div class="flex items-start justify-between mb-2">
                       <div class="flex items-center gap-2">
-                        <code class="px-2 py-1 bg-md-sys-color-surface-container rounded text-sm font-mono text-md-sys-color-on-surface">:{{ routeParam.name }}</code>
+                        <code class="px-2 py-1 bg-md-sys-color-surface-container rounded text-sm font-mono text-md-sys-color-on-surface">{{ routeParam.name }}</code>
                         <span class="px-2 py-1 rounded-full text-xs bg-md-sys-color-error-container text-md-sys-color-on-error-container">필수</span>
                       </div>
                       <span class="text-sm font-mono text-md-sys-color-on-primary-container">{{ routeParam.type }}</span>
@@ -226,12 +242,18 @@ export class ApiDocsComponent implements OnInit {
   apiDocs: ApiDoc[] = [];
   filteredDocs: ApiDoc[] = [];
   searchTerm = '';
+  selectedFile = '';
   loading = false;
 
   constructor(private adminService: AdminService) {}
 
   ngOnInit() {
     this.loadApiDocs();
+  }
+
+  getUniqueFiles(): string[] {
+    const files = [...new Set(this.apiDocs.map(doc => doc.file))];
+    return files.sort();
   }
 
 
@@ -258,26 +280,33 @@ export class ApiDocsComponent implements OnInit {
   }
 
   filterApis() {
-    if (!this.searchTerm.trim()) {
-      this.filteredDocs = [...this.apiDocs];
-      return;
+    let filtered = [...this.apiDocs];
+
+    // File filter
+    if (this.selectedFile) {
+      filtered = filtered.filter(doc => doc.file === this.selectedFile);
     }
 
-    const term = this.searchTerm.toLowerCase();
-    this.filteredDocs = this.apiDocs.filter(doc =>
-      doc.path.toLowerCase().includes(term) ||
-      doc.name.toLowerCase().includes(term) ||
-      doc.method.toLowerCase().includes(term) ||
-      doc.file.toLowerCase().includes(term) ||
-      (doc.params && doc.params.some(param =>
-        param.name.toLowerCase().includes(term) ||
-        param.description.toLowerCase().includes(term)
-      )) ||
-      (doc.routeParams && doc.routeParams.some(routeParam =>
-        routeParam.name.toLowerCase().includes(term) ||
-        routeParam.description.toLowerCase().includes(term)
-      ))
-    );
+    // Search term filter
+    if (this.searchTerm.trim()) {
+      const term = this.searchTerm.toLowerCase();
+      filtered = filtered.filter(doc =>
+        doc.path.toLowerCase().includes(term) ||
+        doc.name.toLowerCase().includes(term) ||
+        doc.method.toLowerCase().includes(term) ||
+        doc.file.toLowerCase().includes(term) ||
+        (doc.params && doc.params.some(param =>
+          param.name.toLowerCase().includes(term) ||
+          param.description.toLowerCase().includes(term)
+        )) ||
+        (doc.routeParams && doc.routeParams.some(routeParam =>
+          routeParam.name.toLowerCase().includes(term) ||
+          routeParam.description.toLowerCase().includes(term)
+        ))
+      );
+    }
+
+    this.filteredDocs = filtered;
   }
 
   refreshDocs() {
