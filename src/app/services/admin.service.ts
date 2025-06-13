@@ -4,12 +4,8 @@ import { Observable } from 'rxjs';
 
 export interface SystemStatus {
   uptime: number;
-  memory: {
-    rss: number;
-    heapTotal: number;
-    heapUsed: number;
-    external: number;
-  };
+  totalmem: number;
+	freemem: number;
   platform: string;
   nodeVersion: string;
   environment: string;

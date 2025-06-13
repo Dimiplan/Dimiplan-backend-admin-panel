@@ -24,7 +24,7 @@ import { AdminService, SystemStatus, UserStats } from '../../services/admin.serv
   template: `
     <div class="dashboard-container p-6 bg-md-sys-color-surface min-h-screen">
       <h1 class="md-typescale-headline-large text-md-sys-color-on-surface mb-6">관리자 대시보드</h1>
-      
+
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <!-- 시스템 상태 카드 -->
         <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface hover:shadow-elevation-3 transition-all duration-300">
@@ -40,7 +40,7 @@ import { AdminService, SystemStatus, UserStats } from '../../services/admin.serv
               </div>
               <div class="flex justify-between items-center py-2 border-b border-md-sys-color-outline-variant">
                 <span class="md-typescale-body-medium font-medium text-md-sys-color-on-surface-variant">메모리 사용량:</span>
-                <span class="md-typescale-body-medium font-mono text-md-sys-color-on-surface">{{ formatMemory(systemStatus.memory.heapUsed) }} / {{ formatMemory(systemStatus.memory.heapTotal) }}</span>
+                <span class="md-typescale-body-medium font-mono text-md-sys-color-on-surface">{{ formatMemory(systemStatus.freemem) }} / {{ formatMemory(systemStatus.totalmem) }}</span>
               </div>
               <div class="flex justify-between items-center py-2 border-b border-md-sys-color-outline-variant">
                 <span class="md-typescale-body-medium font-medium text-md-sys-color-on-surface-variant">플랫폼:</span>
@@ -52,7 +52,7 @@ import { AdminService, SystemStatus, UserStats } from '../../services/admin.serv
               </div>
               <div class="flex justify-between items-center py-2">
                 <span class="md-typescale-body-medium font-medium text-md-sys-color-on-surface-variant">환경:</span>
-                <span class="px-3 py-1 rounded-full text-sm" 
+                <span class="px-3 py-1 rounded-full text-sm"
                       [class]="systemStatus.environment === 'production' ? 'bg-md-sys-color-error-container text-md-sys-color-on-error-container' : 'bg-md-sys-color-primary-container text-md-sys-color-on-primary-container'">
                   {{ systemStatus.environment }}
                 </span>
@@ -63,7 +63,7 @@ import { AdminService, SystemStatus, UserStats } from '../../services/admin.serv
                   <span class="md-typescale-body-small text-md-sys-color-on-surface-variant">{{ getMemoryUsagePercent().toFixed(1) }}%</span>
                 </div>
                 <div class="w-full bg-md-sys-color-surface-container-high rounded-full h-2">
-                  <div class="bg-md-sys-color-primary h-2 rounded-full transition-all duration-300" 
+                  <div class="bg-md-sys-color-primary h-2 rounded-full transition-all duration-300"
                        [style.width.%]="getMemoryUsagePercent()"></div>
                 </div>
               </div>
@@ -98,7 +98,7 @@ import { AdminService, SystemStatus, UserStats } from '../../services/admin.serv
               <div class="space-y-3">
                 <h4 class="md-typescale-title-small text-md-sys-color-on-surface-variant mb-3">최근 가입자</h4>
                 <div class="space-y-2">
-                  <div *ngFor="let user of userStats.recentUsers.slice(0, 5)" 
+                  <div *ngFor="let user of userStats.recentUsers.slice(0, 5)"
                        class="flex justify-between items-center py-2 px-3 bg-md-sys-color-surface-container-high rounded-lg">
                     <span class="md-typescale-body-medium font-medium text-md-sys-color-on-surface">{{ user.email }}</span>
                     <span class="md-typescale-body-small text-md-sys-color-on-surface-variant">{{ formatDate(user.created_at) }}</span>
@@ -150,24 +150,24 @@ import { AdminService, SystemStatus, UserStats } from '../../services/admin.serv
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
     }
-    
+
     .animate-spin {
       animation: spin 1s linear infinite;
     }
-    
+
     .md-card {
       min-height: 300px;
       display: flex;
       flex-direction: column;
     }
-    
+
     .md-button {
       border: none;
       cursor: pointer;
       text-decoration: none;
       transition: all 0.2s ease;
     }
-    
+
     .md-button:hover {
       transform: translateY(-1px);
     }
@@ -228,7 +228,7 @@ export class DashboardComponent implements OnInit {
 
   getMemoryUsagePercent(): number {
     if (!this.systemStatus) return 0;
-    return (this.systemStatus.memory.heapUsed / this.systemStatus.memory.heapTotal) * 100;
+    return (this.systemStatus.freemem / this.systemStatus.totalmem) * 100;
   }
 
   formatDate(dateString: string): string {
