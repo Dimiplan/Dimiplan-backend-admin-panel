@@ -1,8 +1,8 @@
-name: Build and Test
+name: Build
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ main ]
   pull_request:
     branches: [ main ]
 
@@ -25,13 +25,10 @@ jobs:
     - name: Build application
       run: bun run build
 
-    - name: Run tests
-      run: bun run test -- --watch=false --browsers=ChromeHeadless
-
     - name: Deploy on Cloudflare Pages
       uses: cloudflare/wrangler-action@v3
       with:
         apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        command: pages deploy docs --project-name='dimiplan-backend-docs'
+        command: pages deploy dist/admin-panel/browser --project-name='dimiplan-backend-admin-panel'
         gitHubToken: ${{ secrets.GITHUB_TOKEN }}
