@@ -148,7 +148,7 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
                     <div class="flex items-start justify-between mb-2">
                       <div class="flex items-center gap-2">
                         <code class="px-2 py-1 bg-md-sys-color-surface-container rounded text-sm font-mono text-md-sys-color-on-surface">{{ param.name }}</code>
-                        <span class="px-2 py-1 rounded-full text-xs" 
+                        <span class="px-2 py-1 rounded-full text-xs"
                               [class]="param.required ? 'bg-md-sys-color-error-container text-md-sys-color-on-error-container' : 'bg-md-sys-color-surface-container text-md-sys-color-on-surface'">{{ param.required ? '필수' : '선택' }}</span>
                       </div>
                       <span class="text-sm font-mono text-md-sys-color-on-surface-variant">{{ param.type }}</span>
@@ -163,7 +163,7 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
                   <mat-icon class="w-5 h-5 text-md-sys-color-primary">keyboard_return</mat-icon>
                   반환값
                 </h4>
-                <p class="md-typescale-body-medium text-md-sys-color-on-surface leading-relaxed">{{ doc.returns }}</p>
+                <p class="md-typescale-body-medium text-md-sys-color-on-surface leading-relaxed">{{ doc.returns.type }} - {{ doc.returns.description }}</p>
               </div>
 
               <div class="space-y-2">
@@ -269,11 +269,11 @@ export class ApiDocsComponent implements OnInit {
       doc.name.toLowerCase().includes(term) ||
       doc.method.toLowerCase().includes(term) ||
       doc.file.toLowerCase().includes(term) ||
-      (doc.params && doc.params.some(param => 
+      (doc.params && doc.params.some(param =>
         param.name.toLowerCase().includes(term) ||
         param.description.toLowerCase().includes(term)
       )) ||
-      (doc.routeParams && doc.routeParams.some(routeParam => 
+      (doc.routeParams && doc.routeParams.some(routeParam =>
         routeParam.name.toLowerCase().includes(term) ||
         routeParam.description.toLowerCase().includes(term)
       ))
@@ -317,7 +317,7 @@ export class ApiDocsComponent implements OnInit {
   generateCurlExample(doc: ApiDoc): string {
     const baseUrl = 'https://api-dev.dimiplan.com';
     let url = `${baseUrl}${doc.path}`;
-    
+
     // Replace route parameters with example values
     if (doc.routeParams && doc.routeParams.length > 0) {
       doc.routeParams.forEach(routeParam => {
