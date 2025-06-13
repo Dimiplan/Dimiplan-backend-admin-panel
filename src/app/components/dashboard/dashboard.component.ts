@@ -1,3 +1,4 @@
+import { AiUsage } from './../../services/admin.service';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -125,6 +126,44 @@ import { AdminService, SystemStatus, UserStats } from '../../services/admin.serv
           </div>
         </div>
 
+				<!-- AI 사용량 카드 -->
+				<div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface hover:shadow-elevation-3 transition-all duration-300">
+					<div class="flex items-center gap-3 mb-4">
+						<mat-icon class="w-6 h-6 text-md-sys-color-primary">memory</mat-icon>
+						<h2 class="md-typescale-title-large text-md-sys-color-on-surface">AI 사용량</h2>
+					</div>
+					<div class="flex-1">
+						<div *ngIf="aiUsage" class="space-y-4">
+							<div class="grid grid-cols-2 gap-4">
+								<div class="text-center p-4 bg-md-sys-color-primary-container rounded-xl">
+									<div class="text-3xl font-bold text-md-sys-color-on-primary-container mb-1">{{ aiUsage.total_credits }}</div>
+									<div class="md-typescale-body-small text-md-sys-color-on-primary-container">충전된 크레딧</div>
+								</div>
+								<div class="text-center p-4 bg-md-sys-color-secondary-container rounded-xl">
+									<div class="text-3xl font-bold text-md-sys-color-on-secondary-container mb-1">{{ aiUsage.total_usage }}</div>
+									<div class="md-typescale-body-small text-md-sys-color-on-secondary-container">총 사용 크레딧</div>
+								</div>
+							</div>
+							<div class="mt-4">
+								<div class="flex justify-between items-center mb-2">
+									<span class="md-typescale-body-small text-md-sys-color-on-surface-variant">사용량 추세</span>
+									<span class="md-typescale-body-small text-md-sys-color-on-surface-variant">{{ aiUsage.total_usage }} 크레딧</span>
+								</div>
+								<div class="w-full bg-md-sys-color-surface-container-high rounded-full h-2">
+									<div class="bg-md-sys-color-primary h-2 rounded-full transition-all duration-300"
+										 [style.width.%]="(aiUsage.total_usage / aiUsage.total_credits) * 100"></div>
+								</div>
+							</div>
+							<div *ngIf="!aiUsage" class="flex items-center justify-center h-48 text-md-sys-color-on-surface-variant">
+								<div class="flex items-center">
+									<mat-icon class="w-5 h-5 animate-spin">refresh</mat-icon>
+									<span class="md-typescale-body-medium">AI 통계를 불러오는 중...</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
         <!-- 빠른 액션 카드 -->
         <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface hover:shadow-elevation-3 transition-all duration-300">
           <div class="flex items-center gap-3 mb-4">
@@ -186,6 +225,7 @@ import { AdminService, SystemStatus, UserStats } from '../../services/admin.serv
 export class DashboardComponent implements OnInit {
   systemStatus: SystemStatus | null = null;
   userStats: UserStats | null = null;
+  aiUsage: AiUsage | null = null;
 
   constructor(private adminService: AdminService, private router: Router) {}
 
@@ -195,6 +235,7 @@ export class DashboardComponent implements OnInit {
 
   loadData() {
     this.loadSystemStatus();
+    this.loadAiUsage();
     this.loadUserStats();
   }
 
@@ -210,6 +251,18 @@ export class DashboardComponent implements OnInit {
       }
     });
   }
+	loadAiUsage() {
+		this.adminService.getAiUsage().subscribe({
+			next: (response) => {
+				if (response.success) {
+					this.aiUsage = response.data;
+				}
+			},
+			error: (error) => {
+				console.error('AI 사용량 로드 실패:', error);
+			}
+		});
+	}
 
   loadUserStats() {
     this.adminService.getUserStats().subscribe({

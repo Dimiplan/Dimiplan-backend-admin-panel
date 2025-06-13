@@ -13,6 +13,11 @@ export interface SystemStatus {
   timestamp: string;
 }
 
+export interface AiUsage {
+	total_credits: number;
+	total_usage: number;
+}
+
 export interface LogFile {
   name: string;
   size: number;
@@ -92,6 +97,10 @@ export class AdminService {
   getSystemStatus(): Observable<{ success: boolean; data: SystemStatus }> {
     return this.http.get<{ success: boolean; data: SystemStatus }>(`${this.baseUrl}/system-status`);
   }
+
+	getAiUsage(): Observable<{ success: boolean; data: AiUsage }> {
+		return this.http.get<{ success: boolean; data: AiUsage }>(`${this.baseUrl}/ai-usage`);
+	}
 
   getLogFiles(): Observable<{ success: boolean; data: LogFile[] }> {
     return this.http.get<{ success: boolean; data: LogFile[] }>(`${this.baseUrl}/logs`);

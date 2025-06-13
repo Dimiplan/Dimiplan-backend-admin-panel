@@ -29,10 +29,10 @@ import { AdminService, TableInfo, TableData } from '../../services/admin.service
     MatChipsModule
   ],
   template: `
-    <div class="p-6 bg-md-sys-color-surface h-screen overflow-hidden">
+    <div class="p-6 bg-md-sys-color-surface h-screen">
       <h1 class="md-typescale-headline-large text-md-sys-color-on-surface mb-6">데이터베이스 관리</h1>
 
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[calc(100%-3rem)]">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6" style="height: calc(100vh - 8rem);">
         <!-- 테이블 목록 -->
         <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface lg:col-span-1">
           <div class="flex items-center justify-between mb-4">
@@ -97,9 +97,9 @@ import { AdminService, TableInfo, TableData } from '../../services/admin.service
               <p class="md-typescale-body-medium">테이블 데이터를 불러오는 중...</p>
             </div>
 
-            <div *ngIf="tableData && !loadingData" class="flex flex-col h-full overflow-hidden">
+            <div *ngIf="tableData && !loadingData" class="flex flex-col h-full min-h-0 overflow-hidden">
               <!-- 컬럼 정보 -->
-              <div class="mb-6">
+              <div class="mb-6 flex-shrink-0">
                 <h3 class="md-typescale-title-medium text-md-sys-color-on-surface mb-3 flex items-center gap-2">
                   <mat-icon class="w-5 h-5 text-md-sys-color-primary">info</mat-icon>
                   컬럼 정보
@@ -127,40 +127,42 @@ import { AdminService, TableInfo, TableData } from '../../services/admin.service
               </div>
 
               <!-- 테이블 데이터 -->
-              <div class="flex-1 flex flex-col overflow-hidden">
-                <h3 class="md-typescale-title-medium text-md-sys-color-on-surface mb-3 flex items-center gap-2">
+              <div class="flex-1 flex flex-col min-h-0 overflow-hidden">
+                <h3 class="md-typescale-title-medium text-md-sys-color-on-surface mb-3 flex items-center gap-2 flex-shrink-0">
                   <mat-icon class="w-5 h-5 text-md-sys-color-primary">table_rows</mat-icon>
                   데이터 ({{ tableData.pagination.totalCount }}개 레코드)
                 </h3>
-                <div class="flex-1 overflow-auto border border-md-sys-color-outline-variant rounded-xl">
-                  <table mat-table [dataSource]="tableData.rows" class="w-full min-w-max">
-                    <ng-container *ngFor="let column of tableData.columns" [matColumnDef]="column.name">
-                      <th mat-header-cell *matHeaderCellDef class="bg-md-sys-color-surface-container-high">
-                        <div class="flex items-center gap-2 md-typescale-label-large font-medium text-md-sys-color-on-surface">
-                          <span>{{ column.name }}</span>
-                          <mat-icon 
-                            *ngIf="column.key" 
-                            class="w-4 h-4 text-md-sys-color-primary"
-                            [matTooltip]="getKeyTooltip(column.key)">
-                            {{ getKeyIcon(column.key) }}
-                          </mat-icon>
-                        </div>
-                      </th>
-                      <td mat-cell *matCellDef="let row" class="border-b border-md-sys-color-outline-variant">
-                        <div class="max-w-48 overflow-hidden text-ellipsis whitespace-nowrap md-typescale-body-medium text-md-sys-color-on-surface" 
-                             [matTooltip]="formatCellValue(row[column.name])">
-                          {{ formatCellValue(row[column.name]) }}
-                        </div>
-                      </td>
-                    </ng-container>
+                <div class="flex-1 min-h-0 overflow-hidden">
+                  <div class="h-full overflow-auto border border-md-sys-color-outline-variant rounded-xl">
+                    <table mat-table [dataSource]="tableData.rows" class="w-full min-w-max">
+                      <ng-container *ngFor="let column of tableData.columns" [matColumnDef]="column.name">
+                        <th mat-header-cell *matHeaderCellDef class="bg-md-sys-color-surface-container-high">
+                          <div class="flex items-center gap-2 md-typescale-label-large font-medium text-md-sys-color-on-surface">
+                            <span>{{ column.name }}</span>
+                            <mat-icon 
+                              *ngIf="column.key" 
+                              class="w-4 h-4 text-md-sys-color-primary"
+                              [matTooltip]="getKeyTooltip(column.key)">
+                              {{ getKeyIcon(column.key) }}
+                            </mat-icon>
+                          </div>
+                        </th>
+                        <td mat-cell *matCellDef="let row" class="border-b border-md-sys-color-outline-variant">
+                          <div class="max-w-48 overflow-hidden text-ellipsis whitespace-nowrap md-typescale-body-medium text-md-sys-color-on-surface" 
+                               [matTooltip]="formatCellValue(row[column.name])">
+                            {{ formatCellValue(row[column.name]) }}
+                          </div>
+                        </td>
+                      </ng-container>
 
-                    <tr mat-header-row *matHeaderRowDef="getDisplayedColumns()"></tr>
-                    <tr mat-row *matRowDef="let row; columns: getDisplayedColumns()" class="hover:bg-md-sys-color-surface-container-high"></tr>
-                  </table>
+                      <tr mat-header-row *matHeaderRowDef="getDisplayedColumns()"></tr>
+                      <tr mat-row *matRowDef="let row; columns: getDisplayedColumns()" class="hover:bg-md-sys-color-surface-container-high"></tr>
+                    </table>
+                  </div>
                 </div>
 
                 <!-- 페이지네이션 -->
-                <div class="mt-4">
+                <div class="mt-4 flex-shrink-0">
                   <mat-paginator 
                     [length]="tableData.pagination.totalCount"
                     [pageSize]="tableData.pagination.limit"
@@ -183,6 +185,7 @@ import { AdminService, TableInfo, TableData } from '../../services/admin.service
       padding: 24px;
       display: flex;
       flex-direction: column;
+      max-height: 100%;
     }
     
     .md-button {

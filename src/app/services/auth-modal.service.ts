@@ -9,10 +9,8 @@ export class AuthModalService {
   constructor(private dialog: MatDialog) {}
 
   openLoginModal(): void {
-    const currentUrl = window.location.pathname + window.location.search;
-    
+		// Open the login modal dialog
     this.dialog.open(LoginModalComponent, {
-      data: { returnUrl: currentUrl },
       disableClose: true,
       width: '400px',
       panelClass: 'login-modal'
