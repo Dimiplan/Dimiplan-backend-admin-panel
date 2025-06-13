@@ -29,12 +29,12 @@ import { AdminService, TableInfo, TableData } from '../../services/admin.service
     MatChipsModule
   ],
   template: `
-    <div class="p-6 bg-md-sys-color-surface h-screen">
+    <div class="p-6 bg-md-sys-color-surface h-screen overflow-hidden">
       <h1 class="md-typescale-headline-large text-md-sys-color-on-surface mb-6">데이터베이스 관리</h1>
 
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6" style="height: calc(100vh - 8rem);">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6" style="height: calc(100vh - 120px);">
         <!-- 테이블 목록 -->
-        <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface lg:col-span-1">
+        <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface lg:col-span-1" style="max-height: 100%; display: flex; flex-direction: column; overflow: hidden;">
           <div class="flex items-center justify-between mb-4">
             <h2 class="md-typescale-title-large text-md-sys-color-on-surface">테이블 목록</h2>
             <button class="md-button md-button-text p-2 rounded-full" (click)="refreshTables()">
@@ -69,7 +69,7 @@ import { AdminService, TableInfo, TableData } from '../../services/admin.service
         </div>
 
         <!-- 테이블 데이터 뷰어 -->
-        <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface lg:col-span-2">
+        <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface lg:col-span-2" style="max-height: 100%; display: flex; flex-direction: column; overflow: hidden;">
           <div class="flex items-center justify-between mb-4">
             <h2 class="md-typescale-title-large text-md-sys-color-on-surface">
               {{ selectedTable ? selectedTable.name : '테이블 뷰어' }}
@@ -185,8 +185,10 @@ import { AdminService, TableInfo, TableData } from '../../services/admin.service
       padding: 24px;
       display: flex;
       flex-direction: column;
-      max-height: 100%;
+      height: 100%;
+      min-height: 0;
     }
+    
     
     .md-button {
       border: none;

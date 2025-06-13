@@ -27,12 +27,12 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
     FormsModule
   ],
   template: `
-    <div class="p-6 bg-md-sys-color-surface h-screen">
+    <div class="p-6 bg-md-sys-color-surface h-screen overflow-hidden">
       <h1 class="md-typescale-headline-large text-md-sys-color-on-surface mb-6">로그 관리</h1>
 
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6" style="height: calc(100vh - 8rem);">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6" style="height: calc(100vh - 120px);">
         <!-- 로그 파일 목록 -->
-        <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface lg:col-span-1" style="max-height: 100%; display: flex; flex-direction: column;">
+        <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface lg:col-span-1" style="max-height: 100%; display: flex; flex-direction: column; overflow: hidden;">
           <div class="flex items-center justify-between mb-4">
             <h2 class="md-typescale-title-large text-md-sys-color-on-surface">로그 파일 목록</h2>
             <button class="md-button md-button-text p-2 rounded-full" (click)="refreshLogFiles()">
@@ -68,7 +68,7 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
         </div>
 
         <!-- 로그 내용 뷰어 -->
-        <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface lg:col-span-2" style="max-height: 100%; display: flex; flex-direction: column;">
+        <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface lg:col-span-2" style="max-height: 100%; display: flex; flex-direction: column; overflow: hidden;">
           <div class="flex items-center justify-between mb-4">
             <h2 class="md-typescale-title-large text-md-sys-color-on-surface">
               {{ selectedFile ? selectedFile.name : '로그 뷰어' }}
@@ -143,8 +143,10 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
       padding: 24px;
       display: flex;
       flex-direction: column;
-      max-height: 100%;
+      height: 100%;
+      min-height: 0;
     }
+    
 
     .md-button {
       border: none;
