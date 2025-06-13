@@ -9,63 +9,36 @@ import { MatIconModule } from '@angular/material/icon';
   standalone: true,
   imports: [CommonModule, MatDialogModule, MatButtonModule, MatIconModule],
   template: `
-    <div class="login-modal-container">
-      <div class="login-header">
-        <h2 mat-dialog-title>인증이 필요합니다</h2>
-        <mat-icon class="warning-icon">warning</mat-icon>
+    <div class="p-8 bg-md-sys-color-surface text-md-sys-color-on-surface rounded-3xl max-w-md mx-auto">
+      <div class="flex items-center justify-center gap-4 mb-6">
+        <mat-icon class="text-4xl text-md-sys-color-error">warning</mat-icon>
+        <h2 class="md-typescale-headline-medium text-md-sys-color-on-surface text-center">인증이 필요합니다</h2>
       </div>
 
-      <div mat-dialog-content class="login-content">
-        <p>관리자 패널에 접근하려면 구글 계정으로 로그인해야 합니다.</p>
-        <p class="return-info">로그인 후 현재 페이지로 돌아갑니다.</p>
+      <div class="text-center space-y-4 mb-8">
+        <p class="md-typescale-body-large text-md-sys-color-on-surface">관리자 패널에 접근하려면 구글 계정으로 로그인해야 합니다.</p>
+        <p class="md-typescale-body-medium text-md-sys-color-on-surface-variant">로그인 후 현재 페이지로 돌아갑니다.</p>
       </div>
 
-      <div mat-dialog-actions class="login-actions">
-        <button mat-raised-button color="primary" (click)="loginWithGoogle()">
-          <mat-icon>login</mat-icon>
-          구글로 로그인
+      <div class="flex justify-center">
+        <button class="md-button md-button-filled flex items-center gap-3 px-6 py-3 rounded-full" (click)="loginWithGoogle()">
+          <mat-icon class="text-md-sys-color-on-primary">login</mat-icon>
+          <span class="md-typescale-label-large">구글로 로그인</span>
         </button>
       </div>
     </div>
   `,
   styles: [`
-    .login-modal-container {
-      padding: 20px;
-      text-align: center;
+    .md-button {
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
     }
-
-    .login-header {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-
-    .warning-icon {
-      color: #ff9800;
-      font-size: 24px;
-    }
-
-    .login-content {
-      margin-bottom: 20px;
-    }
-
-    .return-info {
-      font-size: 0.9em;
-      color: #666;
-      margin-top: 10px;
-    }
-
-    .login-actions {
-      display: flex;
-      justify-content: center;
-    }
-
-    .login-actions button {
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    
+    .md-button:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.1);
     }
   `]
 })

@@ -29,306 +29,180 @@ import { AdminService, TableInfo, TableData } from '../../services/admin.service
     MatChipsModule
   ],
   template: `
-    <div class="database-container">
-      <h1>데이터베이스 관리</h1>
+    <div class="p-6 bg-md-sys-color-surface min-h-screen">
+      <h1 class="md-typescale-headline-large text-md-sys-color-on-surface mb-6">데이터베이스 관리</h1>
 
-      <div class="database-layout">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[calc(100vh-8rem)]">
         <!-- 테이블 목록 -->
-        <mat-card class="table-list-card">
-          <mat-card-header>
-            <mat-card-title>테이블 목록</mat-card-title>
-            <button mat-icon-button (click)="refreshTables()">
-              <mat-icon>refresh</mat-icon>
+        <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface lg:col-span-1">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="md-typescale-title-large text-md-sys-color-on-surface">테이블 목록</h2>
+            <button class="md-button md-button-text p-2 rounded-full" (click)="refreshTables()">
+              <mat-icon class="text-md-sys-color-primary">refresh</mat-icon>
             </button>
-          </mat-card-header>
-          <mat-card-content>
-            <mat-list *ngIf="tables.length > 0">
-              <mat-list-item 
+          </div>
+          <div class="flex-1 overflow-y-auto">
+            <div *ngIf="tables.length > 0" class="space-y-2">
+              <div 
                 *ngFor="let table of tables" 
-                [class.selected]="selectedTable?.name === table.name"
+                [class]="'flex items-center gap-3 p-3 rounded-xl cursor-pointer transition-all duration-200 ' + (selectedTable?.name === table.name ? 'bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container' : 'hover:bg-md-sys-color-surface-container-high')"
                 (click)="selectTable(table)">
-                <mat-icon matListItemIcon>table_chart</mat-icon>
-                <div matListItemTitle>{{ table.name }}</div>
-                <div matListItemLine>
-                  <mat-chip>
-                    {{ table.rowCount }}개 레코드
-                  </mat-chip>
+                <mat-icon class="min-w-[24px]" [class.text-md-sys-color-on-secondary-container]="selectedTable?.name === table.name">table_chart</mat-icon>
+                <div class="flex-1">
+                  <div class="md-typescale-body-large font-medium">{{ table.name }}</div>
+                  <div class="flex items-center gap-2 mt-1">
+                    <span class="px-2 py-1 bg-md-sys-color-primary-container text-md-sys-color-on-primary-container rounded-full text-xs">
+                      {{ table.rowCount }}개 레코드
+                    </span>
+                  </div>
                 </div>
-              </mat-list-item>
-            </mat-list>
-            <div *ngIf="tables.length === 0 && !loadingTables" class="no-tables">
+              </div>
+            </div>
+            <div *ngIf="tables.length === 0 && !loadingTables" class="flex items-center justify-center h-48 text-md-sys-color-on-surface-variant">
               테이블이 없습니다.
             </div>
-            <div *ngIf="loadingTables" class="loading-center">
+            <div *ngIf="loadingTables" class="flex flex-col items-center justify-center h-48 gap-4 text-md-sys-color-on-surface-variant">
               <mat-spinner diameter="40"></mat-spinner>
-              <p>테이블 목록을 불러오는 중...</p>
+              <p class="md-typescale-body-medium">테이블 목록을 불러오는 중...</p>
             </div>
-          </mat-card-content>
-        </mat-card>
+          </div>
+        </div>
 
         <!-- 테이블 데이터 뷰어 -->
-        <mat-card class="table-viewer-card">
-          <mat-card-header>
-            <mat-card-title>
+        <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface lg:col-span-2">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="md-typescale-title-large text-md-sys-color-on-surface">
               {{ selectedTable ? selectedTable.name : '테이블 뷰어' }}
-            </mat-card-title>
-            <div class="viewer-controls" *ngIf="selectedTable">
-              <button mat-icon-button (click)="loadTableData()" [disabled]="loadingData">
-                <mat-icon>refresh</mat-icon>
+            </h2>
+            <div class="flex items-center gap-2" *ngIf="selectedTable">
+              <button class="md-button md-button-text p-2 rounded-full" (click)="loadTableData()" [disabled]="loadingData">
+                <mat-icon class="text-md-sys-color-primary">refresh</mat-icon>
               </button>
-              <button mat-icon-button (click)="exportTableData()" [disabled]="!tableData">
-                <mat-icon>download</mat-icon>
+              <button class="md-button md-button-tonal px-4 py-2 rounded-full" (click)="exportTableData()" [disabled]="!tableData">
+                <mat-icon class="mr-2">download</mat-icon>
+                <span class="md-typescale-label-large">내보내기</span>
               </button>
             </div>
-          </mat-card-header>
-          <mat-card-content>
-            <div *ngIf="!selectedTable" class="no-selection">
-              왼쪽에서 테이블을 선택해주세요.
+          </div>
+          <div class="flex-1 overflow-hidden">
+            <div *ngIf="!selectedTable" class="flex items-center justify-center h-full text-md-sys-color-on-surface-variant">
+              <div class="text-center">
+                <mat-icon class="text-6xl mb-4 text-md-sys-color-outline">table_view</mat-icon>
+                <p class="md-typescale-body-large">왼쪽에서 테이블을 선택해주세요.</p>
+              </div>
             </div>
 
-            <div *ngIf="loadingData" class="loading-center">
+            <div *ngIf="loadingData" class="flex flex-col items-center justify-center h-full gap-4 text-md-sys-color-on-surface-variant">
               <mat-spinner diameter="40"></mat-spinner>
-              <p>테이블 데이터를 불러오는 중...</p>
+              <p class="md-typescale-body-medium">테이블 데이터를 불러오는 중...</p>
             </div>
 
-            <div *ngIf="tableData && !loadingData" class="table-content">
+            <div *ngIf="tableData && !loadingData" class="flex flex-col h-full overflow-hidden">
               <!-- 컬럼 정보 -->
-              <div class="column-info">
-                <h3>컬럼 정보</h3>
-                <div class="columns-grid">
-                  <div *ngFor="let column of tableData.columns" class="column-card">
-                    <div class="column-name">{{ column.name }}</div>
-                    <div class="column-details">
-                      <mat-chip [color]="getColumnTypeColor(column.type)">{{ column.type }}</mat-chip>
-                      <mat-chip *ngIf="column.key" color="warn">{{ column.key }}</mat-chip>
-                      <mat-chip *ngIf="!column.nullable" color="accent">NOT NULL</mat-chip>
+              <div class="mb-6">
+                <h3 class="md-typescale-title-medium text-md-sys-color-on-surface mb-3 flex items-center gap-2">
+                  <mat-icon class="text-md-sys-color-primary">info</mat-icon>
+                  컬럼 정보
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+                  <div *ngFor="let column of tableData.columns" class="p-3 bg-md-sys-color-surface-container-high rounded-xl">
+                    <div class="md-typescale-body-large font-medium text-md-sys-color-on-surface mb-2">{{ column.name }}</div>
+                    <div class="flex flex-wrap gap-2">
+                      <span class="px-2 py-1 rounded-full text-xs" 
+                            [class]="getColumnTypeColor(column.type) === 'primary' ? 'bg-md-sys-color-primary-container text-md-sys-color-on-primary-container' : 
+                                     getColumnTypeColor(column.type) === 'accent' ? 'bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container' : 
+                                     getColumnTypeColor(column.type) === 'warn' ? 'bg-md-sys-color-tertiary-container text-md-sys-color-on-tertiary-container' : 
+                                     'bg-md-sys-color-surface-container text-md-sys-color-on-surface'">
+                        {{ column.type }}
+                      </span>
+                      <span *ngIf="column.key" class="px-2 py-1 bg-md-sys-color-error-container text-md-sys-color-on-error-container rounded-full text-xs">
+                        {{ column.key }}
+                      </span>
+                      <span *ngIf="!column.nullable" class="px-2 py-1 bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container rounded-full text-xs">
+                        NOT NULL
+                      </span>
                     </div>
                   </div>
                 </div>
               </div>
 
               <!-- 테이블 데이터 -->
-              <div class="data-section">
-                <h3>데이터 ({{ tableData.pagination.totalCount }}개 레코드)</h3>
-                <div class="table-container">
-                  <table mat-table [dataSource]="tableData.rows" class="data-table">
+              <div class="flex-1 flex flex-col overflow-hidden">
+                <h3 class="md-typescale-title-medium text-md-sys-color-on-surface mb-3 flex items-center gap-2">
+                  <mat-icon class="text-md-sys-color-primary">table_rows</mat-icon>
+                  데이터 ({{ tableData.pagination.totalCount }}개 레코드)
+                </h3>
+                <div class="flex-1 overflow-auto border border-md-sys-color-outline-variant rounded-xl">
+                  <table mat-table [dataSource]="tableData.rows" class="w-full min-w-max">
                     <ng-container *ngFor="let column of tableData.columns" [matColumnDef]="column.name">
-                      <th mat-header-cell *matHeaderCellDef>
-                        <div class="header-cell">
+                      <th mat-header-cell *matHeaderCellDef class="bg-md-sys-color-surface-container-high">
+                        <div class="flex items-center gap-2 md-typescale-label-large font-medium text-md-sys-color-on-surface">
                           <span>{{ column.name }}</span>
                           <mat-icon 
                             *ngIf="column.key" 
-                            class="key-icon"
+                            class="text-sm text-md-sys-color-primary"
                             [matTooltip]="getKeyTooltip(column.key)">
                             {{ getKeyIcon(column.key) }}
                           </mat-icon>
                         </div>
                       </th>
-                      <td mat-cell *matCellDef="let row">
-                        <div class="cell-content" [matTooltip]="formatCellValue(row[column.name])">
+                      <td mat-cell *matCellDef="let row" class="border-b border-md-sys-color-outline-variant">
+                        <div class="max-w-48 overflow-hidden text-ellipsis whitespace-nowrap md-typescale-body-medium text-md-sys-color-on-surface" 
+                             [matTooltip]="formatCellValue(row[column.name])">
                           {{ formatCellValue(row[column.name]) }}
                         </div>
                       </td>
                     </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="getDisplayedColumns()"></tr>
-                    <tr mat-row *matRowDef="let row; columns: getDisplayedColumns()"></tr>
+                    <tr mat-row *matRowDef="let row; columns: getDisplayedColumns()" class="hover:bg-md-sys-color-surface-container-high"></tr>
                   </table>
                 </div>
 
                 <!-- 페이지네이션 -->
-                <mat-paginator 
-                  [length]="tableData.pagination.totalCount"
-                  [pageSize]="tableData.pagination.limit"
-                  [pageIndex]="tableData.pagination.page - 1"
-                  [pageSizeOptions]="[25, 50, 100, 200]"
-                  (page)="onPageChange($event)"
-                  showFirstLastButtons>
-                </mat-paginator>
+                <div class="mt-4">
+                  <mat-paginator 
+                    [length]="tableData.pagination.totalCount"
+                    [pageSize]="tableData.pagination.limit"
+                    [pageIndex]="tableData.pagination.page - 1"
+                    [pageSizeOptions]="[25, 50, 100, 200]"
+                    (page)="onPageChange($event)"
+                    showFirstLastButtons
+                    class="bg-md-sys-color-surface-container rounded-xl">
+                  </mat-paginator>
+                </div>
               </div>
             </div>
-          </mat-card-content>
-        </mat-card>
+          </div>
+        </div>
       </div>
     </div>
   `,
   styles: [`
-    .database-container {
-      padding: 20px;
-      height: 100vh;
+    .md-card {
+      padding: 24px;
       display: flex;
       flex-direction: column;
     }
-
-    .database-layout {
-      display: grid;
-      grid-template-columns: 350px 1fr;
-      gap: 20px;
-      flex: 1;
-      min-height: 0;
-    }
-
-    .table-list-card, .table-viewer-card {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
-
-    .table-list-card mat-card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .table-list-card mat-card-content {
-      flex: 1;
-      overflow-y: auto;
-    }
-
-    .table-viewer-card mat-card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .viewer-controls {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .table-viewer-card mat-card-content {
-      flex: 1;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .table-content {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      min-height: 0;
-      overflow: auto;
-    }
-
-    .column-info {
-      margin-bottom: 24px;
-    }
-
-    .column-info h3 {
-      margin: 0 0 16px 0;
-      color: rgba(0, 0, 0, 0.87);
-    }
-
-    .columns-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 12px;
-    }
-
-    .column-card {
-      padding: 12px;
-      border: 1px solid #e0e0e0;
-      border-radius: 8px;
-      background-color: #fafafa;
-    }
-
-    .column-name {
-      font-weight: 500;
-      margin-bottom: 8px;
-      color: rgba(0, 0, 0, 0.87);
-    }
-
-    .column-details {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4px;
-    }
-
-    .data-section {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      min-height: 0;
-    }
-
-    .data-section h3 {
-      margin: 0 0 16px 0;
-      color: rgba(0, 0, 0, 0.87);
-    }
-
-    .table-container {
-      flex: 1;
-      overflow: auto;
-      border: 1px solid #e0e0e0;
-      border-radius: 4px;
-    }
-
-    .data-table {
-      width: 100%;
-      min-width: 600px;
-    }
-
-    .header-cell {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      font-weight: 500;
-    }
-
-    .key-icon {
-      font-size: 16px;
-      width: 16px;
-      height: 16px;
-    }
-
-    .cell-content {
-      max-width: 200px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .selected {
-      background-color: rgba(63, 81, 181, 0.1);
-    }
-
-    .no-tables, .no-selection {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex: 1;
-      color: rgba(0, 0, 0, 0.5);
-      font-style: italic;
-    }
-
-    .loading-center {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      flex: 1;
-      gap: 16px;
-    }
-
-    .loading-center p {
-      margin: 0;
-      color: rgba(0, 0, 0, 0.5);
-    }
-
-    mat-list-item {
+    
+    .md-button {
+      border: none;
       cursor: pointer;
-      border-radius: 4px;
-      margin-bottom: 4px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
-
-    mat-list-item:hover {
-      background-color: rgba(0, 0, 0, 0.04);
+    
+    .md-button:hover {
+      transform: translateY(-1px);
     }
-
-    mat-paginator {
-      border-top: 1px solid #e0e0e0;
+    
+    .md-button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
     }
   `]
 })

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -24,74 +24,7 @@ import { RouterModule } from '@angular/router';
     MatMenuModule,
     MatDividerModule
   ],
-  template: `
-    <div class="admin-layout">
-      <mat-toolbar color="primary" class="header" elevation="1">
-        <button mat-icon-button (click)="toggleSidenav()" aria-label="Toggle navigation">
-          <mat-icon>menu</mat-icon>
-        </button>
-        <span class="title">Dimiplan 관리자 패널</span>
-        <span class="spacer"></span>
-        
-        <button mat-icon-button [matMenuTriggerFor]="userMenu" aria-label="User menu">
-          <mat-icon>account_circle</mat-icon>
-        </button>
-        
-        <mat-menu #userMenu="matMenu" xPosition="before">
-          <button mat-menu-item>
-            <mat-icon>person</mat-icon>
-            <span>프로필</span>
-          </button>
-          <button mat-menu-item>
-            <mat-icon>settings</mat-icon>
-            <span>설정</span>
-          </button>
-          <mat-divider></mat-divider>
-          <button mat-menu-item>
-            <mat-icon>logout</mat-icon>
-            <span>로그아웃</span>
-          </button>
-        </mat-menu>
-      </mat-toolbar>
-
-      <mat-sidenav-container class="sidenav-container">
-        <mat-sidenav #sidenav mode="side" opened class="sidenav" fixedInViewport="true">
-          <div class="sidenav-header">
-            <h3>관리 메뉴</h3>
-          </div>
-          
-          <mat-nav-list>
-            <a mat-list-item routerLink="/dashboard" routerLinkActive="active" class="nav-item">
-              <mat-icon matListItemIcon>dashboard</mat-icon>
-              <span matListItemTitle>대시보드</span>
-            </a>
-            <a mat-list-item routerLink="/logs" routerLinkActive="active" class="nav-item">
-              <mat-icon matListItemIcon>article</mat-icon>
-              <span matListItemTitle>로그 관리</span>
-            </a>
-            <a mat-list-item routerLink="/database" routerLinkActive="active" class="nav-item">
-              <mat-icon matListItemIcon>storage</mat-icon>
-              <span matListItemTitle>데이터베이스</span>
-            </a>
-            <a mat-list-item routerLink="/api-docs" routerLinkActive="active" class="nav-item">
-              <mat-icon matListItemIcon>code</mat-icon>
-              <span matListItemTitle>API 문서</span>
-            </a>
-          </mat-nav-list>
-          
-          <mat-divider></mat-divider>
-          
-          <div class="sidenav-footer">
-            <small>버전 1.0.0</small>
-          </div>
-        </mat-sidenav>
-
-        <mat-sidenav-content class="main-content">
-          <router-outlet></router-outlet>
-        </mat-sidenav-content>
-      </mat-sidenav-container>
-    </div>
-  `,
+  templateUrl: './app.html',
   styles: [`
     .admin-layout {
       height: 100vh;
@@ -188,13 +121,34 @@ import { RouterModule } from '@angular/router';
     }
   `]
 })
-export class App {
-  @ViewChild('sidenav') sidenav!: MatSidenav;
+export class App implements OnInit {
   protected title = 'Dimiplan 관리자 패널';
+  sidenavOpened = true;
+  isDarkMode = false;
 
-  constructor(private router: Router) {}
+  constructor(public router: Router) {}
+
+  ngOnInit() {
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      this.isDarkMode = true;
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  }
 
   toggleSidenav() {
-    this.sidenav.toggle();
+    this.sidenavOpened = !this.sidenavOpened;
+  }
+
+  toggleTheme() {
+    this.isDarkMode = !this.isDarkMode;
+    if (this.isDarkMode) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem('theme', 'light');
+    }
   }
 }

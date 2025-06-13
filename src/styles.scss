@@ -1,11 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
 
+// Import Tailwind CSS
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 // Import Google Fonts
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
-// Include Angular Material core styles
-@import '@angular/material/prebuilt-themes/indigo-pink.css';
+// Import Material Design 3 tokens and Material You theme
+@import './styles/material-tokens.scss';
+@import './styles/material-you-theme.scss';
 
 html, body { 
   height: 100%; 
@@ -13,87 +19,136 @@ html, body {
   font-family: 'Roboto', "Helvetica Neue", sans-serif; 
 }
 
-/* Material 3 Design customizations */
+// Apply Material You theme to the entire application
+body {
+  @apply material-you-theme;
+}
+
+/* Enhanced Material 3 Design customizations for Angular Material */
 .mat-mdc-card {
-  border-radius: 16px !important;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24) !important;
-  transition: box-shadow 0.3s cubic-bezier(.25,.8,.25,1) !important;
+  background-color: var(--md-sys-color-surface-container) !important;
+  color: var(--md-sys-color-on-surface) !important;
+  border-radius: var(--md-sys-shape-corner-medium) !important;
+  box-shadow: var(--md-sys-elevation-level1) !important;
+  transition: box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard) !important;
 }
 
 .mat-mdc-card:hover {
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23) !important;
+  box-shadow: var(--md-sys-elevation-level2) !important;
 }
 
 .mat-mdc-button, .mat-mdc-raised-button, .mat-mdc-outlined-button {
   text-transform: none !important;
-  border-radius: 12px !important;
-  font-weight: 500 !important;
+  border-radius: var(--md-sys-shape-corner-full) !important;
+  font-weight: var(--md-sys-typescale-label-large-weight) !important;
+  font-size: var(--md-sys-typescale-label-large-size) !important;
+  line-height: var(--md-sys-typescale-label-large-line-height) !important;
+  letter-spacing: var(--md-sys-typescale-label-large-tracking) !important;
+  transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard) !important;
 }
 
 .mat-mdc-raised-button {
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
+  background-color: var(--md-sys-color-primary) !important;
+  color: var(--md-sys-color-on-primary) !important;
+  box-shadow: var(--md-sys-elevation-level1) !important;
 }
 
 .mat-mdc-raised-button:hover {
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3) !important;
+  box-shadow: var(--md-sys-elevation-level2) !important;
+}
+
+.mat-mdc-outlined-button {
+  border-color: var(--md-sys-color-outline) !important;
+  color: var(--md-sys-color-primary) !important;
+  background-color: transparent !important;
+}
+
+.mat-mdc-outlined-button:hover {
+  background-color: var(--md-sys-color-primary-container) !important;
+}
+
+.mat-mdc-button:not(.mat-mdc-raised-button):not(.mat-mdc-outlined-button) {
+  color: var(--md-sys-color-primary) !important;
+}
+
+.mat-mdc-button:not(.mat-mdc-raised-button):not(.mat-mdc-outlined-button):hover {
+  background-color: var(--md-sys-color-primary-container) !important;
 }
 
 .mat-mdc-form-field {
   .mat-mdc-text-field-wrapper {
-    border-radius: 12px !important;
+    border-radius: var(--md-sys-shape-corner-extra-small) !important;
+    background-color: var(--md-sys-color-surface-container-highest) !important;
+  }
+  
+  .mat-mdc-form-field-focus-overlay {
+    background-color: var(--md-sys-color-primary) !important;
+  }
+  
+  .mdc-text-field--focused .mdc-line-ripple::after {
+    border-bottom-color: var(--md-sys-color-primary) !important;
   }
 }
 
 .mat-mdc-menu-panel {
-  border-radius: 12px !important;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1) !important;
+  border-radius: var(--md-sys-shape-corner-medium) !important;
+  box-shadow: var(--md-sys-elevation-level2) !important;
+  background-color: var(--md-sys-color-surface-container) !important;
 }
 
 .mat-mdc-list-item {
-  border-radius: 8px !important;
+  border-radius: var(--md-sys-shape-corner-small) !important;
+  color: var(--md-sys-color-on-surface) !important;
+}
+
+.mat-mdc-list-item:hover {
+  background-color: var(--md-sys-color-surface-container-high) !important;
 }
 
 .mat-expansion-panel {
-  border-radius: 12px !important;
-  margin-bottom: 8px !important;
+  border-radius: var(--md-sys-shape-corner-medium) !important;
+  margin-bottom: var(--md-sys-shape-corner-small) !important;
+  background-color: var(--md-sys-color-surface-container) !important;
+  box-shadow: var(--md-sys-elevation-level1) !important;
 }
 
-/* Custom scrollbar */
+.mat-expansion-panel-header {
+  color: var(--md-sys-color-on-surface) !important;
+}
+
+.mat-expansion-panel-body {
+  color: var(--md-sys-color-on-surface-variant) !important;
+}
+
+/* Custom scrollbar with Material Design 3 colors */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 4px;
+  background: var(--md-sys-color-surface-container-low);
+  border-radius: var(--md-sys-shape-corner-extra-small);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
-  border-radius: 4px;
+  background: var(--md-sys-color-outline-variant);
+  border-radius: var(--md-sys-shape-corner-extra-small);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #a8a8a8;
+  background: var(--md-sys-color-outline);
 }
 
-/* Utility classes */
-.text-center { text-align: center; }
-.text-left { text-align: left; }
-.text-right { text-align: right; }
-
-.mt-1 { margin-top: 8px; }
-.mt-2 { margin-top: 16px; }
-.mt-3 { margin-top: 24px; }
-
-.mb-1 { margin-bottom: 8px; }
-.mb-2 { margin-bottom: 16px; }
-.mb-3 { margin-bottom: 24px; }
-
-.p-1 { padding: 8px; }
-.p-2 { padding: 16px; }
-.p-3 { padding: 24px; }
-
-.full-width { width: 100%; }
-.full-height { height: 100%; }
+/* Dark theme toggle support */
+.dark-theme-toggle {
+  @apply fixed top-4 right-4 z-50;
+  @apply bg-md-sys-color-primary text-md-sys-color-on-primary;
+  @apply w-12 h-12 rounded-full shadow-elevation-2;
+  @apply flex items-center justify-center cursor-pointer;
+  @apply transition-all duration-300 ease-in-out;
+  
+  &:hover {
+    @apply shadow-elevation-3;
+  }
+}

@@ -7,7 +7,13 @@ import { AuthModalService } from '../services/auth-modal.service';
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authModalService = inject(AuthModalService);
   
-  return next(req).pipe(
+  // Clone the request and add credentials for cross-origin requests
+  const authReq = req.clone({
+    setHeaders: {},
+    withCredentials: true
+  });
+  
+  return next(authReq).pipe(
     catchError((error: HttpErrorResponse) => {
       if (error.status === 401) {
         authModalService.openLoginModal();

@@ -1,59 +1,125 @@
-# AdminPanel
+# Dimiplan 관리자 패널
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.2.
+Dimiplan 백엔드 시스템을 위한 포괄적인 Angular 기반 관리자 인터페이스입니다. Material Design 3 테마를 적용한 현대적인 관리자 패널로, 시스템 모니터링 및 관리 기능을 제공합니다.
 
-## Development server
+## 주요 기능
 
-To start a local development server, run:
+### 🏠 대시보드
+- **시스템 상태 모니터링**: 서버 가동시간, 메모리 사용량, 플랫폼 정보, Node.js 버전 등 실시간 표시
+- **사용자 통계**: 총 사용자 수, 활성 사용자(30일), 최근 신규 사용자 등록 현황
+- **빠른 작업**: 로그, 데이터베이스, API 문서로의 편리한 탐색
+- **메모리 사용량 시각화**: 힙 메모리 사용률 진행 막대 표시
 
+### 🗄️ 데이터베이스 관리
+- **테이블 브라우저**: 행 개수와 함께 모든 데이터베이스 테이블 목록 표시
+- **데이터 뷰어**: 테이블 구조(컬럼, 데이터 타입, 키, 제약조건) 표시
+- **페이지네이션**: 설정 가능한 페이지 크기(25, 50, 100, 200개 레코드)로 테이블 데이터 탐색
+- **데이터 내보내기**: 테이블 데이터 CSV 내보내기 기능
+- **컬럼 정보**: 데이터 타입, null 허용 여부, 기본 키, 고유 키, 인덱스 표시
+
+### 📋 로그 관리
+- **로그 파일 브라우저**: 크기와 수정 날짜와 함께 사용 가능한 모든 로그 파일 목록
+- **로그 뷰어**: 설정 가능한 라인 제한(50, 100, 200, 500개 또는 전체)으로 실시간 로그 내용 보기
+- **로그 필터링**: 로그 레벨별 필터링(error, warn, info, verbose)
+- **구문 강조**: 로그 레벨과 타임스탬프 색상 구분
+- **다운로드**: 완전한 로그 파일 로컬 다운로드
+
+### 📚 API 문서
+- **자동 생성 문서**: JSDoc으로 자동 생성된 API 문서 표시
+- **검색 및 필터**: 경로, 메서드, 설명으로 API 엔드포인트 검색
+- **cURL 예제**: 각 엔드포인트에 대한 즉시 사용 가능한 cURL 명령어 생성
+- **문서 내보내기**: API 문서를 Markdown 파일로 내보내기
+- **실시간 재생성**: 요청 시 JSDoc 문서 재생성
+
+## 기술 스택
+
+### 핵심 프레임워크
+- **Angular 20.0.3** (최신 버전)
+- **Angular Material 20.0.3** (Material Design 3 테마)
+- **RxJS 7.8.2** (반응형 프로그래밍)
+
+### UI/스타일링
+- **Tailwind CSS 3.4.17** (유틸리티 우선 스타일링)
+- **Material Design 3** 색상 시스템 및 타이포그래피
+- **PostCSS & Autoprefixer** (CSS 처리)
+
+### 개발 도구
+- **TypeScript 5.8.3**
+- **Jasmine & Karma** (테스트)
+- **Angular CLI 20.0.2**
+
+## 설치 및 실행
+
+### 사전 요구사항
+- Node.js 18+ 
+- npm 또는 yarn
+- Angular CLI 20+
+
+### 설치
 ```bash
+npm install
+```
+
+### 개발 서버 실행
+```bash
+npm start
+# 또는
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+개발 서버가 실행되면 브라우저에서 `http://localhost:4200/`로 접속하세요.
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
+### 빌드
 ```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
+npm run build
+# 또는
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+빌드 결과물은 `dist/` 디렉토리에 생성됩니다.
 
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
+### 테스트
 ```bash
+npm test
+# 또는
 ng test
 ```
 
-## Running end-to-end tests
+## 인증 및 보안
 
-For end-to-end (e2e) testing, run:
+### Google OAuth 인증
+- **Google 계정 연동**: Google OAuth를 통한 안전한 인증
+- **자동 로그인**: 세션 유지 및 자동 인증 처리
+- **권한 관리**: 인증된 사용자만 관리자 기능 접근 가능
 
-```bash
-ng e2e
+### 보안 기능
+- **HTTP 인터셉터**: 401 미인증 응답 자동 처리
+- **CORS 지원**: 도메인 간 쿠키 세션 상태 유지
+- **토큰 기반 인증**: 안전한 API 통신
+
+## 설정
+
+### 백엔드 API 연결
+기본적으로 `https://api-dev.dimiplan.com`에 연결됩니다. 다른 API 서버를 사용하려면 `src/app/services/admin.service.ts`에서 `API_BASE_URL`을 수정하세요.
+
+### 테마 설정
+- **라이트/다크 모드**: 사용자 기본 설정에 따라 자동 적용
+- **Material Design 3**: 최신 Material Design 가이드라인 적용
+- **반응형 디자인**: 모바일 친화적 레이아웃
+
+## 프로젝트 구조
+
 ```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+src/app/
+├── components/           # 주요 컴포넌트
+│   ├── dashboard/       # 대시보드
+│   ├── database/        # 데이터베이스 관리
+│   ├── logs/           # 로그 관리
+│   ├── api-docs/       # API 문서
+│   └── login-modal/    # 로그인 모달
+├── services/           # 서비스
+│   ├── admin.service.ts    # 관리자 API 서비스
+│   └── auth-modal.service.ts  # 인증 모달 서비스
+├── interceptors/       # HTTP 인터셉터
+└── styles/            # 전역 스타일
+```

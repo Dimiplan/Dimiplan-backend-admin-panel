@@ -1,0 +1,413 @@
+// Material You Dynamic Color Theme Generator
+// This file provides utilities for creating Material You themes
+
+@import './material-tokens.scss';
+
+// Base Material You Theme Class
+.material-you-theme {
+  color-scheme: light;
+  
+  // Apply Material Design 3 color tokens
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+  
+  // Typography
+  font-family: var(--md-sys-typescale-body-medium-font);
+  font-size: var(--md-sys-typescale-body-medium-size);
+  line-height: var(--md-sys-typescale-body-medium-line-height);
+  letter-spacing: var(--md-sys-typescale-body-medium-tracking);
+  font-weight: var(--md-sys-typescale-body-medium-weight);
+}
+
+.material-you-theme[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+// Typography Classes
+.md-typescale-display-large {
+  font-family: var(--md-sys-typescale-display-large-font);
+  font-size: var(--md-sys-typescale-display-large-size);
+  line-height: var(--md-sys-typescale-display-large-line-height);
+  letter-spacing: var(--md-sys-typescale-display-large-tracking);
+  font-weight: var(--md-sys-typescale-display-large-weight);
+}
+
+.md-typescale-display-medium {
+  font-family: var(--md-sys-typescale-display-medium-font);
+  font-size: var(--md-sys-typescale-display-medium-size);
+  line-height: var(--md-sys-typescale-display-medium-line-height);
+  letter-spacing: var(--md-sys-typescale-display-medium-tracking);
+  font-weight: var(--md-sys-typescale-display-medium-weight);
+}
+
+.md-typescale-display-small {
+  font-family: var(--md-sys-typescale-display-small-font);
+  font-size: var(--md-sys-typescale-display-small-size);
+  line-height: var(--md-sys-typescale-display-small-line-height);
+  letter-spacing: var(--md-sys-typescale-display-small-tracking);
+  font-weight: var(--md-sys-typescale-display-small-weight);
+}
+
+.md-typescale-headline-large {
+  font-family: var(--md-sys-typescale-headline-large-font);
+  font-size: var(--md-sys-typescale-headline-large-size);
+  line-height: var(--md-sys-typescale-headline-large-line-height);
+  letter-spacing: var(--md-sys-typescale-headline-large-tracking);
+  font-weight: var(--md-sys-typescale-headline-large-weight);
+}
+
+.md-typescale-headline-medium {
+  font-family: var(--md-sys-typescale-headline-medium-font);
+  font-size: var(--md-sys-typescale-headline-medium-size);
+  line-height: var(--md-sys-typescale-headline-medium-line-height);
+  letter-spacing: var(--md-sys-typescale-headline-medium-tracking);
+  font-weight: var(--md-sys-typescale-headline-medium-weight);
+}
+
+.md-typescale-headline-small {
+  font-family: var(--md-sys-typescale-headline-small-font);
+  font-size: var(--md-sys-typescale-headline-small-size);
+  line-height: var(--md-sys-typescale-headline-small-line-height);
+  letter-spacing: var(--md-sys-typescale-headline-small-tracking);  
+  font-weight: var(--md-sys-typescale-headline-small-weight);
+}
+
+.md-typescale-title-large {
+  font-family: var(--md-sys-typescale-title-large-font);
+  font-size: var(--md-sys-typescale-title-large-size);
+  line-height: var(--md-sys-typescale-title-large-line-height);
+  letter-spacing: var(--md-sys-typescale-title-large-tracking);
+  font-weight: var(--md-sys-typescale-title-large-weight);
+}
+
+.md-typescale-title-medium {
+  font-family: var(--md-sys-typescale-title-medium-font);
+  font-size: var(--md-sys-typescale-title-medium-size);
+  line-height: var(--md-sys-typescale-title-medium-line-height);
+  letter-spacing: var(--md-sys-typescale-title-medium-tracking);
+  font-weight: var(--md-sys-typescale-title-medium-weight);
+}
+
+.md-typescale-title-small {
+  font-family: var(--md-sys-typescale-title-small-font);
+  font-size: var(--md-sys-typescale-title-small-size);
+  line-height: var(--md-sys-typescale-title-small-line-height);
+  letter-spacing: var(--md-sys-typescale-title-small-tracking);
+  font-weight: var(--md-sys-typescale-title-small-weight);
+}
+
+.md-typescale-label-large {
+  font-family: var(--md-sys-typescale-label-large-font);
+  font-size: var(--md-sys-typescale-label-large-size);
+  line-height: var(--md-sys-typescale-label-large-line-height);
+  letter-spacing: var(--md-sys-typescale-label-large-tracking);
+  font-weight: var(--md-sys-typescale-label-large-weight);
+}
+
+.md-typescale-label-medium {
+  font-family: var(--md-sys-typescale-label-medium-font);
+  font-size: var(--md-sys-typescale-label-medium-size);
+  line-height: var(--md-sys-typescale-label-medium-line-height);
+  letter-spacing: var(--md-sys-typescale-label-medium-tracking);
+  font-weight: var(--md-sys-typescale-label-medium-weight);
+}
+
+.md-typescale-label-small {
+  font-family: var(--md-sys-typescale-label-small-font);
+  font-size: var(--md-sys-typescale-label-small-size);
+  line-height: var(--md-sys-typescale-label-small-line-height);
+  letter-spacing: var(--md-sys-typescale-label-small-tracking);
+  font-weight: var(--md-sys-typescale-label-small-weight);
+}
+
+.md-typescale-body-large {
+  font-family: var(--md-sys-typescale-body-large-font);
+  font-size: var(--md-sys-typescale-body-large-size);
+  line-height: var(--md-sys-typescale-body-large-line-height);
+  letter-spacing: var(--md-sys-typescale-body-large-tracking);
+  font-weight: var(--md-sys-typescale-body-large-weight);
+}
+
+.md-typescale-body-medium {
+  font-family: var(--md-sys-typescale-body-medium-font);
+  font-size: var(--md-sys-typescale-body-medium-size);
+  line-height: var(--md-sys-typescale-body-medium-line-height);
+  letter-spacing: var(--md-sys-typescale-body-medium-tracking);
+  font-weight: var(--md-sys-typescale-body-medium-weight);
+}
+
+.md-typescale-body-small {
+  font-family: var(--md-sys-typescale-body-small-font);
+  font-size: var(--md-sys-typescale-body-small-size);
+  line-height: var(--md-sys-typescale-body-small-line-height);
+  letter-spacing: var(--md-sys-typescale-body-small-tracking);
+  font-weight: var(--md-sys-typescale-body-small-weight);
+}
+
+// Surface Variants
+.md-surface {
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+}
+
+.md-surface-variant {
+  background-color: var(--md-sys-color-surface-variant);
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.md-surface-container {
+  background-color: var(--md-sys-color-surface-container);
+  color: var(--md-sys-color-on-surface);
+}
+
+.md-surface-container-low {
+  background-color: var(--md-sys-color-surface-container-low);
+  color: var(--md-sys-color-on-surface);
+}
+
+.md-surface-container-high {
+  background-color: var(--md-sys-color-surface-container-high);
+  color: var(--md-sys-color-on-surface);
+}
+
+.md-surface-container-highest {
+  background-color: var(--md-sys-color-surface-container-highest);
+  color: var(--md-sys-color-on-surface);
+}
+
+// Primary Color Variants
+.md-primary {
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+}
+
+.md-primary-container {
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+}
+
+// Secondary Color Variants
+.md-secondary {
+  background-color: var(--md-sys-color-secondary);
+  color: var(--md-sys-color-on-secondary);
+}
+
+.md-secondary-container {
+  background-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+}
+
+// Tertiary Color Variants
+.md-tertiary {
+  background-color: var(--md-sys-color-tertiary);
+  color: var(--md-sys-color-on-tertiary);
+}
+
+.md-tertiary-container {
+  background-color: var(--md-sys-color-tertiary-container);
+  color: var(--md-sys-color-on-tertiary-container);
+}
+
+// Error Color Variants
+.md-error {
+  background-color: var(--md-sys-color-error);
+  color: var(--md-sys-color-on-error);
+}
+
+.md-error-container {
+  background-color: var(--md-sys-color-error-container);
+  color: var(--md-sys-color-on-error-container);
+}
+
+// Elevation Classes
+.md-elevation-0 {
+  box-shadow: var(--md-sys-elevation-level0);
+}
+
+.md-elevation-1 {
+  box-shadow: var(--md-sys-elevation-level1);
+}
+
+.md-elevation-2 {
+  box-shadow: var(--md-sys-elevation-level2);
+}
+
+.md-elevation-3 {
+  box-shadow: var(--md-sys-elevation-level3);
+}
+
+.md-elevation-4 {
+  box-shadow: var(--md-sys-elevation-level4);
+}
+
+.md-elevation-5 {
+  box-shadow: var(--md-sys-elevation-level5);
+}
+
+// Shape Classes
+.md-shape-corner-none {
+  border-radius: var(--md-sys-shape-corner-none);
+}
+
+.md-shape-corner-extra-small {
+  border-radius: var(--md-sys-shape-corner-extra-small);
+}
+
+.md-shape-corner-small {
+  border-radius: var(--md-sys-shape-corner-small);
+}
+
+.md-shape-corner-medium {
+  border-radius: var(--md-sys-shape-corner-medium);
+}
+
+.md-shape-corner-large {
+  border-radius: var(--md-sys-shape-corner-large);
+}
+
+.md-shape-corner-extra-large {
+  border-radius: var(--md-sys-shape-corner-extra-large);
+}
+
+.md-shape-corner-full {
+  border-radius: var(--md-sys-shape-corner-full);
+}
+
+// Motion Classes
+.md-motion-easing-standard {
+  transition-timing-function: var(--md-sys-motion-easing-standard);
+}
+
+.md-motion-easing-emphasized {
+  transition-timing-function: var(--md-sys-motion-easing-emphasized);
+}
+
+.md-motion-duration-short {
+  transition-duration: var(--md-sys-motion-duration-short2);
+}
+
+.md-motion-duration-medium {
+  transition-duration: var(--md-sys-motion-duration-medium2);
+}
+
+.md-motion-duration-long {
+  transition-duration: var(--md-sys-motion-duration-long2);
+}
+
+// Component-specific styles
+.md-card {
+  @extend .md-surface-container;
+  @extend .md-elevation-1;
+  @extend .md-shape-corner-medium;
+  @extend .md-motion-easing-standard;
+  
+  padding: 16px;
+  transition: box-shadow var(--md-sys-motion-duration-short2);
+  
+  &:hover {
+    @extend .md-elevation-2;
+  }
+}
+
+.md-button {
+  @extend .md-typescale-label-large;
+  @extend .md-shape-corner-full;
+  @extend .md-motion-easing-standard;
+  
+  border: none;
+  padding: 10px 24px;
+  cursor: pointer;
+  transition: all var(--md-sys-motion-duration-short2);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  
+  &.md-button-filled {
+    @extend .md-primary;
+    @extend .md-elevation-0;
+    
+    &:hover {
+      @extend .md-elevation-1;
+    }
+  }
+  
+  &.md-button-tonal {
+    @extend .md-secondary-container;
+    
+    &:hover {
+      @extend .md-elevation-1;
+    }
+  }
+  
+  &.md-button-outlined {
+    @extend .md-surface;
+    border: 1px solid var(--md-sys-color-outline);
+    color: var(--md-sys-color-primary);
+    
+    &:hover {
+      background-color: var(--md-sys-color-primary-container);
+    }
+  }
+  
+  &.md-button-text {
+    @extend .md-surface;
+    color: var(--md-sys-color-primary);
+    
+    &:hover {
+      background-color: var(--md-sys-color-primary-container);
+    }
+  }
+}
+
+.md-fab {
+  @extend .md-primary-container;
+  @extend .md-elevation-3;
+  @extend .md-shape-corner-large;
+  @extend .md-motion-easing-standard;
+  
+  border: none;
+  width: 56px;
+  height: 56px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--md-sys-motion-duration-short2);
+  
+  &:hover {
+    @extend .md-elevation-4;
+  }
+  
+  &.md-fab-small {
+    width: 40px;
+    height: 40px;
+  }
+  
+  &.md-fab-large {
+    width: 96px;
+    height: 96px;
+    @extend .md-shape-corner-extra-large;
+  }
+}
+
+.md-text-field {
+  @extend .md-surface-container-highest;
+  @extend .md-shape-corner-extra-small;
+  @extend .md-typescale-body-large;
+  
+  border: 1px solid var(--md-sys-color-outline);
+  padding: 16px;
+  transition: border-color var(--md-sys-motion-duration-short2);
+  
+  &:focus {
+    outline: none;
+    border-color: var(--md-sys-color-primary);
+    border-width: 2px;
+  }
+  
+  &::placeholder {
+    color: var(--md-sys-color-on-surface-variant);
+  }
+}

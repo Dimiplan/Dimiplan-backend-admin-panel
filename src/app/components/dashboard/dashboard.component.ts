@@ -22,248 +22,154 @@ import { AdminService, SystemStatus, UserStats } from '../../services/admin.serv
     MatChipsModule
   ],
   template: `
-    <div class="dashboard-container">
-      <h1>관리자 대시보드</h1>
+    <div class="dashboard-container p-6 bg-md-sys-color-surface min-h-screen">
+      <h1 class="md-typescale-headline-large text-md-sys-color-on-surface mb-6">관리자 대시보드</h1>
       
-      <mat-grid-list cols="3" rowHeight="300px" gutterSize="16px">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <!-- 시스템 상태 카드 -->
-        <mat-grid-tile>
-          <mat-card class="dashboard-card">
-            <mat-card-header>
-              <mat-card-title>
-                <mat-icon>monitor</mat-icon>
-                시스템 상태
-              </mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              <div *ngIf="systemStatus" class="status-info">
-                <div class="status-item">
-                  <span class="label">가동 시간:</span>
-                  <span class="value">{{ formatUptime(systemStatus.uptime) }}</span>
-                </div>
-                <div class="status-item">
-                  <span class="label">메모리 사용량:</span>
-                  <span class="value">{{ formatMemory(systemStatus.memory.heapUsed) }} / {{ formatMemory(systemStatus.memory.heapTotal) }}</span>
-                </div>
-                <div class="status-item">
-                  <span class="label">플랫폼:</span>
-                  <span class="value">{{ systemStatus.platform }}</span>
-                </div>
-                <div class="status-item">
-                  <span class="label">Node.js 버전:</span>
-                  <span class="value">{{ systemStatus.nodeVersion }}</span>
-                </div>
-                <div class="status-item">
-                  <span class="label">환경:</span>
-                  <mat-chip [color]="systemStatus.environment === 'production' ? 'warn' : 'primary'">
-                    {{ systemStatus.environment }}
-                  </mat-chip>
-                </div>
-                <mat-progress-bar 
-                  mode="determinate" 
-                  [value]="getMemoryUsagePercent()"
-                  color="primary">
-                </mat-progress-bar>
+        <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface hover:shadow-elevation-3 transition-all duration-300">
+          <div class="flex items-center gap-3 mb-4">
+            <mat-icon class="text-md-sys-color-primary">monitor</mat-icon>
+            <h2 class="md-typescale-title-large text-md-sys-color-on-surface">시스템 상태</h2>
+          </div>
+          <div class="flex-1">
+            <div *ngIf="systemStatus" class="space-y-4">
+              <div class="flex justify-between items-center py-2 border-b border-md-sys-color-outline-variant">
+                <span class="md-typescale-body-medium font-medium text-md-sys-color-on-surface-variant">가동 시간:</span>
+                <span class="md-typescale-body-medium font-mono text-md-sys-color-on-surface">{{ formatUptime(systemStatus.uptime) }}</span>
               </div>
-              <div *ngIf="!systemStatus" class="loading">
-                시스템 정보를 불러오는 중...
+              <div class="flex justify-between items-center py-2 border-b border-md-sys-color-outline-variant">
+                <span class="md-typescale-body-medium font-medium text-md-sys-color-on-surface-variant">메모리 사용량:</span>
+                <span class="md-typescale-body-medium font-mono text-md-sys-color-on-surface">{{ formatMemory(systemStatus.memory.heapUsed) }} / {{ formatMemory(systemStatus.memory.heapTotal) }}</span>
               </div>
-            </mat-card-content>
-          </mat-card>
-        </mat-grid-tile>
+              <div class="flex justify-between items-center py-2 border-b border-md-sys-color-outline-variant">
+                <span class="md-typescale-body-medium font-medium text-md-sys-color-on-surface-variant">플랫폼:</span>
+                <span class="md-typescale-body-medium font-mono text-md-sys-color-on-surface">{{ systemStatus.platform }}</span>
+              </div>
+              <div class="flex justify-between items-center py-2 border-b border-md-sys-color-outline-variant">
+                <span class="md-typescale-body-medium font-medium text-md-sys-color-on-surface-variant">Node.js 버전:</span>
+                <span class="md-typescale-body-medium font-mono text-md-sys-color-on-surface">{{ systemStatus.nodeVersion }}</span>
+              </div>
+              <div class="flex justify-between items-center py-2">
+                <span class="md-typescale-body-medium font-medium text-md-sys-color-on-surface-variant">환경:</span>
+                <span class="px-3 py-1 rounded-full text-sm" 
+                      [class]="systemStatus.environment === 'production' ? 'bg-md-sys-color-error-container text-md-sys-color-on-error-container' : 'bg-md-sys-color-primary-container text-md-sys-color-on-primary-container'">
+                  {{ systemStatus.environment }}
+                </span>
+              </div>
+              <div class="mt-4">
+                <div class="flex justify-between items-center mb-2">
+                  <span class="md-typescale-body-small text-md-sys-color-on-surface-variant">메모리 사용률</span>
+                  <span class="md-typescale-body-small text-md-sys-color-on-surface-variant">{{ getMemoryUsagePercent().toFixed(1) }}%</span>
+                </div>
+                <div class="w-full bg-md-sys-color-surface-container-high rounded-full h-2">
+                  <div class="bg-md-sys-color-primary h-2 rounded-full transition-all duration-300" 
+                       [style.width.%]="getMemoryUsagePercent()"></div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="!systemStatus" class="flex items-center justify-center h-48 text-md-sys-color-on-surface-variant">
+              <div class="flex items-center gap-2">
+                <mat-icon class="animate-spin">refresh</mat-icon>
+                <span class="md-typescale-body-medium">시스템 정보를 불러오는 중...</span>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <!-- 사용자 통계 카드 -->
-        <mat-grid-tile>
-          <mat-card class="dashboard-card">
-            <mat-card-header>
-              <mat-card-title>
-                <mat-icon>people</mat-icon>
-                사용자 통계
-              </mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              <div *ngIf="userStats" class="stats-info">
-                <div class="stat-item">
-                  <div class="stat-number">{{ userStats.totalUsers }}</div>
-                  <div class="stat-label">총 사용자</div>
+        <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface hover:shadow-elevation-3 transition-all duration-300">
+          <div class="flex items-center gap-3 mb-4">
+            <mat-icon class="text-md-sys-color-primary">people</mat-icon>
+            <h2 class="md-typescale-title-large text-md-sys-color-on-surface">사용자 통계</h2>
+          </div>
+          <div class="flex-1">
+            <div *ngIf="userStats" class="space-y-6">
+              <div class="grid grid-cols-2 gap-4">
+                <div class="text-center p-4 bg-md-sys-color-primary-container rounded-xl">
+                  <div class="text-3xl font-bold text-md-sys-color-on-primary-container mb-1">{{ userStats.totalUsers }}</div>
+                  <div class="md-typescale-body-small text-md-sys-color-on-primary-container">총 사용자</div>
                 </div>
-                <div class="stat-item">
-                  <div class="stat-number">{{ userStats.activeUsers }}</div>
-                  <div class="stat-label">활성 사용자 (30일)</div>
+                <div class="text-center p-4 bg-md-sys-color-secondary-container rounded-xl">
+                  <div class="text-3xl font-bold text-md-sys-color-on-secondary-container mb-1">{{ userStats.activeUsers }}</div>
+                  <div class="md-typescale-body-small text-md-sys-color-on-secondary-container">활성 사용자 (30일)</div>
                 </div>
-                <div class="recent-users">
-                  <h4>최근 가입자</h4>
-                  <div *ngFor="let user of userStats.recentUsers.slice(0, 5)" class="user-item">
-                    <span class="user-email">{{ user.email }}</span>
-                    <span class="user-date">{{ formatDate(user.created_at) }}</span>
+              </div>
+              <div class="space-y-3">
+                <h4 class="md-typescale-title-small text-md-sys-color-on-surface-variant mb-3">최근 가입자</h4>
+                <div class="space-y-2">
+                  <div *ngFor="let user of userStats.recentUsers.slice(0, 5)" 
+                       class="flex justify-between items-center py-2 px-3 bg-md-sys-color-surface-container-high rounded-lg">
+                    <span class="md-typescale-body-medium font-medium text-md-sys-color-on-surface">{{ user.email }}</span>
+                    <span class="md-typescale-body-small text-md-sys-color-on-surface-variant">{{ formatDate(user.created_at) }}</span>
                   </div>
                 </div>
               </div>
-              <div *ngIf="!userStats" class="loading">
-                사용자 통계를 불러오는 중...
+            </div>
+            <div *ngIf="!userStats" class="flex items-center justify-center h-48 text-md-sys-color-on-surface-variant">
+              <div class="flex items-center gap-2">
+                <mat-icon class="animate-spin">refresh</mat-icon>
+                <span class="md-typescale-body-medium">사용자 통계를 불러오는 중...</span>
               </div>
-            </mat-card-content>
-          </mat-card>
-        </mat-grid-tile>
+            </div>
+          </div>
+        </div>
 
         <!-- 빠른 액션 카드 -->
-        <mat-grid-tile>
-          <mat-card class="dashboard-card">
-            <mat-card-header>
-              <mat-card-title>
-                <mat-icon>flash_on</mat-icon>
-                빠른 액션
-              </mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              <div class="action-buttons">
-                <button mat-raised-button color="primary" (click)="navigateToLogs()">
-                  <mat-icon>article</mat-icon>
-                  로그 보기
-                </button>
-                <button mat-raised-button color="accent" (click)="navigateToDatabase()">
-                  <mat-icon>storage</mat-icon>
-                  데이터베이스
-                </button>
-                <button mat-raised-button (click)="navigateToApiDocs()">
-                  <mat-icon>code</mat-icon>
-                  API 문서
-                </button>
-                <button mat-raised-button (click)="refreshData()">
-                  <mat-icon>refresh</mat-icon>
-                  새로고침
-                </button>
-              </div>
-            </mat-card-content>
-          </mat-card>
-        </mat-grid-tile>
-      </mat-grid-list>
+        <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface hover:shadow-elevation-3 transition-all duration-300">
+          <div class="flex items-center gap-3 mb-4">
+            <mat-icon class="text-md-sys-color-primary">flash_on</mat-icon>
+            <h2 class="md-typescale-title-large text-md-sys-color-on-surface">빠른 액션</h2>
+          </div>
+          <div class="flex-1">
+            <div class="space-y-3">
+              <button class="w-full md-button md-button-tonal flex items-center justify-start gap-3 p-4 rounded-xl" (click)="navigateToLogs()">
+                <mat-icon class="text-md-sys-color-on-secondary-container">article</mat-icon>
+                <span class="md-typescale-label-large">로그 보기</span>
+              </button>
+              <button class="w-full md-button md-button-tonal flex items-center justify-start gap-3 p-4 rounded-xl" (click)="navigateToDatabase()">
+                <mat-icon class="text-md-sys-color-on-secondary-container">storage</mat-icon>
+                <span class="md-typescale-label-large">데이터베이스</span>
+              </button>
+              <button class="w-full md-button md-button-tonal flex items-center justify-start gap-3 p-4 rounded-xl" (click)="navigateToApiDocs()">
+                <mat-icon class="text-md-sys-color-on-secondary-container">code</mat-icon>
+                <span class="md-typescale-label-large">API 문서</span>
+              </button>
+              <button class="w-full md-button md-button-filled flex items-center justify-start gap-3 p-4 rounded-xl" (click)="refreshData()">
+                <mat-icon class="text-md-sys-color-on-primary">refresh</mat-icon>
+                <span class="md-typescale-label-large">새로고침</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   `,
   styles: [`
-    .dashboard-container {
-      padding: 20px;
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
-
-    .dashboard-card {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      border-radius: 16px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-      transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    
+    .animate-spin {
+      animation: spin 1s linear infinite;
     }
-
-    .dashboard-card:hover {
-      box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-      transform: translateY(-2px);
-    }
-
-    .dashboard-card mat-card-header {
-      margin-bottom: 16px;
-    }
-
-    .dashboard-card mat-card-title {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .dashboard-card mat-card-content {
-      flex: 1;
+    
+    .md-card {
+      min-height: 300px;
       display: flex;
       flex-direction: column;
     }
-
-    .status-info, .stats-info {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      flex: 1;
+    
+    .md-button {
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
     }
-
-    .status-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .status-item .label {
-      font-weight: 500;
-      color: rgba(0, 0, 0, 0.7);
-    }
-
-    .status-item .value {
-      font-family: monospace;
-    }
-
-    .stat-item {
-      text-align: center;
-      padding: 16px;
-      border: 1px solid #e0e0e0;
-      border-radius: 8px;
-    }
-
-    .stat-number {
-      font-size: 2rem;
-      font-weight: bold;
-      color: #1976d2;
-    }
-
-    .stat-label {
-      font-size: 0.9rem;
-      color: rgba(0, 0, 0, 0.7);
-    }
-
-    .recent-users {
-      margin-top: 16px;
-    }
-
-    .recent-users h4 {
-      margin: 0 0 8px 0;
-      font-size: 0.9rem;
-      color: rgba(0, 0, 0, 0.7);
-    }
-
-    .user-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 4px 0;
-      font-size: 0.8rem;
-    }
-
-    .user-email {
-      font-weight: 500;
-    }
-
-    .user-date {
-      color: rgba(0, 0, 0, 0.5);
-    }
-
-    .action-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      flex: 1;
-    }
-
-    .action-buttons button {
-      justify-content: flex-start;
-      gap: 8px;
-    }
-
-    .loading {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex: 1;
-      color: rgba(0, 0, 0, 0.5);
-    }
-
-    mat-progress-bar {
-      margin-top: 16px;
+    
+    .md-button:hover {
+      transform: translateY(-1px);
     }
   `]
 })
