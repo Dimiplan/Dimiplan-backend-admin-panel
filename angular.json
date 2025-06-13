@@ -34,6 +34,7 @@
               }
             ],
             "styles": [
+              "src/tailwind-output.css",
               "src/styles.scss"
             ]
           },
@@ -98,6 +99,7 @@
               }
             ],
             "styles": [
+              "src/tailwind-output.css",
               "src/styles.scss"
             ]
           }
