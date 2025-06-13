@@ -27,20 +27,20 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
     FormsModule
   ],
   template: `
-    <div class="p-6 bg-md-sys-color-surface min-h-screen">
+    <div class="p-6 bg-md-sys-color-surface h-[93vh] overflow-hidden flex flex-col">
       <h1 class="md-typescale-headline-large text-md-sys-color-on-surface mb-6">로그 관리</h1>
 
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[calc(100vh-8rem)]">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 flex-1 min-h-0 h-[calc(93vh-120px)]">
         <!-- 로그 파일 목록 -->
-        <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface lg:col-span-1">
+        <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface lg:col-span-1 flex flex-col h-[calc(93vh-180px)]">
           <div class="flex items-center justify-between mb-4">
             <h2 class="md-typescale-title-large text-md-sys-color-on-surface">로그 파일 목록</h2>
             <button class="md-button md-button-text p-2 rounded-full" (click)="refreshLogFiles()">
               <mat-icon class="w-5 h-5 text-md-sys-color-primary">refresh</mat-icon>
             </button>
           </div>
-          <div class="flex-1 overflow-y-auto">
-            <div *ngIf="logFiles.length > 0" class="space-y-2">
+          <div class="flex-1 overflow-y-auto min-h-0 h-[calc(93vh-250px)]">
+            <div *ngIf="logFiles.length > 0" class="space-y-2 pb-4">
               <div
                 *ngFor="let file of logFiles"
                 [class]="'flex items-center gap-3 p-3 rounded-xl cursor-pointer transition-all duration-200 ' + (selectedFile?.name === file.name ? 'bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container' : 'hover:bg-md-sys-color-surface-container-high')"
@@ -54,13 +54,13 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
                 </div>
               </div>
             </div>
-            <div *ngIf="logFiles.length === 0 && !loadingFiles" class="flex items-center justify-center h-48 text-md-sys-color-on-surface-variant">
+            <div *ngIf="logFiles.length === 0 && !loadingFiles" class="flex items-center justify-center h-full text-md-sys-color-on-surface-variant">
               <div class="text-center">
                 <mat-icon class="w-16 h-16 mb-4 text-md-sys-color-outline">article</mat-icon>
                 <p class="md-typescale-body-medium">로그 파일이 없습니다.</p>
               </div>
             </div>
-            <div *ngIf="loadingFiles" class="flex flex-col items-center justify-center h-48 gap-4 text-md-sys-color-on-surface-variant">
+            <div *ngIf="loadingFiles" class="flex flex-col items-center justify-center h-full gap-4 text-md-sys-color-on-surface-variant">
               <mat-spinner diameter="40"></mat-spinner>
               <p class="md-typescale-body-medium">로그 파일 목록을 불러오는 중...</p>
             </div>
@@ -68,7 +68,7 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
         </div>
 
         <!-- 로그 내용 뷰어 -->
-        <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface lg:col-span-2">
+        <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface lg:col-span-2 flex flex-col h-[calc(93vh-180px)]">
           <div class="flex items-center justify-between mb-4">
             <h2 class="md-typescale-title-large text-md-sys-color-on-surface">
               {{ selectedFile ? selectedFile.name : '로그 뷰어' }}
@@ -83,7 +83,7 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
               </button>
             </div>
           </div>
-          <div class="flex-1 overflow-hidden">
+          <div class="flex-1 overflow-hidden min-h-0">
             <div *ngIf="!selectedFile" class="flex items-center justify-center h-full text-md-sys-color-on-surface-variant">
               <div class="text-center">
                 <mat-icon class="w-16 h-16 mb-4 text-md-sys-color-outline">visibility</mat-icon>
@@ -121,7 +121,7 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
                     (click)="setLogFilter('info')">정보</button>
                 </div>
               </div>
-              <div class="flex-1 bg-gray-900 rounded-xl overflow-auto">
+              <div class="flex-1 bg-gray-900 rounded-xl overflow-auto min-h-0 h-[calc(93vh-350px)]">
                 <div *ngFor="let line of getFilteredLogLines(); let i = index"
                      [class]="'flex items-start gap-3 p-2 font-mono text-sm border-b border-gray-800 hover:bg-gray-800 ' + getLogLineClass(line)">
                   <span class="w-12 text-gray-500 text-right select-none">{{ i + 1 }}</span>

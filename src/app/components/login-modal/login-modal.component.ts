@@ -35,7 +35,7 @@ import { MatIconModule } from '@angular/material/icon';
       text-decoration: none;
       transition: all 0.2s ease;
     }
-    
+
     .md-button:hover {
       transform: translateY(-1px);
       filter: brightness(1.1);
@@ -50,9 +50,6 @@ export class LoginModalComponent {
 
   loginWithGoogle(): void {
     const baseUrl = 'https://api-dev.dimiplan.com';
-    const adminPanelUrl = window.location.origin;
-    const returnUrl = encodeURIComponent(`${adminPanelUrl}${this.data.returnUrl}`);
-
-    window.location.href = `${baseUrl}/auth/google?returnUrl=${returnUrl}`;
+    window.location.href = `${baseUrl}/auth/google?returnUrl=admin.dimiplan.com`;
   }
 }
