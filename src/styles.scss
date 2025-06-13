@@ -1,28 +1,27 @@
-@use "sass:meta";
 /* You can add global styles to this file, and also import other style files */
 
-// Import Tailwind CSS v4
-@import "styles/tailwind.css";
+// Import Tailwind CSS
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 // Import Google Fonts
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 // Import Material Design 3 tokens and Material You theme
-@include meta.load-css('styles/material-tokens.scss');
-@include meta.load-css('styles/material-you-theme.scss');
+@import './styles/material-tokens.scss';
+@import './styles/material-you-theme.scss';
 
-html, body {
-  height: 100%;
-  margin: 0;
-  font-family: 'Roboto', "Helvetica Neue", sans-serif;
+html, body { 
+  height: 100%; 
+  margin: 0; 
+  font-family: 'Roboto', "Helvetica Neue", sans-serif; 
 }
 
 // Apply Material You theme to the entire application
 body {
-  &.material-you-theme {
-    /* Theme styles will be applied by CSS custom properties */
-  }
+  @apply material-you-theme;
 }
 
 /* Enhanced Material 3 Design customizations for Angular Material */
@@ -81,11 +80,11 @@ body {
     border-radius: var(--md-sys-shape-corner-extra-small) !important;
     background-color: var(--md-sys-color-surface-container-highest) !important;
   }
-
+  
   .mat-mdc-form-field-focus-overlay {
     background-color: var(--md-sys-color-primary) !important;
   }
-
+  
   .mdc-text-field--focused .mdc-line-ripple::after {
     border-bottom-color: var(--md-sys-color-primary) !important;
   }
@@ -143,23 +142,13 @@ body {
 
 /* Dark theme toggle support */
 .dark-theme-toggle {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  z-index: 50;
-  background-color: var(--color-md-sys-color-primary);
-  color: var(--color-md-sys-color-on-primary);
-  width: 3rem;
-  height: 3rem;
-  border-radius: 9999px;
-  box-shadow: var(--shadow-elevation-2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 300ms ease-in-out;
-
+  @apply fixed top-4 right-4 z-50;
+  @apply bg-md-sys-color-primary text-md-sys-color-on-primary;
+  @apply w-12 h-12 rounded-full shadow-elevation-2;
+  @apply flex items-center justify-center cursor-pointer;
+  @apply transition-all duration-300 ease-in-out;
+  
   &:hover {
-    box-shadow: var(--shadow-elevation-3);
+    @apply shadow-elevation-3;
   }
 }

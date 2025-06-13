@@ -1,7 +1,7 @@
 // Material You Dynamic Color Theme Generator
 // This file provides utilities for creating Material You themes
 
-@use 'material-tokens.scss';
+@import './material-tokens.scss';
 
 // Base Material You Theme Class
 .material-you-theme {
