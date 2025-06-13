@@ -49,15 +49,25 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
           </div>
 
           <div class="w-full md:w-48">
-            <mat-form-field appearance="outline" class="w-full">
-              <mat-label>파일 필터</mat-label>
-              <mat-select [(value)]="selectedFile" (selectionChange)="filterApis()">
-                <mat-option value="">모든 파일</mat-option>
-                <mat-option *ngFor="let file of getUniqueFiles()" [value]="file">
-                  {{ file }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+            <div class="relative">
+              <mat-form-field appearance="outline" class="w-full filter-field">
+                <mat-label>경로 필터</mat-label>
+                <mat-select [(value)]="selectedFile" (selectionChange)="filterApis()" class="custom-select">
+                  <mat-option value="" class="filter-option">
+                    <div class="flex items-center gap-2">
+                      <mat-icon class="w-4 h-4 text-md-sys-color-on-surface-variant">select_all</mat-icon>
+                      <span>모든 경로</span>
+                    </div>
+                  </mat-option>
+                  <mat-option *ngFor="let file of getUniqueFiles()" [value]="file" class="filter-option">
+                    <div class="flex items-center gap-2">
+                      <mat-icon class="w-4 h-4 text-md-sys-color-primary">description</mat-icon>
+                      <span class="font-mono text-sm">{{ file }}</span>
+                    </div>
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
           </div>
         </div>
 
@@ -235,6 +245,35 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
 
     input:focus {
       box-shadow: 0 0 0 2px var(--md-sys-color-primary);
+    }
+
+    .filter-field .mat-mdc-form-field-flex {
+      border-radius: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .filter-field:hover .mat-mdc-form-field-flex {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .filter-field.mat-focused .mat-mdc-form-field-flex {
+      box-shadow: 0 0 0 2px var(--md-sys-color-primary);
+    }
+
+    .filter-option {
+      padding: 12px 16px !important;
+      min-height: 48px !important;
+      transition: background-color 0.2s ease;
+    }
+
+    .filter-option:hover {
+      background-color: var(--md-sys-color-surface-container-high) !important;
+    }
+
+    .custom-select .mat-mdc-select-value {
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
   `]
 })
