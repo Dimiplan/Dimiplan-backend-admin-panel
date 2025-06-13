@@ -25,8 +25,7 @@ export interface LogFile {
 
 export interface LogContent {
   filename: string;
-  totalLines: number;
-  displayedLines: number;
+  lines: number;
   content: string;
 }
 
@@ -67,9 +66,22 @@ export interface ApiDoc {
   file: string;
   method: string;
   path: string;
-  brief: string;
-  details: string;
-  returns: string;
+  name: string;
+  params?: Array<{
+    name: string;
+    type: string;
+    required: boolean;
+    description: string;
+  }>;
+  routeParams?: Array<{
+    name: string;
+    type: string;
+    description: string;
+  }>;
+  returns: {
+    type: string;
+    description: string;
+  };
 }
 
 @Injectable({

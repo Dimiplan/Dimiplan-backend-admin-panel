@@ -35,10 +35,10 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
       <div class="flex flex-col md:flex-row gap-4 mb-6">
         <div class="flex-1 max-w-md">
           <div class="relative">
-            <input 
-              type="text" 
-              [(ngModel)]="searchTerm" 
-              (input)="filterApis()" 
+            <input
+              type="text"
+              [(ngModel)]="searchTerm"
+              (input)="filterApis()"
               placeholder="경로나 설명으로 검색..."
               class="w-full p-3 pr-12 bg-md-sys-color-surface-container-highest text-md-sys-color-on-surface rounded-xl border border-md-sys-color-outline focus:border-md-sys-color-primary focus:outline-none md-typescale-body-large">
             <mat-icon class="w-5 h-5 absolute right-3 top-1/2 transform -translate-y-1/2 text-md-sys-color-on-surface-variant">search</mat-icon>
@@ -84,18 +84,18 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
           <div *ngFor="let doc of filteredDocs; trackBy: trackByPath" class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface">
             <div class="flex items-center justify-between mb-4">
               <div class="flex items-center gap-3">
-                <span class="px-3 py-1 rounded-full text-sm font-medium min-w-[60px] text-center" 
-                      [class]="getMethodColor(doc.method) === 'primary' ? 'bg-md-sys-color-primary text-md-sys-color-on-primary' : 
-                               getMethodColor(doc.method) === 'accent' ? 'bg-md-sys-color-secondary text-md-sys-color-on-secondary' : 
-                               getMethodColor(doc.method) === 'warn' ? 'bg-md-sys-color-error text-md-sys-color-on-error' : 
+                <span class="px-3 py-1 rounded-full text-sm font-medium min-w-[60px] text-center"
+                      [class]="getMethodColor(doc.method) === 'primary' ? 'bg-md-sys-color-primary text-md-sys-color-on-primary' :
+                               getMethodColor(doc.method) === 'accent' ? 'bg-md-sys-color-secondary text-md-sys-color-on-secondary' :
+                               getMethodColor(doc.method) === 'warn' ? 'bg-md-sys-color-error text-md-sys-color-on-error' :
                                'bg-md-sys-color-surface-container-high text-md-sys-color-on-surface'">
                   {{ doc.method }}
                 </span>
                 <span class="font-mono md-typescale-title-medium font-medium text-md-sys-color-on-surface">{{ doc.path }}</span>
               </div>
             </div>
-            
-            <p class="md-typescale-body-large text-md-sys-color-on-surface-variant mb-6">{{ doc.brief }}</p>
+
+            <p class="md-typescale-body-large text-md-sys-color-on-surface-variant mb-6">{{ doc.name }}</p>
 
             <div class="space-y-6">
               <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-md-sys-color-surface-container-high rounded-xl">
@@ -105,10 +105,10 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
                 </div>
                 <div class="flex items-center gap-2">
                   <span class="md-typescale-body-medium font-medium text-md-sys-color-on-surface-variant">메소드:</span>
-                  <span class="px-2 py-1 rounded-full text-xs" 
-                        [class]="getMethodColor(doc.method) === 'primary' ? 'bg-md-sys-color-primary-container text-md-sys-color-on-primary-container' : 
-                                 getMethodColor(doc.method) === 'accent' ? 'bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container' : 
-                                 getMethodColor(doc.method) === 'warn' ? 'bg-md-sys-color-error-container text-md-sys-color-on-error-container' : 
+                  <span class="px-2 py-1 rounded-full text-xs"
+                        [class]="getMethodColor(doc.method) === 'primary' ? 'bg-md-sys-color-primary-container text-md-sys-color-on-primary-container' :
+                                 getMethodColor(doc.method) === 'accent' ? 'bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container' :
+                                 getMethodColor(doc.method) === 'warn' ? 'bg-md-sys-color-error-container text-md-sys-color-on-error-container' :
                                  'bg-md-sys-color-surface-container text-md-sys-color-on-surface'">
                     {{ doc.method }}
                   </span>
@@ -119,12 +119,43 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
                 </div>
               </div>
 
-              <div *ngIf="doc.details" class="space-y-2">
+              <div *ngIf="doc.routeParams && doc.routeParams.length > 0" class="space-y-2">
                 <h4 class="md-typescale-title-small text-md-sys-color-on-surface flex items-center gap-2">
-                  <mat-icon class="w-5 h-5 text-md-sys-color-primary">description</mat-icon>
-                  상세 설명
+                  <mat-icon class="w-5 h-5 text-md-sys-color-primary">route</mat-icon>
+                  경로 파라미터
                 </h4>
-                <p class="md-typescale-body-medium text-md-sys-color-on-surface leading-relaxed">{{ doc.details }}</p>
+                <div class="space-y-3">
+                  <div *ngFor="let routeParam of doc.routeParams" class="p-3 bg-md-sys-color-primary-container rounded-lg">
+                    <div class="flex items-start justify-between mb-2">
+                      <div class="flex items-center gap-2">
+                        <code class="px-2 py-1 bg-md-sys-color-surface-container rounded text-sm font-mono text-md-sys-color-on-surface">:{{ routeParam.name }}</code>
+                        <span class="px-2 py-1 rounded-full text-xs bg-md-sys-color-error-container text-md-sys-color-on-error-container">필수</span>
+                      </div>
+                      <span class="text-sm font-mono text-md-sys-color-on-primary-container">{{ routeParam.type }}</span>
+                    </div>
+                    <p class="md-typescale-body-small text-md-sys-color-on-primary-container">{{ routeParam.description }}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf="doc.params && doc.params.length > 0" class="space-y-2">
+                <h4 class="md-typescale-title-small text-md-sys-color-on-surface flex items-center gap-2">
+                  <mat-icon class="w-5 h-5 text-md-sys-color-primary">settings</mat-icon>
+                  {{ doc.method.toUpperCase() === 'GET' ? '쿼리 파라미터' : '요청 본문' }}
+                </h4>
+                <div class="space-y-3">
+                  <div *ngFor="let param of doc.params" class="p-3 bg-md-sys-color-surface-container-high rounded-lg">
+                    <div class="flex items-start justify-between mb-2">
+                      <div class="flex items-center gap-2">
+                        <code class="px-2 py-1 bg-md-sys-color-surface-container rounded text-sm font-mono text-md-sys-color-on-surface">{{ param.name }}</code>
+                        <span class="px-2 py-1 rounded-full text-xs" 
+                              [class]="param.required ? 'bg-md-sys-color-error-container text-md-sys-color-on-error-container' : 'bg-md-sys-color-surface-container text-md-sys-color-on-surface'">{{ param.required ? '필수' : '선택' }}</span>
+                      </div>
+                      <span class="text-sm font-mono text-md-sys-color-on-surface-variant">{{ param.type }}</span>
+                    </div>
+                    <p class="md-typescale-body-small text-md-sys-color-on-surface-variant">{{ param.description }}</p>
+                  </div>
+                </div>
               </div>
 
               <div *ngIf="doc.returns" class="space-y-2">
@@ -142,8 +173,8 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
                 </h4>
                 <div class="relative bg-gray-900 text-gray-100 rounded-xl overflow-hidden">
                   <pre class="p-4 overflow-x-auto font-mono text-sm leading-relaxed"><code>{{ generateCurlExample(doc) }}</code></pre>
-                  <button class="absolute top-3 right-3 p-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors" 
-                          (click)="copyCurl(doc)" 
+                  <button class="absolute top-3 right-3 p-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors"
+                          (click)="copyCurl(doc)"
                           title="클립보드에 복사">
                     <mat-icon class="w-5 h-5 text-gray-300">content_copy</mat-icon>
                   </button>
@@ -161,11 +192,11 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
       border-radius: 16px;
       transition: all 0.3s ease;
     }
-    
+
     .md-card:hover {
       transform: translateY(-2px);
     }
-    
+
     .md-button {
       border: none;
       cursor: pointer;
@@ -175,17 +206,17 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
       align-items: center;
       justify-content: center;
     }
-    
+
     .md-button:hover {
       transform: translateY(-1px);
     }
-    
+
     .md-button:disabled {
       opacity: 0.5;
       cursor: not-allowed;
       transform: none;
     }
-    
+
     input:focus {
       box-shadow: 0 0 0 2px var(--md-sys-color-primary);
     }
@@ -202,6 +233,7 @@ export class ApiDocsComponent implements OnInit {
   ngOnInit() {
     this.loadApiDocs();
   }
+
 
   loadApiDocs() {
     this.loading = true;
@@ -234,10 +266,17 @@ export class ApiDocsComponent implements OnInit {
     const term = this.searchTerm.toLowerCase();
     this.filteredDocs = this.apiDocs.filter(doc =>
       doc.path.toLowerCase().includes(term) ||
-      doc.brief.toLowerCase().includes(term) ||
-      doc.details.toLowerCase().includes(term) ||
+      doc.name.toLowerCase().includes(term) ||
       doc.method.toLowerCase().includes(term) ||
-      doc.file.toLowerCase().includes(term)
+      doc.file.toLowerCase().includes(term) ||
+      (doc.params && doc.params.some(param => 
+        param.name.toLowerCase().includes(term) ||
+        param.description.toLowerCase().includes(term)
+      )) ||
+      (doc.routeParams && doc.routeParams.some(routeParam => 
+        routeParam.name.toLowerCase().includes(term) ||
+        routeParam.description.toLowerCase().includes(term)
+      ))
     );
   }
 
@@ -277,31 +316,65 @@ export class ApiDocsComponent implements OnInit {
 
   generateCurlExample(doc: ApiDoc): string {
     const baseUrl = 'https://api-dev.dimiplan.com';
-    const url = `${baseUrl}${doc.path}`;
+    let url = `${baseUrl}${doc.path}`;
+    
+    // Replace route parameters with example values
+    if (doc.routeParams && doc.routeParams.length > 0) {
+      doc.routeParams.forEach(routeParam => {
+        const exampleValue = routeParam.type === 'string' ? 'example' : routeParam.type === 'number' ? '123' : 'value';
+        url = url.replace(`:${routeParam.name}`, exampleValue);
+      });
+    }
 
     switch (doc.method.toUpperCase()) {
       case 'GET':
+        if (doc.params && doc.params.length > 0) {
+          const queryParams = doc.params.map(param => `${param.name}=${param.type === 'string' ? 'value' : param.type === 'number' ? '1' : 'true'}`).join('&');
+          url += `?${queryParams}`;
+        }
         return `curl -X GET "${url}" \\
   -H "Content-Type: application/json" \\
   -H "Authorization: Bearer YOUR_TOKEN"`;
 
       case 'POST':
+        let postBody = '{\n';
+        if (doc.params && doc.params.length > 0) {
+          const bodyParams = doc.params.map(param => {
+            const value = param.type === 'string' ? '"value"' : param.type === 'number' ? '1' : 'true';
+            return `    "${param.name}": ${value}`;
+          }).join(',\n');
+          postBody += bodyParams + '\n';
+        } else {
+          postBody += '    "key": "value"\n';
+        }
+        postBody += '  }';
         return `curl -X POST "${url}" \\
   -H "Content-Type: application/json" \\
   -H "Authorization: Bearer YOUR_TOKEN" \\
-  -d '{
-    "key": "value"
-  }'`;
+  -d '${postBody}'`;
 
       case 'PUT':
+        let putBody = '{\n';
+        if (doc.params && doc.params.length > 0) {
+          const bodyParams = doc.params.map(param => {
+            const value = param.type === 'string' ? '"value"' : param.type === 'number' ? '1' : 'true';
+            return `    "${param.name}": ${value}`;
+          }).join(',\n');
+          putBody += bodyParams + '\n';
+        } else {
+          putBody += '    "key": "value"\n';
+        }
+        putBody += '  }';
         return `curl -X PUT "${url}" \\
   -H "Content-Type: application/json" \\
   -H "Authorization: Bearer YOUR_TOKEN" \\
-  -d '{
-    "key": "value"
-  }'`;
+  -d '${putBody}'`;
 
       case 'DELETE':
+        if (doc.params && doc.params.length > 0) {
+          const queryParams = doc.params.map(param => `${param.name}=${param.type === 'string' ? 'value' : param.type === 'number' ? '1' : 'true'}`).join('&');
+          url += `?${queryParams}`;
+        }
         return `curl -X DELETE "${url}" \\
   -H "Content-Type: application/json" \\
   -H "Authorization: Bearer YOUR_TOKEN"`;
@@ -351,14 +424,25 @@ export class ApiDocsComponent implements OnInit {
 
       for (const doc of docs) {
         markdown += `### ${doc.method} ${doc.path}\n\n`;
-        if (doc.brief) {
-          markdown += `**요약:** ${doc.brief}\n\n`;
+        if (doc.name) {
+          markdown += `**요약:** ${doc.name}\n\n`;
         }
-        if (doc.details) {
-          markdown += `**설명:** ${doc.details}\n\n`;
+        if (doc.routeParams && doc.routeParams.length > 0) {
+          markdown += `**경로 파라미터:**\n\n`;
+          for (const routeParam of doc.routeParams) {
+            markdown += `- \`:${routeParam.name}\` (${routeParam.type}) **필수**: ${routeParam.description}\n`;
+          }
+          markdown += '\n';
+        }
+        if (doc.params && doc.params.length > 0) {
+          markdown += `**${doc.method.toUpperCase() === 'GET' ? '쿼리 파라미터' : '요청 본문'}:**\n\n`;
+          for (const param of doc.params) {
+            markdown += `- \`${param.name}\` (${param.type}) ${param.required ? '**필수**' : '*선택*'}: ${param.description}\n`;
+          }
+          markdown += '\n';
         }
         if (doc.returns) {
-          markdown += `**반환값:** ${doc.returns}\n\n`;
+          markdown += `**반환값:** ${doc.returns.type} - ${doc.returns.description}\n\n`;
         }
         markdown += '**사용 예시:**\n\n';
         markdown += '```bash\n';
@@ -371,7 +455,7 @@ export class ApiDocsComponent implements OnInit {
     return markdown;
   }
 
-  trackByPath(index: number, doc: ApiDoc): string {
+  trackByPath(_: number, doc: ApiDoc): string {
     return `${doc.method}-${doc.path}`;
   }
 }

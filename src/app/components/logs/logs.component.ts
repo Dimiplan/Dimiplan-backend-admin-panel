@@ -41,8 +41,8 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
           </div>
           <div class="flex-1 overflow-y-auto">
             <div *ngIf="logFiles.length > 0" class="space-y-2">
-              <div 
-                *ngFor="let file of logFiles" 
+              <div
+                *ngFor="let file of logFiles"
                 [class]="'flex items-center gap-3 p-3 rounded-xl cursor-pointer transition-all duration-200 ' + (selectedFile?.name === file.name ? 'bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container' : 'hover:bg-md-sys-color-surface-container-high')"
                 (click)="selectLogFile(file)">
                 <mat-icon class="w-6 h-6 flex-shrink-0" [class.text-md-sys-color-on-secondary-container]="selectedFile?.name === file.name">article</mat-icon>
@@ -74,16 +74,6 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
               {{ selectedFile ? selectedFile.name : '로그 뷰어' }}
             </h2>
             <div class="flex items-center gap-2" *ngIf="selectedFile">
-              <select 
-                [(ngModel)]="displayLines" 
-                (change)="loadLogContent()"
-                class="px-3 py-2 bg-md-sys-color-surface-container-highest text-md-sys-color-on-surface rounded-lg border border-md-sys-color-outline focus:border-md-sys-color-primary focus:outline-none">
-                <option [value]="50">최근 50줄</option>
-                <option [value]="100">최근 100줄</option>
-                <option [value]="200">최근 200줄</option>
-                <option [value]="500">최근 500줄</option>
-                <option [value]="0">전체</option>
-              </select>
               <button class="md-button md-button-text p-2 rounded-full" (click)="loadLogContent()" [disabled]="loadingContent">
                 <mat-icon class="w-5 h-5 text-md-sys-color-primary">refresh</mat-icon>
               </button>
@@ -100,7 +90,7 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
                 <p class="md-typescale-body-large">왼쪽에서 로그 파일을 선택해주세요.</p>
               </div>
             </div>
-            
+
             <div *ngIf="selectedFile && !logContent && !loadingContent" class="flex items-center justify-center h-full text-md-sys-color-on-surface-variant">
               <div class="text-center">
                 <mat-icon class="w-16 h-16 mb-4 text-md-sys-color-outline">refresh</mat-icon>
@@ -115,24 +105,24 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
 
             <div *ngIf="logContent" class="flex flex-col h-full">
               <div class="flex items-center justify-between p-3 bg-md-sys-color-surface-container-high rounded-xl mb-4">
-                <span class="md-typescale-body-medium text-md-sys-color-on-surface">총 {{ logContent.totalLines }}줄 중 {{ logContent.displayedLines }}줄 표시</span>
+                <span class="md-typescale-body-medium text-md-sys-color-on-surface">총 {{ logContent.lines }}줄 표시</span>
                 <div class="flex gap-1">
-                  <button 
+                  <button
                     [class]="'px-3 py-1 text-xs rounded-full transition-all ' + (logFilter === 'all' ? 'bg-md-sys-color-primary text-md-sys-color-on-primary' : 'bg-md-sys-color-surface-container text-md-sys-color-on-surface hover:bg-md-sys-color-surface-container-high')"
                     (click)="setLogFilter('all')">전체</button>
-                  <button 
+                  <button
                     [class]="'px-3 py-1 text-xs rounded-full transition-all ' + (logFilter === 'error' ? 'bg-md-sys-color-error text-md-sys-color-on-error' : 'bg-md-sys-color-surface-container text-md-sys-color-on-surface hover:bg-md-sys-color-surface-container-high')"
                     (click)="setLogFilter('error')">오류</button>
-                  <button 
+                  <button
                     [class]="'px-3 py-1 text-xs rounded-full transition-all ' + (logFilter === 'warn' ? 'bg-md-sys-color-tertiary text-md-sys-color-on-tertiary' : 'bg-md-sys-color-surface-container text-md-sys-color-on-surface hover:bg-md-sys-color-surface-container-high')"
                     (click)="setLogFilter('warn')">경고</button>
-                  <button 
+                  <button
                     [class]="'px-3 py-1 text-xs rounded-full transition-all ' + (logFilter === 'info' ? 'bg-md-sys-color-secondary text-md-sys-color-on-secondary' : 'bg-md-sys-color-surface-container text-md-sys-color-on-surface hover:bg-md-sys-color-surface-container-high')"
                     (click)="setLogFilter('info')">정보</button>
                 </div>
               </div>
               <div class="flex-1 bg-gray-900 rounded-xl overflow-auto">
-                <div *ngFor="let line of getFilteredLogLines(); let i = index" 
+                <div *ngFor="let line of getFilteredLogLines(); let i = index"
                      [class]="'flex items-start gap-3 p-2 font-mono text-sm border-b border-gray-800 hover:bg-gray-800 ' + getLogLineClass(line)">
                   <span class="w-12 text-gray-500 text-right select-none">{{ i + 1 }}</span>
                   <span class="w-36 text-gray-400 shrink-0">{{ extractTimestamp(line) }}</span>
@@ -152,7 +142,7 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
       display: flex;
       flex-direction: column;
     }
-    
+
     .md-button {
       border: none;
       cursor: pointer;
@@ -162,32 +152,32 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
       align-items: center;
       justify-content: center;
     }
-    
+
     .md-button:hover {
       transform: translateY(-1px);
     }
-    
+
     .md-button:disabled {
       opacity: 0.5;
       cursor: not-allowed;
       transform: none;
     }
-    
+
     .error {
       border-left: 3px solid #ef4444;
       background-color: rgba(239, 68, 68, 0.1);
     }
-    
+
     .warn {
       border-left: 3px solid #f59e0b;
       background-color: rgba(245, 158, 11, 0.1);
     }
-    
+
     .info {
       border-left: 3px solid #10b981;
       background-color: rgba(16, 185, 129, 0.1);
     }
-    
+
     .verbose {
       border-left: 3px solid #3b82f6;
       background-color: rgba(59, 130, 246, 0.1);
@@ -198,7 +188,6 @@ export class LogsComponent implements OnInit {
   logFiles: LogFile[] = [];
   selectedFile: LogFile | null = null;
   logContent: LogContent | null = null;
-  displayLines = 100;
   loadingFiles = false;
   loadingContent = false;
   logFilter = 'all';
@@ -235,8 +224,8 @@ export class LogsComponent implements OnInit {
     if (!this.selectedFile) return;
 
     this.loadingContent = true;
-    const lines = this.displayLines === 0 ? undefined : this.displayLines;
-    
+    const lines = this.logContent?.lines === 0 ? undefined : this.logContent?.lines;
+
     this.adminService.getLogContent(this.selectedFile.name, lines).subscribe({
       next: (response) => {
         if (response.success) {
@@ -287,13 +276,13 @@ export class LogsComponent implements OnInit {
 
   getFilteredLogLines(): string[] {
     if (!this.logContent) return [];
-    
+
     const lines = this.logContent.content.split('\n').filter(line => line.trim());
-    
+
     if (this.logFilter === 'all') {
       return lines;
     }
-    
+
     return lines.filter(line => {
       const level = this.extractLogLevel(line).toLowerCase();
       return level === this.logFilter;
