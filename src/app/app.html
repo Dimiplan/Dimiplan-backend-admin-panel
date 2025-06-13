@@ -1,17 +1,21 @@
 <div class="admin-layout bg-md-sys-color-surface h-screen overflow-hidden">
   <!-- Top App Bar -->
-  <div class="bg-md-sys-color-surface-container shadow-elevation-2 border-b border-md-sys-color-outline-variant">
+  <div class="bg-md-sys-color-surface-container shadow-elevation-2 border-b border-md-sys-color-outline-variant relative z-50">
     <div class="flex items-center h-16 px-4">
-      <button class="md-button md-button-text p-2 rounded-full mr-2" (click)="toggleSidenav()" aria-label="Toggle navigation">
+      <button class="md-button md-button-text p-3 rounded-full mr-2 touch-target" (click)="toggleSidenav()" aria-label="Toggle navigation">
         <mat-icon class="w-6 h-6 text-md-sys-color-on-surface">menu</mat-icon>
       </button>
-      <h1 class="md-typescale-title-large text-md-sys-color-on-surface flex-1">Dimiplan 관리자 패널</h1>
+      <h1 class="md-typescale-title-large text-md-sys-color-on-surface flex-1 truncate">Dimiplan 관리자 패널</h1>
     </div>
   </div>
 
-  <div class="flex">
+  <div class="flex relative">
+    <!-- Mobile backdrop -->
+    <div *ngIf="sidenavOpened" class="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden" (click)="toggleSidenav()"></div>
+    
     <!-- Navigation Rail -->
-    <nav [class]="sidenavOpened ? 'w-80' : 'w-20'" class="bg-md-sys-color-surface-container border-r border-md-sys-color-outline-variant transition-all duration-300 ease-in-out overflow-hidden min-h-full flex flex-col">
+    <nav [class]="sidenavOpened ? 'w-80 translate-x-0' : 'w-20 -translate-x-full lg:translate-x-0'" 
+         class="bg-md-sys-color-surface-container border-r border-md-sys-color-outline-variant transition-all duration-300 ease-in-out overflow-hidden min-h-full flex flex-col fixed lg:relative z-50 lg:z-auto">
       <!-- Collapsed state header -->
       <div class="p-4 flex justify-center" *ngIf="!sidenavOpened">
         <div class="w-10 h-10 bg-md-sys-color-primary rounded-full flex items-center justify-center">
@@ -35,7 +39,7 @@
       <div class="space-y-1" [class.px-3]="sidenavOpened" [class.px-2]="!sidenavOpened">
         <a routerLink="/dashboard"
            routerLinkActive="active"
-           class="nav-item group flex items-center gap-4 p-3 mx-1 rounded-2xl transition-all duration-200 text-md-sys-color-on-surface hover:bg-md-sys-color-surface-container-high relative overflow-hidden"
+           class="nav-item group flex items-center gap-4 p-4 mx-1 rounded-2xl transition-all duration-200 text-md-sys-color-on-surface hover:bg-md-sys-color-surface-container-high relative overflow-hidden touch-target"
            [class.bg-md-sys-color-secondary-container]="router.url === '/dashboard'"
            [class.text-md-sys-color-on-secondary-container]="router.url === '/dashboard'"
            [class.shadow-sm]="router.url === '/dashboard'"
@@ -49,7 +53,7 @@
 
         <a routerLink="/logs"
            routerLinkActive="active"
-           class="nav-item group flex items-center gap-4 p-3 mx-1 rounded-2xl transition-all duration-200 text-md-sys-color-on-surface hover:bg-md-sys-color-surface-container-high relative overflow-hidden"
+           class="nav-item group flex items-center gap-4 p-4 mx-1 rounded-2xl transition-all duration-200 text-md-sys-color-on-surface hover:bg-md-sys-color-surface-container-high relative overflow-hidden touch-target"
            [class.bg-md-sys-color-secondary-container]="router.url === '/logs'"
            [class.text-md-sys-color-on-secondary-container]="router.url === '/logs'"
            [class.shadow-sm]="router.url === '/logs'"
@@ -63,7 +67,7 @@
 
         <a routerLink="/database"
            routerLinkActive="active"
-           class="nav-item group flex items-center gap-4 p-3 mx-1 rounded-2xl transition-all duration-200 text-md-sys-color-on-surface hover:bg-md-sys-color-surface-container-high relative overflow-hidden"
+           class="nav-item group flex items-center gap-4 p-4 mx-1 rounded-2xl transition-all duration-200 text-md-sys-color-on-surface hover:bg-md-sys-color-surface-container-high relative overflow-hidden touch-target"
            [class.bg-md-sys-color-secondary-container]="router.url === '/database'"
            [class.text-md-sys-color-on-secondary-container]="router.url === '/database'"
            [class.shadow-sm]="router.url === '/database'"
@@ -77,7 +81,7 @@
 
         <a routerLink="/api-docs"
            routerLinkActive="active"
-           class="nav-item group flex items-center gap-4 p-3 mx-1 rounded-2xl transition-all duration-200 text-md-sys-color-on-surface hover:bg-md-sys-color-surface-container-high relative overflow-hidden"
+           class="nav-item group flex items-center gap-4 p-4 mx-1 rounded-2xl transition-all duration-200 text-md-sys-color-on-surface hover:bg-md-sys-color-surface-container-high relative overflow-hidden touch-target"
            [class.bg-md-sys-color-secondary-container]="router.url === '/api-docs'"
            [class.text-md-sys-color-on-secondary-container]="router.url === '/api-docs'"
            [class.shadow-sm]="router.url === '/api-docs'"
@@ -106,7 +110,7 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="flex-1 bg-md-sys-color-surface min-h-[calc(100vh-4rem)]">
+    <main class="flex-1 bg-md-sys-color-surface min-h-[calc(100vh-4rem)] lg:ml-0" [class.ml-0]="!sidenavOpened">
       <router-outlet></router-outlet>
     </main>
   </div>

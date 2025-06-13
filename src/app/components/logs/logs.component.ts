@@ -27,15 +27,15 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
     FormsModule
   ],
   template: `
-    <div class="p-6 bg-md-sys-color-surface h-screen overflow-hidden">
-      <h1 class="md-typescale-headline-large text-md-sys-color-on-surface mb-6">로그 관리</h1>
+    <div class="p-4 md:p-6 bg-md-sys-color-surface h-screen overflow-hidden">
+      <h1 class="md-typescale-headline-large text-md-sys-color-on-surface mb-4 md:mb-6">로그 관리</h1>
 
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6" style="height: calc(100vh - 120px);">
+      <div class="flex flex-col lg:grid lg:grid-cols-3 gap-4 md:gap-6" style="height: calc(100vh - 120px);">
         <!-- 로그 파일 목록 -->
-        <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface lg:col-span-1" style="max-height: 100%; display: flex; flex-direction: column; overflow: hidden;">
+        <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface lg:col-span-1 h-64 lg:h-auto" style="max-height: 100%; display: flex; flex-direction: column; overflow: hidden;">
           <div class="flex items-center justify-between mb-4">
             <h2 class="md-typescale-title-large text-md-sys-color-on-surface">로그 파일 목록</h2>
-            <button class="md-button md-button-text p-2 rounded-full" (click)="refreshLogFiles()">
+            <button class="md-button md-button-text p-3 rounded-full touch-target" (click)="refreshLogFiles()">
               <mat-icon class="w-5 h-5 text-md-sys-color-primary">refresh</mat-icon>
             </button>
           </div>
@@ -68,18 +68,19 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
         </div>
 
         <!-- 로그 내용 뷰어 -->
-        <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface lg:col-span-2" style="max-height: 100%; display: flex; flex-direction: column; overflow: hidden;">
-          <div class="flex items-center justify-between mb-4">
-            <h2 class="md-typescale-title-large text-md-sys-color-on-surface">
+        <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface lg:col-span-2 flex-1" style="max-height: 100%; display: flex; flex-direction: column; overflow: hidden;">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-2">
+            <h2 class="md-typescale-title-large text-md-sys-color-on-surface truncate">
               {{ selectedFile ? selectedFile.name : '로그 뷰어' }}
             </h2>
             <div class="flex items-center gap-2" *ngIf="selectedFile">
-              <button class="md-button md-button-text p-2 rounded-full" (click)="loadLogContent()" [disabled]="loadingContent">
+              <button class="md-button md-button-text p-3 rounded-full touch-target" (click)="loadLogContent()" [disabled]="loadingContent">
                 <mat-icon class="w-5 h-5 text-md-sys-color-primary">refresh</mat-icon>
               </button>
-              <button class="md-button md-button-tonal px-4 py-2 rounded-full" (click)="downloadLog()" [disabled]="!logContent">
+              <button class="md-button md-button-tonal px-4 py-2 rounded-full touch-target" (click)="downloadLog()" [disabled]="!logContent">
                 <mat-icon class="w-5 h-5 mr-2">download</mat-icon>
-                <span class="md-typescale-label-large">다운로드</span>
+                <span class="md-typescale-label-large hidden sm:inline">다운로드</span>
+                <span class="md-typescale-label-large sm:hidden">DL</span>
               </button>
             </div>
           </div>

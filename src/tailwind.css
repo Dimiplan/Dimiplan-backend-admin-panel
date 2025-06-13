@@ -75,3 +75,56 @@
   --shadow-elevation-4: 0px 2px 3px 0px rgba(0, 0, 0, 0.3), 0px 6px 10px 4px rgba(0, 0, 0, 0.15);
   --shadow-elevation-5: 0px 4px 4px 0px rgba(0, 0, 0, 0.3), 0px 8px 12px 6px rgba(0, 0, 0, 0.15);
 }
+
+/* Mobile-specific improvements */
+@media (max-width: 767px) {
+  .md-card {
+    padding: 16px !important;
+    min-height: auto !important;
+  }
+  
+  .md-typescale-headline-large {
+    font-size: 1.75rem !important;
+  }
+  
+  .md-typescale-title-large {
+    font-size: 1.375rem !important;
+  }
+  
+  .md-typescale-title-medium {
+    font-size: 1.125rem !important;
+  }
+}
+
+/* Touch improvements */
+@media (pointer: coarse) {
+  .md-button, .touch-target {
+    min-height: 48px;
+    min-width: 48px;
+  }
+  
+  input, select, textarea {
+    min-height: 44px;
+  }
+}
+
+/* Scrollable table wrapper for mobile */
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Better text wrapping */
+.break-words {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+/* Safe area for mobile devices with notches */
+@supports (padding: max(0px)) {
+  .safe-area-inset {
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+  }
+}

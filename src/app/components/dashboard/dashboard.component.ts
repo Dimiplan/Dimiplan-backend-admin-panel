@@ -23,10 +23,10 @@ import { AdminService, SystemStatus, UserStats } from '../../services/admin.serv
     MatChipsModule,
   ],
   template: `
-    <div class="dashboard-container p-6 bg-md-sys-color-surface min-h-screen">
-      <h1 class="md-typescale-headline-large text-md-sys-color-on-surface mb-6">관리자 대시보드</h1>
+    <div class="dashboard-container p-4 md:p-6 bg-md-sys-color-surface min-h-screen">
+      <h1 class="md-typescale-headline-large text-md-sys-color-on-surface mb-4 md:mb-6">관리자 대시보드</h1>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6">
         <!-- 시스템 상태 카드 -->
         <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface hover:shadow-elevation-3 transition-all duration-300">
           <div class="flex items-center gap-3 mb-4">
@@ -96,13 +96,13 @@ import { AdminService, SystemStatus, UserStats } from '../../services/admin.serv
           </div>
           <div class="flex-1">
             <div *ngIf="userStats" class="space-y-6">
-              <div class="grid grid-cols-2 gap-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div class="text-center p-4 bg-md-sys-color-primary-container rounded-xl">
-                  <div class="text-3xl font-bold text-md-sys-color-on-primary-container mb-1">{{ userStats.totalUsers }}</div>
+                  <div class="text-2xl md:text-3xl font-bold text-md-sys-color-on-primary-container mb-1">{{ userStats.totalUsers }}</div>
                   <div class="md-typescale-body-small text-md-sys-color-on-primary-container">총 사용자</div>
                 </div>
                 <div class="text-center p-4 bg-md-sys-color-secondary-container rounded-xl">
-                  <div class="text-3xl font-bold text-md-sys-color-on-secondary-container mb-1">{{ userStats.activeUsers }}</div>
+                  <div class="text-2xl md:text-3xl font-bold text-md-sys-color-on-secondary-container mb-1">{{ userStats.activeUsers }}</div>
                   <div class="md-typescale-body-small text-md-sys-color-on-secondary-container">활성 사용자 (30일)</div>
                 </div>
               </div>
@@ -110,8 +110,8 @@ import { AdminService, SystemStatus, UserStats } from '../../services/admin.serv
                 <h4 class="md-typescale-title-small text-md-sys-color-on-surface-variant mb-3">최근 가입자</h4>
                 <div class="space-y-2">
                   <div *ngFor="let user of userStats.recentUsers.slice(0, 5)"
-                       class="flex justify-between items-center py-2 px-3 bg-md-sys-color-surface-container-high rounded-lg">
-                    <span class="md-typescale-body-medium font-medium text-md-sys-color-on-surface">{{ user.email }}</span>
+                       class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-2 px-3 bg-md-sys-color-surface-container-high rounded-lg gap-1">
+                    <span class="md-typescale-body-medium font-medium text-md-sys-color-on-surface truncate">{{ user.email }}</span>
                     <span class="md-typescale-body-small text-md-sys-color-on-surface-variant">{{ formatDate(user.created_at) }}</span>
                   </div>
                 </div>
@@ -134,13 +134,13 @@ import { AdminService, SystemStatus, UserStats } from '../../services/admin.serv
 					</div>
 					<div class="flex-1">
 						<div *ngIf="aiUsage" class="space-y-4">
-							<div class="grid grid-cols-2 gap-4">
+							<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 								<div class="text-center p-4 bg-md-sys-color-primary-container rounded-xl">
-									<div class="text-3xl font-bold text-md-sys-color-on-primary-container mb-1">\${{ round(aiUsage.total_credits) }}</div>
+									<div class="text-2xl md:text-3xl font-bold text-md-sys-color-on-primary-container mb-1">\${{ round(aiUsage.total_credits) }}</div>
 									<div class="md-typescale-body-small text-md-sys-color-on-primary-container">충전된 크레딧</div>
 								</div>
 								<div class="text-center p-4 bg-md-sys-color-secondary-container rounded-xl">
-									<div class="text-3xl font-bold text-md-sys-color-on-secondary-container mb-1">\${{ round(aiUsage.total_usage) }}</div>
+									<div class="text-2xl md:text-3xl font-bold text-md-sys-color-on-secondary-container mb-1">\${{ round(aiUsage.total_usage) }}</div>
 									<div class="md-typescale-body-small text-md-sys-color-on-secondary-container">총 사용 크레딧</div>
 								</div>
 							</div>
@@ -172,19 +172,19 @@ import { AdminService, SystemStatus, UserStats } from '../../services/admin.serv
           </div>
           <div class="flex-1">
             <div class="space-y-3">
-              <button class="w-full md-button md-button-tonal flex items-center justify-start gap-3 p-4 rounded-xl" (click)="navigateToLogs()">
+              <button class="w-full md-button md-button-tonal flex items-center justify-start gap-3 p-4 rounded-xl touch-target" (click)="navigateToLogs()">
                 <mat-icon class="w-5 h-5 text-md-sys-color-on-secondary-container">article</mat-icon>
                 <span class="md-typescale-label-large">로그 보기</span>
               </button>
-              <button class="w-full md-button md-button-tonal flex items-center justify-start gap-3 p-4 rounded-xl" (click)="navigateToDatabase()">
+              <button class="w-full md-button md-button-tonal flex items-center justify-start gap-3 p-4 rounded-xl touch-target" (click)="navigateToDatabase()">
                 <mat-icon class="w-5 h-5 text-md-sys-color-on-secondary-container">storage</mat-icon>
                 <span class="md-typescale-label-large">데이터베이스</span>
               </button>
-              <button class="w-full md-button md-button-tonal flex items-center justify-start gap-3 p-4 rounded-xl" (click)="navigateToApiDocs()">
+              <button class="w-full md-button md-button-tonal flex items-center justify-start gap-3 p-4 rounded-xl touch-target" (click)="navigateToApiDocs()">
                 <mat-icon class="w-5 h-5 text-md-sys-color-on-secondary-container">code</mat-icon>
                 <span class="md-typescale-label-large">API 문서</span>
               </button>
-              <button class="w-full md-button md-button-filled flex items-center justify-start gap-3 p-4 rounded-xl" (click)="refreshData()">
+              <button class="w-full md-button md-button-filled flex items-center justify-start gap-3 p-4 rounded-xl touch-target" (click)="refreshData()">
                 <mat-icon class="w-5 h-5 text-md-sys-color-on-primary">refresh</mat-icon>
                 <span class="md-typescale-label-large">새로고침</span>
               </button>

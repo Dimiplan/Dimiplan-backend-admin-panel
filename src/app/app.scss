@@ -130,31 +130,62 @@ main {
               0px 4px 8px 3px rgba(0, 0, 0, 0.15);
 }
 
+// Touch target improvements
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+  
+  @media (pointer: coarse) {
+    min-height: 48px;
+    min-width: 48px;
+  }
+}
+
 // Responsive design improvements
-@media (max-width: 768px) {
-  nav {
-    width: 280px !important;
-    transform: translateX(-100%);
-    position: fixed;
-    z-index: 1000;
+@media (max-width: 1023px) {
+  .admin-layout {
+    .nav-item {
+      // Increase touch targets on mobile
+      padding: 16px !important;
+      min-height: 56px;
+      
+      span {
+        font-size: 16px;
+      }
+    }
     
-    &.opened {
-      transform: translateX(0);
+    // Ensure sidebar is always expanded on mobile when shown
+    nav {
+      width: 320px !important;
+      
+      &[class*="w-20"] {
+        width: 320px !important;
+      }
+    }
+    
+    // Hide collapsed state content on mobile
+    .nav-item [title] {
+      title: none !important;
     }
   }
-  
-  main {
-    margin-left: 0 !important;
-  }
-  
-  .nav-backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 999;
+}
+
+@media (max-width: 767px) {
+  .admin-layout {
+    h1 {
+      font-size: 1.25rem !important;
+    }
+    
+    // Adjust header padding on mobile
+    .bg-md-sys-color-surface-container {
+      .flex {
+        padding: 0 16px;
+        
+        .md-button {
+          padding: 12px;
+        }
+      }
+    }
   }
 }
 

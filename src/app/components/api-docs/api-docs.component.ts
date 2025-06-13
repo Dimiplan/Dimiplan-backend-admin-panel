@@ -31,24 +31,24 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
     FormsModule
   ],
   template: `
-    <div class="p-6 bg-md-sys-color-surface h-screen overflow-y-auto max-w-6xl mx-auto">
-      <h1 class="md-typescale-headline-large text-md-sys-color-on-surface mb-6">API 문서</h1>
+    <div class="p-4 md:p-6 bg-md-sys-color-surface h-screen overflow-y-auto max-w-6xl mx-auto">
+      <h1 class="md-typescale-headline-large text-md-sys-color-on-surface mb-4 md:mb-6">API 문서</h1>
 
-      <div class="flex flex-col md:flex-row gap-4 mb-6">
-        <div class="flex flex-col md:flex-row gap-4 flex-1">
-          <div class="flex-1 max-w-md">
+      <div class="flex flex-col lg:flex-row gap-4 mb-6">
+        <div class="flex flex-col sm:flex-row gap-4 flex-1">
+          <div class="flex-1">
             <div class="relative">
               <input
                 type="text"
                 [(ngModel)]="searchTerm"
                 (input)="filterApis()"
                 placeholder="경로나 설명으로 검색..."
-                class="w-full p-3 pr-12 bg-md-sys-color-surface-container-highest text-md-sys-color-on-surface rounded-xl border border-md-sys-color-outline focus:border-md-sys-color-primary focus:outline-none md-typescale-body-large">
+                class="w-full p-3 pr-12 bg-md-sys-color-surface-container-highest text-md-sys-color-on-surface rounded-xl border border-md-sys-color-outline focus:border-md-sys-color-primary focus:outline-none md-typescale-body-large touch-target">
               <mat-icon class="w-5 h-5 absolute right-3 top-1/2 transform -translate-y-1/2 text-md-sys-color-on-surface-variant">search</mat-icon>
             </div>
           </div>
 
-          <div class="w-full md:w-48">
+          <div class="w-full sm:w-48">
             <div class="relative">
               <mat-form-field appearance="outline" class="w-full filter-field">
                 <mat-label>경로 필터</mat-label>
@@ -79,16 +79,17 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
           </div>
         </div>
 
-        <div class="flex items-center gap-2">
-          <button class="md-button md-button-text p-2 rounded-full" (click)="refreshDocs()" [disabled]="loading" title="새로고침">
+        <div class="flex items-center gap-2 flex-wrap">
+          <button class="md-button md-button-text p-3 rounded-full touch-target" (click)="refreshDocs()" [disabled]="loading" title="새로고침">
             <mat-icon class="w-5 h-5 text-md-sys-color-primary">refresh</mat-icon>
           </button>
-          <button class="md-button md-button-text p-2 rounded-full" (click)="regenerateDocs()" [disabled]="loading" title="JSDoc 재생성">
+          <button class="md-button md-button-text p-3 rounded-full touch-target" (click)="regenerateDocs()" [disabled]="loading" title="JSDoc 재생성">
             <mat-icon class="w-5 h-5 text-md-sys-color-primary">autorenew</mat-icon>
           </button>
-          <button class="md-button md-button-filled px-4 py-2 rounded-full" (click)="exportDocs()" [disabled]="!apiDocs.length">
+          <button class="md-button md-button-filled px-4 py-2 rounded-full touch-target" (click)="exportDocs()" [disabled]="!apiDocs.length">
             <mat-icon class="w-5 h-5 mr-2">download</mat-icon>
-            <span class="md-typescale-label-large">내보내기</span>
+            <span class="md-typescale-label-large hidden sm:inline">내보내기</span>
+            <span class="md-typescale-label-large sm:hidden">내보내기</span>
           </button>
         </div>
       </div>
@@ -116,8 +117,8 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
 
         <div class="space-y-4">
           <div *ngFor="let doc of filteredDocs; trackBy: trackByPath" class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface">
-            <div class="flex items-center justify-between mb-4">
-              <div class="flex items-center gap-3">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-3">
+              <div class="flex items-center gap-3 flex-wrap">
                 <span class="px-3 py-1 rounded-full text-sm font-medium min-w-[60px] text-center"
                       [class]="getMethodColor(doc.method) === 'primary' ? 'bg-md-sys-color-primary text-md-sys-color-on-primary' :
                                getMethodColor(doc.method) === 'accent' ? 'bg-md-sys-color-secondary text-md-sys-color-on-secondary' :
@@ -125,14 +126,14 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
                                'bg-md-sys-color-surface-container-high text-md-sys-color-on-surface'">
                   {{ doc.method }}
                 </span>
-                <span class="font-mono md-typescale-title-medium font-medium text-md-sys-color-on-surface">{{ doc.path }}</span>
+                <span class="font-mono md-typescale-title-medium font-medium text-md-sys-color-on-surface break-all">{{ doc.path }}</span>
               </div>
             </div>
 
             <p class="md-typescale-body-large text-md-sys-color-on-surface-variant mb-6">{{ doc.name }}</p>
 
             <div class="space-y-6">
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-md-sys-color-surface-container-high rounded-xl">
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 bg-md-sys-color-surface-container-high rounded-xl">
                 <div class="flex items-center gap-2">
                   <span class="md-typescale-body-medium font-medium text-md-sys-color-on-surface-variant">파일:</span>
                   <span class="font-mono md-typescale-body-medium text-md-sys-color-on-surface">{{ doc.file }}</span>

@@ -29,15 +29,15 @@ import { AdminService, TableInfo, TableData } from '../../services/admin.service
     MatChipsModule
   ],
   template: `
-    <div class="p-6 bg-md-sys-color-surface h-screen overflow-hidden">
-      <h1 class="md-typescale-headline-large text-md-sys-color-on-surface mb-6">데이터베이스 관리</h1>
+    <div class="p-4 md:p-6 bg-md-sys-color-surface h-screen overflow-hidden">
+      <h1 class="md-typescale-headline-large text-md-sys-color-on-surface mb-4 md:mb-6">데이터베이스 관리</h1>
 
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6" style="height: calc(100vh - 120px);">
+      <div class="flex flex-col lg:grid lg:grid-cols-3 gap-4 md:gap-6" style="height: calc(100vh - 120px);">
         <!-- 테이블 목록 -->
-        <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface lg:col-span-1" style="max-height: 100%; display: flex; flex-direction: column; overflow: hidden;">
+        <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface lg:col-span-1 h-64 lg:h-auto" style="max-height: 100%; display: flex; flex-direction: column; overflow: hidden;">
           <div class="flex items-center justify-between mb-4">
             <h2 class="md-typescale-title-large text-md-sys-color-on-surface">테이블 목록</h2>
-            <button class="md-button md-button-text p-2 rounded-full" (click)="refreshTables()">
+            <button class="md-button md-button-text p-3 rounded-full touch-target" (click)="refreshTables()">
               <mat-icon class="w-5 h-5 text-md-sys-color-primary">refresh</mat-icon>
             </button>
           </div>
@@ -69,18 +69,19 @@ import { AdminService, TableInfo, TableData } from '../../services/admin.service
         </div>
 
         <!-- 테이블 데이터 뷰어 -->
-        <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface lg:col-span-2" style="max-height: 100%; display: flex; flex-direction: column; overflow: hidden;">
-          <div class="flex items-center justify-between mb-4">
-            <h2 class="md-typescale-title-large text-md-sys-color-on-surface">
+        <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface lg:col-span-2 flex-1" style="max-height: 100%; display: flex; flex-direction: column; overflow: hidden;">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-2">
+            <h2 class="md-typescale-title-large text-md-sys-color-on-surface truncate">
               {{ selectedTable ? selectedTable.name : '테이블 뷰어' }}
             </h2>
             <div class="flex items-center gap-2" *ngIf="selectedTable">
-              <button class="md-button md-button-text p-2 rounded-full" (click)="loadTableData()" [disabled]="loadingData">
+              <button class="md-button md-button-text p-3 rounded-full touch-target" (click)="loadTableData()" [disabled]="loadingData">
                 <mat-icon class="w-5 h-5 text-md-sys-color-primary">refresh</mat-icon>
               </button>
-              <button class="md-button md-button-tonal px-4 py-2 rounded-full" (click)="exportTableData()" [disabled]="!tableData">
+              <button class="md-button md-button-tonal px-4 py-2 rounded-full touch-target" (click)="exportTableData()" [disabled]="!tableData">
                 <mat-icon class="w-5 h-5 mr-2">download</mat-icon>
-                <span class="md-typescale-label-large">내보내기</span>
+                <span class="md-typescale-label-large hidden sm:inline">내보내기</span>
+                <span class="md-typescale-label-large sm:hidden">내보내기</span>
               </button>
             </div>
           </div>
@@ -104,9 +105,9 @@ import { AdminService, TableInfo, TableData } from '../../services/admin.service
                   <mat-icon class="w-5 h-5 text-md-sys-color-primary">info</mat-icon>
                   컬럼 정보
                 </h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
                   <div *ngFor="let column of tableData.columns" class="p-3 bg-md-sys-color-surface-container-high rounded-xl">
-                    <div class="md-typescale-body-large font-medium text-md-sys-color-on-surface mb-2">{{ column.name }}</div>
+                    <div class="md-typescale-body-large font-medium text-md-sys-color-on-surface mb-2 truncate">{{ column.name }}</div>
                     <div class="flex flex-wrap gap-2">
                       <span class="px-2 py-1 rounded-full text-xs" 
                             [class]="getColumnTypeColor(column.type) === 'primary' ? 'bg-md-sys-color-primary-container text-md-sys-color-on-primary-container' : 
