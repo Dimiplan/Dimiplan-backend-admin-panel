@@ -20,7 +20,7 @@ import { AdminService, SystemStatus, UserStats } from '../../services/admin.serv
     MatIconModule,
     MatGridListModule,
     MatProgressBarModule,
-    MatChipsModule
+    MatChipsModule,
   ],
   template: `
     <div class="dashboard-container p-6 bg-md-sys-color-surface min-h-screen">
@@ -136,18 +136,18 @@ import { AdminService, SystemStatus, UserStats } from '../../services/admin.serv
 						<div *ngIf="aiUsage" class="space-y-4">
 							<div class="grid grid-cols-2 gap-4">
 								<div class="text-center p-4 bg-md-sys-color-primary-container rounded-xl">
-									<div class="text-3xl font-bold text-md-sys-color-on-primary-container mb-1">{{ aiUsage.total_credits }}</div>
+									<div class="text-3xl font-bold text-md-sys-color-on-primary-container mb-1">\${{ round(aiUsage.total_credits) }}</div>
 									<div class="md-typescale-body-small text-md-sys-color-on-primary-container">충전된 크레딧</div>
 								</div>
 								<div class="text-center p-4 bg-md-sys-color-secondary-container rounded-xl">
-									<div class="text-3xl font-bold text-md-sys-color-on-secondary-container mb-1">{{ aiUsage.total_usage }}</div>
+									<div class="text-3xl font-bold text-md-sys-color-on-secondary-container mb-1">\${{ round(aiUsage.total_usage) }}</div>
 									<div class="md-typescale-body-small text-md-sys-color-on-secondary-container">총 사용 크레딧</div>
 								</div>
 							</div>
 							<div class="mt-4">
 								<div class="flex justify-between items-center mb-2">
 									<span class="md-typescale-body-small text-md-sys-color-on-surface-variant">사용량 추세</span>
-									<span class="md-typescale-body-small text-md-sys-color-on-surface-variant">{{ aiUsage.total_usage }} 크레딧</span>
+									<span class="md-typescale-body-small text-md-sys-color-on-surface-variant">\${{ round(aiUsage.total_usage) }} 크레딧</span>
 								</div>
 								<div class="w-full bg-md-sys-color-surface-container-high rounded-full h-2">
 									<div class="bg-md-sys-color-primary h-2 rounded-full transition-all duration-300"
@@ -297,6 +297,10 @@ export class DashboardComponent implements OnInit {
 	getCpuUsagePercent(): number {
 		if (!this.systemStatus || !this.systemStatus.loadavg) return 0;
 		return this.systemStatus.loadavg * 100;
+	}
+
+	round(value: number): number {
+		return Math.round(value*100) / 100; // 소수점 둘째 자리까지 반올림
 	}
 
   formatDate(dateString: string): string {
