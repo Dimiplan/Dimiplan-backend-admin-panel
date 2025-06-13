@@ -67,6 +67,16 @@ import { AdminService, SystemStatus, UserStats } from '../../services/admin.serv
                        [style.width.%]="getMemoryUsagePercent()"></div>
                 </div>
               </div>
+							<div class="mt-4">
+                <div class="flex justify-between items-center mb-2">
+                  <span class="md-typescale-body-small text-md-sys-color-on-surface-variant">CPU 사용률</span>
+                  <span class="md-typescale-body-small text-md-sys-color-on-surface-variant">{{ getCpuUsagePercent().toFixed(1) }}%</span>
+                </div>
+                <div class="w-full bg-md-sys-color-surface-container-high rounded-full h-2">
+                  <div class="bg-md-sys-color-primary h-2 rounded-full transition-all duration-300"
+                       [style.width.%]="getCpuUsagePercent()"></div>
+                </div>
+              </div>
             </div>
             <div *ngIf="!systemStatus" class="flex items-center justify-center h-48 text-md-sys-color-on-surface-variant">
               <div class="flex items-center gap-2">
@@ -230,6 +240,11 @@ export class DashboardComponent implements OnInit {
     if (!this.systemStatus) return 0;
     return (this.systemStatus.freemem / this.systemStatus.totalmem) * 100;
   }
+
+	getCpuUsagePercent(): number {
+		if (!this.systemStatus || !this.systemStatus.loadavg) return 0;
+		return this.systemStatus.loadavg * 100;
+	}
 
   formatDate(dateString: string): string {
     return new Date(dateString).toLocaleDateString('ko-KR');

@@ -6,6 +6,7 @@ export interface SystemStatus {
   uptime: number;
   totalmem: number;
 	freemem: number;
+	loadavg: number;
   platform: string;
   nodeVersion: string;
   environment: string;
