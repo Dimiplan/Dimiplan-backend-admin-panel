@@ -10,10 +10,10 @@
 @import './styles/material-tokens.scss';
 @import './styles/material-you-theme.scss';
 
-html, body { 
-  height: 100%; 
-  margin: 0; 
-  font-family: 'Roboto', "Helvetica Neue", sans-serif; 
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Roboto', "Helvetica Neue", sans-serif;
 }
 
 // Apply Material You theme to the entire application
@@ -77,11 +77,11 @@ body {
     border-radius: var(--md-sys-shape-corner-extra-small) !important;
     background-color: var(--md-sys-color-surface-container-highest) !important;
   }
-  
+
   .mat-mdc-form-field-focus-overlay {
     background-color: var(--md-sys-color-primary) !important;
   }
-  
+
   .mdc-text-field--focused .mdc-line-ripple::after {
     border-bottom-color: var(--md-sys-color-primary) !important;
   }
@@ -135,17 +135,4 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--md-sys-color-outline);
-}
-
-/* Dark theme toggle support */
-.dark-theme-toggle {
-  @apply fixed top-4 right-4 z-50;
-  @apply bg-md-sys-color-primary text-md-sys-color-on-primary;
-  @apply w-12 h-12 rounded-full shadow-elevation-2;
-  @apply flex items-center justify-center cursor-pointer;
-  @apply transition-all duration-300 ease-in-out;
-  
-  &:hover {
-    @apply shadow-elevation-3;
-  }
 }

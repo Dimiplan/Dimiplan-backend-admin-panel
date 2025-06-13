@@ -19,8 +19,10 @@
   font-weight: var(--md-sys-typescale-body-medium-weight);
 }
 
-.material-you-theme[data-theme="dark"] {
-  color-scheme: dark;
+@media (prefers-color-scheme: dark) {
+  .material-you-theme {
+    color-scheme: dark;
+  }
 }
 
 // Typography Classes

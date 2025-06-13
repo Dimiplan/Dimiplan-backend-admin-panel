@@ -48,8 +48,9 @@
   --md-sys-color-inverse-primary: #D0BCFF;
 }
 
-// Dark theme colors
-[data-theme="dark"] {
+// Dark theme colors - auto-detect system preference
+@media (prefers-color-scheme: dark) {
+  :root {
   --md-sys-color-primary: #D0BCFF;
   --md-sys-color-on-primary: #381E72;
   --md-sys-color-primary-container: #4F378B;
@@ -93,6 +94,7 @@
   --md-sys-color-inverse-surface: #E6E1E5;
   --md-sys-color-inverse-on-surface: #313033;
   --md-sys-color-inverse-primary: #6750A4;
+  }
 }
 
 // Material Design 3 Typography Scale
