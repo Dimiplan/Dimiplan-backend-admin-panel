@@ -41,19 +41,19 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
               (input)="filterApis()" 
               placeholder="경로나 설명으로 검색..."
               class="w-full p-3 pr-12 bg-md-sys-color-surface-container-highest text-md-sys-color-on-surface rounded-xl border border-md-sys-color-outline focus:border-md-sys-color-primary focus:outline-none md-typescale-body-large">
-            <mat-icon class="absolute right-3 top-1/2 transform -translate-y-1/2 text-md-sys-color-on-surface-variant">search</mat-icon>
+            <mat-icon class="w-5 h-5 absolute right-3 top-1/2 transform -translate-y-1/2 text-md-sys-color-on-surface-variant">search</mat-icon>
           </div>
         </div>
 
         <div class="flex items-center gap-2">
           <button class="md-button md-button-text p-2 rounded-full" (click)="refreshDocs()" [disabled]="loading" title="새로고침">
-            <mat-icon class="text-md-sys-color-primary">refresh</mat-icon>
+            <mat-icon class="w-5 h-5 text-md-sys-color-primary">refresh</mat-icon>
           </button>
           <button class="md-button md-button-text p-2 rounded-full" (click)="regenerateDocs()" [disabled]="loading" title="JSDoc 재생성">
-            <mat-icon class="text-md-sys-color-primary">autorenew</mat-icon>
+            <mat-icon class="w-5 h-5 text-md-sys-color-primary">autorenew</mat-icon>
           </button>
           <button class="md-button md-button-filled px-4 py-2 rounded-full" (click)="exportDocs()" [disabled]="!apiDocs.length">
-            <mat-icon class="mr-2">download</mat-icon>
+            <mat-icon class="w-5 h-5 mr-2">download</mat-icon>
             <span class="md-typescale-label-large">내보내기</span>
           </button>
         </div>
@@ -65,12 +65,12 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
       </div>
 
       <div *ngIf="!loading && filteredDocs.length === 0 && apiDocs.length > 0" class="flex flex-col items-center justify-center py-20">
-        <mat-icon class="text-6xl mb-4 text-md-sys-color-outline">search_off</mat-icon>
+        <mat-icon class="w-16 h-16 mb-4 text-md-sys-color-outline">search_off</mat-icon>
         <p class="md-typescale-body-large text-md-sys-color-on-surface-variant">검색 결과가 없습니다.</p>
       </div>
 
       <div *ngIf="!loading && apiDocs.length === 0" class="flex flex-col items-center justify-center py-20">
-        <mat-icon class="text-6xl mb-4 text-md-sys-color-outline">api</mat-icon>
+        <mat-icon class="w-16 h-16 mb-4 text-md-sys-color-outline">api</mat-icon>
         <p class="md-typescale-body-large text-md-sys-color-on-surface-variant">API 문서를 찾을 수 없습니다.</p>
       </div>
 
@@ -121,7 +121,7 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
 
               <div *ngIf="doc.details" class="space-y-2">
                 <h4 class="md-typescale-title-small text-md-sys-color-on-surface flex items-center gap-2">
-                  <mat-icon class="text-md-sys-color-primary text-lg">description</mat-icon>
+                  <mat-icon class="w-5 h-5 text-md-sys-color-primary">description</mat-icon>
                   상세 설명
                 </h4>
                 <p class="md-typescale-body-medium text-md-sys-color-on-surface leading-relaxed">{{ doc.details }}</p>
@@ -129,7 +129,7 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
 
               <div *ngIf="doc.returns" class="space-y-2">
                 <h4 class="md-typescale-title-small text-md-sys-color-on-surface flex items-center gap-2">
-                  <mat-icon class="text-md-sys-color-primary text-lg">keyboard_return</mat-icon>
+                  <mat-icon class="w-5 h-5 text-md-sys-color-primary">keyboard_return</mat-icon>
                   반환값
                 </h4>
                 <p class="md-typescale-body-medium text-md-sys-color-on-surface leading-relaxed">{{ doc.returns }}</p>
@@ -137,7 +137,7 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
 
               <div class="space-y-2">
                 <h4 class="md-typescale-title-small text-md-sys-color-on-surface flex items-center gap-2">
-                  <mat-icon class="text-md-sys-color-primary text-lg">code</mat-icon>
+                  <mat-icon class="w-5 h-5 text-md-sys-color-primary">code</mat-icon>
                   사용 예시
                 </h4>
                 <div class="relative bg-gray-900 text-gray-100 rounded-xl overflow-hidden">
@@ -145,7 +145,7 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
                   <button class="absolute top-3 right-3 p-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors" 
                           (click)="copyCurl(doc)" 
                           title="클립보드에 복사">
-                    <mat-icon class="text-gray-300 text-lg">content_copy</mat-icon>
+                    <mat-icon class="w-5 h-5 text-gray-300">content_copy</mat-icon>
                   </button>
                 </div>
               </div>

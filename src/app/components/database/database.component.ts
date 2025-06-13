@@ -38,7 +38,7 @@ import { AdminService, TableInfo, TableData } from '../../services/admin.service
           <div class="flex items-center justify-between mb-4">
             <h2 class="md-typescale-title-large text-md-sys-color-on-surface">테이블 목록</h2>
             <button class="md-button md-button-text p-2 rounded-full" (click)="refreshTables()">
-              <mat-icon class="text-md-sys-color-primary">refresh</mat-icon>
+              <mat-icon class="w-5 h-5 text-md-sys-color-primary">refresh</mat-icon>
             </button>
           </div>
           <div class="flex-1 overflow-y-auto">
@@ -47,7 +47,7 @@ import { AdminService, TableInfo, TableData } from '../../services/admin.service
                 *ngFor="let table of tables" 
                 [class]="'flex items-center gap-3 p-3 rounded-xl cursor-pointer transition-all duration-200 ' + (selectedTable?.name === table.name ? 'bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container' : 'hover:bg-md-sys-color-surface-container-high')"
                 (click)="selectTable(table)">
-                <mat-icon class="min-w-[24px]" [class.text-md-sys-color-on-secondary-container]="selectedTable?.name === table.name">table_chart</mat-icon>
+                <mat-icon class="w-6 h-6 flex-shrink-0" [class.text-md-sys-color-on-secondary-container]="selectedTable?.name === table.name">table_chart</mat-icon>
                 <div class="flex-1">
                   <div class="md-typescale-body-large font-medium">{{ table.name }}</div>
                   <div class="flex items-center gap-2 mt-1">
@@ -76,10 +76,10 @@ import { AdminService, TableInfo, TableData } from '../../services/admin.service
             </h2>
             <div class="flex items-center gap-2" *ngIf="selectedTable">
               <button class="md-button md-button-text p-2 rounded-full" (click)="loadTableData()" [disabled]="loadingData">
-                <mat-icon class="text-md-sys-color-primary">refresh</mat-icon>
+                <mat-icon class="w-5 h-5 text-md-sys-color-primary">refresh</mat-icon>
               </button>
               <button class="md-button md-button-tonal px-4 py-2 rounded-full" (click)="exportTableData()" [disabled]="!tableData">
-                <mat-icon class="mr-2">download</mat-icon>
+                <mat-icon class="w-5 h-5 mr-2">download</mat-icon>
                 <span class="md-typescale-label-large">내보내기</span>
               </button>
             </div>
@@ -87,7 +87,7 @@ import { AdminService, TableInfo, TableData } from '../../services/admin.service
           <div class="flex-1 overflow-hidden">
             <div *ngIf="!selectedTable" class="flex items-center justify-center h-full text-md-sys-color-on-surface-variant">
               <div class="text-center">
-                <mat-icon class="text-6xl mb-4 text-md-sys-color-outline">table_view</mat-icon>
+                <mat-icon class="w-16 h-16 mb-4 text-md-sys-color-outline">table_view</mat-icon>
                 <p class="md-typescale-body-large">왼쪽에서 테이블을 선택해주세요.</p>
               </div>
             </div>
@@ -101,7 +101,7 @@ import { AdminService, TableInfo, TableData } from '../../services/admin.service
               <!-- 컬럼 정보 -->
               <div class="mb-6">
                 <h3 class="md-typescale-title-medium text-md-sys-color-on-surface mb-3 flex items-center gap-2">
-                  <mat-icon class="text-md-sys-color-primary">info</mat-icon>
+                  <mat-icon class="w-5 h-5 text-md-sys-color-primary">info</mat-icon>
                   컬럼 정보
                 </h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
@@ -129,7 +129,7 @@ import { AdminService, TableInfo, TableData } from '../../services/admin.service
               <!-- 테이블 데이터 -->
               <div class="flex-1 flex flex-col overflow-hidden">
                 <h3 class="md-typescale-title-medium text-md-sys-color-on-surface mb-3 flex items-center gap-2">
-                  <mat-icon class="text-md-sys-color-primary">table_rows</mat-icon>
+                  <mat-icon class="w-5 h-5 text-md-sys-color-primary">table_rows</mat-icon>
                   데이터 ({{ tableData.pagination.totalCount }}개 레코드)
                 </h3>
                 <div class="flex-1 overflow-auto border border-md-sys-color-outline-variant rounded-xl">
@@ -140,7 +140,7 @@ import { AdminService, TableInfo, TableData } from '../../services/admin.service
                           <span>{{ column.name }}</span>
                           <mat-icon 
                             *ngIf="column.key" 
-                            class="text-sm text-md-sys-color-primary"
+                            class="w-4 h-4 text-md-sys-color-primary"
                             [matTooltip]="getKeyTooltip(column.key)">
                             {{ getKeyIcon(column.key) }}
                           </mat-icon>

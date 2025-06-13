@@ -36,7 +36,7 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
           <div class="flex items-center justify-between mb-4">
             <h2 class="md-typescale-title-large text-md-sys-color-on-surface">로그 파일 목록</h2>
             <button class="md-button md-button-text p-2 rounded-full" (click)="refreshLogFiles()">
-              <mat-icon class="text-md-sys-color-primary">refresh</mat-icon>
+              <mat-icon class="w-5 h-5 text-md-sys-color-primary">refresh</mat-icon>
             </button>
           </div>
           <div class="flex-1 overflow-y-auto">
@@ -45,7 +45,7 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
                 *ngFor="let file of logFiles" 
                 [class]="'flex items-center gap-3 p-3 rounded-xl cursor-pointer transition-all duration-200 ' + (selectedFile?.name === file.name ? 'bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container' : 'hover:bg-md-sys-color-surface-container-high')"
                 (click)="selectLogFile(file)">
-                <mat-icon class="min-w-[24px]" [class.text-md-sys-color-on-secondary-container]="selectedFile?.name === file.name">article</mat-icon>
+                <mat-icon class="w-6 h-6 flex-shrink-0" [class.text-md-sys-color-on-secondary-container]="selectedFile?.name === file.name">article</mat-icon>
                 <div class="flex-1 overflow-hidden">
                   <div class="md-typescale-body-large font-medium truncate">{{ file.name }}</div>
                   <div class="md-typescale-body-small text-md-sys-color-on-surface-variant">
@@ -56,7 +56,7 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
             </div>
             <div *ngIf="logFiles.length === 0 && !loadingFiles" class="flex items-center justify-center h-48 text-md-sys-color-on-surface-variant">
               <div class="text-center">
-                <mat-icon class="text-6xl mb-4 text-md-sys-color-outline">article</mat-icon>
+                <mat-icon class="w-16 h-16 mb-4 text-md-sys-color-outline">article</mat-icon>
                 <p class="md-typescale-body-medium">로그 파일이 없습니다.</p>
               </div>
             </div>
@@ -85,10 +85,10 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
                 <option [value]="0">전체</option>
               </select>
               <button class="md-button md-button-text p-2 rounded-full" (click)="loadLogContent()" [disabled]="loadingContent">
-                <mat-icon class="text-md-sys-color-primary">refresh</mat-icon>
+                <mat-icon class="w-5 h-5 text-md-sys-color-primary">refresh</mat-icon>
               </button>
               <button class="md-button md-button-tonal px-4 py-2 rounded-full" (click)="downloadLog()" [disabled]="!logContent">
-                <mat-icon class="mr-2">download</mat-icon>
+                <mat-icon class="w-5 h-5 mr-2">download</mat-icon>
                 <span class="md-typescale-label-large">다운로드</span>
               </button>
             </div>
@@ -96,14 +96,14 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
           <div class="flex-1 overflow-hidden">
             <div *ngIf="!selectedFile" class="flex items-center justify-center h-full text-md-sys-color-on-surface-variant">
               <div class="text-center">
-                <mat-icon class="text-6xl mb-4 text-md-sys-color-outline">visibility</mat-icon>
+                <mat-icon class="w-16 h-16 mb-4 text-md-sys-color-outline">visibility</mat-icon>
                 <p class="md-typescale-body-large">왼쪽에서 로그 파일을 선택해주세요.</p>
               </div>
             </div>
             
             <div *ngIf="selectedFile && !logContent && !loadingContent" class="flex items-center justify-center h-full text-md-sys-color-on-surface-variant">
               <div class="text-center">
-                <mat-icon class="text-6xl mb-4 text-md-sys-color-outline">refresh</mat-icon>
+                <mat-icon class="w-16 h-16 mb-4 text-md-sys-color-outline">refresh</mat-icon>
                 <p class="md-typescale-body-large">로그 내용을 불러오려면 새로고침 버튼을 클릭하세요.</p>
               </div>
             </div>

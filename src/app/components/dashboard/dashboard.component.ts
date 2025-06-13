@@ -29,7 +29,7 @@ import { AdminService, SystemStatus, UserStats } from '../../services/admin.serv
         <!-- 시스템 상태 카드 -->
         <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface hover:shadow-elevation-3 transition-all duration-300">
           <div class="flex items-center gap-3 mb-4">
-            <mat-icon class="text-md-sys-color-primary">monitor</mat-icon>
+            <mat-icon class="w-6 h-6 text-md-sys-color-primary">monitor</mat-icon>
             <h2 class="md-typescale-title-large text-md-sys-color-on-surface">시스템 상태</h2>
           </div>
           <div class="flex-1">
@@ -70,7 +70,7 @@ import { AdminService, SystemStatus, UserStats } from '../../services/admin.serv
             </div>
             <div *ngIf="!systemStatus" class="flex items-center justify-center h-48 text-md-sys-color-on-surface-variant">
               <div class="flex items-center gap-2">
-                <mat-icon class="animate-spin">refresh</mat-icon>
+                <mat-icon class="w-5 h-5 animate-spin">refresh</mat-icon>
                 <span class="md-typescale-body-medium">시스템 정보를 불러오는 중...</span>
               </div>
             </div>
@@ -80,7 +80,7 @@ import { AdminService, SystemStatus, UserStats } from '../../services/admin.serv
         <!-- 사용자 통계 카드 -->
         <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface hover:shadow-elevation-3 transition-all duration-300">
           <div class="flex items-center gap-3 mb-4">
-            <mat-icon class="text-md-sys-color-primary">people</mat-icon>
+            <mat-icon class="w-6 h-6 text-md-sys-color-primary">people</mat-icon>
             <h2 class="md-typescale-title-large text-md-sys-color-on-surface">사용자 통계</h2>
           </div>
           <div class="flex-1">
@@ -108,7 +108,7 @@ import { AdminService, SystemStatus, UserStats } from '../../services/admin.serv
             </div>
             <div *ngIf="!userStats" class="flex items-center justify-center h-48 text-md-sys-color-on-surface-variant">
               <div class="flex items-center gap-2">
-                <mat-icon class="animate-spin">refresh</mat-icon>
+                <mat-icon class="w-5 h-5 animate-spin">refresh</mat-icon>
                 <span class="md-typescale-body-medium">사용자 통계를 불러오는 중...</span>
               </div>
             </div>
@@ -118,25 +118,25 @@ import { AdminService, SystemStatus, UserStats } from '../../services/admin.serv
         <!-- 빠른 액션 카드 -->
         <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface hover:shadow-elevation-3 transition-all duration-300">
           <div class="flex items-center gap-3 mb-4">
-            <mat-icon class="text-md-sys-color-primary">flash_on</mat-icon>
+            <mat-icon class="w-6 h-6 text-md-sys-color-primary">flash_on</mat-icon>
             <h2 class="md-typescale-title-large text-md-sys-color-on-surface">빠른 액션</h2>
           </div>
           <div class="flex-1">
             <div class="space-y-3">
               <button class="w-full md-button md-button-tonal flex items-center justify-start gap-3 p-4 rounded-xl" (click)="navigateToLogs()">
-                <mat-icon class="text-md-sys-color-on-secondary-container">article</mat-icon>
+                <mat-icon class="w-5 h-5 text-md-sys-color-on-secondary-container">article</mat-icon>
                 <span class="md-typescale-label-large">로그 보기</span>
               </button>
               <button class="w-full md-button md-button-tonal flex items-center justify-start gap-3 p-4 rounded-xl" (click)="navigateToDatabase()">
-                <mat-icon class="text-md-sys-color-on-secondary-container">storage</mat-icon>
+                <mat-icon class="w-5 h-5 text-md-sys-color-on-secondary-container">storage</mat-icon>
                 <span class="md-typescale-label-large">데이터베이스</span>
               </button>
               <button class="w-full md-button md-button-tonal flex items-center justify-start gap-3 p-4 rounded-xl" (click)="navigateToApiDocs()">
-                <mat-icon class="text-md-sys-color-on-secondary-container">code</mat-icon>
+                <mat-icon class="w-5 h-5 text-md-sys-color-on-secondary-container">code</mat-icon>
                 <span class="md-typescale-label-large">API 문서</span>
               </button>
               <button class="w-full md-button md-button-filled flex items-center justify-start gap-3 p-4 rounded-xl" (click)="refreshData()">
-                <mat-icon class="text-md-sys-color-on-primary">refresh</mat-icon>
+                <mat-icon class="w-5 h-5 text-md-sys-color-on-primary">refresh</mat-icon>
                 <span class="md-typescale-label-large">새로고침</span>
               </button>
             </div>
