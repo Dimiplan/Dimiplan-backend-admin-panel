@@ -29,10 +29,10 @@ import { AdminService, TableInfo, TableData } from '../../services/admin.service
     MatChipsModule
   ],
   template: `
-    <div class="p-6 bg-md-sys-color-surface min-h-screen">
+    <div class="p-6 bg-md-sys-color-surface h-full overflow-hidden">
       <h1 class="md-typescale-headline-large text-md-sys-color-on-surface mb-6">데이터베이스 관리</h1>
 
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[calc(100vh-8rem)]">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[calc(100%-3rem)]">
         <!-- 테이블 목록 -->
         <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface lg:col-span-1">
           <div class="flex items-center justify-between mb-4">
