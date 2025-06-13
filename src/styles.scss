@@ -1,3 +1,4 @@
+@use "sass:meta";
 /* You can add global styles to this file, and also import other style files */
 
 // Tailwind CSS will be compiled separately and imported via angular.json
@@ -7,8 +8,8 @@
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 // Import Material Design 3 tokens and Material You theme
-@import './styles/material-tokens.scss';
-@import './styles/material-you-theme.scss';
+@include meta.load-css('styles/material-tokens.scss');
+@include meta.load-css('styles/material-you-theme.scss');
 
 html, body {
   height: 100%;
