@@ -53,6 +53,14 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
               <mat-form-field appearance="outline" class="w-full filter-field">
                 <mat-label>경로 필터</mat-label>
                 <mat-select [(value)]="selectedFile" (selectionChange)="filterApis()" class="custom-select">
+                  <mat-select-trigger>
+                    <div class="flex items-center gap-2">
+                      <mat-icon class="w-4 h-4" [class]="selectedFile ? 'text-md-sys-color-primary' : 'text-md-sys-color-on-surface-variant'">
+                        {{ selectedFile ? 'description' : 'select_all' }}
+                      </mat-icon>
+                      <span [class]="selectedFile ? 'font-mono text-sm' : ''">{{ selectedFile || '모든 경로' }}</span>
+                    </div>
+                  </mat-select-trigger>
                   <mat-option value="" class="filter-option">
                     <div class="flex items-center gap-2">
                       <mat-icon class="w-4 h-4 text-md-sys-color-on-surface-variant">select_all</mat-icon>
@@ -247,9 +255,18 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
       box-shadow: 0 0 0 2px var(--md-sys-color-primary);
     }
 
+    .filter-field {
+      background-color: var(--md-sys-color-surface-container-highest) !important;
+    }
+
     .filter-field .mat-mdc-form-field-flex {
       border-radius: 12px;
       transition: all 0.3s ease;
+      background-color: var(--md-sys-color-surface-container-highest) !important;
+    }
+
+    .filter-field .mat-mdc-form-field-outline {
+      background-color: var(--md-sys-color-surface-container-highest) !important;
     }
 
     .filter-field:hover .mat-mdc-form-field-flex {
@@ -264,16 +281,30 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
       padding: 12px 16px !important;
       min-height: 48px !important;
       transition: background-color 0.2s ease;
+      background-color: var(--md-sys-color-surface) !important;
     }
 
     .filter-option:hover {
       background-color: var(--md-sys-color-surface-container-high) !important;
     }
 
+    .custom-select {
+      background-color: var(--md-sys-color-surface-container-highest) !important;
+    }
+
     .custom-select .mat-mdc-select-value {
       display: flex;
       align-items: center;
       gap: 8px;
+      background-color: transparent !important;
+    }
+
+    .mat-mdc-select-panel {
+      background-color: var(--md-sys-color-surface) !important;
+    }
+
+    .mat-mdc-form-field-subscript-wrapper {
+      background-color: transparent !important;
     }
   `]
 })
@@ -307,7 +338,7 @@ export class ApiDocsComponent implements OnInit {
             }
             return a.path.localeCompare(b.path);
           });
-          this.filteredDocs = [...this.apiDocs];
+          this.filterApis();
         }
         this.loading = false;
       },
