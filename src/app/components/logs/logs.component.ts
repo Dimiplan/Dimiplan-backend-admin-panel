@@ -27,7 +27,7 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
     FormsModule
   ],
   template: `
-    <div class="p-6 bg-md-sys-color-surface min-h-screen">
+    <div class="p-6 bg-md-sys-color-surface h-screen overflow-hidden">
       <h1 class="md-typescale-headline-large text-md-sys-color-on-surface mb-6">로그 관리</h1>
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[calc(100vh-8rem)]">
