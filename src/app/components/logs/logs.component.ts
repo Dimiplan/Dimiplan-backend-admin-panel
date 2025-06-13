@@ -27,12 +27,12 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
     FormsModule
   ],
   template: `
-    <div class="p-4 md:p-6 bg-md-sys-color-surface h-screen overflow-hidden">
+    <div class="p-4 md:p-6 bg-md-sys-color-surface min-h-screen">
       <h1 class="md-typescale-headline-large text-md-sys-color-on-surface mb-4 md:mb-6">로그 관리</h1>
 
-      <div class="flex flex-col lg:grid lg:grid-cols-3 gap-4 md:gap-6" style="height: calc(100vh - 120px);">
+      <div class="flex flex-col lg:grid lg:grid-cols-3 gap-4 md:gap-6" style="min-height: calc(100vh - 200px);">
         <!-- 로그 파일 목록 -->
-        <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface lg:col-span-1 h-64 lg:h-auto" style="max-height: 100%; display: flex; flex-direction: column; overflow: hidden;">
+        <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface lg:col-span-1" style="min-height: 400px; display: flex; flex-direction: column;">
           <div class="flex items-center justify-between mb-4">
             <h2 class="md-typescale-title-large text-md-sys-color-on-surface">로그 파일 목록</h2>
             <button class="md-button md-button-text p-3 rounded-full touch-target" (click)="refreshLogFiles()">
@@ -68,7 +68,7 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
         </div>
 
         <!-- 로그 내용 뷰어 -->
-        <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface lg:col-span-2 flex-1" style="max-height: 100%; display: flex; flex-direction: column; overflow: hidden;">
+        <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface lg:col-span-2" style="min-height: 400px; display: flex; flex-direction: column;">
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-2">
             <h2 class="md-typescale-title-large text-md-sys-color-on-surface truncate">
               {{ selectedFile ? selectedFile.name : '로그 뷰어' }}
@@ -84,7 +84,7 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
               </button>
             </div>
           </div>
-          <div class="flex-1" style="min-height: 0; overflow: hidden;">
+          <div class="flex-1" style="min-height: 300px;">
             <div *ngIf="!selectedFile" class="flex items-center justify-center h-full text-md-sys-color-on-surface-variant">
               <div class="text-center">
                 <mat-icon class="w-16 h-16 mb-4 text-md-sys-color-outline">visibility</mat-icon>
@@ -144,8 +144,19 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
       padding: 24px;
       display: flex;
       flex-direction: column;
-      height: 100%;
-      min-height: 0;
+      min-height: 400px;
+    }
+
+    @media (max-width: 1023px) {
+      .flex.flex-col.lg\\:grid {
+        display: flex !important;
+        flex-direction: column !important;
+      }
+      
+      .md-card {
+        min-height: 300px;
+        margin-bottom: 1rem;
+      }
     }
     
 

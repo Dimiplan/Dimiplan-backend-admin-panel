@@ -23,10 +23,10 @@ import { AdminService, SystemStatus, UserStats } from '../../services/admin.serv
     MatChipsModule,
   ],
   template: `
-    <div class="dashboard-container p-4 md:p-6 bg-md-sys-color-surface min-h-screen">
+    <div class="dashboard-container p-4 md:p-6 bg-md-sys-color-surface min-h-screen max-h-screen overflow-y-auto">
       <h1 class="md-typescale-headline-large text-md-sys-color-on-surface mb-4 md:mb-6">관리자 대시보드</h1>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6 overflow-x-auto pb-4">
         <!-- 시스템 상태 카드 -->
         <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface hover:shadow-elevation-3 transition-all duration-300">
           <div class="flex items-center gap-3 mb-4">
@@ -208,6 +208,25 @@ import { AdminService, SystemStatus, UserStats } from '../../services/admin.serv
       min-height: 300px;
       display: flex;
       flex-direction: column;
+      min-width: 280px;
+      max-width: 100%;
+    }
+
+    @media (max-width: 768px) {
+      .dashboard-container {
+        overflow-x: hidden !important;
+      }
+      
+      .grid {
+        display: flex !important;
+        flex-direction: column !important;
+        overflow-x: visible !important;
+      }
+      
+      .md-card {
+        min-width: 100% !important;
+        width: 100% !important;
+      }
     }
 
     .md-button {
