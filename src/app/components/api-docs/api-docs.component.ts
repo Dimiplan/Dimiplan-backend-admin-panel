@@ -175,7 +175,7 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
                       <div class="flex items-center gap-2">
                         <code class="px-2 py-1 bg-md-sys-color-surface-container rounded text-sm font-mono text-md-sys-color-on-surface">{{ param.name }}</code>
                         <span class="px-2 py-1 rounded-full text-xs"
-                              [class]="param.required ? 'bg-md-sys-color-error-container text-md-sys-color-on-error-container' : 'bg-md-sys-color-surface-container text-md-sys-color-on-surface'">{{ param.required ? '필수' : '선택' }}</span>
+                              [class]="param.optional != 'optional' ? 'bg-md-sys-color-error-container text-md-sys-color-on-error-container' : 'bg-md-sys-color-surface-container text-md-sys-color-on-surface'">{{ param.optional != 'optional' ? '필수' : '선택' }}</span>
                       </div>
                       <span class="text-sm font-mono text-md-sys-color-on-surface-variant">{{ param.type }}</span>
                     </div>
@@ -505,7 +505,7 @@ export class ApiDocsComponent implements OnInit {
         if (doc.params && doc.params.length > 0) {
           markdown += `**${doc.method.toUpperCase() === 'GET' ? '쿼리 파라미터' : '요청 본문'}:**\n\n`;
           for (const param of doc.params) {
-            markdown += `- \`${param.name}\` (${param.type}) ${param.required ? '**필수**' : '*선택*'}: ${param.description}\n`;
+            markdown += `- \`${param.name}\` (${param.type}) ${param.optional != "optional" ? '**필수**' : '*선택*'}: ${param.description}\n`;
           }
           markdown += '\n';
         }

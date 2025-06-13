@@ -70,7 +70,7 @@ export interface ApiDoc {
   params?: Array<{
     name: string;
     type: string;
-    required: boolean;
+    optional: string;
     description: string;
   }>;
   routeParams?: Array<{
