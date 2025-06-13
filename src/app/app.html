@@ -12,9 +12,9 @@
   <div class="flex relative">
     <!-- Mobile backdrop -->
     <div *ngIf="sidenavOpened" class="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden" (click)="toggleSidenav()"></div>
-    
+
     <!-- Navigation Rail -->
-    <nav [class]="sidenavOpened ? 'w-80 translate-x-0' : 'w-20 -translate-x-full lg:translate-x-0'" 
+    <nav [class]="sidenavOpened ? 'w-80 translate-x-0' : 'w-20 -translate-x-full lg:translate-x-0'"
          class="bg-md-sys-color-surface-container border-r border-md-sys-color-outline-variant transition-all duration-300 ease-in-out overflow-hidden min-h-full flex flex-col fixed lg:relative z-50 lg:z-auto">
       <!-- Collapsed state header -->
       <div class="p-4 flex justify-center" *ngIf="!sidenavOpened">

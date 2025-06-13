@@ -27,20 +27,20 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
     FormsModule
   ],
   template: `
-    <div class="p-4 md:p-6 bg-md-sys-color-surface min-h-screen">
-      <h1 class="md-typescale-headline-large text-md-sys-color-on-surface mb-4 md:mb-6">로그 관리</h1>
+    <div class="p-4 md:p-6 bg-md-sys-color-surface h-screen overflow-hidden flex flex-col">
+      <h1 class="md-typescale-headline-large text-md-sys-color-on-surface mb-4 md:mb-6 flex-shrink-0">로그 관리</h1>
 
-      <div class="flex flex-col lg:grid lg:grid-cols-3 gap-4 md:gap-6" style="min-height: calc(100vh - 200px);">
+      <div class="flex flex-col lg:grid lg:grid-cols-3 gap-4 md:gap-6 flex-1 min-h-0">
         <!-- 로그 파일 목록 -->
-        <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface lg:col-span-1" style="min-height: 400px; display: flex; flex-direction: column;">
-          <div class="flex items-center justify-between mb-4">
+        <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface lg:col-span-1 flex flex-col min-h-0">
+          <div class="flex items-center justify-between mb-4 flex-shrink-0">
             <h2 class="md-typescale-title-large text-md-sys-color-on-surface">로그 파일 목록</h2>
             <button class="md-button md-button-text p-3 rounded-full touch-target" (click)="refreshLogFiles()">
               <mat-icon class="w-5 h-5 text-md-sys-color-primary">refresh</mat-icon>
             </button>
           </div>
-          <div class="flex-1 overflow-y-auto" style="min-height: 0;">
-            <div *ngIf="logFiles.length > 0" class="space-y-2">
+          <div class="flex-1 overflow-y-auto min-h-0">
+            <div *ngIf="logFiles.length > 0" class="space-y-2 pr-2">
               <div
                 *ngFor="let file of logFiles"
                 [class]="'flex items-center gap-3 p-3 rounded-xl cursor-pointer transition-all duration-200 ' + (selectedFile?.name === file.name ? 'bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container' : 'hover:bg-md-sys-color-surface-container-high')"
@@ -68,8 +68,8 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
         </div>
 
         <!-- 로그 내용 뷰어 -->
-        <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface lg:col-span-2" style="min-height: 400px; display: flex; flex-direction: column;">
-          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-2">
+        <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface lg:col-span-2 flex flex-col min-h-0">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-2 flex-shrink-0">
             <h2 class="md-typescale-title-large text-md-sys-color-on-surface truncate">
               {{ selectedFile ? selectedFile.name : '로그 뷰어' }}
             </h2>
@@ -84,7 +84,7 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
               </button>
             </div>
           </div>
-          <div class="flex-1" style="min-height: 300px;">
+          <div class="flex-1 flex flex-col min-h-0">
             <div *ngIf="!selectedFile" class="flex items-center justify-center h-full text-md-sys-color-on-surface-variant">
               <div class="text-center">
                 <mat-icon class="w-16 h-16 mb-4 text-md-sys-color-outline">visibility</mat-icon>
@@ -104,10 +104,10 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
               <p class="md-typescale-body-medium">로그 내용을 불러오는 중...</p>
             </div>
 
-            <div *ngIf="logContent" style="height: 100%; display: flex; flex-direction: column;">
-              <div class="flex items-center justify-between p-3 bg-md-sys-color-surface-container-high rounded-xl mb-4" style="flex-shrink: 0;">
+            <div *ngIf="logContent" class="flex flex-col h-full min-h-0">
+              <div class="flex items-center justify-between p-3 bg-md-sys-color-surface-container-high rounded-xl mb-4 flex-shrink-0">
                 <span class="md-typescale-body-medium text-md-sys-color-on-surface">총 {{ logContent.lines }}줄 표시</span>
-                <div class="flex gap-1">
+                <div class="flex gap-1 flex-wrap">
                   <button
                     [class]="'px-3 py-1 text-xs rounded-full transition-all ' + (logFilter === 'all' ? 'bg-md-sys-color-primary text-md-sys-color-on-primary' : 'bg-md-sys-color-surface-container text-md-sys-color-on-surface hover:bg-md-sys-color-surface-container-high')"
                     (click)="setLogFilter('all')">전체</button>
@@ -122,14 +122,14 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
                     (click)="setLogFilter('info')">정보</button>
                 </div>
               </div>
-              <div style="flex: 1; min-height: 0; overflow: hidden;">
-                <div class="bg-gray-900 rounded-xl" style="height: 100%; overflow-y: auto; overflow-x: hidden;">
+              <div class="flex-1 min-h-0 overflow-hidden">
+                <div class="bg-gray-900 rounded-xl h-full overflow-y-auto overflow-x-auto">
                   <div *ngFor="let line of getFilteredLogLines(); let i = index"
-                       [class]="'flex items-start gap-3 p-2 font-mono text-sm border-b border-gray-800 hover:bg-gray-800 ' + getLogLineClass(line)">
-                    <span class="w-12 text-gray-500 text-right select-none">{{ i + 1 }}</span>
-                    <span class="w-36 text-gray-400 shrink-0">{{ extractTimestamp(line) }}</span>
-                    <span [class]="'w-16 font-bold uppercase shrink-0 ' + getLogLevelColorClass(extractLogLevel(line))">{{ extractLogLevel(line) }}</span>
-                    <span class="flex-1 text-gray-200 break-words whitespace-pre-wrap overflow-hidden">{{ extractMessage(line) }}</span>
+                       [class]="'flex items-start gap-3 p-2 font-mono text-sm border-b border-gray-800 hover:bg-gray-800 min-w-max ' + getLogLineClass(line)">
+                    <span class="w-12 text-gray-500 text-right select-none flex-shrink-0">{{ i + 1 }}</span>
+                    <span class="w-36 text-gray-400 flex-shrink-0">{{ extractTimestamp(line) }}</span>
+                    <span [class]="'w-16 font-bold uppercase flex-shrink-0 ' + getLogLevelColorClass(extractLogLevel(line))">{{ extractLogLevel(line) }}</span>
+                    <span class="flex-1 text-gray-200 break-words whitespace-pre-wrap">{{ extractMessage(line) }}</span>
                   </div>
                 </div>
               </div>
@@ -152,13 +152,13 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
         display: flex !important;
         flex-direction: column !important;
       }
-      
+
       .md-card {
         min-height: 300px;
         margin-bottom: 1rem;
       }
     }
-    
+
 
     .md-button {
       border: none;
