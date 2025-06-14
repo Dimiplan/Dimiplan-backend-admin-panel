@@ -84,7 +84,7 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
 								</button>
 							</div>
 						</div>
-						<div class="flex-1 flex flex-col min-h-0 max-h-96 overflow-y-scroll">
+						<div class="flex-1 flex flex-col min-h-0 max-h-[70vh] overflow-y-scroll">
 							<div *ngIf="!selectedFile" class="flex items-center justify-center h-full text-md-sys-color-on-surface-variant">
 								<div class="text-center">
 									<mat-icon class="w-16 h-16 mb-4 text-md-sys-color-outline">visibility</mat-icon>
@@ -126,8 +126,8 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
 									<div class="bg-gray-900 rounded-xl h-full pb-4">
 										<div *ngFor="let line of getFilteredLogLines(); let i = index"
 												[class]="'flex items-start gap-3 p-2 font-mono text-sm border-b border-gray-800 hover:bg-gray-800 ' + getLogLineClass(line)">
-											<span class="w-12 text-gray-500 text-right select-none flex-shrink-0">{{ i + 1 }}</span>
-											<span class="w-36 text-gray-400 flex-shrink-0">{{ extractTimestamp(line) }}</span>
+											<span class="w-8 text-gray-500 text-right select-none flex-shrink-0">{{ i + 1 }}</span>
+											<span class="w-32 text-gray-400 flex-shrink-0">{{ extractTimestamp(line) }}</span>
 											<span [class]="'w-16 font-bold uppercase flex-shrink-0 text-center ' + getLogLevelColorClass(extractLogLevel(line))">{{ extractLogLevel(line) }}</span>
 											<span class="flex-1 text-gray-200 break-words whitespace-pre-wrap min-w-0">{{ extractMessage(line) }}</span>
 										</div>

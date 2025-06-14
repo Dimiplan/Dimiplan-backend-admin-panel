@@ -128,7 +128,7 @@ import { AdminService, TableInfo, TableData } from '../../services/admin.service
 								</div>
 
 								<!-- 테이블 데이터 -->
-								<div class="flex-1 flex flex-col min-h-0 max-h-[82vh]">
+								<div class="flex-1 flex flex-col min-h-0 max-h-[47vh]">
 									<h3 class="md-typescale-title-medium text-md-sys-color-on-surface mb-3 flex items-center gap-2 flex-shrink-0">
 										<mat-icon class="w-5 h-5 text-md-sys-color-primary">table_rows</mat-icon>
 										데이터 ({{ tableData.pagination.totalCount }}개 레코드)
