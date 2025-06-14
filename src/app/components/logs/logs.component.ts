@@ -123,13 +123,13 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
                 </div>
               </div>
               <div class="flex-1 min-h-0 overflow-hidden">
-                <div class="bg-gray-900 rounded-xl h-full overflow-y-auto overflow-x-auto">
+                <div class="bg-gray-900 rounded-xl h-full overflow-y-auto">
                   <div *ngFor="let line of getFilteredLogLines(); let i = index"
-                       [class]="'flex items-start gap-3 p-2 font-mono text-sm border-b border-gray-800 hover:bg-gray-800 min-w-max ' + getLogLineClass(line)">
+                       [class]="'flex items-start gap-3 p-2 font-mono text-sm border-b border-gray-800 hover:bg-gray-800 ' + getLogLineClass(line)">
                     <span class="w-12 text-gray-500 text-right select-none flex-shrink-0">{{ i + 1 }}</span>
                     <span class="w-36 text-gray-400 flex-shrink-0">{{ extractTimestamp(line) }}</span>
-                    <span [class]="'w-16 font-bold uppercase flex-shrink-0 ' + getLogLevelColorClass(extractLogLevel(line))">{{ extractLogLevel(line) }}</span>
-                    <span class="flex-1 text-gray-200 break-words whitespace-pre-wrap">{{ extractMessage(line) }}</span>
+                    <span [class]="'w-16 font-bold uppercase flex-shrink-0 text-center ' + getLogLevelColorClass(extractLogLevel(line))">{{ extractLogLevel(line) }}</span>
+                    <span class="flex-1 text-gray-200 break-words whitespace-pre-wrap min-w-0">{{ extractMessage(line) }}</span>
                   </div>
                 </div>
               </div>
