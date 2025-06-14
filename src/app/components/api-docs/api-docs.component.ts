@@ -198,15 +198,36 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
                   <mat-icon class="w-5 h-5 text-md-sys-color-primary">keyboard_return</mat-icon>
                   반환값
                 </h4>
-                <div class="space-y-3">
-                  <div *ngFor="let returnItem of doc.returns" class="p-3 bg-md-sys-color-tertiary-container rounded-lg">
-                    <div class="flex items-start justify-between mb-2">
-                      <div class="flex items-center gap-2">
-                        <code class="px-2 py-1 bg-md-sys-color-surface-container rounded text-sm font-mono text-md-sys-color-on-surface">{{ parseReturnName(returnItem.description) }}</code>
-                      </div>
-                      <span class="text-sm font-mono text-md-sys-color-on-tertiary-container">{{ returnItem.type.names.join(' | ') }}</span>
+                <div class="space-y-4">
+                  <div *ngFor="let group of groupReturns(doc.returns) | keyvalue" class="space-y-2">
+                    <!-- 그룹 헤더 -->
+                    <div *ngIf="group.key !== 'root'" class="flex items-center gap-2 pb-2 border-b border-md-sys-color-outline-variant">
+                      <mat-icon class="w-4 h-4 text-md-sys-color-primary">
+                        {{ group.key.includes('[]') ? 'view_list' : 'folder' }}
+                      </mat-icon>
+                      <code class="px-2 py-1 bg-md-sys-color-primary-container text-md-sys-color-on-primary-container rounded text-sm font-mono font-medium">{{ group.key }}</code>
+                      <span class="text-xs text-md-sys-color-on-surface-variant">
+                        {{ group.key.includes('[]') ? '배열' : '객체' }}
+                      </span>
                     </div>
-                    <p class="md-typescale-body-small text-md-sys-color-on-tertiary-container" [innerHTML]="parseReturnDescription(returnItem.description)"></p>
+
+                    <!-- 그룹 아이템들 -->
+                    <div class="space-y-2" [class.ml-6]="group.key !== 'root'">
+                      <div *ngFor="let returnItem of group.value" class="p-3 bg-md-sys-color-tertiary-container rounded-lg">
+                        <div class="flex items-start justify-between mb-2">
+                          <div class="flex items-center gap-2">
+                            <code class="px-2 py-1 bg-md-sys-color-surface-container rounded text-sm font-mono text-md-sys-color-on-surface">
+                              {{ group.key === 'root' ? returnItem.fullName : returnItem.propertyName }}
+                            </code>
+                            <span *ngIf="group.key !== 'root'" class="text-xs text-md-sys-color-on-tertiary-container opacity-70">
+                              {{ returnItem.fullName }}
+                            </span>
+                          </div>
+                          <span class="text-sm font-mono text-md-sys-color-on-tertiary-container">{{ returnItem.type.names.join(' | ') }}</span>
+                        </div>
+                        <p class="md-typescale-body-small text-md-sys-color-on-tertiary-container" [innerHTML]="parseReturnDescription(returnItem.description)"></p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -520,6 +541,58 @@ export class ApiDocsComponent implements OnInit {
 
   trackByPath(index: number, doc: ApiDoc): string {
     return doc.path + doc.method;
+  }
+
+  groupReturns(returns: Array<{ type: { names: string[] }; description: string }>) {
+    const groups: Record<string, Array<{ type: { names: string[] }; description: string; fullName: string; propertyName: string }>> = {};
+
+    returns.forEach(returnItem => {
+      const cleanDescription = returnItem.description.replace(/<[^>]*>/g, '');
+      const nameMatch = cleanDescription.match(/([^ -]+)/);
+
+      if (nameMatch) {
+        const fullName = nameMatch[1].trim();
+        let groupKey = '';
+        let propertyName = '';
+
+        if (fullName.includes('.') || fullName.includes('[].')) {
+          // data.tableName, data.columns[].name 등의 경우
+          if (fullName.includes('[].')) {
+            // data.columns[].name -> data.columns[]
+            const parts = fullName.split('[].');
+            groupKey = parts[0] + '[]';
+            propertyName = parts[1] || '';
+          } else {
+            // data.tableName -> data
+            const parts = fullName.split('.');
+            if (parts.length === 2) {
+              groupKey = parts[0];
+              propertyName = parts[1];
+            } else if (parts.length > 2) {
+              // data.pagination.page -> data.pagination
+              groupKey = parts.slice(0, -1).join('.');
+              propertyName = parts[parts.length - 1];
+            }
+          }
+        } else {
+          // success 등 최상위 레벨
+          groupKey = 'root';
+          propertyName = fullName;
+        }
+
+        if (!groups[groupKey]) {
+          groups[groupKey] = [];
+        }
+
+        groups[groupKey].push({
+          ...returnItem,
+          fullName,
+          propertyName
+        });
+      }
+    });
+
+    return groups;
   }
 
   parseReturnName(description: string): string {
