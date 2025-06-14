@@ -193,12 +193,22 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
                 </div>
               </div>
 
-              <div *ngIf="doc.returns" class="space-y-2">
+              <div *ngIf="doc.returns && doc.returns.length > 0" class="space-y-2">
                 <h4 class="md-typescale-title-small text-md-sys-color-on-surface flex items-center gap-2">
                   <mat-icon class="w-5 h-5 text-md-sys-color-primary">keyboard_return</mat-icon>
                   반환값
                 </h4>
-                <p class="md-typescale-body-medium text-md-sys-color-on-surface leading-relaxed">{{ doc.returns.type }} - {{ doc.returns.description }}</p>
+                <div class="space-y-3">
+                  <div *ngFor="let returnItem of doc.returns" class="p-3 bg-md-sys-color-tertiary-container rounded-lg">
+                    <div class="flex items-start justify-between mb-2">
+                      <div class="flex items-center gap-2">
+                        <code class="px-2 py-1 bg-md-sys-color-surface-container rounded text-sm font-mono text-md-sys-color-on-surface">{{ parseReturnName(returnItem.description) }}</code>
+                      </div>
+                      <span class="text-sm font-mono text-md-sys-color-on-tertiary-container">{{ returnItem.type.names.join(' | ') }}</span>
+                    </div>
+                    <p class="md-typescale-body-small text-md-sys-color-on-tertiary-container" [innerHTML]="parseReturnDescription(returnItem.description)"></p>
+                  </div>
+                </div>
               </div>
 
               <div class="space-y-2">
@@ -508,6 +518,45 @@ export class ApiDocsComponent implements OnInit {
     window.URL.revokeObjectURL(url);
   }
 
+  trackByPath(index: number, doc: ApiDoc): string {
+    return doc.path + doc.method;
+  }
+
+  parseReturnName(description: string): string {
+    // [].property 패턴에서 property 이름 추출
+    const match = description.match(/\[\]\.(\w+)/);
+    if (match) {
+      return match[1];
+    }
+
+    // 일반적인 경우 처리
+    const nameMatch = description.match(/<p>([^-]+)/);
+    if (nameMatch) {
+      return nameMatch[1].trim();
+    }
+
+    return 'result';
+  }
+
+  parseReturnDescription(description: string): string {
+    // HTML 태그 제거하고 설명 부분만 추출
+    const cleanDescription = description.replace(/<[^>]*>/g, '');
+
+    // [].property 패턴인 경우 "- 설명" 부분만 추출
+    const match = cleanDescription.match(/\[\]\.\w+\s*-\s*(.+)/);
+    if (match) {
+      return match[1].trim();
+    }
+
+    // 일반적인 경우 처리
+    const descMatch = cleanDescription.match(/-\s*(.+)/);
+    if (descMatch) {
+      return descMatch[1].trim();
+    }
+
+    return cleanDescription.trim();
+  }
+
   private generateMarkdownDocs(): string {
     let markdown = '# API 문서\n\n';
     markdown += `생성일: ${new Date().toLocaleString('ko-KR')}\n\n`;
@@ -541,8 +590,14 @@ export class ApiDocsComponent implements OnInit {
           }
           markdown += '\n';
         }
-        if (doc.returns) {
-          markdown += `**반환값:** ${doc.returns.type} - ${doc.returns.description}\n\n`;
+        if (doc.returns && doc.returns.length > 0) {
+          markdown += `**반환값:**\n\n`;
+          for (const returnItem of doc.returns) {
+            const name = this.parseReturnName(returnItem.description);
+            const description = this.parseReturnDescription(returnItem.description);
+            markdown += `- \`${name}\` (${returnItem.type.names.join(' | ')}): ${description}\n`;
+          }
+          markdown += '\n';
         }
         markdown += '**사용 예시:**\n\n';
         markdown += '```bash\n';
@@ -553,9 +608,5 @@ export class ApiDocsComponent implements OnInit {
     }
 
     return markdown;
-  }
-
-  trackByPath(_: number, doc: ApiDoc): string {
-    return `${doc.method}-${doc.path}`;
   }
 }

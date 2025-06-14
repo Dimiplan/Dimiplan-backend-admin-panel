@@ -80,10 +80,12 @@ export interface ApiDoc {
     type: string;
     description: string;
   }>;
-  returns: {
-    type: string;
+  returns?: Array<{
+    type: {
+      names: string[];
+    };
     description: string;
-  };
+  }>;
 }
 
 @Injectable({
