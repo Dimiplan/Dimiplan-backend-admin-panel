@@ -146,7 +146,8 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
       padding: 24px;
       display: flex;
       flex-direction: column;
-      min-height: 400px;
+      min-height: 48rem;
+			max-height: 48rem;
       border-bottom: 2px solid var(--md-sys-color-outline-variant);
     }
 
@@ -157,7 +158,7 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
       }
 
       .md-card {
-        min-height: 300px;
+        min-height: 36rem;
         margin-bottom: 1rem;
         border-bottom: 2px solid var(--md-sys-color-outline-variant);
       }
