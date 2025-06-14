@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -31,11 +31,11 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
     FormsModule
   ],
   template: `
-    <div class="p-4 md:p-6 pb-6 md:pb-8 bg-md-sys-color-surface h-screen overflow-y-auto max-w-6xl mx-auto">
+    <div class="p-4 md:p-6 pb-20 bg-md-sys-color-surface h-screen overflow-y-auto max-w-6xl mx-auto">
       <h1 class="md-typescale-headline-large text-md-sys-color-on-surface mb-4 md:mb-6">API 문서</h1>
 
-      <div class="flex flex-col lg:flex-row gap-4 mb-6">
-        <div class="flex flex-col sm:flex-row gap-4 flex-1">
+      <div class="flex flex-col gap-4 mb-6">
+        <div class="flex flex-col sm:flex-row gap-4">
           <div class="flex-1">
             <div class="relative">
               <input
@@ -48,54 +48,51 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
             </div>
           </div>
 
-          <div class="w-full sm:w-48">
-            <div class="relative">
-              <mat-form-field appearance="outline" class="w-full filter-field">
-                <mat-label>경로 필터</mat-label>
-                <mat-select [(value)]="selectedFile" (selectionChange)="filterApis()" class="custom-select">
-                  <mat-select-trigger>
-                    <div class="flex items-center gap-2">
-                      <mat-icon class="w-4 h-4" [class]="selectedFile ? 'text-md-sys-color-primary' : 'text-md-sys-color-on-surface-variant'">
-                        {{ selectedFile ? 'description' : 'select_all' }}
-                      </mat-icon>
-                      <span [class]="selectedFile ? 'font-mono text-sm' : ''">{{ selectedFile || '모든 경로' }}</span>
-                    </div>
-                  </mat-select-trigger>
-                  <mat-option value="" class="filter-option">
-                    <div class="flex items-center gap-2">
-                      <mat-icon class="w-4 h-4 text-md-sys-color-on-surface-variant">select_all</mat-icon>
-                      <span>모든 경로</span>
-                    </div>
-                  </mat-option>
-                  <mat-option *ngFor="let file of getUniqueFiles()" [value]="file" class="filter-option">
-                    <div class="flex items-center gap-2">
-                      <mat-icon class="w-4 h-4 text-md-sys-color-primary">description</mat-icon>
-                      <span class="font-mono text-sm">{{ file }}</span>
-                    </div>
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-          </div>
-        </div>
+          <div class="flex items-center gap-2">
+            <div class="relative" (click)="$event.stopPropagation()">
+              <button
+                (click)="toggleFileDropdown()"
+                class="flex items-center gap-2 px-4 py-3 bg-md-sys-color-surface-container-highest text-md-sys-color-on-surface rounded-xl border border-md-sys-color-outline hover:bg-md-sys-color-surface-container-high transition-all md-typescale-body-large min-w-[200px] text-left">
+                <mat-icon class="w-5 h-5" [class]="selectedFile ? 'text-md-sys-color-primary' : 'text-md-sys-color-on-surface-variant'">
+                  {{ selectedFile ? 'folder_open' : 'folder' }}
+                </mat-icon>
+                <span class="flex-1 truncate">{{ selectedFile || '모든 경로' }}</span>
+                <mat-icon class="w-5 h-5 text-md-sys-color-on-surface-variant">{{ showFileDropdown ? 'expand_less' : 'expand_more' }}</mat-icon>
+              </button>
 
-        <div class="flex items-center gap-2 flex-wrap">
-          <button class="md-button md-button-text p-3 rounded-full touch-target" (click)="refreshDocs()" [disabled]="loading" title="새로고침">
-            <mat-icon class="w-5 h-5 text-md-sys-color-primary">refresh</mat-icon>
-          </button>
-          <button class="md-button md-button-text p-3 rounded-full touch-target" (click)="regenerateDocs()" [disabled]="loading" title="JSDoc 재생성">
-            <mat-icon class="w-5 h-5 text-md-sys-color-primary">autorenew</mat-icon>
-          </button>
-          <button class="md-button md-button-filled px-4 py-2 rounded-full touch-target" (click)="exportDocs()" [disabled]="!apiDocs.length">
-            <mat-icon class="w-5 h-5 mr-2">download</mat-icon>
-            <span class="md-typescale-label-large hidden sm:inline">내보내기</span>
-            <span class="md-typescale-label-large sm:hidden">내보내기</span>
-          </button>
+              <div *ngIf="showFileDropdown" class="absolute top-full left-0 right-0 mt-2 max-h-64 overflow-y-auto bg-md-sys-color-surface-container rounded-xl border border-md-sys-color-outline shadow-elevation-2 z-50">
+                <button
+                  (click)="selectFile('')"
+                  class="w-full flex items-center gap-2 px-4 py-3 hover:bg-md-sys-color-surface-container-high transition-all text-left">
+                  <mat-icon class="w-5 h-5 text-md-sys-color-on-surface-variant">select_all</mat-icon>
+                  <span class="md-typescale-body-medium">모든 경로</span>
+                </button>
+                <button
+                  *ngFor="let file of getUniqueFiles()"
+                  (click)="selectFile(file)"
+                  [class]="'w-full flex items-center gap-2 px-4 py-3 hover:bg-md-sys-color-surface-container-high transition-all text-left ' + (selectedFile === file ? 'bg-md-sys-color-primary-container' : '')">
+                  <mat-icon class="w-5 h-5" [class]="selectedFile === file ? 'text-md-sys-color-primary' : 'text-md-sys-color-on-surface-variant'">description</mat-icon>
+                  <span class="font-mono text-sm truncate">{{ file }}</span>
+                </button>
+              </div>
+            </div>
+
+            <button class="md-button md-button-text p-3 rounded-full touch-target" (click)="refreshDocs()" [disabled]="loading" title="새로고침">
+              <mat-icon class="w-5 h-5 text-md-sys-color-primary">refresh</mat-icon>
+            </button>
+            <button class="md-button md-button-text p-3 rounded-full touch-target" (click)="regenerateDocs()" [disabled]="loading" title="JSDoc 재생성">
+              <mat-icon class="w-5 h-5 text-md-sys-color-primary">autorenew</mat-icon>
+            </button>
+            <button class="md-button md-button-filled px-4 py-2 rounded-full touch-target" (click)="exportDocs()" [disabled]="!apiDocs.length">
+              <mat-icon class="w-5 h-5 mr-2">download</mat-icon>
+              <span class="md-typescale-label-large">내보내기</span>
+            </button>
+          </div>
         </div>
       </div>
 
       <div *ngIf="loading" class="flex flex-col items-center justify-center py-20 gap-4">
-        <mat-spinner diameter="40"></mat-spinner>
+        <mat-spinner diameter="40" aria-label="API 문서 로딩 중"></mat-spinner>
         <p class="md-typescale-body-medium text-md-sys-color-on-surface-variant">API 문서를 불러오는 중...</p>
       </div>
 
@@ -219,7 +216,7 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
                     </div>
 
                     <!-- 그룹화된 아이템들 (접을 수 있는 패널) -->
-                    <mat-expansion-panel *ngIf="group.key !== 'root'" class="returns-expansion-panel">
+                    <mat-expansion-panel *ngIf="group.key !== 'root'" class="returns-expansion-panel" [expanded]="false">
                       <mat-expansion-panel-header class="returns-panel-header">
                         <mat-panel-title>
                           <div class="flex items-center gap-2">
@@ -265,10 +262,13 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
                 </h4>
                 <div class="relative bg-gray-900 text-gray-100 rounded-xl overflow-hidden">
                   <pre class="p-4 overflow-x-auto font-mono text-sm leading-relaxed"><code>{{ generateCurlExample(doc) }}</code></pre>
-                  <button class="absolute top-3 right-3 p-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors"
+                  <button class="absolute top-3 right-3 p-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition-all"
                           (click)="copyCurl(doc)"
-                          title="클립보드에 복사">
-                    <mat-icon class="w-5 h-5 text-gray-300">content_copy</mat-icon>
+                          [title]="copiedDocId === doc.method + '-' + doc.path ? '복사됨!' : '클립보드에 복사'">
+                    <mat-icon class="w-5 h-5 transition-all"
+                              [class]="copiedDocId === doc.method + '-' + doc.path ? 'text-green-400' : 'text-gray-300'">
+                      {{ copiedDocId === doc.method + '-' + doc.path ? 'check' : 'content_copy' }}
+                    </mat-icon>
                   </button>
                 </div>
               </div>
@@ -399,6 +399,11 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
       color: var(--md-sys-color-on-surface-variant) !important;
     }
 
+    .filter-dropdown {
+      backdrop-filter: blur(8px);
+      background-color: rgba(var(--md-sys-color-surface-container-rgb), 0.95);
+    }
+
     .api-expansion-panel {
       background-color: var(--md-sys-color-surface-container) !important;
       border-radius: 16px !important;
@@ -446,24 +451,48 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
     }
   `]
 })
-export class ApiDocsComponent implements OnInit {
+export class ApiDocsComponent implements OnInit, OnDestroy {
   apiDocs: ApiDoc[] = [];
   filteredDocs: ApiDoc[] = [];
   searchTerm = '';
   selectedFile = '';
   loading = false;
+  showFileDropdown = false;
+  copiedDocId: string | null = null;
 
   constructor(private adminService: AdminService) {}
 
   ngOnInit() {
     this.loadApiDocs();
+    // 드롭다운 외부 클릭 시 닫기
+    document.addEventListener('click', this.handleOutsideClick);
+  }
+
+  ngOnDestroy() {
+    document.removeEventListener('click', this.handleOutsideClick);
+  }
+
+  private handleOutsideClick = (event: MouseEvent) => {
+    const target = event.target as HTMLElement;
+    if (!target.closest('.relative') && this.showFileDropdown) {
+      this.showFileDropdown = false;
+    }
+  }
+
+  toggleFileDropdown() {
+    this.showFileDropdown = !this.showFileDropdown;
+  }
+
+  selectFile(file: string) {
+    this.selectedFile = file;
+    this.showFileDropdown = false;
+    this.filterApis();
   }
 
   getUniqueFiles(): string[] {
     const files = [...new Set(this.apiDocs.map(doc => doc.file))];
     return files.sort();
   }
-
 
   loadApiDocs() {
     this.loading = true;
@@ -626,7 +655,10 @@ export class ApiDocsComponent implements OnInit {
   copyCurl(doc: ApiDoc) {
     const curlCommand = this.generateCurlExample(doc);
     navigator.clipboard.writeText(curlCommand).then(() => {
-      console.log('cURL 명령어가 클립보드에 복사되었습니다.');
+      this.copiedDocId = `${doc.method}-${doc.path}`;
+      setTimeout(() => {
+        this.copiedDocId = null;
+      }, 2000);
     }).catch(err => {
       console.error('클립보드 복사 실패:', err);
     });

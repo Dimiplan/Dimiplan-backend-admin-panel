@@ -2,10 +2,13 @@
   <!-- Top App Bar -->
   <div class="bg-md-sys-color-surface-container shadow-elevation-2 border-b border-md-sys-color-outline-variant relative z-50">
     <div class="flex items-center h-16 px-4">
-      <button class="md-button md-button-text p-3 rounded-full mr-2 touch-target" (click)="toggleSidenav()" aria-label="Toggle navigation">
-        <mat-icon class="w-6 h-6 text-md-sys-color-on-surface">menu</mat-icon>
-      </button>
-      <h1 class="md-typescale-title-large text-md-sys-color-on-surface flex-1 truncate">Dimiplan 관리자 패널</h1>
+			<button class="md-button md-button-text p-3 rounded-full mr-2 touch-target" (click)="toggleSidenav()" aria-label="Toggle navigation">
+				<mat-icon class="w-6 h-6 text-md-sys-color-on-surface">menu</mat-icon>
+			</button>
+			<h1 class="md-typescale-title-large text-md-sys-color-on-surface flex-1 truncate">Dimiplan 관리자 패널</h1>
+			<button class="md-button md-button-text p-3 rounded-full touch-target" (click)="toggleTheme()" aria-label="Toggle theme">
+				<mat-icon class="w-6 h-6 text-md-sys-color-on-surface">{{ isDarkMode ? 'light_mode' : 'dark_mode' }}</mat-icon>
+			</button>
     </div>
   </div>
 

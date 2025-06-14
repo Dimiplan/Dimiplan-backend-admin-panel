@@ -27,10 +27,10 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
     FormsModule
   ],
   template: `
-    <div class="p-4 md:p-6 bg-md-sys-color-surface h-full overflow-hidden flex flex-col pb-8">
-      <h1 class="md-typescale-headline-large text-md-sys-color-on-surface mb-4 md:mb-6 flex-shrink-0">로그 관리</h1>
+    <div class="p-4 md:p-6 pb-20 bg-md-sys-color-surface h-screen overflow-y-auto">
+      <h1 class="md-typescale-headline-large text-md-sys-color-on-surface mb-4 md:mb-6">로그 관리</h1>
 
-      <div class="flex flex-col lg:grid lg:grid-cols-3 gap-4 md:gap-6 flex-1 min-h-0">
+      <div class="flex flex-col lg:grid lg:grid-cols-3 gap-4 md:gap-6">
         <!-- 로그 파일 목록 -->
         <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface lg:col-span-1 flex flex-col min-h-0">
           <div class="flex items-center justify-between mb-4 flex-shrink-0">
