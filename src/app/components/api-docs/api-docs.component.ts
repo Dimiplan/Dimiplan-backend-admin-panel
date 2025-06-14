@@ -115,7 +115,7 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
           <span *ngIf="searchTerm" class="md-typescale-body-medium text-md-sys-color-on-surface-variant ml-2">({{ filteredDocs.length }}개 필터링됨)</span>
         </div>
 
-        <div class="space-y-4">
+        <mat-accordion class="space-y-4">
           <mat-expansion-panel *ngFor="let doc of filteredDocs; trackBy: trackByPath" class="api-expansion-panel">
             <mat-expansion-panel-header class="api-panel-header">
               <mat-panel-title>
@@ -274,7 +274,7 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
               </div>
             </div>
           </mat-expansion-panel>
-        </div>
+        </mat-accordion>
       </div>
     </div>
   `,
