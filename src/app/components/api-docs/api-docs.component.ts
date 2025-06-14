@@ -523,19 +523,16 @@ export class ApiDocsComponent implements OnInit {
   }
 
   parseReturnName(description: string): string {
-    // [].property 패턴에서 property 이름 추출
-    const match = description.match(/\[\]\.(\w+)/);
-    if (match) {
-      return match[1];
-    }
-
-    // 일반적인 경우 처리
-    const nameMatch = description.match(/<p>([^-]+)/);
+    const nameMatch = description.match(/([^ -]+)/);
     if (nameMatch) {
+			if (nameMatch[1].includes('.')) {
+				// [].property 패턴인 경우
+				return nameMatch[1].split('.').pop()?.trim()!;
+			}
       return nameMatch[1].trim();
     }
 
-    return 'result';
+    return '반환값';
   }
 
   parseReturnDescription(description: string): string {
