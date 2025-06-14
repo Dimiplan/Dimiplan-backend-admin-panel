@@ -1,0 +1,25 @@
+// Dashboard component specific styles
+
+.md-card {
+    min-height: 300px !important;
+    display: flex;
+    min-width: 280px;
+    max-width: 100%;
+}
+
+@media (max-width: 768px) {
+    .dashboard-container {
+        overflow-x: hidden !important;
+    }
+
+    .grid {
+        display: flex !important;
+        flex-direction: column !important;
+        overflow-x: visible !important;
+    }
+
+    .md-card {
+        min-width: 100% !important;
+        width: 100% !important;
+    }
+}

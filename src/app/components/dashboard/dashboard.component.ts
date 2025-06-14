@@ -23,52 +23,7 @@ import { AdminService, SystemStatus, UserStats } from '../../services/admin.serv
         MatChipsModule,
     ],
 	templateUrl: './dashboard.component.html',
-    styles: [`
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .animate-spin {
-            animation: spin 1s linear infinite;
-        }
-
-        .md-card {
-            min-height: 300px;
-            display: flex;
-            flex-direction: column;
-            min-width: 280px;
-            max-width: 100%;
-        }
-
-        @media (max-width: 768px) {
-            .dashboard-container {
-                overflow-x: hidden !important;
-            }
-
-            .grid {
-                display: flex !important;
-                flex-direction: column !important;
-                overflow-x: visible !important;
-            }
-
-            .md-card {
-                min-width: 100% !important;
-                width: 100% !important;
-            }
-        }
-
-        .md-button {
-            border: none;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.2s ease;
-        }
-
-        .md-button:hover {
-            transform: translateY(-1px);
-        }
-    `]
+    styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent implements OnInit {
     systemStatus: SystemStatus | null = null;

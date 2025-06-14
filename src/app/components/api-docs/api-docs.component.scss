@@ -1,0 +1,138 @@
+// API docs component specific styles
+
+.filter-field {
+    background-color: var(--md-sys-color-surface-container-highest) !important;
+}
+
+.filter-field .mat-mdc-form-field-flex {
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    background-color: var(--md-sys-color-surface-container-highest) !important;
+}
+
+.filter-field .mat-mdc-form-field-outline {
+    background-color: var(--md-sys-color-surface-container-highest) !important;
+}
+
+.filter-field:hover .mat-mdc-form-field-flex {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.filter-field.mat-focused .mat-mdc-form-field-flex {
+    box-shadow: 0 0 0 2px var(--md-sys-color-primary);
+}
+
+.filter-option {
+    padding: 12px 16px !important;
+    min-height: 48px !important;
+    transition: background-color 0.2s ease;
+    background-color: var(--md-sys-color-surface) !important;
+}
+
+.filter-option:hover {
+    background-color: var(--md-sys-color-surface-container-high) !important;
+}
+
+.custom-select {
+    background-color: var(--md-sys-color-surface-container-highest) !important;
+}
+
+.custom-select .mat-mdc-select-value {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: transparent !important;
+}
+
+.mat-mdc-select-panel {
+    background-color: var(--md-sys-color-surface) !important;
+}
+
+.mat-mdc-form-field-subscript-wrapper {
+    background-color: transparent !important;
+}
+
+.returns-expansion-panel {
+    background-color: var(--md-sys-color-surface-container-high) !important;
+    border-radius: 12px !important;
+    margin-bottom: 8px !important;
+    box-shadow: none !important;
+    border: 1px solid var(--md-sys-color-outline-variant) !important;
+}
+
+.returns-expansion-panel .mat-expansion-panel-header {
+    background-color: var(--md-sys-color-surface-container-high) !important;
+    padding: 16px 24px !important;
+    border-radius: 12px !important;
+    height: auto !important;
+    min-height: auto !important;
+}
+
+.returns-expansion-panel .mat-expansion-panel-body {
+    background-color: var(--md-sys-color-surface-container-high) !important;
+    padding: 0 24px 16px 24px !important;
+}
+
+.returns-expansion-panel .mat-expansion-panel-header-title {
+    margin-right: 0 !important;
+    flex: 1 !important;
+}
+
+.returns-expansion-panel.mat-expanded .mat-expansion-panel-header {
+    border-bottom: 1px solid var(--md-sys-color-outline-variant) !important;
+}
+
+.returns-expansion-panel .mat-expansion-indicator::after {
+    color: var(--md-sys-color-on-surface-variant) !important;
+}
+
+.filter-dropdown {
+    backdrop-filter: blur(8px);
+    background-color: rgba(var(--md-sys-color-surface-container-rgb), 0.95);
+}
+
+.api-expansion-panel {
+    background-color: var(--md-sys-color-surface-container) !important;
+    border-radius: 16px !important;
+    margin-bottom: 16px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+    border: 1px solid var(--md-sys-color-outline-variant) !important;
+    transition: all 0.3s ease !important;
+}
+
+.api-expansion-panel:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15) !important;
+}
+
+.api-expansion-panel .mat-expansion-panel-header {
+    background-color: var(--md-sys-color-surface-container) !important;
+    padding: 20px 24px !important;
+    border-radius: 16px !important;
+    height: auto !important;
+    min-height: auto !important;
+}
+
+.api-expansion-panel .mat-expansion-panel-body {
+    background-color: var(--md-sys-color-surface-container) !important;
+    padding: 0 24px 24px 24px !important;
+}
+
+.api-expansion-panel .mat-expansion-panel-header-title {
+    margin-right: 0 !important;
+    flex: 1 !important;
+}
+
+.api-expansion-panel .mat-expansion-panel-header-description {
+    margin-right: 16px !important;
+    flex: 1 !important;
+    max-width: 300px !important;
+}
+
+.api-expansion-panel.mat-expanded .mat-expansion-panel-header {
+    border-bottom: 1px solid var(--md-sys-color-outline-variant) !important;
+}
+
+.api-expansion-panel .mat-expansion-indicator::after {
+    color: var(--md-sys-color-on-surface-variant) !important;
+}

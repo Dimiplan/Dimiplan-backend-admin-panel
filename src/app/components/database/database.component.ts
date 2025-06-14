@@ -28,51 +28,7 @@ import { AdminService, TableInfo, TableData } from '../../services/admin.service
         MatTooltipModule,
         MatChipsModule
     ],
-	templateUrl: './database.component.html',
-    styles: [`
-        .md-card {
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            min-height: 48rem;
-            max-height: 48rem;
-            border-bottom: 2px solid var(--md-sys-color-outline-variant);
-        }
-
-        @media (max-width: 1023px) {
-            .flex.flex-col.lg\\:grid {
-                display: flex !important;
-                flex-direction: column !important;
-            }
-
-            .md-card {
-                min-height: 36rem;
-                margin-bottom: 1rem;
-                border-bottom: 2px solid var(--md-sys-color-outline-variant);
-            }
-        }
-
-
-        .md-button {
-            border: none;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .md-button:hover {
-            transform: translateY(-1px);
-        }
-
-        .md-button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-    `]
+	templateUrl: './database.component.html'
 })
 export class DatabaseComponent implements OnInit {
     tables: TableInfo[] = [];

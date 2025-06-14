@@ -26,71 +26,7 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
         MatProgressSpinnerModule,
         FormsModule
     ],
-	templateUrl: './logs.component.html',
-    styles: [`
-        .md-card {
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            min-height: 48rem;
-            max-height: 48rem;
-            border-bottom: 2px solid var(--md-sys-color-outline-variant);
-        }
-
-        @media (max-width: 1023px) {
-            .flex.flex-col.lg\\:grid {
-                display: flex !important;
-                flex-direction: column !important;
-            }
-
-            .md-card {
-                min-height: 36rem;
-                margin-bottom: 1rem;
-                border-bottom: 2px solid var(--md-sys-color-outline-variant);
-            }
-        }
-
-
-        .md-button {
-            border: none;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .md-button:hover {
-            transform: translateY(-1px);
-        }
-
-        .md-button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .error {
-            border-left: 3px solid #ef4444;
-            background-color: rgba(239, 68, 68, 0.1);
-        }
-
-        .warn {
-            border-left: 3px solid #f59e0b;
-            background-color: rgba(245, 158, 11, 0.1);
-        }
-
-        .info {
-            border-left: 3px solid #10b981;
-            background-color: rgba(16, 185, 129, 0.1);
-        }
-
-        .verbose {
-            border-left: 3px solid #3b82f6;
-            background-color: rgba(59, 130, 246, 0.1);
-        }
-    `]
+	templateUrl: './logs.component.html'
 })
 export class LogsComponent implements OnInit {
     logFiles: LogFile[] = [];

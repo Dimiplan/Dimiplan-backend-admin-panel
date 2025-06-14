@@ -137,3 +137,218 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--md-sys-color-outline);
 }
+
+// Enhanced navigation rail styles
+.nav-item {
+    position: relative;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+
+    // Smooth hover animations
+    &:hover {
+        transform: translateX(2px);
+        transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
+    }
+
+    // Active state with subtle animation
+    &.active,
+    &[class*="bg-md-sys-color-secondary-container"] {
+        &::before {
+            content: '';
+            position: absolute;
+            left: -12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 24px;
+            background-color: var(--md-sys-color-primary);
+            border-radius: 2px;
+            transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-emphasized);
+        }
+    }
+
+    // Icon container improvements
+    mat-icon {
+        font-size: 24px;
+        transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
+    }
+
+    // Text fade-in animation when sidebar opens
+    span {
+        opacity: 1;
+        transform: translateX(0);
+        transition: opacity var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard),
+                  transform var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard);
+    }
+}
+
+// Menu button improvements
+.md-button {
+    // Enhanced ripple effect
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background-color: currentColor;
+        opacity: 0.1;
+        transform: translate(-50%, -50%);
+        transition: width var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard),
+                  height var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
+    }
+
+    &:active::before {
+      width: 200px;
+      height: 200px;
+    }
+}
+
+// Improved accessibility and focus states
+.nav-item:focus-visible,
+.md-button:focus-visible {
+    outline: 2px solid var(--md-sys-color-primary);
+    outline-offset: 2px;
+    border-radius: var(--md-sys-shape-corner-small);
+}
+
+// Enhanced Material You elevation classes
+.shadow-elevation-1 {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3),
+                0 1px 3px 1px rgba(0, 0, 0, 0.15);
+}
+
+.shadow-elevation-2 {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3),
+                0 2px 6px 2px rgba(0, 0, 0, 0.15);
+}
+
+.shadow-elevation-3 {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3),
+                0 4px 8px 3px rgba(0, 0, 0, 0.15);
+}
+
+// Touch target improvements
+.touch-target {
+    min-height: 44px;
+    min-width: 44px;
+
+    @media (pointer: coarse) {
+        min-height: 48px;
+        min-width: 48px;
+    }
+}
+
+// Animation for gradient backgrounds on active items
+@keyframes gradientShift {
+    0% { opacity: 0.2; }
+    50% { opacity: 0.3; }
+    100% { opacity: 0.2; }
+}
+
+.nav-item[class*="bg-md-sys-color-secondary-container"] .absolute {
+    animation: gradientShift 3s ease-in-out infinite;
+}
+
+// Global card styles
+.md-card {
+    padding: 24px;
+    border-radius: 16px;
+    transition: all 0.3s ease;
+}
+
+.md-card:hover {
+    transform: translateY(-2px);
+}
+
+// Global button styles
+.md-button {
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.md-button:hover {
+    transform: translateY(-1px);
+}
+
+.md-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+// Global input styles
+input:focus {
+    box-shadow: 0 0 0 2px var(--md-sys-color-primary);
+}
+
+// Global animation for spinning
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.animate-spin {
+    animation: spin 1s linear infinite;
+}
+
+// Log level styles
+.error {
+    border-left: 3px solid #ef4444;
+    background-color: rgba(239, 68, 68, 0.1);
+}
+
+.warn {
+    border-left: 3px solid #f59e0b;
+    background-color: rgba(245, 158, 11, 0.1);
+}
+
+.info {
+    border-left: 3px solid #10b981;
+    background-color: rgba(16, 185, 129, 0.1);
+}
+
+.verbose {
+    border-left: 3px solid #3b82f6;
+    background-color: rgba(59, 130, 246, 0.1);
+}
+
+// Login modal button enhancement
+.md-button:hover {
+    filter: brightness(1.1);
+}
+
+// Database and logs page card layout
+.md-card {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    min-height: 48rem;
+    max-height: 48rem;
+    border-bottom: 2px solid var(--md-sys-color-outline-variant);
+}
+
+@media (max-width: 1023px) {
+    .flex.flex-col.lg\:grid {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    .md-card {
+        min-height: 36rem;
+        margin-bottom: 1rem;
+        border-bottom: 2px solid var(--md-sys-color-outline-variant);
+    }
+}

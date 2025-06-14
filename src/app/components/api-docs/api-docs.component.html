@@ -1,64 +1,63 @@
-  <div class="p-4 md:p-6 pb-20 bg-md-sys-color-surface h-screen max-w-6xl mx-auto flex flex-col mb-8 overflow-y-scroll">
+<div class="p-4 md:p-6 pb-20 bg-md-sys-color-surface h-screen max-w-6xl mx-auto flex flex-col mb-8 overflow-y-scroll">
     <h1 class="md-typescale-headline-large text-md-sys-color-on-surface mb-4 md:mb-6">API 문서</h1>
 
     <div class="flex flex-col gap-4 mb-6">
-      <div class="flex flex-col sm:flex-row gap-4">
-        <div class="flex-1">
-          <div class="relative">
-            <input
-              type="text"
-              [(ngModel)]="searchTerm"
-              (input)="filterApis()"
-              placeholder="경로나 설명으로 검색..."
-              class="w-full p-3 pr-12 bg-md-sys-color-surface-container-highest text-md-sys-color-on-surface rounded-xl border border-md-sys-color-outline focus:border-md-sys-color-primary focus:outline-none md-typescale-body-large touch-target">
-            <mat-icon class="w-5 h-5 absolute right-3 top-1/2 transform -translate-y-1/2 text-md-sys-color-on-surface-variant">search</mat-icon>
-          </div>
-        </div>
+        <div class="flex flex-col sm:flex-row gap-4">
+            <div class="flex-1">
+                <div class="relative">
+                    <input
+                        type="text"
+                        [(ngModel)]="searchTerm"
+                        (input)="filterApis()"
+                        placeholder="경로나 설명으로 검색..."
+                        class="w-full p-3 pr-12 bg-md-sys-color-surface-container-highest text-md-sys-color-on-surface rounded-xl border border-md-sys-color-outline focus:border-md-sys-color-primary focus:outline-none md-typescale-body-large touch-target">
+                    <mat-icon class="w-5 h-5 absolute right-3 top-1/2 transform -translate-y-1/2 text-md-sys-color-on-surface-variant">search</mat-icon>
+                </div>
+            </div>
 
         <div class="flex items-center gap-2">
-          <div class="relative" (click)="$event.stopPropagation()">
-            <button
-              (click)="toggleFileDropdown()"
-              class="flex items-center gap-2 px-4 py-3 bg-md-sys-color-surface-container-highest text-md-sys-color-on-surface rounded-xl border border-md-sys-color-outline hover:bg-md-sys-color-surface-container-high transition-all md-typescale-body-large min-w-[200px] text-left">
-              <mat-icon class="w-5 h-5" [class]="selectedFile ? 'text-md-sys-color-primary' : 'text-md-sys-color-on-surface-variant'">
-                {{ selectedFile ? 'folder_open' : 'folder' }}
-              </mat-icon>
-              <span class="flex-1 truncate">{{ selectedFile || '모든 경로' }}</span>
-              <mat-icon class="w-5 h-5 text-md-sys-color-on-surface-variant">{{ showFileDropdown ? 'expand_less' : 'expand_more' }}</mat-icon>
+            <div class="relative" (click)="$event.stopPropagation()">
+                <button
+                    (click)="toggleFileDropdown()"
+                    class="flex items-center gap-2 px-4 py-3 bg-md-sys-color-surface-container-highest text-md-sys-color-on-surface rounded-xl border border-md-sys-color-outline hover:bg-md-sys-color-surface-container-high transition-all md-typescale-body-large min-w-[200px] text-left">
+                    <mat-icon class="w-5 h-5" [class]="selectedFile ? 'text-md-sys-color-primary' : 'text-md-sys-color-on-surface-variant'">
+                        {{ selectedFile ? 'folder_open' : 'folder' }}
+                    </mat-icon>
+                    <span class="flex-1 truncate">{{ selectedFile || '모든 경로' }}</span>
+                    <mat-icon class="w-5 h-5 text-md-sys-color-on-surface-variant">{{ showFileDropdown ? 'expand_less' : 'expand_more' }}</mat-icon>
+                </button>
+                @if (showFileDropdown) {
+                    <div class="absolute top-full left-0 right-0 mt-2 max-h-64 overflow-y-auto bg-md-sys-color-surface-container rounded-xl border border-md-sys-color-outline shadow-elevation-2 z-50">
+                        <button
+                            (click)="selectFile('')"
+                            class="w-full flex items-center gap-2 px-4 py-3 hover:bg-md-sys-color-surface-container-high transition-all text-left text-md-sys-color-on-surface">
+                            <mat-icon class="w-5 h-5 text-md-sys-color-on-surface-variant">select_all</mat-icon>
+                            <span class="md-typescale-body-medium text-md-sys-color-on-surface">모든 경로</span>
+                        </button>
+                        @for (file of getUniqueFiles(); track $index) {
+                            <button
+                                (click)="selectFile(file)"
+                                [class]="'w-full flex items-center gap-2 px-4 py-3 hover:bg-md-sys-color-surface-container-high transition-all text-left ' + (selectedFile === file ? 'bg-md-sys-color-primary-container text-md-sys-color-on-primary-container' : 'text-md-sys-color-on-surface')">
+                                <mat-icon class="w-5 h-5" [class]="selectedFile === file ? 'text-md-sys-color-primary' : 'text-md-sys-color-on-surface-variant'">description</mat-icon>
+                                <span class="font-mono text-sm truncate">{{ file }}</span>
+                            </button>
+                        }
+                    </div>
+                }
+            </div>
+
+            <button class="md-button md-button-text p-3 rounded-full touch-target" (click)="refreshDocs()" [disabled]="loading" title="새로고침">
+                <mat-icon class="w-5 h-5 text-md-sys-color-primary">refresh</mat-icon>
             </button>
-
-            @if (showFileDropdown) {
-						<div class="absolute top-full left-0 right-0 mt-2 max-h-64 overflow-y-auto bg-md-sys-color-surface-container rounded-xl border border-md-sys-color-outline shadow-elevation-2 z-50">
-							<button
-								(click)="selectFile('')"
-								class="w-full flex items-center gap-2 px-4 py-3 hover:bg-md-sys-color-surface-container-high transition-all text-left text-md-sys-color-on-surface">
-								<mat-icon class="w-5 h-5 text-md-sys-color-on-surface-variant">select_all</mat-icon>
-								<span class="md-typescale-body-medium text-md-sys-color-on-surface">모든 경로</span>
-							</button>
-							@for (file of getUniqueFiles(); track $index) {
-								<button
-									(click)="selectFile(file)"
-									[class]="'w-full flex items-center gap-2 px-4 py-3 hover:bg-md-sys-color-surface-container-high transition-all text-left ' + (selectedFile === file ? 'bg-md-sys-color-primary-container text-md-sys-color-on-primary-container' : 'text-md-sys-color-on-surface')">
-									<mat-icon class="w-5 h-5" [class]="selectedFile === file ? 'text-md-sys-color-primary' : 'text-md-sys-color-on-surface-variant'">description</mat-icon>
-									<span class="font-mono text-sm truncate">{{ file }}</span>
-								</button>
-							}
-						</div>
-					}
-          </div>
-
-          <button class="md-button md-button-text p-3 rounded-full touch-target" (click)="refreshDocs()" [disabled]="loading" title="새로고침">
-            <mat-icon class="w-5 h-5 text-md-sys-color-primary">refresh</mat-icon>
-          </button>
-          <button class="md-button md-button-text p-3 rounded-full touch-target" (click)="regenerateDocs()" [disabled]="loading" title="JSDoc 재생성">
-            <mat-icon class="w-5 h-5 text-md-sys-color-primary">autorenew</mat-icon>
-          </button>
-          <button class="md-button md-button-filled px-4 py-2 rounded-full touch-target" (click)="exportDocs()" [disabled]="!apiDocs.length">
-            <mat-icon class="w-5 h-5 mr-2">download</mat-icon>
-            <span class="md-typescale-label-large">내보내기</span>
-          </button>
+                <button class="md-button md-button-text p-3 rounded-full touch-target" (click)="regenerateDocs()" [disabled]="loading" title="JSDoc 재생성">
+                <mat-icon class="w-5 h-5 text-md-sys-color-primary">autorenew</mat-icon>
+            </button>
+            <button class="md-button md-button-filled px-4 py-2 rounded-full touch-target" (click)="exportDocs()" [disabled]="!apiDocs.length">
+                <mat-icon class="w-5 h-5 mr-2">download</mat-icon>
+                <span class="md-typescale-label-large">내보내기</span>
+            </button>
         </div>
-      </div>
+        </div>
     </div>
 	@if (loading){
 		<div class="flex flex-col items-center justify-center py-20 gap-4">
@@ -262,5 +261,5 @@
 				</mat-accordion>
 			</div>
 		</div>
-	}
+    }
 </div>

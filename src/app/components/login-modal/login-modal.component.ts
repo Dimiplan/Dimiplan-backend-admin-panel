@@ -8,20 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
     selector: 'app-login-modal',
     standalone: true,
     imports: [CommonModule, MatDialogModule, MatButtonModule, MatIconModule],
-	templateUrl: './login-modal.component.html',
-    styles: [`
-        .md-button {
-            border: none;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.2s ease;
-        }
-
-        .md-button:hover {
-            transform: translateY(-1px);
-            filter: brightness(1.1);
-        }
-    `]
+	templateUrl: './login-modal.component.html'
 })
 export class LoginModalComponent {
     constructor(
