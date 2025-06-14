@@ -61,19 +61,19 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
               </button>
 
               <div *ngIf="showFileDropdown" class="absolute top-full left-0 right-0 mt-2 max-h-64 overflow-y-auto bg-md-sys-color-surface-container rounded-xl border border-md-sys-color-outline shadow-elevation-2 z-50">
-                <button
-                  (click)="selectFile('')"
-                  class="w-full flex items-center gap-2 px-4 py-3 hover:bg-md-sys-color-surface-container-high transition-all text-left">
-                  <mat-icon class="w-5 h-5 text-md-sys-color-on-surface-variant">select_all</mat-icon>
-                  <span class="md-typescale-body-medium">모든 경로</span>
-                </button>
-                <button
-                  *ngFor="let file of getUniqueFiles()"
-                  (click)="selectFile(file)"
-                  [class]="'w-full flex items-center gap-2 px-4 py-3 hover:bg-md-sys-color-surface-container-high transition-all text-left ' + (selectedFile === file ? 'bg-md-sys-color-primary-container' : '')">
-                  <mat-icon class="w-5 h-5" [class]="selectedFile === file ? 'text-md-sys-color-primary' : 'text-md-sys-color-on-surface-variant'">description</mat-icon>
-                  <span class="font-mono text-sm truncate">{{ file }}</span>
-                </button>
+								<button
+									(click)="selectFile('')"
+									class="w-full flex items-center gap-2 px-4 py-3 hover:bg-md-sys-color-surface-container-high transition-all text-left text-md-sys-color-on-surface">
+									<mat-icon class="w-5 h-5 text-md-sys-color-on-surface-variant">select_all</mat-icon>
+									<span class="md-typescale-body-medium text-md-sys-color-on-surface">모든 경로</span>
+								</button>
+								<button
+									*ngFor="let file of getUniqueFiles()"
+									(click)="selectFile(file)"
+									[class]="'w-full flex items-center gap-2 px-4 py-3 hover:bg-md-sys-color-surface-container-high transition-all text-left ' + (selectedFile === file ? 'bg-md-sys-color-primary-container text-md-sys-color-on-primary-container' : 'text-md-sys-color-on-surface')">
+									<mat-icon class="w-5 h-5" [class]="selectedFile === file ? 'text-md-sys-color-primary' : 'text-md-sys-color-on-surface-variant'">description</mat-icon>
+									<span class="font-mono text-sm truncate">{{ file }}</span>
+								</button>
               </div>
             </div>
 
@@ -194,66 +194,67 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
               </div>
 
               <div *ngIf="doc.returns && doc.returns.length > 0" class="space-y-2">
-                <h4 class="md-typescale-title-small text-md-sys-color-on-surface flex items-center gap-2">
-                  <mat-icon class="w-5 h-5 text-md-sys-color-primary">keyboard_return</mat-icon>
-                  반환값
-                </h4>
-                <div class="space-y-4">
-                  <div *ngFor="let group of groupReturns(doc.returns) | keyvalue" class="space-y-2">
-                    <!-- Root 레벨 아이템들 (그룹화되지 않은 것들) -->
-                    <div *ngIf="group.key === 'root'" class="space-y-2">
-                      <div *ngFor="let returnItem of group.value" class="p-3 bg-md-sys-color-tertiary-container rounded-lg">
-                        <div class="flex items-start justify-between mb-2">
-                          <div class="flex items-center gap-2">
-                            <code class="px-2 py-1 bg-md-sys-color-surface-container rounded text-sm font-mono text-md-sys-color-on-surface">
-                              {{ returnItem.fullName }}
-                            </code>
-                          </div>
-                          <span class="text-sm font-mono text-md-sys-color-on-tertiary-container">{{ returnItem.type.names.join(' | ') }}</span>
-                        </div>
-                        <p class="md-typescale-body-small text-md-sys-color-on-tertiary-container" [innerHTML]="parseReturnDescription(returnItem.description)"></p>
-                      </div>
-                    </div>
+								<h4 class="md-typescale-title-small text-md-sys-color-on-surface flex items-center gap-2">
+									<mat-icon class="w-5 h-5 text-md-sys-color-primary">keyboard_return</mat-icon>
+									반환값
+								</h4>
+								<div class="space-y-4">
+									<!-- Root 레벨 아이템들 (그룹화되지 않은 것들) -->
+									<div *ngFor="let returnItem of getReturnsByGroup(doc.returns, 'root')"
+											class="p-3 bg-md-sys-color-tertiary-container rounded-lg">
+										<div class="flex items-start justify-between mb-2">
+											<div class="flex items-center gap-2">
+												<code class="px-2 py-1 bg-md-sys-color-surface-container rounded text-sm font-mono text-md-sys-color-on-surface">
+													{{ returnItem.fullName }}
+												</code>
+											</div>
+											<span class="text-sm font-mono text-md-sys-color-on-tertiary-container">{{ returnItem.type.names.join(' | ') }}</span>
+										</div>
+										<p class="md-typescale-body-small text-md-sys-color-on-tertiary-container" [innerHTML]="parseReturnDescription(returnItem.description)"></p>
+									</div>
 
-                    <!-- 그룹화된 아이템들 (접을 수 있는 패널) -->
-                    <mat-expansion-panel *ngIf="group.key !== 'root'" class="returns-expansion-panel" [expanded]="false">
-                      <mat-expansion-panel-header class="returns-panel-header">
-                        <mat-panel-title>
-                          <div class="flex items-center gap-2">
-                            <mat-icon class="w-4 h-4 text-md-sys-color-primary">
-                              {{ group.key.includes('[]') ? 'view_list' : 'folder' }}
-                            </mat-icon>
-                            <code class="px-2 py-1 bg-md-sys-color-primary-container text-md-sys-color-on-primary-container rounded text-sm font-mono font-medium">{{ group.key }}</code>
-                            <span class="text-xs text-md-sys-color-on-surface-variant">
-                              {{ group.key.includes('[]') ? '배열' : '객체' }}
-                            </span>
-                            <span class="text-xs text-md-sys-color-on-surface-variant opacity-70">
-                              ({{ group.value.length }}개 속성)
-                            </span>
-                          </div>
-                        </mat-panel-title>
-                      </mat-expansion-panel-header>
+									<!-- 그룹화된 아이템들을 위한 단일 accordion -->
+									<mat-accordion class="space-y-2" multi>
+										<mat-expansion-panel *ngFor="let group of getGroupedReturnsWithoutRoot(doc.returns) | keyvalue"
+																				class="returns-expansion-panel"
+																				[expanded]="false">
+											<mat-expansion-panel-header class="returns-panel-header">
+												<mat-panel-title>
+													<div class="flex items-center gap-2">
+														<mat-icon class="w-4 h-4 text-md-sys-color-primary">
+															{{ group.key.includes('[]') ? 'view_list' : 'folder' }}
+														</mat-icon>
+														<code class="px-2 py-1 bg-md-sys-color-primary-container text-md-sys-color-on-primary-container rounded text-sm font-mono font-medium">{{ group.key }}</code>
+														<span class="text-xs text-md-sys-color-on-surface-variant">
+															{{ group.key.includes('[]') ? '배열' : '객체' }}
+														</span>
+														<span class="text-xs text-md-sys-color-on-surface-variant opacity-70">
+															({{ group.value.length }}개 속성)
+														</span>
+													</div>
+												</mat-panel-title>
+											</mat-expansion-panel-header>
 
-                      <div class="space-y-2 pt-2">
-                        <div *ngFor="let returnItem of group.value" class="p-3 bg-md-sys-color-tertiary-container rounded-lg">
-                          <div class="flex items-start justify-between mb-2">
-                            <div class="flex items-center gap-2">
-                              <code class="px-2 py-1 bg-md-sys-color-surface-container rounded text-sm font-mono text-md-sys-color-on-surface">
-                                {{ returnItem.propertyName }}
-                              </code>
-                              <span class="text-xs text-md-sys-color-on-tertiary-container opacity-70">
-                                {{ returnItem.fullName }}
-                              </span>
-                            </div>
-                            <span class="text-sm font-mono text-md-sys-color-on-tertiary-container">{{ returnItem.type.names.join(' | ') }}</span>
-                          </div>
-                          <p class="md-typescale-body-small text-md-sys-color-on-tertiary-container" [innerHTML]="parseReturnDescription(returnItem.description)"></p>
-                        </div>
-                      </div>
-                    </mat-expansion-panel>
-                  </div>
-                </div>
-              </div>
+											<div class="space-y-2 pt-2">
+												<div *ngFor="let returnItem of group.value" class="p-3 bg-md-sys-color-tertiary-container rounded-lg">
+													<div class="flex items-start justify-between mb-2">
+														<div class="flex items-center gap-2">
+															<code class="px-2 py-1 bg-md-sys-color-surface-container rounded text-sm font-mono text-md-sys-color-on-surface">
+																{{ returnItem.propertyName }}
+															</code>
+															<span class="text-xs text-md-sys-color-on-tertiary-container opacity-70">
+																{{ returnItem.fullName }}
+															</span>
+														</div>
+														<span class="text-sm font-mono text-md-sys-color-on-tertiary-container">{{ returnItem.type.names.join(' | ') }}</span>
+													</div>
+													<p class="md-typescale-body-small text-md-sys-color-on-tertiary-container" [innerHTML]="parseReturnDescription(returnItem.description)"></p>
+												</div>
+											</div>
+										</mat-expansion-panel>
+									</mat-accordion>
+								</div>
+							</div>
 
               <div class="space-y-2">
                 <h4 class="md-typescale-title-small text-md-sys-color-on-surface flex items-center gap-2">
@@ -680,6 +681,28 @@ export class ApiDocsComponent implements OnInit, OnDestroy {
   trackByPath(index: number, doc: ApiDoc): string {
     return doc.path + doc.method;
   }
+
+	getReturnsByGroup(returns: Array<{ type: { names: string[] }; description: string }>, groupKey: string) {
+		const groups = this.groupReturns(returns);
+		if (groups[groupKey]) {
+			return groups[groupKey];
+		}
+		return [];
+	}
+
+	getGroupedReturnsWithoutRoot(returns: Array<{ type: { names: string[] }; description: string }>) {
+		const groups = this.groupReturns(returns);
+		const result: Record<string, any[]> = {};
+
+		for (const [key, value] of Object.entries(groups)) {
+			if (key !== 'root') {
+				result[key] = value;
+			}
+		}
+
+		return result;
+	}
+
 
   groupReturns(returns: Array<{ type: { names: string[] }; description: string }>) {
     const groups: Record<string, Array<{ type: { names: string[] }; description: string; fullName: string; propertyName: string }>> = {};
