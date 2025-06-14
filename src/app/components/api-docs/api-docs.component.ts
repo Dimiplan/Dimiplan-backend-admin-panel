@@ -31,7 +31,7 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
     FormsModule
   ],
   template: `
-    <div class="p-4 md:p-6 bg-md-sys-color-surface h-screen overflow-y-auto max-w-6xl mx-auto">
+    <div class="p-4 md:p-6 pb-6 md:pb-8 bg-md-sys-color-surface h-screen overflow-y-auto max-w-6xl mx-auto">
       <h1 class="md-typescale-headline-large text-md-sys-color-on-surface mb-4 md:mb-6">API 문서</h1>
 
       <div class="flex flex-col lg:flex-row gap-4 mb-6">
