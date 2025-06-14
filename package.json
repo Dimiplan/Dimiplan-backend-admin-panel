@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",
-		"css": "bunx @tailwindcss/cli --input src/tailwind.css --output src/tailwind-output.css",
+    "css": "bunx @tailwindcss/cli --input src/tailwind.css --output src/tailwind-output.css",
     "start": "bun run css & ng serve",
     "build": "bun run css && ng build",
     "watch": "ng build --watch --configuration development",
@@ -37,6 +37,7 @@
     "karma-jasmine": "5.1.0",
     "karma-jasmine-html-reporter": "2.1.0",
     "tailwindcss": "^4.1.10",
-    "typescript": "5.8.3"
+    "typescript": "5.8.3",
+    "wrangler": "^4.20.0"
   }
 }

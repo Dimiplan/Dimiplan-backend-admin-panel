@@ -27,7 +27,7 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
     FormsModule
   ],
   template: `
-    <div class="p-4 md:p-6 pb-20 bg-md-sys-color-surface h-screen overflow-hidden flex flex-col">
+    <div class="p-4 md:p-6 pb-20 bg-md-sys-color-surface h-full overflow-hidden flex flex-col">
       <h1 class="md-typescale-headline-large text-md-sys-color-on-surface mb-4 md:mb-6">로그 관리</h1>
 			<div class="flex-1 overflow-hidden">
 				<div class="flex flex-col lg:grid lg:grid-cols-3 gap-4 md:gap-6">
@@ -84,7 +84,7 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
 								</button>
 							</div>
 						</div>
-						<div class="flex-1 flex flex-col min-h-0">
+						<div class="flex-1 flex flex-col min-h-0 max-h-96 overflow-y-scroll">
 							<div *ngIf="!selectedFile" class="flex items-center justify-center h-full text-md-sys-color-on-surface-variant">
 								<div class="text-center">
 									<mat-icon class="w-16 h-16 mb-4 text-md-sys-color-outline">visibility</mat-icon>
@@ -122,8 +122,8 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
 											(click)="setLogFilter('info')">정보</button>
 									</div>
 								</div>
-								<div class="flex-1 min-h-0 overflow-hidden">
-									<div class="bg-gray-900 rounded-xl h-full overflow-y-auto pb-4">
+								<div class="flex-1 min-h-0 overflow-scroll">
+									<div class="bg-gray-900 rounded-xl h-full pb-4">
 										<div *ngFor="let line of getFilteredLogLines(); let i = index"
 												[class]="'flex items-start gap-3 p-2 font-mono text-sm border-b border-gray-800 hover:bg-gray-800 ' + getLogLineClass(line)">
 											<span class="w-12 text-gray-500 text-right select-none flex-shrink-0">{{ i + 1 }}</span>

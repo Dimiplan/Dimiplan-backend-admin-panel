@@ -29,7 +29,7 @@ import { AdminService, TableInfo, TableData } from '../../services/admin.service
     MatChipsModule
   ],
   template: `
-    <div class="p-4 md:p-6 pb-20 bg-md-sys-color-surface h-screen overflow-hidden flex flex-col">
+    <div class="p-4 md:p-6 pb-20 bg-md-sys-color-surface h-full overflow-hidden flex flex-col">
       <h1 class="md-typescale-headline-large text-md-sys-color-on-surface mb-4 md:mb-6">데이터베이스 관리</h1>
 			<div class="flex-1 overflow-hidden">
 				<div class="flex flex-col lg:grid lg:grid-cols-3 gap-4 md:gap-6">
@@ -128,13 +128,13 @@ import { AdminService, TableInfo, TableData } from '../../services/admin.service
 								</div>
 
 								<!-- 테이블 데이터 -->
-								<div class="flex-1 flex flex-col min-h-0">
+								<div class="flex-1 flex flex-col min-h-0 max-h-[82vh]">
 									<h3 class="md-typescale-title-medium text-md-sys-color-on-surface mb-3 flex items-center gap-2 flex-shrink-0">
 										<mat-icon class="w-5 h-5 text-md-sys-color-primary">table_rows</mat-icon>
 										데이터 ({{ tableData.pagination.totalCount }}개 레코드)
 									</h3>
 									<div class="flex-1 min-h-0 overflow-hidden border border-md-sys-color-outline-variant rounded-xl">
-										<div class="h-full overflow-auto">
+										<div class="h-full overflow-y-scroll">
 											<table mat-table [dataSource]="tableData.rows" class="w-full min-w-max">
 												<ng-container *ngFor="let column of tableData.columns" [matColumnDef]="column.name">
 													<th mat-header-cell *matHeaderCellDef class="bg-md-sys-color-surface-container-high sticky top-0 z-10">
