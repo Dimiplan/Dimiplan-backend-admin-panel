@@ -11,265 +11,94 @@ import { MatChipsModule } from '@angular/material/chips';
 import { AdminService, SystemStatus, UserStats } from '../../services/admin.service';
 
 @Component({
-  selector: 'app-dashboard',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatCardModule,
-    MatButtonModule,
-    MatIconModule,
-    MatGridListModule,
-    MatProgressBarModule,
-    MatChipsModule,
-  ],
-  template: `
-    <div class="dashboard-container p-4 md:p-6 pb-20 bg-md-sys-color-surface h-screen overflow-y-auto max-w-6xl mx-auto">
-      <h1 class="md-typescale-headline-large text-md-sys-color-on-surface mb-4 md:mb-6">관리자 대시보드</h1>
+    selector: 'app-dashboard',
+    standalone: true,
+    imports: [
+        CommonModule,
+        MatCardModule,
+        MatButtonModule,
+        MatIconModule,
+        MatGridListModule,
+        MatProgressBarModule,
+        MatChipsModule,
+    ],
+	templateUrl: './dashboard.component.html',
+    styles: [`
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
 
-      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6 overflow-x-auto pb-4">
-        <!-- 시스템 상태 카드 -->
-        <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface hover:shadow-elevation-3 transition-all duration-300">
-          <div class="flex items-center gap-3 mb-4">
-            <mat-icon class="w-6 h-6 text-md-sys-color-primary">monitor</mat-icon>
-            <h2 class="md-typescale-title-large text-md-sys-color-on-surface">시스템 상태</h2>
-          </div>
-          <div class="flex-1">
-            <div *ngIf="systemStatus" class="space-y-4">
-              <div class="flex justify-between items-center py-2 border-b border-md-sys-color-outline-variant">
-                <span class="md-typescale-body-medium font-medium text-md-sys-color-on-surface-variant">가동 시간:</span>
-                <span class="md-typescale-body-medium font-mono text-md-sys-color-on-surface">{{ formatUptime(systemStatus.uptime) }}</span>
-              </div>
-              <div class="flex justify-between items-center py-2 border-b border-md-sys-color-outline-variant">
-                <span class="md-typescale-body-medium font-medium text-md-sys-color-on-surface-variant">메모리 사용량:</span>
-                <span class="md-typescale-body-medium font-mono text-md-sys-color-on-surface">{{ formatMemory(systemStatus.freemem) }} / {{ formatMemory(systemStatus.totalmem) }}</span>
-              </div>
-              <div class="flex justify-between items-center py-2 border-b border-md-sys-color-outline-variant">
-                <span class="md-typescale-body-medium font-medium text-md-sys-color-on-surface-variant">플랫폼:</span>
-                <span class="md-typescale-body-medium font-mono text-md-sys-color-on-surface">{{ systemStatus.platform }}</span>
-              </div>
-              <div class="flex justify-between items-center py-2 border-b border-md-sys-color-outline-variant">
-                <span class="md-typescale-body-medium font-medium text-md-sys-color-on-surface-variant">Node.js 버전:</span>
-                <span class="md-typescale-body-medium font-mono text-md-sys-color-on-surface">{{ systemStatus.nodeVersion }}</span>
-              </div>
-              <div class="flex justify-between items-center py-2">
-                <span class="md-typescale-body-medium font-medium text-md-sys-color-on-surface-variant">환경:</span>
-                <span class="px-3 py-1 rounded-full text-sm"
-                      [class]="systemStatus.environment === 'production' ? 'bg-md-sys-color-error-container text-md-sys-color-on-error-container' : 'bg-md-sys-color-primary-container text-md-sys-color-on-primary-container'">
-                  {{ systemStatus.environment }}
-                </span>
-              </div>
-              <div class="mt-4">
-                <div class="flex justify-between items-center mb-2">
-                  <span class="md-typescale-body-small text-md-sys-color-on-surface-variant">메모리 사용률</span>
-                  <span class="md-typescale-body-small text-md-sys-color-on-surface-variant">{{ getMemoryUsagePercent().toFixed(1) }}%</span>
-                </div>
-                <div class="w-full bg-md-sys-color-surface-container-high rounded-full h-2">
-                  <div class="bg-md-sys-color-primary h-2 rounded-full transition-all duration-300"
-                       [style.width.%]="getMemoryUsagePercent()"></div>
-                </div>
-              </div>
-							<div class="mt-4">
-                <div class="flex justify-between items-center mb-2">
-                  <span class="md-typescale-body-small text-md-sys-color-on-surface-variant">CPU 사용률</span>
-                  <span class="md-typescale-body-small text-md-sys-color-on-surface-variant">{{ getCpuUsagePercent().toFixed(1) }}%</span>
-                </div>
-                <div class="w-full bg-md-sys-color-surface-container-high rounded-full h-2">
-                  <div class="bg-md-sys-color-primary h-2 rounded-full transition-all duration-300"
-                       [style.width.%]="getCpuUsagePercent()"></div>
-                </div>
-              </div>
-            </div>
-            <div *ngIf="!systemStatus" class="flex items-center justify-center h-48 text-md-sys-color-on-surface-variant">
-              <div class="flex items-center gap-2">
-                <mat-icon class="w-5 h-5 animate-spin">refresh</mat-icon>
-                <span class="md-typescale-body-medium">시스템 정보를 불러오는 중...</span>
-              </div>
-            </div>
-          </div>
-        </div>
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
 
-        <!-- 사용자 통계 카드 -->
-        <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface hover:shadow-elevation-3 transition-all duration-300">
-          <div class="flex items-center gap-3 mb-4">
-            <mat-icon class="w-6 h-6 text-md-sys-color-primary">people</mat-icon>
-            <h2 class="md-typescale-title-large text-md-sys-color-on-surface">사용자 통계</h2>
-          </div>
-          <div class="flex-1">
-            <div *ngIf="userStats" class="space-y-6">
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div class="text-center p-4 bg-md-sys-color-primary-container rounded-xl">
-                  <div class="text-2xl md:text-3xl font-bold text-md-sys-color-on-primary-container mb-1">{{ userStats.totalUsers }}</div>
-                  <div class="md-typescale-body-small text-md-sys-color-on-primary-container">총 사용자</div>
-                </div>
-                <div class="text-center p-4 bg-md-sys-color-secondary-container rounded-xl">
-                  <div class="text-2xl md:text-3xl font-bold text-md-sys-color-on-secondary-container mb-1">{{ userStats.activeUsers }}</div>
-                  <div class="md-typescale-body-small text-md-sys-color-on-secondary-container">활성 사용자 (30일)</div>
-                </div>
-              </div>
-              <div class="space-y-3">
-                <h4 class="md-typescale-title-small text-md-sys-color-on-surface-variant mb-3">최근 가입자</h4>
-                <div class="space-y-2">
-                  <div *ngFor="let user of userStats.recentUsers.slice(0, 5)"
-                       class="flex flex-col sm:flex-row sm:justify-between sm:items-center py-2 px-3 bg-md-sys-color-surface-container-high rounded-lg gap-1">
-                    <span class="md-typescale-body-medium font-medium text-md-sys-color-on-surface truncate">{{ user.email }}</span>
-                    <span class="md-typescale-body-small text-md-sys-color-on-surface-variant">{{ formatDate(user.created_at) }}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div *ngIf="!userStats" class="flex items-center justify-center h-48 text-md-sys-color-on-surface-variant">
-              <div class="flex items-center gap-2">
-                <mat-icon class="w-5 h-5 animate-spin">refresh</mat-icon>
-                <span class="md-typescale-body-medium">사용자 통계를 불러오는 중...</span>
-              </div>
-            </div>
-          </div>
-        </div>
+        .md-card {
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            min-width: 280px;
+            max-width: 100%;
+        }
 
-				<!-- AI 사용량 카드 -->
-				<div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface hover:shadow-elevation-3 transition-all duration-300">
-					<div class="flex items-center gap-3 mb-4">
-						<mat-icon class="w-6 h-6 text-md-sys-color-primary">memory</mat-icon>
-						<h2 class="md-typescale-title-large text-md-sys-color-on-surface">AI 사용량</h2>
-					</div>
-					<div class="flex-1">
-						<div *ngIf="aiUsage" class="space-y-4">
-							<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-								<div class="text-center p-4 bg-md-sys-color-primary-container rounded-xl">
-									<div class="text-2xl md:text-3xl font-bold text-md-sys-color-on-primary-container mb-1">\${{ round(aiUsage.total_credits) }}</div>
-									<div class="md-typescale-body-small text-md-sys-color-on-primary-container">충전된 크레딧</div>
-								</div>
-								<div class="text-center p-4 bg-md-sys-color-secondary-container rounded-xl">
-									<div class="text-2xl md:text-3xl font-bold text-md-sys-color-on-secondary-container mb-1">\${{ round(aiUsage.total_usage) }}</div>
-									<div class="md-typescale-body-small text-md-sys-color-on-secondary-container">총 사용 크레딧</div>
-								</div>
-							</div>
-							<div class="mt-4">
-								<div class="flex justify-between items-center mb-2">
-									<span class="md-typescale-body-small text-md-sys-color-on-surface-variant">사용량 추세</span>
-									<span class="md-typescale-body-small text-md-sys-color-on-surface-variant">\${{ round(aiUsage.total_usage) }} 크레딧</span>
-								</div>
-								<div class="w-full bg-md-sys-color-surface-container-high rounded-full h-2">
-									<div class="bg-md-sys-color-primary h-2 rounded-full transition-all duration-300"
-										 [style.width.%]="(aiUsage.total_usage / aiUsage.total_credits) * 100"></div>
-								</div>
-							</div>
-							<div *ngIf="!aiUsage" class="flex items-center justify-center h-48 text-md-sys-color-on-surface-variant">
-								<div class="flex items-center">
-									<mat-icon class="w-5 h-5 animate-spin">refresh</mat-icon>
-									<span class="md-typescale-body-medium">AI 통계를 불러오는 중...</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+        @media (max-width: 768px) {
+            .dashboard-container {
+                overflow-x: hidden !important;
+            }
 
-        <!-- 빠른 액션 카드 -->
-        <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface hover:shadow-elevation-3 transition-all duration-300">
-          <div class="flex items-center gap-3 mb-4">
-            <mat-icon class="w-6 h-6 text-md-sys-color-primary">flash_on</mat-icon>
-            <h2 class="md-typescale-title-large text-md-sys-color-on-surface">빠른 액션</h2>
-          </div>
-          <div class="flex-1">
-            <div class="space-y-3">
-              <button class="w-full md-button md-button-tonal flex items-center justify-start gap-3 p-4 rounded-xl touch-target" (click)="navigateToLogs()">
-                <mat-icon class="w-5 h-5 text-md-sys-color-on-secondary-container">article</mat-icon>
-                <span class="md-typescale-label-large">로그 보기</span>
-              </button>
-              <button class="w-full md-button md-button-tonal flex items-center justify-start gap-3 p-4 rounded-xl touch-target" (click)="navigateToDatabase()">
-                <mat-icon class="w-5 h-5 text-md-sys-color-on-secondary-container">storage</mat-icon>
-                <span class="md-typescale-label-large">데이터베이스</span>
-              </button>
-              <button class="w-full md-button md-button-tonal flex items-center justify-start gap-3 p-4 rounded-xl touch-target" (click)="navigateToApiDocs()">
-                <mat-icon class="w-5 h-5 text-md-sys-color-on-secondary-container">code</mat-icon>
-                <span class="md-typescale-label-large">API 문서</span>
-              </button>
-              <button class="w-full md-button md-button-filled flex items-center justify-start gap-3 p-4 rounded-xl touch-target" (click)="refreshData()">
-                <mat-icon class="w-5 h-5 text-md-sys-color-on-primary">refresh</mat-icon>
-                <span class="md-typescale-label-large">새로고침</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  `,
-  styles: [`
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
+            .grid {
+                display: flex !important;
+                flex-direction: column !important;
+                overflow-x: visible !important;
+            }
 
-    .animate-spin {
-      animation: spin 1s linear infinite;
-    }
+            .md-card {
+                min-width: 100% !important;
+                width: 100% !important;
+            }
+        }
 
-    .md-card {
-      min-height: 300px;
-      display: flex;
-      flex-direction: column;
-      min-width: 280px;
-      max-width: 100%;
-    }
+        .md-button {
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
 
-    @media (max-width: 768px) {
-      .dashboard-container {
-        overflow-x: hidden !important;
-      }
-
-      .grid {
-        display: flex !important;
-        flex-direction: column !important;
-        overflow-x: visible !important;
-      }
-
-      .md-card {
-        min-width: 100% !important;
-        width: 100% !important;
-      }
-    }
-
-    .md-button {
-      border: none;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.2s ease;
-    }
-
-    .md-button:hover {
-      transform: translateY(-1px);
-    }
-  `]
+        .md-button:hover {
+            transform: translateY(-1px);
+        }
+    `]
 })
 export class DashboardComponent implements OnInit {
-  systemStatus: SystemStatus | null = null;
-  userStats: UserStats | null = null;
-  aiUsage: AiUsage | null = null;
+    systemStatus: SystemStatus | null = null;
+    userStats: UserStats | null = null;
+    aiUsage: AiUsage | null = null;
 
-  constructor(private adminService: AdminService, private router: Router) {}
+    constructor(private adminService: AdminService, private router: Router) {}
 
-  ngOnInit() {
-    this.loadData();
-  }
+    ngOnInit() {
+        this.loadData();
+    }
 
-  loadData() {
-    this.loadSystemStatus();
-    this.loadAiUsage();
-    this.loadUserStats();
-  }
+    loadData() {
+        this.loadSystemStatus();
+        this.loadAiUsage();
+        this.loadUserStats();
+    }
 
-  loadSystemStatus() {
-    this.adminService.getSystemStatus().subscribe({
-      next: (response) => {
-        if (response.success) {
-          this.systemStatus = response.data;
-        }
-      },
-      error: (error) => {
-        console.error('시스템 상태 로드 실패:', error);
-      }
-    });
-  }
+    loadSystemStatus() {
+        this.adminService.getSystemStatus().subscribe({
+            next: (response) => {
+                if (response.success) {
+                    this.systemStatus = response.data;
+                }
+            },
+            error: (error) => {
+                console.error('시스템 상태 로드 실패:', error);
+            }
+        });
+    }
 	loadAiUsage() {
 		this.adminService.getAiUsage().subscribe({
 			next: (response) => {
@@ -283,35 +112,35 @@ export class DashboardComponent implements OnInit {
 		});
 	}
 
-  loadUserStats() {
-    this.adminService.getUserStats().subscribe({
-      next: (response) => {
-        if (response.success) {
-          this.userStats = response.data;
-        }
-      },
-      error: (error) => {
-        console.error('사용자 통계 로드 실패:', error);
-      }
-    });
-  }
+    loadUserStats() {
+        this.adminService.getUserStats().subscribe({
+            next: (response) => {
+                if (response.success) {
+                    this.userStats = response.data;
+                }
+            },
+            error: (error) => {
+                console.error('사용자 통계 로드 실패:', error);
+            }
+        });
+    }
 
-  formatUptime(uptime: number): string {
-    const hours = Math.floor(uptime / 3600);
-    const minutes = Math.floor((uptime % 3600) / 60);
-    const seconds = Math.floor(uptime % 60);
-    return `${hours}h ${minutes}m ${seconds}s`;
-  }
+    formatUptime(uptime: number): string {
+        const hours = Math.floor(uptime / 3600);
+        const minutes = Math.floor((uptime % 3600) / 60);
+        const seconds = Math.floor(uptime % 60);
+        return `${hours}h ${minutes}m ${seconds}s`;
+    }
 
-  formatMemory(bytes: number): string {
-    const mb = bytes / (1024 * 1024);
-    return `${mb.toFixed(1)} MB`;
-  }
+    formatMemory(bytes: number): string {
+        const mb = bytes / (1024 * 1024);
+        return `${mb.toFixed(1)} MB`;
+    }
 
-  getMemoryUsagePercent(): number {
-    if (!this.systemStatus) return 0;
-    return (this.systemStatus.freemem / this.systemStatus.totalmem) * 100;
-  }
+    getMemoryUsagePercent(): number {
+        if (!this.systemStatus) return 0;
+        return (this.systemStatus.freemem / this.systemStatus.totalmem) * 100;
+    }
 
 	getCpuUsagePercent(): number {
 		if (!this.systemStatus || !this.systemStatus.loadavg) return 0;
@@ -322,25 +151,25 @@ export class DashboardComponent implements OnInit {
 		return Math.round(value*100) / 100; // 소수점 둘째 자리까지 반올림
 	}
 
-  formatDate(dateString: string): string {
-    return new Date(dateString).toLocaleDateString('ko-KR');
-  }
+    formatDate(dateString: string): string {
+        return new Date(dateString).toLocaleDateString('ko-KR');
+    }
 
-  navigateToLogs() {
-    this.router.navigate(['/logs']);
-  }
+    navigateToLogs() {
+        this.router.navigate(['/logs']);
+    }
 
-  navigateToDatabase() {
-    this.router.navigate(['/database']);
-  }
+    navigateToDatabase() {
+        this.router.navigate(['/database']);
+    }
 
-  navigateToApiDocs() {
-    this.router.navigate(['/api-docs']);
-  }
+    navigateToApiDocs() {
+        this.router.navigate(['/api-docs']);
+    }
 
-  refreshData() {
-    this.systemStatus = null;
-    this.userStats = null;
-    this.loadData();
-  }
+    refreshData() {
+        this.systemStatus = null;
+        this.userStats = null;
+        this.loadData();
+    }
 }

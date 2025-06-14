@@ -1,0 +1,266 @@
+  <div class="p-4 md:p-6 pb-20 bg-md-sys-color-surface h-screen max-w-6xl mx-auto flex flex-col mb-8 overflow-y-scroll">
+    <h1 class="md-typescale-headline-large text-md-sys-color-on-surface mb-4 md:mb-6">API 문서</h1>
+
+    <div class="flex flex-col gap-4 mb-6">
+      <div class="flex flex-col sm:flex-row gap-4">
+        <div class="flex-1">
+          <div class="relative">
+            <input
+              type="text"
+              [(ngModel)]="searchTerm"
+              (input)="filterApis()"
+              placeholder="경로나 설명으로 검색..."
+              class="w-full p-3 pr-12 bg-md-sys-color-surface-container-highest text-md-sys-color-on-surface rounded-xl border border-md-sys-color-outline focus:border-md-sys-color-primary focus:outline-none md-typescale-body-large touch-target">
+            <mat-icon class="w-5 h-5 absolute right-3 top-1/2 transform -translate-y-1/2 text-md-sys-color-on-surface-variant">search</mat-icon>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <div class="relative" (click)="$event.stopPropagation()">
+            <button
+              (click)="toggleFileDropdown()"
+              class="flex items-center gap-2 px-4 py-3 bg-md-sys-color-surface-container-highest text-md-sys-color-on-surface rounded-xl border border-md-sys-color-outline hover:bg-md-sys-color-surface-container-high transition-all md-typescale-body-large min-w-[200px] text-left">
+              <mat-icon class="w-5 h-5" [class]="selectedFile ? 'text-md-sys-color-primary' : 'text-md-sys-color-on-surface-variant'">
+                {{ selectedFile ? 'folder_open' : 'folder' }}
+              </mat-icon>
+              <span class="flex-1 truncate">{{ selectedFile || '모든 경로' }}</span>
+              <mat-icon class="w-5 h-5 text-md-sys-color-on-surface-variant">{{ showFileDropdown ? 'expand_less' : 'expand_more' }}</mat-icon>
+            </button>
+
+            @if (showFileDropdown) {
+						<div class="absolute top-full left-0 right-0 mt-2 max-h-64 overflow-y-auto bg-md-sys-color-surface-container rounded-xl border border-md-sys-color-outline shadow-elevation-2 z-50">
+							<button
+								(click)="selectFile('')"
+								class="w-full flex items-center gap-2 px-4 py-3 hover:bg-md-sys-color-surface-container-high transition-all text-left text-md-sys-color-on-surface">
+								<mat-icon class="w-5 h-5 text-md-sys-color-on-surface-variant">select_all</mat-icon>
+								<span class="md-typescale-body-medium text-md-sys-color-on-surface">모든 경로</span>
+							</button>
+							@for (file of getUniqueFiles(); track $index) {
+								<button
+									(click)="selectFile(file)"
+									[class]="'w-full flex items-center gap-2 px-4 py-3 hover:bg-md-sys-color-surface-container-high transition-all text-left ' + (selectedFile === file ? 'bg-md-sys-color-primary-container text-md-sys-color-on-primary-container' : 'text-md-sys-color-on-surface')">
+									<mat-icon class="w-5 h-5" [class]="selectedFile === file ? 'text-md-sys-color-primary' : 'text-md-sys-color-on-surface-variant'">description</mat-icon>
+									<span class="font-mono text-sm truncate">{{ file }}</span>
+								</button>
+							}
+						</div>
+					}
+          </div>
+
+          <button class="md-button md-button-text p-3 rounded-full touch-target" (click)="refreshDocs()" [disabled]="loading" title="새로고침">
+            <mat-icon class="w-5 h-5 text-md-sys-color-primary">refresh</mat-icon>
+          </button>
+          <button class="md-button md-button-text p-3 rounded-full touch-target" (click)="regenerateDocs()" [disabled]="loading" title="JSDoc 재생성">
+            <mat-icon class="w-5 h-5 text-md-sys-color-primary">autorenew</mat-icon>
+          </button>
+          <button class="md-button md-button-filled px-4 py-2 rounded-full touch-target" (click)="exportDocs()" [disabled]="!apiDocs.length">
+            <mat-icon class="w-5 h-5 mr-2">download</mat-icon>
+            <span class="md-typescale-label-large">내보내기</span>
+          </button>
+        </div>
+      </div>
+    </div>
+	@if (loading){
+		<div class="flex flex-col items-center justify-center py-20 gap-4">
+			<mat-spinner diameter="40" aria-label="API 문서 로딩 중"></mat-spinner>
+			<p class="md-typescale-body-medium text-md-sys-color-on-surface-variant">API 문서를 불러오는 중...</p>
+		</div>
+	} @else if (filteredDocs.length === 0 && apiDocs.length > 0) {
+		<div class="flex flex-col items-center justify-center py-20">
+			<mat-icon class="w-16 h-16 mb-4 text-md-sys-color-outline">search_off</mat-icon>
+			<p class="md-typescale-body-large text-md-sys-color-on-surface-variant">검색 결과가 없습니다.</p>
+		</div>
+	} @else if (apiDocs.length === 0) {
+		<div class="flex flex-col items-center justify-center py-20">
+			<mat-icon class="w-16 h-16 mb-4 text-md-sys-color-outline">api</mat-icon>
+			<p class="md-typescale-body-large text-md-sys-color-on-surface-variant">API 문서를 찾을 수 없습니다.</p>
+		</div>
+	} @else if(filteredDocs.length > 0) {
+		<div>
+			<div class="p-4 bg-md-sys-color-surface-container-high rounded-xl mb-6">
+				<span class="md-typescale-body-medium text-md-sys-color-on-surface">총 {{ apiDocs.length }}개의 API 엔드포인트</span>
+				@if (searchTerm) {
+					<span class="md-typescale-body-medium text-md-sys-color-on-surface-variant ml-2">({{ filteredDocs.length }}개 필터링됨)</span>
+				}
+			</div>
+			<div class="mb-8 overflow-y-scroll">
+				<mat-accordion class="space-y-4">
+					@for (doc of filteredDocs; track trackByPath(doc)) {
+						<mat-expansion-panel class="api-expansion-panel">
+							<mat-expansion-panel-header class="api-panel-header">
+								<mat-panel-title>
+									<div class="flex items-center gap-3 flex-wrap w-full">
+										<span class="px-3 py-1 rounded-full text-sm font-medium min-w-[60px] text-center flex-shrink-0"
+													[class]="getMethodColor(doc.method) === 'primary' ? 'bg-md-sys-color-primary text-md-sys-color-on-primary' :
+																	getMethodColor(doc.method) === 'accent' ? 'bg-md-sys-color-secondary text-md-sys-color-on-secondary' :
+																	getMethodColor(doc.method) === 'warn' ? 'bg-md-sys-color-error text-md-sys-color-on-error' :
+																	'bg-md-sys-color-surface-container-high text-md-sys-color-on-surface'">
+											{{ doc.method }}
+										</span>
+										<span class="font-mono md-typescale-title-medium font-medium text-md-sys-color-on-surface break-all flex-1">{{ doc.path }}</span>
+									</div>
+								</mat-panel-title>
+								<mat-panel-description>
+									<span class="md-typescale-body-medium text-md-sys-color-on-surface-variant truncate">{{ doc.name }}</span>
+								</mat-panel-description>
+							</mat-expansion-panel-header>
+
+							<div class="space-y-6 pt-4">
+								<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 bg-md-sys-color-surface-container-high rounded-xl">
+									<div class="flex items-center gap-2">
+										<span class="md-typescale-body-medium font-medium text-md-sys-color-on-surface-variant">파일:</span>
+										<span class="font-mono md-typescale-body-medium text-md-sys-color-on-surface">{{ doc.file }}</span>
+									</div>
+									<div class="flex items-center gap-2">
+										<span class="md-typescale-body-medium font-medium text-md-sys-color-on-surface-variant">메소드:</span>
+										<span class="px-2 py-1 rounded-full text-xs"
+													[class]="getMethodColor(doc.method) === 'primary' ? 'bg-md-sys-color-primary-container text-md-sys-color-on-primary-container' :
+																	getMethodColor(doc.method) === 'accent' ? 'bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container' :
+																	getMethodColor(doc.method) === 'warn' ? 'bg-md-sys-color-error-container text-md-sys-color-on-error-container' :
+																	'bg-md-sys-color-surface-container text-md-sys-color-on-surface'">
+											{{ doc.method }}
+										</span>
+									</div>
+									<div class="flex items-center gap-2">
+										<span class="md-typescale-body-medium font-medium text-md-sys-color-on-surface-variant">경로:</span>
+										<code class="px-2 py-1 bg-md-sys-color-surface-container rounded text-sm font-mono text-md-sys-color-on-surface">{{ doc.path }}</code>
+									</div>
+								</div>
+								@if (doc.routeParams && doc.routeParams.length > 0) {
+									<div class="space-y-2">
+										<h4 class="md-typescale-title-small text-md-sys-color-on-surface flex items-center gap-2">
+											<mat-icon class="w-5 h-5 text-md-sys-color-primary">route</mat-icon>
+											경로 파라미터
+										</h4>
+										<div class="space-y-3">
+											@for(routeParam of doc.routeParams; track $index) {
+												<div class="p-3 bg-md-sys-color-primary-container rounded-lg">
+													<div class="flex items-start justify-between mb-2">
+														<div class="flex items-center gap-2">
+															<code class="px-2 py-1 bg-md-sys-color-surface-container rounded text-sm font-mono text-md-sys-color-on-surface">{{ routeParam.name }}</code>
+															<span class="px-2 py-1 rounded-full text-xs bg-md-sys-color-error-container text-md-sys-color-on-error-container">필수</span>
+														</div>
+														<span class="text-sm font-mono text-md-sys-color-on-primary-container">{{ routeParam.type }}</span>
+													</div>
+													<p class="md-typescale-body-small text-md-sys-color-on-primary-container">{{ routeParam.description }}</p>
+												</div>
+											}
+										</div>
+									</div>
+								}
+								@if(doc.params && doc.params.length > 0) {
+									<div class="space-y-2">
+										<h4 class="md-typescale-title-small text-md-sys-color-on-surface flex items-center gap-2">
+											<mat-icon class="w-5 h-5 text-md-sys-color-primary">settings</mat-icon>
+											{{ doc.method.toUpperCase() === 'GET' ? '쿼리 파라미터' : '요청 본문' }}
+										</h4>
+										<div class="space-y-3">
+											@for(param of doc.params; track $index) {
+												<div class="p-3 bg-md-sys-color-surface-container-high rounded-lg">
+													<div class="flex items-start justify-between mb-2">
+														<div class="flex items-center gap-2">
+															<code class="px-2 py-1 bg-md-sys-color-surface-container rounded text-sm font-mono text-md-sys-color-on-surface">{{ param.name }}</code>
+															<span class="px-2 py-1 rounded-full text-xs"
+																		[class]="param.optional != 'optional' ? 'bg-md-sys-color-error-container text-md-sys-color-on-error-container' : 'bg-md-sys-color-surface-container text-md-sys-color-on-surface'">{{ param.optional != 'optional' ? '필수' : '선택' }}</span>
+														</div>
+														<span class="text-sm font-mono text-md-sys-color-on-surface-variant">{{ param.type }}</span>
+													</div>
+													<p class="md-typescale-body-small text-md-sys-color-on-surface-variant">{{ param.description }}</p>
+												</div>
+											}
+										</div>
+									</div>
+								}
+								@if(doc.returns && doc.returns.length > 0) {
+									<div class="space-y-2">
+										<h4 class="md-typescale-title-small text-md-sys-color-on-surface flex items-center gap-2">
+											<mat-icon class="w-5 h-5 text-md-sys-color-primary">keyboard_return</mat-icon>
+											반환값
+										</h4>
+										<div class="space-y-4">
+											<!-- Root 레벨 아이템들 (그룹화되지 않은 것들) -->
+											@for (returnItem of getReturnsByGroup(doc.returns, 'root'); track $index) {
+												<div class="p-3 bg-md-sys-color-tertiary-container rounded-lg">
+													<div class="flex items-start justify-between mb-2">
+														<div class="flex items-center gap-2">
+															<code class="px-2 py-1 bg-md-sys-color-surface-container rounded text-sm font-mono text-md-sys-color-on-surface">
+																{{ returnItem.fullName }}
+															</code>
+														</div>
+														<span class="text-sm font-mono text-md-sys-color-on-tertiary-container">{{ returnItem.type.names.join(' | ') }}</span>
+													</div>
+													<p class="md-typescale-body-small text-md-sys-color-on-tertiary-container" [innerHTML]="parseReturnDescription(returnItem.description)"></p>
+												</div>
+											}
+
+											<!-- 그룹화된 아이템들을 위한 단일 accordion -->
+											<mat-accordion class="space-y-2" multi>
+												@for(group of getGroupedReturnsWithoutRoot(doc.returns) | keyvalue; track $index) {
+													<mat-expansion-panel class="returns-expansion-panel" [expanded]="false">
+														<mat-expansion-panel-header class="returns-panel-header">
+															<mat-panel-title>
+																<div class="flex items-center gap-2">
+																	<mat-icon class="w-4 h-4 text-md-sys-color-primary">
+																		{{ group.key.includes('[]') ? 'view_list' : 'folder' }}
+																	</mat-icon>
+																	<code class="px-2 py-1 bg-md-sys-color-primary-container text-md-sys-color-on-primary-container rounded text-sm font-mono font-medium">{{ group.key }}</code>
+																	<span class="text-xs text-md-sys-color-on-surface-variant">
+																		{{ group.key.includes('[]') ? '배열' : '객체' }}
+																	</span>
+																	<span class="text-xs text-md-sys-color-on-surface-variant opacity-70">
+																		({{ group.value.length }}개 속성)
+																	</span>
+																</div>
+															</mat-panel-title>
+														</mat-expansion-panel-header>
+
+														<div class="space-y-2 pt-2">
+															@for (returnItem of group.value; track $index) {
+																<div class="p-3 bg-md-sys-color-tertiary-container rounded-lg">
+																	<div class="flex items-start justify-between mb-2">
+																		<div class="flex items-center gap-2">
+																			<code class="px-2 py-1 bg-md-sys-color-surface-container rounded text-sm font-mono text-md-sys-color-on-surface">
+																				{{ returnItem.propertyName }}
+																			</code>
+																			<span class="text-xs text-md-sys-color-on-tertiary-container opacity-70">
+																				{{ returnItem.fullName }}
+																			</span>
+																		</div>
+																		<span class="text-sm font-mono text-md-sys-color-on-tertiary-container">{{ returnItem.type.names.join(' | ') }}</span>
+																	</div>
+																	<p class="md-typescale-body-small text-md-sys-color-on-tertiary-container" [innerHTML]="parseReturnDescription(returnItem.description)"></p>
+																</div>
+															}
+														</div>
+													</mat-expansion-panel>
+												}
+											</mat-accordion>
+										</div>
+									</div>
+
+									<div class="space-y-2">
+										<h4 class="md-typescale-title-small text-md-sys-color-on-surface flex items-center gap-2">
+											<mat-icon class="w-5 h-5 text-md-sys-color-primary">code</mat-icon>
+											사용 예시
+										</h4>
+										<div class="relative bg-gray-900 text-gray-100 rounded-xl overflow-hidden">
+											<pre class="p-4 overflow-x-auto font-mono text-sm leading-relaxed"><code>{{ generateCurlExample(doc) }}</code></pre>
+											<button class="absolute top-3 right-3 p-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition-all"
+															(click)="copyCurl(doc)"
+															[title]="copiedDocId === doc.method + '-' + doc.path ? '복사됨!' : '클립보드에 복사'">
+												<mat-icon class="w-5 h-5 transition-all"
+																	[class]="copiedDocId === doc.method + '-' + doc.path ? 'text-green-400' : 'text-gray-300'">
+													{{ copiedDocId === doc.method + '-' + doc.path ? 'check' : 'content_copy' }}
+												</mat-icon>
+											</button>
+										</div>
+									</div>
+								}
+							</div>
+						</mat-expansion-panel>
+					}
+				</mat-accordion>
+			</div>
+		</div>
+	}
+</div>

@@ -5,49 +5,30 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-login-modal',
-  standalone: true,
-  imports: [CommonModule, MatDialogModule, MatButtonModule, MatIconModule],
-  template: `
-    <div class="p-8 bg-md-sys-color-surface text-md-sys-color-on-surface rounded-3xl max-w-md mx-auto">
-      <div class="flex items-center justify-center gap-4 mb-6">
-        <mat-icon class="text-4xl text-md-sys-color-error">warning</mat-icon>
-        <h2 class="md-typescale-headline-medium text-md-sys-color-on-surface text-center">인증이 필요합니다</h2>
-      </div>
+    selector: 'app-login-modal',
+    standalone: true,
+    imports: [CommonModule, MatDialogModule, MatButtonModule, MatIconModule],
+	templateUrl: './login-modal.component.html',
+    styles: [`
+        .md-button {
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
 
-      <div class="text-center space-y-4 mb-8">
-        <p class="md-typescale-body-large text-md-sys-color-on-surface">관리자 패널에 접근하려면 구글 계정으로 로그인해야 합니다.</p>
-        <p class="md-typescale-body-medium text-md-sys-color-on-surface-variant">로그인 후 현재 페이지로 돌아갑니다.</p>
-      </div>
-
-      <div class="flex justify-center">
-        <button class="md-button md-button-filled flex items-center gap-3 px-6 py-3 rounded-full" (click)="loginWithGoogle()">
-          <mat-icon class="text-md-sys-color-on-primary">login</mat-icon>
-          <span class="md-typescale-label-large">구글로 로그인</span>
-        </button>
-      </div>
-    </div>
-  `,
-  styles: [`
-    .md-button {
-      border: none;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.2s ease;
-    }
-
-    .md-button:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.1);
-    }
-  `]
+        .md-button:hover {
+            transform: translateY(-1px);
+            filter: brightness(1.1);
+        }
+    `]
 })
 export class LoginModalComponent {
-  constructor(
-    public dialogRef: MatDialogRef<LoginModalComponent>,
-  ) {}
+    constructor(
+        public dialogRef: MatDialogRef<LoginModalComponent>,
+    ) {}
 
-  loginWithGoogle(): void {
-   	window.location.href = `https://api-dev.dimiplan.com/auth/google?returnUrl=admin.dimiplan.com`;
-  }
+    loginWithGoogle(): void {
+     	window.location.href = `https://api-dev.dimiplan.com/auth/google?returnUrl=admin.dimiplan.com`;
+    }
 }
