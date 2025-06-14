@@ -29,7 +29,7 @@ import { AdminService, TableInfo, TableData } from '../../services/admin.service
     MatChipsModule
   ],
   template: `
-    <div class="p-4 md:p-6 bg-md-sys-color-surface h-screen overflow-hidden flex flex-col">
+    <div class="p-4 md:p-6 bg-md-sys-color-surface h-full overflow-hidden flex flex-col pb-8">
       <h1 class="md-typescale-headline-large text-md-sys-color-on-surface mb-4 md:mb-6 flex-shrink-0">데이터베이스 관리</h1>
 
       <div class="flex flex-col lg:grid lg:grid-cols-3 gap-4 md:gap-6 flex-1 min-h-0">
@@ -189,6 +189,7 @@ import { AdminService, TableInfo, TableData } from '../../services/admin.service
       display: flex;
       flex-direction: column;
       min-height: 400px;
+      border-bottom: 2px solid var(--md-sys-color-outline-variant);
     }
 
     @media (max-width: 1023px) {
@@ -200,6 +201,7 @@ import { AdminService, TableInfo, TableData } from '../../services/admin.service
       .md-card {
         min-height: 300px;
         margin-bottom: 1rem;
+        border-bottom: 2px solid var(--md-sys-color-outline-variant);
       }
     }
 

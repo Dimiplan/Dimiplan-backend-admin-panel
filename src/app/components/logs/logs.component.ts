@@ -27,7 +27,7 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
     FormsModule
   ],
   template: `
-    <div class="p-4 md:p-6 bg-md-sys-color-surface h-screen overflow-hidden flex flex-col">
+    <div class="p-4 md:p-6 bg-md-sys-color-surface h-full overflow-hidden flex flex-col pb-8">
       <h1 class="md-typescale-headline-large text-md-sys-color-on-surface mb-4 md:mb-6 flex-shrink-0">로그 관리</h1>
 
       <div class="flex flex-col lg:grid lg:grid-cols-3 gap-4 md:gap-6 flex-1 min-h-0">
@@ -39,7 +39,7 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
               <mat-icon class="w-5 h-5 text-md-sys-color-primary">refresh</mat-icon>
             </button>
           </div>
-          <div class="flex-1 overflow-y-auto min-h-0">
+          <div class="flex-1 overflow-y-auto min-h-0 pb-4">
             <div *ngIf="logFiles.length > 0" class="space-y-2 pr-2">
               <div
                 *ngFor="let file of logFiles"
@@ -123,7 +123,7 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
                 </div>
               </div>
               <div class="flex-1 min-h-0 overflow-hidden">
-                <div class="bg-gray-900 rounded-xl h-full overflow-y-auto">
+                <div class="bg-gray-900 rounded-xl h-full overflow-y-auto pb-4">
                   <div *ngFor="let line of getFilteredLogLines(); let i = index"
                        [class]="'flex items-start gap-3 p-2 font-mono text-sm border-b border-gray-800 hover:bg-gray-800 ' + getLogLineClass(line)">
                     <span class="w-12 text-gray-500 text-right select-none flex-shrink-0">{{ i + 1 }}</span>
@@ -131,6 +131,7 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
                     <span [class]="'w-16 font-bold uppercase flex-shrink-0 text-center ' + getLogLevelColorClass(extractLogLevel(line))">{{ extractLogLevel(line) }}</span>
                     <span class="flex-1 text-gray-200 break-words whitespace-pre-wrap min-w-0">{{ extractMessage(line) }}</span>
                   </div>
+                  <div class="h-4"></div>
                 </div>
               </div>
             </div>
@@ -145,6 +146,7 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
       display: flex;
       flex-direction: column;
       min-height: 400px;
+      border-bottom: 2px solid var(--md-sys-color-outline-variant);
     }
 
     @media (max-width: 1023px) {
@@ -156,6 +158,7 @@ import { AdminService, LogFile, LogContent } from '../../services/admin.service'
       .md-card {
         min-height: 300px;
         margin-bottom: 1rem;
+        border-bottom: 2px solid var(--md-sys-color-outline-variant);
       }
     }
 
