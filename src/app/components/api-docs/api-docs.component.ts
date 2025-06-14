@@ -31,7 +31,7 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
     FormsModule
   ],
   template: `
-    <div class="p-4 md:p-6 pb-20 bg-md-sys-color-surface h-screen overflow-y-auto max-w-6xl mx-auto">
+    <div class="p-4 md:p-6 pb-20 bg-md-sys-color-surface h-screen max-w-6xl mx-auto flex flex-col mb-8 overflow-y-scroll">
       <h1 class="md-typescale-headline-large text-md-sys-color-on-surface mb-4 md:mb-6">API 문서</h1>
 
       <div class="flex flex-col gap-4 mb-6">
@@ -111,171 +111,172 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
           <span class="md-typescale-body-medium text-md-sys-color-on-surface">총 {{ apiDocs.length }}개의 API 엔드포인트</span>
           <span *ngIf="searchTerm" class="md-typescale-body-medium text-md-sys-color-on-surface-variant ml-2">({{ filteredDocs.length }}개 필터링됨)</span>
         </div>
-
-        <mat-accordion class="space-y-4">
-          <mat-expansion-panel *ngFor="let doc of filteredDocs; trackBy: trackByPath" class="api-expansion-panel">
-            <mat-expansion-panel-header class="api-panel-header">
-              <mat-panel-title>
-                <div class="flex items-center gap-3 flex-wrap w-full">
-                  <span class="px-3 py-1 rounded-full text-sm font-medium min-w-[60px] text-center flex-shrink-0"
-                        [class]="getMethodColor(doc.method) === 'primary' ? 'bg-md-sys-color-primary text-md-sys-color-on-primary' :
-                                 getMethodColor(doc.method) === 'accent' ? 'bg-md-sys-color-secondary text-md-sys-color-on-secondary' :
-                                 getMethodColor(doc.method) === 'warn' ? 'bg-md-sys-color-error text-md-sys-color-on-error' :
-                                 'bg-md-sys-color-surface-container-high text-md-sys-color-on-surface'">
-                    {{ doc.method }}
-                  </span>
-                  <span class="font-mono md-typescale-title-medium font-medium text-md-sys-color-on-surface break-all flex-1">{{ doc.path }}</span>
-                </div>
-              </mat-panel-title>
-              <mat-panel-description>
-                <span class="md-typescale-body-medium text-md-sys-color-on-surface-variant truncate">{{ doc.name }}</span>
-              </mat-panel-description>
-            </mat-expansion-panel-header>
-
-            <div class="space-y-6 pt-4">
-              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 bg-md-sys-color-surface-container-high rounded-xl">
-                <div class="flex items-center gap-2">
-                  <span class="md-typescale-body-medium font-medium text-md-sys-color-on-surface-variant">파일:</span>
-                  <span class="font-mono md-typescale-body-medium text-md-sys-color-on-surface">{{ doc.file }}</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <span class="md-typescale-body-medium font-medium text-md-sys-color-on-surface-variant">메소드:</span>
-                  <span class="px-2 py-1 rounded-full text-xs"
-                        [class]="getMethodColor(doc.method) === 'primary' ? 'bg-md-sys-color-primary-container text-md-sys-color-on-primary-container' :
-                                 getMethodColor(doc.method) === 'accent' ? 'bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container' :
-                                 getMethodColor(doc.method) === 'warn' ? 'bg-md-sys-color-error-container text-md-sys-color-on-error-container' :
-                                 'bg-md-sys-color-surface-container text-md-sys-color-on-surface'">
-                    {{ doc.method }}
-                  </span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <span class="md-typescale-body-medium font-medium text-md-sys-color-on-surface-variant">경로:</span>
-                  <code class="px-2 py-1 bg-md-sys-color-surface-container rounded text-sm font-mono text-md-sys-color-on-surface">{{ doc.path }}</code>
-                </div>
-              </div>
-
-              <div *ngIf="doc.routeParams && doc.routeParams.length > 0" class="space-y-2">
-                <h4 class="md-typescale-title-small text-md-sys-color-on-surface flex items-center gap-2">
-                  <mat-icon class="w-5 h-5 text-md-sys-color-primary">route</mat-icon>
-                  경로 파라미터
-                </h4>
-                <div class="space-y-3">
-                  <div *ngFor="let routeParam of doc.routeParams" class="p-3 bg-md-sys-color-primary-container rounded-lg">
-                    <div class="flex items-start justify-between mb-2">
-                      <div class="flex items-center gap-2">
-                        <code class="px-2 py-1 bg-md-sys-color-surface-container rounded text-sm font-mono text-md-sys-color-on-surface">{{ routeParam.name }}</code>
-                        <span class="px-2 py-1 rounded-full text-xs bg-md-sys-color-error-container text-md-sys-color-on-error-container">필수</span>
-                      </div>
-                      <span class="text-sm font-mono text-md-sys-color-on-primary-container">{{ routeParam.type }}</span>
-                    </div>
-                    <p class="md-typescale-body-small text-md-sys-color-on-primary-container">{{ routeParam.description }}</p>
-                  </div>
-                </div>
-              </div>
-
-              <div *ngIf="doc.params && doc.params.length > 0" class="space-y-2">
-                <h4 class="md-typescale-title-small text-md-sys-color-on-surface flex items-center gap-2">
-                  <mat-icon class="w-5 h-5 text-md-sys-color-primary">settings</mat-icon>
-                  {{ doc.method.toUpperCase() === 'GET' ? '쿼리 파라미터' : '요청 본문' }}
-                </h4>
-                <div class="space-y-3">
-                  <div *ngFor="let param of doc.params" class="p-3 bg-md-sys-color-surface-container-high rounded-lg">
-                    <div class="flex items-start justify-between mb-2">
-                      <div class="flex items-center gap-2">
-                        <code class="px-2 py-1 bg-md-sys-color-surface-container rounded text-sm font-mono text-md-sys-color-on-surface">{{ param.name }}</code>
-                        <span class="px-2 py-1 rounded-full text-xs"
-                              [class]="param.optional != 'optional' ? 'bg-md-sys-color-error-container text-md-sys-color-on-error-container' : 'bg-md-sys-color-surface-container text-md-sys-color-on-surface'">{{ param.optional != 'optional' ? '필수' : '선택' }}</span>
-                      </div>
-                      <span class="text-sm font-mono text-md-sys-color-on-surface-variant">{{ param.type }}</span>
-                    </div>
-                    <p class="md-typescale-body-small text-md-sys-color-on-surface-variant">{{ param.description }}</p>
-                  </div>
-                </div>
-              </div>
-
-              <div *ngIf="doc.returns && doc.returns.length > 0" class="space-y-2">
-								<h4 class="md-typescale-title-small text-md-sys-color-on-surface flex items-center gap-2">
-									<mat-icon class="w-5 h-5 text-md-sys-color-primary">keyboard_return</mat-icon>
-									반환값
-								</h4>
-								<div class="space-y-4">
-									<!-- Root 레벨 아이템들 (그룹화되지 않은 것들) -->
-									<div *ngFor="let returnItem of getReturnsByGroup(doc.returns, 'root')"
-											class="p-3 bg-md-sys-color-tertiary-container rounded-lg">
-										<div class="flex items-start justify-between mb-2">
-											<div class="flex items-center gap-2">
-												<code class="px-2 py-1 bg-md-sys-color-surface-container rounded text-sm font-mono text-md-sys-color-on-surface">
-													{{ returnItem.fullName }}
-												</code>
-											</div>
-											<span class="text-sm font-mono text-md-sys-color-on-tertiary-container">{{ returnItem.type.names.join(' | ') }}</span>
-										</div>
-										<p class="md-typescale-body-small text-md-sys-color-on-tertiary-container" [innerHTML]="parseReturnDescription(returnItem.description)"></p>
+				<div class="mb-8 overflow-y-scroll">
+					<mat-accordion class="space-y-4">
+						<mat-expansion-panel *ngFor="let doc of filteredDocs; trackBy: trackByPath" class="api-expansion-panel">
+							<mat-expansion-panel-header class="api-panel-header">
+								<mat-panel-title>
+									<div class="flex items-center gap-3 flex-wrap w-full">
+										<span class="px-3 py-1 rounded-full text-sm font-medium min-w-[60px] text-center flex-shrink-0"
+													[class]="getMethodColor(doc.method) === 'primary' ? 'bg-md-sys-color-primary text-md-sys-color-on-primary' :
+																	getMethodColor(doc.method) === 'accent' ? 'bg-md-sys-color-secondary text-md-sys-color-on-secondary' :
+																	getMethodColor(doc.method) === 'warn' ? 'bg-md-sys-color-error text-md-sys-color-on-error' :
+																	'bg-md-sys-color-surface-container-high text-md-sys-color-on-surface'">
+											{{ doc.method }}
+										</span>
+										<span class="font-mono md-typescale-title-medium font-medium text-md-sys-color-on-surface break-all flex-1">{{ doc.path }}</span>
 									</div>
+								</mat-panel-title>
+								<mat-panel-description>
+									<span class="md-typescale-body-medium text-md-sys-color-on-surface-variant truncate">{{ doc.name }}</span>
+								</mat-panel-description>
+							</mat-expansion-panel-header>
 
-									<!-- 그룹화된 아이템들을 위한 단일 accordion -->
-									<mat-accordion class="space-y-2" multi>
-										<mat-expansion-panel *ngFor="let group of getGroupedReturnsWithoutRoot(doc.returns) | keyvalue"
-																				class="returns-expansion-panel"
-																				[expanded]="false">
-											<mat-expansion-panel-header class="returns-panel-header">
-												<mat-panel-title>
-													<div class="flex items-center gap-2">
-														<mat-icon class="w-4 h-4 text-md-sys-color-primary">
-															{{ group.key.includes('[]') ? 'view_list' : 'folder' }}
-														</mat-icon>
-														<code class="px-2 py-1 bg-md-sys-color-primary-container text-md-sys-color-on-primary-container rounded text-sm font-mono font-medium">{{ group.key }}</code>
-														<span class="text-xs text-md-sys-color-on-surface-variant">
-															{{ group.key.includes('[]') ? '배열' : '객체' }}
-														</span>
-														<span class="text-xs text-md-sys-color-on-surface-variant opacity-70">
-															({{ group.value.length }}개 속성)
-														</span>
-													</div>
-												</mat-panel-title>
-											</mat-expansion-panel-header>
+							<div class="space-y-6 pt-4">
+								<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 bg-md-sys-color-surface-container-high rounded-xl">
+									<div class="flex items-center gap-2">
+										<span class="md-typescale-body-medium font-medium text-md-sys-color-on-surface-variant">파일:</span>
+										<span class="font-mono md-typescale-body-medium text-md-sys-color-on-surface">{{ doc.file }}</span>
+									</div>
+									<div class="flex items-center gap-2">
+										<span class="md-typescale-body-medium font-medium text-md-sys-color-on-surface-variant">메소드:</span>
+										<span class="px-2 py-1 rounded-full text-xs"
+													[class]="getMethodColor(doc.method) === 'primary' ? 'bg-md-sys-color-primary-container text-md-sys-color-on-primary-container' :
+																	getMethodColor(doc.method) === 'accent' ? 'bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container' :
+																	getMethodColor(doc.method) === 'warn' ? 'bg-md-sys-color-error-container text-md-sys-color-on-error-container' :
+																	'bg-md-sys-color-surface-container text-md-sys-color-on-surface'">
+											{{ doc.method }}
+										</span>
+									</div>
+									<div class="flex items-center gap-2">
+										<span class="md-typescale-body-medium font-medium text-md-sys-color-on-surface-variant">경로:</span>
+										<code class="px-2 py-1 bg-md-sys-color-surface-container rounded text-sm font-mono text-md-sys-color-on-surface">{{ doc.path }}</code>
+									</div>
+								</div>
 
-											<div class="space-y-2 pt-2">
-												<div *ngFor="let returnItem of group.value" class="p-3 bg-md-sys-color-tertiary-container rounded-lg">
-													<div class="flex items-start justify-between mb-2">
+								<div *ngIf="doc.routeParams && doc.routeParams.length > 0" class="space-y-2">
+									<h4 class="md-typescale-title-small text-md-sys-color-on-surface flex items-center gap-2">
+										<mat-icon class="w-5 h-5 text-md-sys-color-primary">route</mat-icon>
+										경로 파라미터
+									</h4>
+									<div class="space-y-3">
+										<div *ngFor="let routeParam of doc.routeParams" class="p-3 bg-md-sys-color-primary-container rounded-lg">
+											<div class="flex items-start justify-between mb-2">
+												<div class="flex items-center gap-2">
+													<code class="px-2 py-1 bg-md-sys-color-surface-container rounded text-sm font-mono text-md-sys-color-on-surface">{{ routeParam.name }}</code>
+													<span class="px-2 py-1 rounded-full text-xs bg-md-sys-color-error-container text-md-sys-color-on-error-container">필수</span>
+												</div>
+												<span class="text-sm font-mono text-md-sys-color-on-primary-container">{{ routeParam.type }}</span>
+											</div>
+											<p class="md-typescale-body-small text-md-sys-color-on-primary-container">{{ routeParam.description }}</p>
+										</div>
+									</div>
+								</div>
+
+								<div *ngIf="doc.params && doc.params.length > 0" class="space-y-2">
+									<h4 class="md-typescale-title-small text-md-sys-color-on-surface flex items-center gap-2">
+										<mat-icon class="w-5 h-5 text-md-sys-color-primary">settings</mat-icon>
+										{{ doc.method.toUpperCase() === 'GET' ? '쿼리 파라미터' : '요청 본문' }}
+									</h4>
+									<div class="space-y-3">
+										<div *ngFor="let param of doc.params" class="p-3 bg-md-sys-color-surface-container-high rounded-lg">
+											<div class="flex items-start justify-between mb-2">
+												<div class="flex items-center gap-2">
+													<code class="px-2 py-1 bg-md-sys-color-surface-container rounded text-sm font-mono text-md-sys-color-on-surface">{{ param.name }}</code>
+													<span class="px-2 py-1 rounded-full text-xs"
+																[class]="param.optional != 'optional' ? 'bg-md-sys-color-error-container text-md-sys-color-on-error-container' : 'bg-md-sys-color-surface-container text-md-sys-color-on-surface'">{{ param.optional != 'optional' ? '필수' : '선택' }}</span>
+												</div>
+												<span class="text-sm font-mono text-md-sys-color-on-surface-variant">{{ param.type }}</span>
+											</div>
+											<p class="md-typescale-body-small text-md-sys-color-on-surface-variant">{{ param.description }}</p>
+										</div>
+									</div>
+								</div>
+
+								<div *ngIf="doc.returns && doc.returns.length > 0" class="space-y-2">
+									<h4 class="md-typescale-title-small text-md-sys-color-on-surface flex items-center gap-2">
+										<mat-icon class="w-5 h-5 text-md-sys-color-primary">keyboard_return</mat-icon>
+										반환값
+									</h4>
+									<div class="space-y-4">
+										<!-- Root 레벨 아이템들 (그룹화되지 않은 것들) -->
+										<div *ngFor="let returnItem of getReturnsByGroup(doc.returns, 'root')"
+												class="p-3 bg-md-sys-color-tertiary-container rounded-lg">
+											<div class="flex items-start justify-between mb-2">
+												<div class="flex items-center gap-2">
+													<code class="px-2 py-1 bg-md-sys-color-surface-container rounded text-sm font-mono text-md-sys-color-on-surface">
+														{{ returnItem.fullName }}
+													</code>
+												</div>
+												<span class="text-sm font-mono text-md-sys-color-on-tertiary-container">{{ returnItem.type.names.join(' | ') }}</span>
+											</div>
+											<p class="md-typescale-body-small text-md-sys-color-on-tertiary-container" [innerHTML]="parseReturnDescription(returnItem.description)"></p>
+										</div>
+
+										<!-- 그룹화된 아이템들을 위한 단일 accordion -->
+										<mat-accordion class="space-y-2" multi>
+											<mat-expansion-panel *ngFor="let group of getGroupedReturnsWithoutRoot(doc.returns) | keyvalue"
+																					class="returns-expansion-panel"
+																					[expanded]="false">
+												<mat-expansion-panel-header class="returns-panel-header">
+													<mat-panel-title>
 														<div class="flex items-center gap-2">
-															<code class="px-2 py-1 bg-md-sys-color-surface-container rounded text-sm font-mono text-md-sys-color-on-surface">
-																{{ returnItem.propertyName }}
-															</code>
-															<span class="text-xs text-md-sys-color-on-tertiary-container opacity-70">
-																{{ returnItem.fullName }}
+															<mat-icon class="w-4 h-4 text-md-sys-color-primary">
+																{{ group.key.includes('[]') ? 'view_list' : 'folder' }}
+															</mat-icon>
+															<code class="px-2 py-1 bg-md-sys-color-primary-container text-md-sys-color-on-primary-container rounded text-sm font-mono font-medium">{{ group.key }}</code>
+															<span class="text-xs text-md-sys-color-on-surface-variant">
+																{{ group.key.includes('[]') ? '배열' : '객체' }}
+															</span>
+															<span class="text-xs text-md-sys-color-on-surface-variant opacity-70">
+																({{ group.value.length }}개 속성)
 															</span>
 														</div>
-														<span class="text-sm font-mono text-md-sys-color-on-tertiary-container">{{ returnItem.type.names.join(' | ') }}</span>
+													</mat-panel-title>
+												</mat-expansion-panel-header>
+
+												<div class="space-y-2 pt-2">
+													<div *ngFor="let returnItem of group.value" class="p-3 bg-md-sys-color-tertiary-container rounded-lg">
+														<div class="flex items-start justify-between mb-2">
+															<div class="flex items-center gap-2">
+																<code class="px-2 py-1 bg-md-sys-color-surface-container rounded text-sm font-mono text-md-sys-color-on-surface">
+																	{{ returnItem.propertyName }}
+																</code>
+																<span class="text-xs text-md-sys-color-on-tertiary-container opacity-70">
+																	{{ returnItem.fullName }}
+																</span>
+															</div>
+															<span class="text-sm font-mono text-md-sys-color-on-tertiary-container">{{ returnItem.type.names.join(' | ') }}</span>
+														</div>
+														<p class="md-typescale-body-small text-md-sys-color-on-tertiary-container" [innerHTML]="parseReturnDescription(returnItem.description)"></p>
 													</div>
-													<p class="md-typescale-body-small text-md-sys-color-on-tertiary-container" [innerHTML]="parseReturnDescription(returnItem.description)"></p>
 												</div>
-											</div>
-										</mat-expansion-panel>
-									</mat-accordion>
+											</mat-expansion-panel>
+										</mat-accordion>
+									</div>
+								</div>
+
+								<div class="space-y-2">
+									<h4 class="md-typescale-title-small text-md-sys-color-on-surface flex items-center gap-2">
+										<mat-icon class="w-5 h-5 text-md-sys-color-primary">code</mat-icon>
+										사용 예시
+									</h4>
+									<div class="relative bg-gray-900 text-gray-100 rounded-xl overflow-hidden">
+										<pre class="p-4 overflow-x-auto font-mono text-sm leading-relaxed"><code>{{ generateCurlExample(doc) }}</code></pre>
+										<button class="absolute top-3 right-3 p-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition-all"
+														(click)="copyCurl(doc)"
+														[title]="copiedDocId === doc.method + '-' + doc.path ? '복사됨!' : '클립보드에 복사'">
+											<mat-icon class="w-5 h-5 transition-all"
+																[class]="copiedDocId === doc.method + '-' + doc.path ? 'text-green-400' : 'text-gray-300'">
+												{{ copiedDocId === doc.method + '-' + doc.path ? 'check' : 'content_copy' }}
+											</mat-icon>
+										</button>
+									</div>
 								</div>
 							</div>
-
-              <div class="space-y-2">
-                <h4 class="md-typescale-title-small text-md-sys-color-on-surface flex items-center gap-2">
-                  <mat-icon class="w-5 h-5 text-md-sys-color-primary">code</mat-icon>
-                  사용 예시
-                </h4>
-                <div class="relative bg-gray-900 text-gray-100 rounded-xl overflow-hidden">
-                  <pre class="p-4 overflow-x-auto font-mono text-sm leading-relaxed"><code>{{ generateCurlExample(doc) }}</code></pre>
-                  <button class="absolute top-3 right-3 p-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition-all"
-                          (click)="copyCurl(doc)"
-                          [title]="copiedDocId === doc.method + '-' + doc.path ? '복사됨!' : '클립보드에 복사'">
-                    <mat-icon class="w-5 h-5 transition-all"
-                              [class]="copiedDocId === doc.method + '-' + doc.path ? 'text-green-400' : 'text-gray-300'">
-                      {{ copiedDocId === doc.method + '-' + doc.path ? 'check' : 'content_copy' }}
-                    </mat-icon>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </mat-expansion-panel>
-        </mat-accordion>
+						</mat-expansion-panel>
+					</mat-accordion>
+				</div>
       </div>
     </div>
   `,
