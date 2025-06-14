@@ -116,23 +116,26 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
         </div>
 
         <div class="space-y-4">
-          <div *ngFor="let doc of filteredDocs; trackBy: trackByPath" class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface">
-            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-3">
-              <div class="flex items-center gap-3 flex-wrap">
-                <span class="px-3 py-1 rounded-full text-sm font-medium min-w-[60px] text-center"
-                      [class]="getMethodColor(doc.method) === 'primary' ? 'bg-md-sys-color-primary text-md-sys-color-on-primary' :
-                               getMethodColor(doc.method) === 'accent' ? 'bg-md-sys-color-secondary text-md-sys-color-on-secondary' :
-                               getMethodColor(doc.method) === 'warn' ? 'bg-md-sys-color-error text-md-sys-color-on-error' :
-                               'bg-md-sys-color-surface-container-high text-md-sys-color-on-surface'">
-                  {{ doc.method }}
-                </span>
-                <span class="font-mono md-typescale-title-medium font-medium text-md-sys-color-on-surface break-all">{{ doc.path }}</span>
-              </div>
-            </div>
+          <mat-expansion-panel *ngFor="let doc of filteredDocs; trackBy: trackByPath" class="api-expansion-panel">
+            <mat-expansion-panel-header class="api-panel-header">
+              <mat-panel-title>
+                <div class="flex items-center gap-3 flex-wrap w-full">
+                  <span class="px-3 py-1 rounded-full text-sm font-medium min-w-[60px] text-center flex-shrink-0"
+                        [class]="getMethodColor(doc.method) === 'primary' ? 'bg-md-sys-color-primary text-md-sys-color-on-primary' :
+                                 getMethodColor(doc.method) === 'accent' ? 'bg-md-sys-color-secondary text-md-sys-color-on-secondary' :
+                                 getMethodColor(doc.method) === 'warn' ? 'bg-md-sys-color-error text-md-sys-color-on-error' :
+                                 'bg-md-sys-color-surface-container-high text-md-sys-color-on-surface'">
+                    {{ doc.method }}
+                  </span>
+                  <span class="font-mono md-typescale-title-medium font-medium text-md-sys-color-on-surface break-all flex-1">{{ doc.path }}</span>
+                </div>
+              </mat-panel-title>
+              <mat-panel-description>
+                <span class="md-typescale-body-medium text-md-sys-color-on-surface-variant truncate">{{ doc.name }}</span>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
 
-            <p class="md-typescale-body-large text-md-sys-color-on-surface-variant mb-6">{{ doc.name }}</p>
-
-            <div class="space-y-6">
+            <div class="space-y-6 pt-4">
               <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 bg-md-sys-color-surface-container-high rounded-xl">
                 <div class="flex items-center gap-2">
                   <span class="md-typescale-body-medium font-medium text-md-sys-color-on-surface-variant">파일:</span>
@@ -200,34 +203,57 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
                 </h4>
                 <div class="space-y-4">
                   <div *ngFor="let group of groupReturns(doc.returns) | keyvalue" class="space-y-2">
-                    <!-- 그룹 헤더 -->
-                    <div *ngIf="group.key !== 'root'" class="flex items-center gap-2 pb-2 border-b border-md-sys-color-outline-variant">
-                      <mat-icon class="w-4 h-4 text-md-sys-color-primary">
-                        {{ group.key.includes('[]') ? 'view_list' : 'folder' }}
-                      </mat-icon>
-                      <code class="px-2 py-1 bg-md-sys-color-primary-container text-md-sys-color-on-primary-container rounded text-sm font-mono font-medium">{{ group.key }}</code>
-                      <span class="text-xs text-md-sys-color-on-surface-variant">
-                        {{ group.key.includes('[]') ? '배열' : '객체' }}
-                      </span>
-                    </div>
-
-                    <!-- 그룹 아이템들 -->
-                    <div class="space-y-2" [class.ml-6]="group.key !== 'root'">
+                    <!-- Root 레벨 아이템들 (그룹화되지 않은 것들) -->
+                    <div *ngIf="group.key === 'root'" class="space-y-2">
                       <div *ngFor="let returnItem of group.value" class="p-3 bg-md-sys-color-tertiary-container rounded-lg">
                         <div class="flex items-start justify-between mb-2">
                           <div class="flex items-center gap-2">
                             <code class="px-2 py-1 bg-md-sys-color-surface-container rounded text-sm font-mono text-md-sys-color-on-surface">
-                              {{ group.key === 'root' ? returnItem.fullName : returnItem.propertyName }}
-                            </code>
-                            <span *ngIf="group.key !== 'root'" class="text-xs text-md-sys-color-on-tertiary-container opacity-70">
                               {{ returnItem.fullName }}
-                            </span>
+                            </code>
                           </div>
                           <span class="text-sm font-mono text-md-sys-color-on-tertiary-container">{{ returnItem.type.names.join(' | ') }}</span>
                         </div>
                         <p class="md-typescale-body-small text-md-sys-color-on-tertiary-container" [innerHTML]="parseReturnDescription(returnItem.description)"></p>
                       </div>
                     </div>
+
+                    <!-- 그룹화된 아이템들 (접을 수 있는 패널) -->
+                    <mat-expansion-panel *ngIf="group.key !== 'root'" class="returns-expansion-panel">
+                      <mat-expansion-panel-header class="returns-panel-header">
+                        <mat-panel-title>
+                          <div class="flex items-center gap-2">
+                            <mat-icon class="w-4 h-4 text-md-sys-color-primary">
+                              {{ group.key.includes('[]') ? 'view_list' : 'folder' }}
+                            </mat-icon>
+                            <code class="px-2 py-1 bg-md-sys-color-primary-container text-md-sys-color-on-primary-container rounded text-sm font-mono font-medium">{{ group.key }}</code>
+                            <span class="text-xs text-md-sys-color-on-surface-variant">
+                              {{ group.key.includes('[]') ? '배열' : '객체' }}
+                            </span>
+                            <span class="text-xs text-md-sys-color-on-surface-variant opacity-70">
+                              ({{ group.value.length }}개 속성)
+                            </span>
+                          </div>
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+
+                      <div class="space-y-2 pt-2">
+                        <div *ngFor="let returnItem of group.value" class="p-3 bg-md-sys-color-tertiary-container rounded-lg">
+                          <div class="flex items-start justify-between mb-2">
+                            <div class="flex items-center gap-2">
+                              <code class="px-2 py-1 bg-md-sys-color-surface-container rounded text-sm font-mono text-md-sys-color-on-surface">
+                                {{ returnItem.propertyName }}
+                              </code>
+                              <span class="text-xs text-md-sys-color-on-tertiary-container opacity-70">
+                                {{ returnItem.fullName }}
+                              </span>
+                            </div>
+                            <span class="text-sm font-mono text-md-sys-color-on-tertiary-container">{{ returnItem.type.names.join(' | ') }}</span>
+                          </div>
+                          <p class="md-typescale-body-small text-md-sys-color-on-tertiary-container" [innerHTML]="parseReturnDescription(returnItem.description)"></p>
+                        </div>
+                      </div>
+                    </mat-expansion-panel>
                   </div>
                 </div>
               </div>
@@ -247,7 +273,7 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
                 </div>
               </div>
             </div>
-          </div>
+          </mat-expansion-panel>
         </div>
       </div>
     </div>
@@ -337,6 +363,86 @@ import { AdminService, ApiDoc } from '../../services/admin.service';
 
     .mat-mdc-form-field-subscript-wrapper {
       background-color: transparent !important;
+    }
+
+    .returns-expansion-panel {
+      background-color: var(--md-sys-color-surface-container-high) !important;
+      border-radius: 12px !important;
+      margin-bottom: 8px !important;
+      box-shadow: none !important;
+      border: 1px solid var(--md-sys-color-outline-variant) !important;
+    }
+
+    .returns-expansion-panel .mat-expansion-panel-header {
+      background-color: var(--md-sys-color-surface-container-high) !important;
+      padding: 16px 24px !important;
+      border-radius: 12px !important;
+      height: auto !important;
+      min-height: auto !important;
+    }
+
+    .returns-expansion-panel .mat-expansion-panel-body {
+      background-color: var(--md-sys-color-surface-container-high) !important;
+      padding: 0 24px 16px 24px !important;
+    }
+
+    .returns-expansion-panel .mat-expansion-panel-header-title {
+      margin-right: 0 !important;
+      flex: 1 !important;
+    }
+
+    .returns-expansion-panel.mat-expanded .mat-expansion-panel-header {
+      border-bottom: 1px solid var(--md-sys-color-outline-variant) !important;
+    }
+
+    .returns-expansion-panel .mat-expansion-indicator::after {
+      color: var(--md-sys-color-on-surface-variant) !important;
+    }
+
+    .api-expansion-panel {
+      background-color: var(--md-sys-color-surface-container) !important;
+      border-radius: 16px !important;
+      margin-bottom: 16px !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+      border: 1px solid var(--md-sys-color-outline-variant) !important;
+      transition: all 0.3s ease !important;
+    }
+
+    .api-expansion-panel:hover {
+      transform: translateY(-2px) !important;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15) !important;
+    }
+
+    .api-expansion-panel .mat-expansion-panel-header {
+      background-color: var(--md-sys-color-surface-container) !important;
+      padding: 20px 24px !important;
+      border-radius: 16px !important;
+      height: auto !important;
+      min-height: auto !important;
+    }
+
+    .api-expansion-panel .mat-expansion-panel-body {
+      background-color: var(--md-sys-color-surface-container) !important;
+      padding: 0 24px 24px 24px !important;
+    }
+
+    .api-expansion-panel .mat-expansion-panel-header-title {
+      margin-right: 0 !important;
+      flex: 1 !important;
+    }
+
+    .api-expansion-panel .mat-expansion-panel-header-description {
+      margin-right: 16px !important;
+      flex: 1 !important;
+      max-width: 300px !important;
+    }
+
+    .api-expansion-panel.mat-expanded .mat-expansion-panel-header {
+      border-bottom: 1px solid var(--md-sys-color-outline-variant) !important;
+    }
+
+    .api-expansion-panel .mat-expansion-indicator::after {
+      color: var(--md-sys-color-on-surface-variant) !important;
     }
   `]
 })
