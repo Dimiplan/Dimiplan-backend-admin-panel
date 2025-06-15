@@ -48,7 +48,7 @@
     --md-sys-color-inverse-primary: #D0BCFF;
 }
 
-// Dark theme colors - auto-detect system preference
+// Dark theme colors - support both system preference and manual toggle
 @media (prefers-color-scheme: dark) {
     :root {
     --md-sys-color-primary: #D0BCFF;
@@ -95,6 +95,53 @@
     --md-sys-color-inverse-on-surface: #313033;
     --md-sys-color-inverse-primary: #6750A4;
     }
+}
+
+// Manual dark theme toggle support
+[data-theme="dark"] {
+    --md-sys-color-primary: #D0BCFF;
+    --md-sys-color-on-primary: #381E72;
+    --md-sys-color-primary-container: #4F378B;
+    --md-sys-color-on-primary-container: #EADDFF;
+
+    --md-sys-color-secondary: #CCC2DC;
+    --md-sys-color-on-secondary: #332D41;
+    --md-sys-color-secondary-container: #4A4458;
+    --md-sys-color-on-secondary-container: #E8DEF8;
+
+    --md-sys-color-tertiary: #EFB8C8;
+    --md-sys-color-on-tertiary: #492532;
+    --md-sys-color-tertiary-container: #633B48;
+    --md-sys-color-on-tertiary-container: #FFD8E4;
+
+    --md-sys-color-error: #FFB4AB;
+    --md-sys-color-on-error: #690005;
+    --md-sys-color-error-container: #93000A;
+    --md-sys-color-on-error-container: #FFDAD6;
+
+    --md-sys-color-surface: #1C1B1F;
+    --md-sys-color-on-surface: #E6E1E5;
+    --md-sys-color-surface-variant: #49454F;
+    --md-sys-color-on-surface-variant: #CAC4D0;
+
+    --md-sys-color-surface-container-highest: #36343B;
+    --md-sys-color-surface-container-high: #2B2930;
+    --md-sys-color-surface-container: #211F26;
+    --md-sys-color-surface-container-low: #1C1B1F;
+    --md-sys-color-surface-container-lowest: #0F0D13;
+
+    --md-sys-color-surface-dim: #1C1B1F;
+    --md-sys-color-surface-bright: #413E4A;
+
+    --md-sys-color-outline: #938F99;
+    --md-sys-color-outline-variant: #49454F;
+
+    --md-sys-color-shadow: #000000;
+    --md-sys-color-scrim: #000000;
+
+    --md-sys-color-inverse-surface: #E6E1E5;
+    --md-sys-color-inverse-on-surface: #313033;
+    --md-sys-color-inverse-primary: #6750A4;
 }
 
 // Material Design 3 Typography Scale
