@@ -118,23 +118,23 @@
                                 </h3>
                                 <div class="flex-1 min-h-0 overflow-hidden border border-md-sys-color-outline-variant rounded-xl">
                                     <div class="h-full overflow-y-scroll">
-                                        <table mat-table [dataSource]="tableData?.rows || []" class="w-full min-w-max">
+                                        <table mat-table [dataSource]="tableData?.rows || []" class="w-full min-w-max lg:table-auto table-fixed">
                                             @for (column of tableData?.columns || []; track $index) {
                                                 <ng-container [matColumnDef]="column.name">
-                                                    <th mat-header-cell *matHeaderCellDef class="bg-md-sys-color-surface-container-high sticky top-0 z-10">
-                                                        <div class="flex items-center gap-2 md-typescale-label-large font-medium text-md-sys-color-on-surface">
-                                                            <span>{{ column.name }}</span>
+                                                    <th mat-header-cell *matHeaderCellDef class="bg-md-sys-color-surface-container-high sticky top-0 z-10 lg:px-4 px-2">
+                                                        <div class="flex items-center gap-2 md-typescale-label-large font-medium text-md-sys-color-on-surface min-w-0">
+                                                            <span class="lg:text-base text-sm truncate">{{ column.name }}</span>
                                                             @if (column.key){
                                                                 <mat-icon
-                                                                    class="w-4 h-4 text-md-sys-color-primary"
+                                                                    class="w-4 h-4 text-md-sys-color-primary flex-shrink-0"
                                                                     [matTooltip]="getKeyTooltip(column.key)">
                                                                     {{ getKeyIcon(column.key) }}
                                                                 </mat-icon>
                                                             }
                                                         </div>
                                                     </th>
-                                                    <td mat-cell *matCellDef="let row" class="border-b border-md-sys-color-outline-variant">
-                                                        <div class="max-w-xs overflow-hidden text-ellipsis whitespace-nowrap md-typescale-body-medium text-md-sys-color-on-surface"
+                                                    <td mat-cell *matCellDef="let row" class="border-b border-md-sys-color-outline-variant lg:px-4 px-2">
+                                                        <div class="lg:max-w-xs max-w-[120px] overflow-hidden text-ellipsis whitespace-nowrap md-typescale-body-medium text-md-sys-color-on-surface lg:text-base text-sm"
                                                                 [matTooltip]="formatCellValue(row[column.name])"
                                                                 matTooltipPosition="above"
                                                                 [matTooltipDisabled]="formatCellValue(row[column.name]).length < 30">
