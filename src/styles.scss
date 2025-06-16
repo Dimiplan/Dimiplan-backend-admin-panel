@@ -400,7 +400,7 @@ input:focus {
 
 .mat-mdc-form-field .mdc-notched-outline__notch {
     border-radius: 12px 0 0 12px !important;
-    border-left: 1px solid var(--md-sys-color-outline-variant) !important;
+    border-left: 2px solid rgba(255,255,255,1) !important;
 }
 
 .mat-mdc-form-field .mdc-notched-outline__trailing {
