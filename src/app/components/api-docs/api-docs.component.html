@@ -1,4 +1,4 @@
-<div class="p-4 md:p-6 pb-20 bg-md-sys-color-surface min-h-screen lg:h-full max-w-6xl mx-auto flex flex-col mb-8 overflow-y-auto lg:overflow-y-scroll overflow-x-hidden">
+<div class="p-4 md:p-6 lg:pb-20 bg-md-sys-color-surface lg:h-screen h-full max-w-full mx-auto flex flex-col lg:mb-8 overflow-y-auto lg:overflow-y-scroll overflow-x-hidden">
     <h1 class="md-typescale-headline-large text-md-sys-color-on-surface mb-4 md:mb-6">API 문서</h1>
 
     <div class="flex flex-col gap-4 mb-6">
@@ -19,7 +19,7 @@
             <div class="relative" (click)="$event.stopPropagation()">
                 <button
                     (click)="toggleFileDropdown()"
-                    class="flex items-center gap-2 px-4 py-3 bg-md-sys-color-surface-container-highest text-md-sys-color-on-surface rounded-xl border border-md-sys-color-outline hover:bg-md-sys-color-surface-container-high transition-all md-typescale-body-large min-w-[200px] text-left">
+                    class="flex items-center gap-2 px-4 py-3 bg-md-sys-color-surface-container-highest text-md-sys-color-on-surface rounded-xl border border-md-sys-color-outline hover:bg-md-sys-color-surface-container-high transition-all md-typescale-body-large max-w-full lg:min-w-[200px] text-left">
                     <mat-icon class="w-5 h-5" [class]="selectedFile ? 'text-md-sys-color-primary' : 'text-md-sys-color-on-surface-variant'">
                         {{ selectedFile ? 'folder_open' : 'folder' }}
                     </mat-icon>
@@ -30,14 +30,14 @@
                     <div class="absolute top-full left-0 right-0 mt-2 max-h-64 overflow-y-auto bg-md-sys-color-surface-container rounded-xl border border-md-sys-color-outline shadow-elevation-2 z-50">
                         <button
                             (click)="selectFile('')"
-                            class="w-full flex items-center gap-2 px-4 py-3 hover:bg-md-sys-color-surface-container-high transition-all text-left text-md-sys-color-on-surface">
+                            class="flex items-center gap-2 px-4 py-3 hover:bg-md-sys-color-surface-container-high transition-all text-left text-md-sys-color-on-surface">
                             <mat-icon class="w-5 h-5 text-md-sys-color-on-surface-variant">select_all</mat-icon>
                             <span class="md-typescale-body-medium text-md-sys-color-on-surface">모든 경로</span>
                         </button>
                         @for (file of getUniqueFiles(); track $index) {
                             <button
                                 (click)="selectFile(file)"
-                                [class]="'w-full flex items-center gap-2 px-4 py-3 hover:bg-md-sys-color-surface-container-high transition-all text-left ' + (selectedFile === file ? 'bg-md-sys-color-primary-container text-md-sys-color-on-primary-container' : 'text-md-sys-color-on-surface')">
+                                [class]="'flex items-center gap-2 px-4 py-3 hover:bg-md-sys-color-surface-container-high transition-all text-left ' + (selectedFile === file ? 'bg-md-sys-color-primary-container text-md-sys-color-on-primary-container' : 'text-md-sys-color-on-surface')">
                                 <mat-icon class="w-5 h-5" [class]="selectedFile === file ? 'text-md-sys-color-primary' : 'text-md-sys-color-on-surface-variant'">description</mat-icon>
                                 <span class="font-mono text-sm truncate">{{ file }}</span>
                             </button>
@@ -78,18 +78,18 @@
 		<div>
 			<div class="p-4 bg-md-sys-color-surface-container-high rounded-xl mb-6">
 				<span class="md-typescale-body-medium text-md-sys-color-on-surface">총 {{ apiDocs.length }}개의 API 엔드포인트</span>
-				@if (searchTerm) {
+				@if (searchTerm || selectedFile) {
 					<span class="md-typescale-body-medium text-md-sys-color-on-surface-variant ml-2">({{ filteredDocs.length }}개 필터링됨)</span>
 				}
 			</div>
-			<div class="mb-8 overflow-y-scroll">
+			<div class="lg:mb-8 overflow-y-scroll max-w-full lg:max-w-none">
 				<mat-accordion class="space-y-4">
 					@for (doc of filteredDocs; track trackByPath(doc)) {
 						<mat-expansion-panel class="api-expansion-panel">
 							<mat-expansion-panel-header class="api-panel-header">
 								<mat-panel-title>
-									<div class="flex items-center gap-3 flex-wrap w-full">
-										<span class="px-3 py-1 rounded-full text-sm font-medium min-w-[60px] text-center flex-shrink-0"
+									<div class="flex items-center gap-3 flex-wrap lg:w-full">
+										<span class="px-3 py-1 rounded-full text-sm font-medium lg:min-w-[60px] max-w-full text-center flex-shrink-0"
 													[class]="getMethodColor(doc.method) === 'primary' ? 'bg-md-sys-color-primary text-md-sys-color-on-primary' :
 																	getMethodColor(doc.method) === 'accent' ? 'bg-md-sys-color-secondary text-md-sys-color-on-secondary' :
 																	getMethodColor(doc.method) === 'warn' ? 'bg-md-sys-color-error text-md-sys-color-on-error' :
