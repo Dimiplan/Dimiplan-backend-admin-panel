@@ -19,6 +19,9 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatTimepickerModule } from '@angular/material/timepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import {
@@ -46,6 +49,9 @@ import {
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    MatDatepickerModule,
+    MatTimepickerModule,
+    MatNativeDateModule,
     ReactiveFormsModule,
   ],
   templateUrl: './database.component.html',
@@ -410,6 +416,9 @@ export class DatabaseComponent implements OnInit {
     MatButtonModule,
     MatIconModule,
     MatSelectModule,
+    MatDatepickerModule,
+    MatTimepickerModule,
+    MatNativeDateModule,
     ReactiveFormsModule,
   ],
   templateUrl: './database-dialog.component.html',
@@ -445,7 +454,16 @@ export class DatabaseRowDialogComponent {
           ? this.data.row[column.name]
           : column.default || '';
 
-      formControls[column.name] = [value];
+      if (column.type.includes('datetime') || column.type.includes('timestamp')) {
+        // For datetime fields, create separate date and time controls
+        const dateValue = value ? new Date(value as string) : null;
+        formControls[column.name + '_date'] = [dateValue];
+        formControls[column.name + '_time'] = [dateValue];
+        // Keep the original control for backward compatibility
+        formControls[column.name] = [value];
+      } else {
+        formControls[column.name] = [value];
+      }
     });
 
     return this.fb.group(formControls);
@@ -542,31 +560,67 @@ export class DatabaseRowDialogComponent {
     return '1';
   }
 
+  isSenderColumn(column: { name: string; type: string; nullable: boolean }): boolean {
+    return column.name === 'sender';
+  }
+
   save() {
     if (this.form.valid) {
       const formData = this.form.value;
-      // null이나 빈 문자열 처리
-      Object.keys(formData).forEach(key => {
-        if (formData[key] === '' || formData[key] === null) {
-          const column = this.data.columns.find(c => c.name === key);
-          if (column?.nullable) {
-            formData[key] = null;
+      const finalData: Record<string, unknown> = {};
+
+      // Process each column
+      this.data.columns.forEach(column => {
+        const key = column.name;
+
+        if (
+          column.type.includes('datetime') ||
+          column.type.includes('timestamp')
+        ) {
+          // Combine date and time for datetime fields
+          const dateValue = formData[key + '_date'];
+          const timeValue = formData[key + '_time'];
+
+          if (dateValue && timeValue) {
+            const combinedDateTime = new Date(dateValue);
+            const timeDate = new Date(timeValue);
+            combinedDateTime.setHours(timeDate.getHours());
+            combinedDateTime.setMinutes(timeDate.getMinutes());
+            combinedDateTime.setSeconds(timeDate.getSeconds());
+            finalData[key] = combinedDateTime
+              .toISOString()
+              .slice(0, 19)
+              .replace('T', ' ');
+          } else if (dateValue) {
+            // If only date is provided, set time to 00:00:00
+            const dateOnly = new Date(dateValue);
+            finalData[key] = dateOnly.toISOString().slice(0, 10) + ' 00:00:00';
+          } else {
+            finalData[key] = column.nullable ? null : '';
           }
-        }
-        // 숫자 타입 변환
-        const column = this.data.columns.find(c => c.name === key);
-        if (column && formData[key] !== null && formData[key] !== '') {
-          if (column.type.includes('int')) {
-            formData[key] = parseInt(formData[key], 10);
-          } else if (
-            column.type.includes('decimal') ||
-            column.type.includes('float')
-          ) {
-            formData[key] = parseFloat(formData[key]);
+        } else {
+          // Handle other field types
+          let value = formData[key];
+
+          if (value === '' || value === null) {
+            finalData[key] = column.nullable ? null : '';
+          } else {
+            // Type conversion for numbers
+            if (column.type.includes('int')) {
+              finalData[key] = parseInt(value, 10);
+            } else if (
+              column.type.includes('decimal') ||
+              column.type.includes('float')
+            ) {
+              finalData[key] = parseFloat(value);
+            } else {
+              finalData[key] = value;
+            }
           }
         }
       });
-      this.dialogRef.close(formData);
+
+      this.dialogRef.close(finalData);
     }
   }
 }

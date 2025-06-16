@@ -84,26 +84,75 @@
               column.type.includes('datetime') ||
               column.type.includes('timestamp')
             ) {
-              <input
-                matInput
-                type="datetime-local"
-                [formControlName]="column.name"
-                [readonly]="isReadonly(column)"
-              />
+              <div class="flex gap-2">
+                <mat-form-field appearance="outline" class="flex-1">
+                  <mat-label>날짜</mat-label>
+                  <input
+                    matInput
+                    [matDatepicker]="datePicker"
+                    [formControlName]="column.name + '_date'"
+                    [readonly]="isReadonly(column)"
+                    placeholder="날짜 선택"
+                  />
+                  <mat-datepicker-toggle matIconSuffix [for]="datePicker">
+                    <mat-icon matDatepickerToggleIcon>calendar_today</mat-icon>
+                  </mat-datepicker-toggle>
+                  <mat-datepicker #datePicker></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="flex-1">
+                  <mat-label>시간</mat-label>
+                  <input
+                    matInput
+                    [matTimepicker]="timePicker"
+                    [formControlName]="column.name + '_time'"
+                    [readonly]="isReadonly(column)"
+                    placeholder="시간 선택"
+                  />
+                  <mat-timepicker-toggle matIconSuffix [for]="timePicker">
+                    <mat-icon matTimepickerToggleIcon>access_time</mat-icon>
+                  </mat-timepicker-toggle>
+                  <mat-timepicker #timePicker></mat-timepicker>
+                </mat-form-field>
+              </div>
             } @else if (column.type.includes('date')) {
-              <input
-                matInput
-                type="date"
-                [formControlName]="column.name"
-                [readonly]="isReadonly(column)"
-              />
+              <ng-container>
+                <input
+                  matInput
+                  [matDatepicker]="dateOnlyPicker"
+                  [formControlName]="column.name"
+                  [readonly]="isReadonly(column)"
+                  placeholder="날짜 선택"
+                />
+                <mat-datepicker-toggle matIconSuffix [for]="dateOnlyPicker">
+                  <mat-icon matDatepickerToggleIcon>calendar_today</mat-icon>
+                </mat-datepicker-toggle>
+                <mat-datepicker #dateOnlyPicker></mat-datepicker>
+              </ng-container>
             } @else if (column.type.includes('time')) {
-              <input
-                matInput
-                type="time"
+              <ng-container>
+                <input
+                  matInput
+                  [matTimepicker]="timeOnlyPicker"
+                  [formControlName]="column.name"
+                  [readonly]="isReadonly(column)"
+                  placeholder="시간 선택"
+                />
+                <mat-timepicker-toggle matIconSuffix [for]="timeOnlyPicker">
+                  <mat-icon matTimepickerToggleIcon>access_time</mat-icon>
+                </mat-timepicker-toggle>
+                <mat-timepicker #timeOnlyPicker></mat-timepicker>
+              </ng-container>
+            } @else if (isSenderColumn(column)) {
+              <mat-select
                 [formControlName]="column.name"
-                [readonly]="isReadonly(column)"
-              />
+                [disabled]="isReadonly(column)"
+              >
+                @if (column.nullable) {
+                  <mat-option [value]="null">NULL</mat-option>
+                }
+                <mat-option value="ai">AI</mat-option>
+                <mat-option value="user">User</mat-option>
+              </mat-select>
             } @else if (
               column.type.includes('boolean') ||
               column.type.includes('tinyint(1)')

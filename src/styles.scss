@@ -519,15 +519,8 @@ input:focus {
 }
 
 .custom-snackbar .mat-mdc-snack-bar-action {
-    background-color: var(--md-sys-color-primary) !important;
-    color: var(--md-sys-color-on-primary) !important;
-    border-radius: 20px !important;
-    font-weight: 600 !important;
-    padding: 8px 16px !important;
-    margin-left: 8px !important;
-    text-transform: none !important;
-    box-shadow: var(--md-sys-elevation-level1) !important;
-    transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard) !important;
+    @extend .md-primary;
+    @extend .md-elevation-0;
 }
 
 .custom-snackbar .mat-mdc-snack-bar-action:hover {
