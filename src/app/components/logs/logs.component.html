@@ -18,7 +18,7 @@
           </h2>
           <div class="flex items-center gap-2">
             <button
-              class="md-button md-button-text touch-target rounded-full p-3"
+              class="md-button md-button-filled touch-target rounded-full p-3"
               (click)="refreshLogFiles()"
             >
               <mat-icon class="h-5 w-5 text-md-sys-color-primary"
@@ -70,7 +70,7 @@
                     </div>
                   </div>
                   <button
-                    class="md-button md-button-text touch-target rounded-full p-2"
+                    class="md-button md-button-filled touch-target rounded-full p-2"
                     (click)="
                       $event.stopPropagation(); confirmDeleteLogFile(file)
                     "
@@ -120,7 +120,7 @@
           @if (selectedFile) {
             <div class="flex items-center gap-2">
               <button
-                class="md-button md-button-text touch-target rounded-full p-3"
+                class="md-button md-button-filled touch-target rounded-full p-3"
                 (click)="loadLogContent()"
                 [disabled]="loadingContent"
               >
