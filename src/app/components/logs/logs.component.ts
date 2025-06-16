@@ -91,10 +91,6 @@ export class LogsComponent implements OnInit {
     });
   }
 
-  refreshLogFiles() {
-    this.loadLogFiles();
-  }
-
   downloadLog() {
     if (!this.logContent) return;
 
