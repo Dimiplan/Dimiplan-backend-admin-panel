@@ -684,3 +684,22 @@ input:focus {
 .mat-mdc-paginator .mat-mdc-paginator-page-size-label {
     display: none !important;
 }
+
+/* Fix for database table header overlap issue */
+.mat-mdc-table {
+    .mat-mdc-header-row {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background-color: var(--md-sys-color-surface-container-high) !important;
+    }
+    
+    .mat-mdc-header-cell {
+        background-color: var(--md-sys-color-surface-container-high) !important;
+        border-bottom: 1px solid var(--md-sys-color-outline-variant) !important;
+    }
+    
+    .mat-mdc-row {
+        background-color: var(--md-sys-color-surface-container) !important;
+    }
+}
