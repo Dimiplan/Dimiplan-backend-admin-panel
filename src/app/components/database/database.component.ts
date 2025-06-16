@@ -454,7 +454,10 @@ export class DatabaseRowDialogComponent {
           ? this.data.row[column.name]
           : column.default || '';
 
-      if (column.type.includes('datetime') || column.type.includes('timestamp')) {
+      if (
+        column.type.includes('datetime') ||
+        column.type.includes('timestamp')
+      ) {
         // For datetime fields, create separate date and time controls
         const dateValue = value ? new Date(value as string) : null;
         formControls[column.name + '_date'] = [dateValue];
@@ -560,7 +563,11 @@ export class DatabaseRowDialogComponent {
     return '1';
   }
 
-  isSenderColumn(column: { name: string; type: string; nullable: boolean }): boolean {
+  isSenderColumn(column: {
+    name: string;
+    type: string;
+    nullable: boolean;
+  }): boolean {
     return column.name === 'sender';
   }
 
