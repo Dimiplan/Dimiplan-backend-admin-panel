@@ -1,9 +1,9 @@
 <div class="p-4 md:p-6 pb-20 bg-md-sys-color-surface min-h-screen lg:h-full lg:overflow-hidden flex flex-col max-w-screen overflow-x-hidden">
     <h1 class="md-typescale-headline-large text-md-sys-color-on-surface mb-4 md:mb-6">데이터베이스 관리</h1>
     <div class="flex-1 overflow-hidden">
-        <div class="flex flex-col lg:grid lg:grid-cols-3 gap-4 md:gap-6">
+        <div class="flex flex-col grid lg:grid-cols-3 grid-rows-2 gap-4 md:gap-6">
             <!-- 테이블 목록 -->
-            <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface lg:col-span-1 flex flex-col min-h-0">
+            <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface lg:col-span-1 flex flex-col min-h-0 max-w-screen overflow-x-hidden">
                 <div class="flex items-center justify-between mb-4 flex-shrink-0">
                     <h2 class="md-typescale-title-large text-md-sys-color-on-surface">테이블 목록</h2>
                     <button class="md-button md-button-text p-3 rounded-full touch-target" (click)="refreshTables()">
@@ -43,7 +43,7 @@
             </div>
 
             <!-- 테이블 데이터 뷰어 -->
-            <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface lg:col-span-2 flex flex-col min-h-0">
+            <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface lg:col-span-2 flex flex-col min-h-0 max-w-screen overflow-x-hidden">
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-2 flex-shrink-0">
                     <h2 class="md-typescale-title-large text-md-sys-color-on-surface truncate">
                         {{ selectedTable ? selectedTable!.name : '테이블 뷰어' }}
