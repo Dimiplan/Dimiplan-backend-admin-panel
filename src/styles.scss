@@ -390,10 +390,16 @@ input:focus {
     border-radius: 12px !important;
 }
 
-.mat-mdc-form-field .mdc-notched-outline__leading,
-.mat-mdc-form-field .mdc-notched-outline__notch,
+.mat-mdc-form-field .mdc-notched-outline__leading {
+    border-radius: 12px 0 0 12px !important;
+}
+
+.mat-mdc-form-field .mdc-notched-outline__notch {
+    border-radius: 0 !important;
+}
+
 .mat-mdc-form-field .mdc-notched-outline__trailing {
-    border-radius: 12px !important;
+    border-radius: 0 12px 12px 0 !important;
 }
 
 .mat-mdc-form-field.readonly-field {
