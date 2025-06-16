@@ -4,7 +4,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule, PageEvent, MatPaginatorIntl } from '@angular/material/paginator';
+import {
+  MatPaginatorModule,
+  PageEvent,
+  MatPaginatorIntl,
+} from '@angular/material/paginator';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatBadgeModule } from '@angular/material/badge';
@@ -65,17 +69,24 @@ import {
         intl.previousPageLabel = '';
         intl.firstPageLabel = '';
         intl.lastPageLabel = '';
-        intl.getRangeLabel = (page: number, pageSize: number, length: number) => {
+        intl.getRangeLabel = (
+          page: number,
+          pageSize: number,
+          length: number
+        ) => {
           if (length === 0 || pageSize === 0) {
             return `0 / ${length}`;
           }
           const startIndex = page * pageSize;
-          const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
+          const endIndex =
+            startIndex < length
+              ? Math.min(startIndex + pageSize, length)
+              : startIndex + pageSize;
           return `${startIndex + 1} - ${endIndex} / ${length}`;
         };
         return intl;
-      }
-    }
+      },
+    },
   ],
   templateUrl: './database.component.html',
 })
@@ -444,9 +455,7 @@ export class DatabaseComponent implements OnInit {
     MatNativeDateModule,
     ReactiveFormsModule,
   ],
-  providers: [
-    { provide: MAT_DATE_LOCALE, useValue: 'ko-KR' }
-  ],
+  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'ko-KR' }],
   templateUrl: './database-dialog.component.html',
 })
 export class DatabaseRowDialogComponent {
