@@ -391,11 +391,11 @@ input:focus {
 }
 
 .mat-mdc-form-field .mdc-notched-outline__leading {
-    border-radius: 12px 0 0 12px !important;
+    border-radius: 0 !important;
 }
 
 .mat-mdc-form-field .mdc-notched-outline__notch {
-    border-radius: 0 !important;
+    border-radius: 12px 0 0 12px !important;
 }
 
 .mat-mdc-form-field .mdc-notched-outline__trailing {
