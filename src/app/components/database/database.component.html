@@ -246,12 +246,9 @@
                             class="border-b border-md-sys-color-outline-variant px-2 lg:px-4"
                           >
                             <div
-                              class="md-typescale-body-medium max-w-[120px] truncate text-sm text-md-sys-color-on-surface lg:max-w-xs lg:text-base"
-                              [matTooltip]="formatCellValue(row[column.name])"
-                              matTooltipPosition="above"
-                              [matTooltipDisabled]="
-                                formatCellValue(row[column.name]).length < 30
-                              "
+                              class="md-typescale-body-medium max-w-[120px] truncate text-sm text-md-sys-color-on-surface lg:max-w-xs lg:text-base cursor-pointer hover:bg-md-sys-color-surface-container-high rounded px-1 py-0.5"
+                              (click)="copyToClipboard(formatCellValue(row[column.name]))"
+                              title="클릭하여 복사"
                             >
                               {{ formatCellValue(row[column.name]) }}
                             </div>
@@ -275,9 +272,9 @@
                 <div class="mt-4 shrink-0">
                   <mat-paginator
                     [length]="tableData?.pagination?.totalCount || 0"
-                    [pageSize]="tableData?.pagination?.limit || 25"
+                    [pageSize]="10"
                     [pageIndex]="(tableData?.pagination?.page || 1) - 1"
-                    [pageSizeOptions]="[25, 50, 100, 200]"
+                    [pageSizeOptions]="[]"
                     (page)="onPageChange($event)"
                     showFirstLastButtons
                     class="rounded-xl bg-md-sys-color-surface-container"

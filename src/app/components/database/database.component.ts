@@ -43,7 +43,6 @@ export class DatabaseComponent implements OnInit {
   loadingTables = false;
   loadingData = false;
   currentPage = 1;
-  pageSize = 50;
 
   ngOnInit() {
     this.loadTables();
@@ -77,7 +76,7 @@ export class DatabaseComponent implements OnInit {
 
     this.loadingData = true;
     this.adminService
-      .getTableData(this.selectedTable.name, this.currentPage, this.pageSize)
+      .getTableData(this.selectedTable.name, this.currentPage, 10)
       .subscribe({
         next: response => {
           if (response.success) {
@@ -98,7 +97,6 @@ export class DatabaseComponent implements OnInit {
 
   onPageChange(event: PageEvent) {
     this.currentPage = event.pageIndex + 1;
-    this.pageSize = event.pageSize;
     this.loadTableData();
   }
 
@@ -206,5 +204,13 @@ export class DatabaseComponent implements OnInit {
       .join('\n');
 
     return `${headers}\n${rows}`;
+  }
+
+  copyToClipboard(text: string) {
+    navigator.clipboard.writeText(text).then(() => {
+      console.log('복사됨:', text);
+    }).catch(err => {
+      console.error('복사 실패:', err);
+    });
   }
 }
