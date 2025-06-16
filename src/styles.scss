@@ -357,7 +357,7 @@ input:focus {
 .mat-mdc-dialog-container {
     background-color: var(--md-sys-color-surface-container) !important;
     color: var(--md-sys-color-on-surface) !important;
-    border-radius: var(--md-sys-shape-corner-large) !important;
+    border-radius: 24px !important;
     box-shadow: var(--md-sys-elevation-level3) !important;
 }
 
@@ -387,7 +387,13 @@ input:focus {
     --mdc-outlined-text-field-label-text-color: var(--md-sys-color-on-surface-variant);
     --mdc-outlined-text-field-input-text-color: var(--md-sys-color-on-surface);
     --mdc-outlined-text-field-supporting-text-color: var(--md-sys-color-on-surface-variant);
-    border-radius: var(--md-sys-shape-corner-extra-small) !important;
+    border-radius: 12px !important;
+}
+
+.mat-mdc-form-field .mdc-notched-outline__leading,
+.mat-mdc-form-field .mdc-notched-outline__notch,
+.mat-mdc-form-field .mdc-notched-outline__trailing {
+    border-radius: 12px !important;
 }
 
 .mat-mdc-form-field.readonly-field {
@@ -408,12 +414,12 @@ input:focus {
     --mdc-outlined-text-field-hover-outline-color: var(--md-sys-color-outline);
     --mdc-outlined-text-field-focus-outline-color: var(--md-sys-color-primary);
     --mdc-outlined-text-field-label-text-color: var(--md-sys-color-on-surface-variant);
-    border-radius: var(--md-sys-shape-corner-extra-small) !important;
+    border-radius: 12px !important;
 }
 
 .mat-mdc-select-panel {
     background-color: var(--md-sys-color-surface-container) !important;
-    border-radius: var(--md-sys-shape-corner-medium) !important;
+    border-radius: 16px !important;
     box-shadow: var(--md-sys-elevation-level2) !important;
 }
 
@@ -423,7 +429,7 @@ input:focus {
     --mdc-list-list-item-hover-state-layer-color: var(--md-sys-color-surface-container-high);
     --mdc-list-list-item-selected-container-color: var(--md-sys-color-secondary-container);
     --mdc-list-list-item-selected-label-text-color: var(--md-sys-color-on-secondary-container);
-    border-radius: var(--md-sys-shape-corner-small) !important;
+    border-radius: 8px !important;
     margin: 4px 8px !important;
     transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard) !important;
 }
@@ -440,7 +446,7 @@ input:focus {
 .mat-mdc-dialog-actions .mat-mdc-button {
     --mdc-text-button-label-text-color: var(--md-sys-color-on-surface-variant);
     --mdc-text-button-hover-state-layer-color: var(--md-sys-color-surface-container-high);
-    border-radius: var(--md-sys-shape-corner-full) !important;
+    border-radius: 20px !important;
     padding: 8px 16px !important;
     transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard) !important;
 }
@@ -449,7 +455,7 @@ input:focus {
     --mdc-filled-button-container-color: var(--md-sys-color-primary);
     --mdc-filled-button-label-text-color: var(--md-sys-color-on-primary);
     --mdc-filled-button-hover-state-layer-color: var(--md-sys-color-surface-container-high);
-    border-radius: var(--md-sys-shape-corner-full) !important;
+    border-radius: 20px !important;
     padding: 8px 16px !important;
     box-shadow: var(--md-sys-elevation-level1) !important;
     transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard) !important;
@@ -464,13 +470,13 @@ input:focus {
 .mat-mdc-form-field textarea.mat-mdc-input-element {
     resize: vertical;
     min-height: 80px;
-    border-radius: var(--md-sys-shape-corner-extra-small) !important;
+    border-radius: 12px !important;
 }
 
 /* Field container styling */
 .mat-mdc-form-field .mat-mdc-form-field-infix {
     padding: 16px !important;
-    border-radius: var(--md-sys-shape-corner-extra-small) !important;
+    border-radius: 12px !important;
 }
 
 /* Hint text styling */
@@ -481,4 +487,13 @@ input:focus {
 .mat-mdc-form-field-hint {
     color: var(--md-sys-color-on-surface-variant) !important;
     font-size: var(--md-sys-typescale-body-small-size) !important;
+}
+
+/* Remove vertical line between outline notch elements */
+.mdc-notched-outline__notch {
+    border-right: none !important;
+}
+
+.mdc-notched-outline__trailing {
+    border-left: none !important;
 }
