@@ -497,3 +497,66 @@ input:focus {
 .mdc-notched-outline__trailing {
     border-left: none !important;
 }
+
+/* Custom snackbar styles */
+.custom-snackbar {
+    background-color: var(--md-sys-color-inverse-surface) !important;
+    color: var(--md-sys-color-inverse-on-surface) !important;
+    border-radius: 12px !important;
+    opacity: 1 !important;
+    box-shadow: var(--md-sys-elevation-level3) !important;
+}
+
+.custom-snackbar .mat-mdc-snack-bar-label {
+    color: var(--md-sys-color-inverse-on-surface) !important;
+    font-weight: 500 !important;
+}
+
+.custom-snackbar .mat-mdc-snack-bar-action {
+    color: var(--md-sys-color-inverse-primary) !important;
+    background-color: transparent !important;
+    border-radius: 20px !important;
+    font-weight: 600 !important;
+    padding: 8px 16px !important;
+    margin-left: 8px !important;
+    text-transform: none !important;
+    transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard) !important;
+}
+
+.custom-snackbar .mat-mdc-snack-bar-action:hover {
+    background-color: var(--md-sys-color-surface-container-high) !important;
+}
+
+.success-snackbar {
+    background-color: var(--md-sys-color-primary-container) !important;
+    color: var(--md-sys-color-on-primary-container) !important;
+}
+
+.success-snackbar .mat-mdc-snack-bar-label {
+    color: var(--md-sys-color-on-primary-container) !important;
+}
+
+.success-snackbar .mat-mdc-snack-bar-action {
+    color: var(--md-sys-color-primary) !important;
+}
+
+.success-snackbar .mat-mdc-snack-bar-action:hover {
+    background-color: var(--md-sys-color-primary-container) !important;
+}
+
+.error-snackbar {
+    background-color: var(--md-sys-color-error-container) !important;
+    color: var(--md-sys-color-on-error-container) !important;
+}
+
+.error-snackbar .mat-mdc-snack-bar-label {
+    color: var(--md-sys-color-on-error-container) !important;
+}
+
+.error-snackbar .mat-mdc-snack-bar-action {
+    color: var(--md-sys-color-error) !important;
+}
+
+.error-snackbar .mat-mdc-snack-bar-action:hover {
+    background-color: var(--md-sys-color-error-container) !important;
+}

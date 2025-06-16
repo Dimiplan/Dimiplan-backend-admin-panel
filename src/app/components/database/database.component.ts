@@ -235,13 +235,15 @@ export class DatabaseComponent implements OnInit {
       .writeText(text)
       .then(() => {
         this.snackBar.open('클립보드에 복사되었습니다', '닫기', {
-          duration: 2000,
+          duration: 4000,
+          panelClass: ['custom-snackbar'],
         });
       })
       .catch(err => {
         console.error('복사 실패:', err);
         this.snackBar.open('복사에 실패했습니다', '닫기', {
-          duration: 2000,
+          duration: 4000,
+          panelClass: ['custom-snackbar', 'error-snackbar'],
         });
       });
   }
@@ -320,7 +322,8 @@ export class DatabaseComponent implements OnInit {
       next: response => {
         if (response.success) {
           this.snackBar.open('데이터가 추가되었습니다', '닫기', {
-            duration: 3000,
+            duration: 5000,
+            panelClass: ['custom-snackbar', 'success-snackbar'],
           });
           this.loadTableData();
         }
@@ -328,7 +331,8 @@ export class DatabaseComponent implements OnInit {
       error: error => {
         console.error('데이터 추가 실패:', error);
         this.snackBar.open('데이터 추가에 실패했습니다', '닫기', {
-          duration: 3000,
+          duration: 5000,
+          panelClass: ['custom-snackbar', 'error-snackbar'],
         });
       },
     });
@@ -353,7 +357,8 @@ export class DatabaseComponent implements OnInit {
         next: response => {
           if (response.success) {
             this.snackBar.open('데이터가 수정되었습니다', '닫기', {
-              duration: 3000,
+              duration: 5000,
+              panelClass: ['custom-snackbar', 'success-snackbar'],
             });
             this.loadTableData();
           }
@@ -361,7 +366,8 @@ export class DatabaseComponent implements OnInit {
         error: error => {
           console.error('데이터 수정 실패:', error);
           this.snackBar.open('데이터 수정에 실패했습니다', '닫기', {
-            duration: 3000,
+            duration: 5000,
+            panelClass: ['custom-snackbar', 'error-snackbar'],
           });
         },
       });
@@ -376,7 +382,8 @@ export class DatabaseComponent implements OnInit {
         next: response => {
           if (response.success) {
             this.snackBar.open('데이터가 삭제되었습니다', '닫기', {
-              duration: 3000,
+              duration: 5000,
+              panelClass: ['custom-snackbar', 'success-snackbar'],
             });
             this.loadTableData();
           }
@@ -384,7 +391,8 @@ export class DatabaseComponent implements OnInit {
         error: error => {
           console.error('데이터 삭제 실패:', error);
           this.snackBar.open('데이터 삭제에 실패했습니다', '닫기', {
-            duration: 3000,
+            duration: 5000,
+            panelClass: ['custom-snackbar', 'error-snackbar'],
           });
         },
       });
