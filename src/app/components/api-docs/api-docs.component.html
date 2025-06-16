@@ -30,14 +30,14 @@
                     <div class="absolute top-full left-0 right-0 mt-2 max-h-64 overflow-y-auto bg-md-sys-color-surface-container rounded-xl border border-md-sys-color-outline shadow-elevation-2 z-50">
                         <button
                             (click)="selectFile('')"
-                            class="flex items-center gap-2 px-4 py-3 hover:bg-md-sys-color-surface-container-high transition-all text-left text-md-sys-color-on-surface">
+                            class="w-full flex items-center gap-2 px-4 py-3 hover:bg-md-sys-color-surface-container-high transition-all text-left text-md-sys-color-on-surface">
                             <mat-icon class="w-5 h-5 text-md-sys-color-on-surface-variant">select_all</mat-icon>
                             <span class="md-typescale-body-medium text-md-sys-color-on-surface">모든 경로</span>
                         </button>
                         @for (file of getUniqueFiles(); track $index) {
                             <button
                                 (click)="selectFile(file)"
-                                [class]="'flex items-center gap-2 px-4 py-3 hover:bg-md-sys-color-surface-container-high transition-all text-left ' + (selectedFile === file ? 'bg-md-sys-color-primary-container text-md-sys-color-on-primary-container' : 'text-md-sys-color-on-surface')">
+                                [class]="'w-full flex items-center gap-2 px-4 py-3 hover:bg-md-sys-color-surface-container-high transition-all text-left ' + (selectedFile === file ? 'bg-md-sys-color-primary-container text-md-sys-color-on-primary-container' : 'text-md-sys-color-on-surface')">
                                 <mat-icon class="w-5 h-5" [class]="selectedFile === file ? 'text-md-sys-color-primary' : 'text-md-sys-color-on-surface-variant'">description</mat-icon>
                                 <span class="font-mono text-sm truncate">{{ file }}</span>
                             </button>
