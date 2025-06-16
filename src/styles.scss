@@ -524,6 +524,26 @@ input:focus {
     box-shadow: var(--md-sys-elevation-level3) !important;
 }
 
+/* Fix time picker backdrop to be non-transparent */
+.cdk-overlay-backdrop.mat-timepicker-backdrop {
+    background-color: rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Ensure timepicker panel has solid background */
+.mat-timepicker-panel {
+    background-color: var(--md-sys-color-surface-container) !important;
+}
+
+/* Time picker dial background */
+.mat-timepicker-dial {
+    background-color: var(--md-sys-color-surface-container-low) !important;
+}
+
+/* Time picker input field background */
+.mat-timepicker-input {
+    background-color: var(--md-sys-color-surface-container-highest) !important;
+}
+
 .mat-calendar-body-today:not(.mat-calendar-body-selected) {
     background-color: var(--md-sys-color-primary-container) !important;
     color: var(--md-sys-color-on-primary-container) !important;
