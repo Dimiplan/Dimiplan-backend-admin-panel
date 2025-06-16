@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy, inject } from '@angular/core';
+import sanitizeHtml from 'sanitize-html';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -359,7 +360,7 @@ export class ApiDocsComponent implements OnInit, OnDestroy {
     > = {};
 
     returns.forEach(returnItem => {
-      const cleanDescription = returnItem.description.replace(/<[^>]*>/g, '');
+      const cleanDescription = sanitizeHtml(returnItem.description, { allowedTags: [], allowedAttributes: {} });
       const nameMatch = cleanDescription.match(/([^ -]+)/);
 
       if (nameMatch) {
@@ -422,7 +423,7 @@ export class ApiDocsComponent implements OnInit, OnDestroy {
 
   parseReturnDescription(description: string): string {
     // HTML 태그 제거하고 설명 부분만 추출
-    const cleanDescription = description.replace(/<[^>]*>/g, '');
+    const cleanDescription = sanitizeHtml(description, { allowedTags: [], allowedAttributes: {} });
 
     // [].property 패턴인 경우 "- 설명" 부분만 추출
     const match = cleanDescription.match(/\[]\.\w+\s*-\s*(.+)/);
