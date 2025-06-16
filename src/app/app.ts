@@ -56,15 +56,4 @@ export class App implements OnInit {
     toggleSidenav() {
         this.sidenavOpened = !this.sidenavOpened;
     }
-
-    toggleTheme() {
-        this.isDarkMode = !this.isDarkMode;
-        if (this.isDarkMode) {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            localStorage.setItem('theme', 'dark');
-        } else {
-            document.documentElement.removeAttribute('data-theme');
-            localStorage.setItem('theme', 'light');
-        }
-    }
 }
