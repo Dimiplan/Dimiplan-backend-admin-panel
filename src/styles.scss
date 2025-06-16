@@ -352,3 +352,133 @@ input:focus {
         border-bottom: 2px solid var(--md-sys-color-outline-variant);
     }
 }
+
+/* Database dialog improvements */
+.mat-mdc-dialog-container {
+    background-color: var(--md-sys-color-surface-container) !important;
+    color: var(--md-sys-color-on-surface) !important;
+    border-radius: var(--md-sys-shape-corner-large) !important;
+    box-shadow: var(--md-sys-elevation-level3) !important;
+}
+
+.mat-mdc-dialog-title {
+    color: var(--md-sys-color-on-surface) !important;
+    font-family: var(--md-sys-typescale-headline-small-font) !important;
+    font-size: var(--md-sys-typescale-headline-small-size) !important;
+    font-weight: var(--md-sys-typescale-headline-small-weight) !important;
+    line-height: var(--md-sys-typescale-headline-small-line-height) !important;
+}
+
+.mat-mdc-dialog-content {
+    color: var(--md-sys-color-on-surface) !important;
+}
+
+.mat-mdc-dialog-actions {
+    padding: 16px 24px !important;
+}
+
+.mat-mdc-form-field {
+    --mdc-filled-text-field-container-color: var(--md-sys-color-surface-container-low);
+    --mdc-filled-text-field-label-text-color: var(--md-sys-color-on-surface-variant);
+    --mdc-filled-text-field-input-text-color: var(--md-sys-color-on-surface);
+    --mdc-outlined-text-field-outline-color: var(--md-sys-color-outline-variant);
+    --mdc-outlined-text-field-hover-outline-color: var(--md-sys-color-outline);
+    --mdc-outlined-text-field-focus-outline-color: var(--md-sys-color-primary);
+    --mdc-outlined-text-field-label-text-color: var(--md-sys-color-on-surface-variant);
+    --mdc-outlined-text-field-input-text-color: var(--md-sys-color-on-surface);
+    --mdc-outlined-text-field-supporting-text-color: var(--md-sys-color-on-surface-variant);
+    border-radius: var(--md-sys-shape-corner-extra-small) !important;
+}
+
+.mat-mdc-form-field.readonly-field {
+    --mdc-outlined-text-field-outline-color: var(--md-sys-color-outline-variant);
+    --mdc-outlined-text-field-hover-outline-color: var(--md-sys-color-outline-variant);
+    --mdc-outlined-text-field-focus-outline-color: var(--md-sys-color-outline-variant);
+    opacity: 0.7;
+    
+    .mat-mdc-form-field-infix {
+        background-color: var(--md-sys-color-surface-container-low);
+    }
+}
+
+.mat-mdc-select {
+    --mdc-filled-text-field-container-color: var(--md-sys-color-surface-container-low);
+    --mdc-filled-text-field-label-text-color: var(--md-sys-color-on-surface-variant);
+    --mdc-outlined-text-field-outline-color: var(--md-sys-color-outline-variant);
+    --mdc-outlined-text-field-hover-outline-color: var(--md-sys-color-outline);
+    --mdc-outlined-text-field-focus-outline-color: var(--md-sys-color-primary);
+    --mdc-outlined-text-field-label-text-color: var(--md-sys-color-on-surface-variant);
+    border-radius: var(--md-sys-shape-corner-extra-small) !important;
+}
+
+.mat-mdc-select-panel {
+    background-color: var(--md-sys-color-surface-container) !important;
+    border-radius: var(--md-sys-shape-corner-medium) !important;
+    box-shadow: var(--md-sys-elevation-level2) !important;
+}
+
+.mat-mdc-option {
+    --mdc-list-list-item-container-color: transparent;
+    --mdc-list-list-item-label-text-color: var(--md-sys-color-on-surface);
+    --mdc-list-list-item-hover-state-layer-color: var(--md-sys-color-surface-container-high);
+    --mdc-list-list-item-selected-container-color: var(--md-sys-color-secondary-container);
+    --mdc-list-list-item-selected-label-text-color: var(--md-sys-color-on-secondary-container);
+    border-radius: var(--md-sys-shape-corner-small) !important;
+    margin: 4px 8px !important;
+    transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard) !important;
+}
+
+.mat-mdc-option:hover {
+    background-color: var(--md-sys-color-surface-container-high) !important;
+}
+
+.mat-mdc-option.mdc-list-item--selected {
+    background-color: var(--md-sys-color-secondary-container) !important;
+    color: var(--md-sys-color-on-secondary-container) !important;
+}
+
+.mat-mdc-dialog-actions .mat-mdc-button {
+    --mdc-text-button-label-text-color: var(--md-sys-color-on-surface-variant);
+    --mdc-text-button-hover-state-layer-color: var(--md-sys-color-surface-container-high);
+    border-radius: var(--md-sys-shape-corner-full) !important;
+    padding: 8px 16px !important;
+    transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard) !important;
+}
+
+.mat-mdc-dialog-actions .mat-mdc-unelevated-button {
+    --mdc-filled-button-container-color: var(--md-sys-color-primary);
+    --mdc-filled-button-label-text-color: var(--md-sys-color-on-primary);
+    --mdc-filled-button-hover-state-layer-color: var(--md-sys-color-surface-container-high);
+    border-radius: var(--md-sys-shape-corner-full) !important;
+    padding: 8px 16px !important;
+    box-shadow: var(--md-sys-elevation-level1) !important;
+    transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard) !important;
+}
+
+.mat-mdc-dialog-actions .mat-mdc-unelevated-button:hover {
+    box-shadow: var(--md-sys-elevation-level2) !important;
+    transform: translateY(-1px);
+}
+
+/* Enhanced textarea styling */
+.mat-mdc-form-field textarea.mat-mdc-input-element {
+    resize: vertical;
+    min-height: 80px;
+    border-radius: var(--md-sys-shape-corner-extra-small) !important;
+}
+
+/* Field container styling */
+.mat-mdc-form-field .mat-mdc-form-field-infix {
+    padding: 16px !important;
+    border-radius: var(--md-sys-shape-corner-extra-small) !important;
+}
+
+/* Hint text styling */
+.mat-mdc-form-field-hint-wrapper {
+    padding-top: 8px !important;
+}
+
+.mat-mdc-form-field-hint {
+    color: var(--md-sys-color-on-surface-variant) !important;
+    font-size: var(--md-sys-typescale-body-small-size) !important;
+}
