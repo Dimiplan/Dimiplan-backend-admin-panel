@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormsModule } from '@angular/forms';
 import {
   AdminService,
@@ -34,6 +35,7 @@ import {
 })
 export class LogsComponent implements OnInit {
   private adminService = inject(AdminService);
+  private snackBar = inject(MatSnackBar);
 
   logFiles: LogFile[] = [];
   selectedFile: LogFile | null = null;
@@ -87,10 +89,6 @@ export class LogsComponent implements OnInit {
         this.loadingContent = false;
       },
     });
-  }
-
-  refreshLogFiles() {
-    this.loadLogFiles();
   }
 
   downloadLog() {
@@ -173,5 +171,73 @@ export class LogsComponent implements OnInit {
       default:
         return 'text-gray-400';
     }
+  }
+
+  confirmDeleteLogFile(file: LogFile) {
+    if (confirm(`정말 "${file.name}" 로그 파일을 삭제하시겠습니까?`)) {
+      this.deleteLogFile(file);
+    }
+  }
+
+  confirmClearAllLogs() {
+    if (
+      confirm(
+        '정말 모든 로그 파일을 비우시겠습니까? 이 작업은 되돌릴 수 없습니다.'
+      )
+    ) {
+      this.clearAllLogs();
+    }
+  }
+
+  private deleteLogFile(file: LogFile) {
+    this.adminService.deleteLogFile(file.name).subscribe({
+      next: response => {
+        if (response.success) {
+          this.snackBar.open('로그 파일이 삭제되었습니다', '닫기', {
+            duration: 3000,
+          });
+          this.loadLogFiles();
+          // 삭제된 파일이 현재 선택된 파일이면 선택 해제
+          if (this.selectedFile?.name === file.name) {
+            this.selectedFile = null;
+            this.logContent = null;
+          }
+        }
+      },
+      error: error => {
+        console.error('로그 파일 삭제 실패:', error);
+        this.snackBar.open('로그 파일 삭제에 실패했습니다', '닫기', {
+          duration: 3000,
+        });
+      },
+    });
+  }
+
+  private clearAllLogs() {
+    this.adminService.clearAllLogs().subscribe({
+      next: response => {
+        if (response.success) {
+          this.snackBar.open(
+            `${response.data.clearedFiles}개의 로그 파일이 비워졌습니다`,
+            '닫기',
+            {
+              duration: 3000,
+            }
+          );
+          this.loadLogFiles();
+          // 현재 선택된 파일의 내용도 새로 로드
+          if (this.selectedFile) {
+            this.logContent = null;
+            this.loadLogContent();
+          }
+        }
+      },
+      error: error => {
+        console.error('로그 파일 비우기 실패:', error);
+        this.snackBar.open('로그 파일 비우기에 실패했습니다', '닫기', {
+          duration: 3000,
+        });
+      },
+    });
   }
 }

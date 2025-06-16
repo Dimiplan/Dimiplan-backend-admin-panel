@@ -352,3 +352,354 @@ input:focus {
         border-bottom: 2px solid var(--md-sys-color-outline-variant);
     }
 }
+
+/* Database dialog improvements */
+.mat-mdc-dialog-container {
+    background-color: var(--md-sys-color-surface-container) !important;
+    color: var(--md-sys-color-on-surface) !important;
+    border-radius: 24px !important;
+    box-shadow: var(--md-sys-elevation-level3) !important;
+}
+
+.mat-mdc-dialog-title {
+    color: var(--md-sys-color-on-surface) !important;
+    font-family: var(--md-sys-typescale-headline-small-font) !important;
+    font-size: var(--md-sys-typescale-headline-small-size) !important;
+    font-weight: var(--md-sys-typescale-headline-small-weight) !important;
+    line-height: var(--md-sys-typescale-headline-small-line-height) !important;
+}
+
+.mat-mdc-dialog-content {
+    color: var(--md-sys-color-on-surface) !important;
+}
+
+.mat-mdc-dialog-actions {
+    padding: 16px 24px !important;
+}
+
+.mat-mdc-form-field {
+    --mdc-filled-text-field-container-color: var(--md-sys-color-surface-container-low);
+    --mdc-filled-text-field-label-text-color: var(--md-sys-color-on-surface-variant);
+    --mdc-filled-text-field-input-text-color: var(--md-sys-color-on-surface);
+    --mdc-outlined-text-field-outline-color: var(--md-sys-color-outline-variant);
+    --mdc-outlined-text-field-hover-outline-color: var(--md-sys-color-outline);
+    --mdc-outlined-text-field-focus-outline-color: var(--md-sys-color-primary);
+    --mdc-outlined-text-field-label-text-color: var(--md-sys-color-on-surface-variant);
+    --mdc-outlined-text-field-input-text-color: var(--md-sys-color-on-surface);
+    --mdc-outlined-text-field-supporting-text-color: var(--md-sys-color-on-surface-variant);
+    border-radius: 12px !important;
+}
+
+.mat-mdc-form-field .mdc-notched-outline__leading {
+    border-radius: 0 !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-top: none !important;
+    border-bottom: none !important;
+}
+
+.mat-mdc-form-field .mdc-notched-outline__notch {
+    border-radius: 12px 0 0 12px !important;
+    border-left: 2px solid rgba(255,255,255,1) !important;
+}
+
+.mat-mdc-form-field .mdc-notched-outline__trailing {
+    border-radius: 0 12px 12px 0 !important;
+}
+
+.mat-mdc-form-field.readonly-field {
+    --mdc-outlined-text-field-outline-color: var(--md-sys-color-outline-variant);
+    --mdc-outlined-text-field-hover-outline-color: var(--md-sys-color-outline-variant);
+    --mdc-outlined-text-field-focus-outline-color: var(--md-sys-color-outline-variant);
+    opacity: 0.7;
+    
+    .mat-mdc-form-field-infix {
+        background-color: var(--md-sys-color-surface-container-low);
+    }
+}
+
+.mat-mdc-select {
+    --mdc-filled-text-field-container-color: var(--md-sys-color-surface-container-low);
+    --mdc-filled-text-field-label-text-color: var(--md-sys-color-on-surface-variant);
+    --mdc-outlined-text-field-outline-color: var(--md-sys-color-outline-variant);
+    --mdc-outlined-text-field-hover-outline-color: var(--md-sys-color-outline);
+    --mdc-outlined-text-field-focus-outline-color: var(--md-sys-color-primary);
+    --mdc-outlined-text-field-label-text-color: var(--md-sys-color-on-surface-variant);
+    border-radius: 12px !important;
+}
+
+.mat-mdc-select-panel {
+    background-color: var(--md-sys-color-surface-container) !important;
+    border-radius: 16px !important;
+    box-shadow: var(--md-sys-elevation-level2) !important;
+}
+
+.mat-mdc-option {
+    --mdc-list-list-item-container-color: transparent;
+    --mdc-list-list-item-label-text-color: var(--md-sys-color-on-surface);
+    --mdc-list-list-item-hover-state-layer-color: var(--md-sys-color-surface-container-high);
+    --mdc-list-list-item-selected-container-color: var(--md-sys-color-secondary-container);
+    --mdc-list-list-item-selected-label-text-color: var(--md-sys-color-on-secondary-container);
+    border-radius: 8px !important;
+    margin: 4px 8px !important;
+    transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard) !important;
+}
+
+.mat-mdc-option:hover {
+    background-color: var(--md-sys-color-surface-container-high) !important;
+}
+
+.mat-mdc-option.mdc-list-item--selected {
+    background-color: var(--md-sys-color-secondary-container) !important;
+    color: var(--md-sys-color-on-secondary-container) !important;
+}
+
+.mat-mdc-dialog-actions .mat-mdc-button {
+    --mdc-text-button-label-text-color: var(--md-sys-color-on-surface-variant);
+    --mdc-text-button-hover-state-layer-color: var(--md-sys-color-surface-container-high);
+    border-radius: 20px !important;
+    padding: 8px 16px !important;
+    transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard) !important;
+}
+
+.mat-mdc-dialog-actions .mat-mdc-unelevated-button {
+    --mdc-filled-button-container-color: var(--md-sys-color-primary);
+    --mdc-filled-button-label-text-color: var(--md-sys-color-on-primary);
+    --mdc-filled-button-hover-state-layer-color: var(--md-sys-color-surface-container-high);
+    border-radius: 20px !important;
+    padding: 8px 16px !important;
+    box-shadow: var(--md-sys-elevation-level1) !important;
+    transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard) !important;
+}
+
+.mat-mdc-dialog-actions .mat-mdc-unelevated-button:hover {
+    box-shadow: var(--md-sys-elevation-level2) !important;
+    transform: translateY(-1px);
+}
+
+/* Enhanced textarea styling */
+.mat-mdc-form-field textarea.mat-mdc-input-element {
+    resize: vertical;
+    min-height: 80px;
+    border-radius: 12px !important;
+}
+
+/* Field container styling */
+.mat-mdc-form-field .mat-mdc-form-field-infix {
+    padding: 16px !important;
+    border-radius: 12px !important;
+}
+
+/* Floating label padding adjustment for empty inputs */
+.mat-mdc-form-field:not(.mat-mdc-form-field-has-icon-suffix):not(.mat-mdc-form-field-has-icon-prefix) .mat-mdc-form-field-infix {
+    padding: 16px !important;
+}
+
+.mat-mdc-form-field .mat-mdc-floating-label {
+    top: 16px !important;
+}
+
+.mat-mdc-form-field.mat-mdc-form-field-label-always-float .mat-mdc-floating-label,
+.mat-mdc-form-field.mat-focused .mat-mdc-floating-label {
+    top: 8px !important;
+}
+
+/* Hint text styling */
+.mat-mdc-form-field-hint-wrapper {
+    padding-top: 8px !important;
+}
+
+.mat-mdc-form-field-hint {
+    color: var(--md-sys-color-on-surface-variant) !important;
+    font-size: var(--md-sys-typescale-body-small-size) !important;
+}
+
+/* Remove vertical line between outline notch elements */
+.mdc-notched-outline__notch {
+    border-right: none !important;
+}
+
+.mdc-notched-outline__trailing {
+    border-left: none !important;
+}
+
+/* Custom datepicker and timepicker styles */
+.mat-datepicker-popup, .mat-datepicker-content {
+    background-color: var(--md-sys-color-surface-container) !important;
+    color: var(--md-sys-color-on-surface) !important;
+    border-radius: 16px !important;
+    box-shadow: var(--md-sys-elevation-level3) !important;
+}
+
+.mat-timepicker-popup, .mat-timepicker-content {
+    background-color: var(--md-sys-color-surface-container) !important;
+    color: var(--md-sys-color-on-surface) !important;
+    border-radius: 16px !important;
+    box-shadow: var(--md-sys-elevation-level3) !important;
+}
+
+/* Fix time picker backdrop to be non-transparent */
+.cdk-overlay-backdrop.mat-timepicker-backdrop {
+    background-color: rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Ensure timepicker panel has solid background */
+.mat-timepicker-panel {
+    background-color: var(--md-sys-color-surface-container) !important;
+}
+
+/* Time picker dial background */
+.mat-timepicker-dial {
+    background-color: var(--md-sys-color-surface-container-low) !important;
+}
+
+/* Time picker input field background */
+.mat-timepicker-input {
+    background-color: var(--md-sys-color-surface-container-highest) !important;
+}
+
+/* Time picker dropdown/select styling */
+.mat-timepicker-toggle,
+.mat-timepicker .mat-mdc-select,
+.mat-timepicker .mat-mdc-select-panel,
+.mat-timepicker .mat-mdc-option {
+    --mdc-filled-text-field-container-color: var(--md-sys-color-surface-container-low);
+    --mdc-filled-text-field-label-text-color: var(--md-sys-color-on-surface-variant);
+    --mdc-outlined-text-field-outline-color: var(--md-sys-color-outline-variant);
+    --mdc-outlined-text-field-hover-outline-color: var(--md-sys-color-outline);
+    --mdc-outlined-text-field-focus-outline-color: var(--md-sys-color-primary);
+    --mdc-outlined-text-field-label-text-color: var(--md-sys-color-on-surface-variant);
+    --mdc-outlined-text-field-input-text-color: var(--md-sys-color-on-surface);
+    background-color: var(--md-sys-color-surface-container) !important;
+    color: var(--md-sys-color-on-surface) !important;
+}
+
+.mat-timepicker .mat-mdc-select-panel {
+    border-radius: 16px !important;
+    box-shadow: var(--md-sys-elevation-level2) !important;
+}
+
+.mat-timepicker .mat-mdc-option {
+    --mdc-list-list-item-container-color: transparent;
+    --mdc-list-list-item-label-text-color: var(--md-sys-color-on-surface);
+    --mdc-list-list-item-hover-state-layer-color: var(--md-sys-color-surface-container-high);
+    --mdc-list-list-item-selected-container-color: var(--md-sys-color-secondary-container);
+    --mdc-list-list-item-selected-label-text-color: var(--md-sys-color-on-secondary-container);
+    border-radius: 8px !important;
+    margin: 4px 8px !important;
+    transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard) !important;
+}
+
+.mat-timepicker .mat-mdc-option:hover {
+    background-color: var(--md-sys-color-surface-container-high) !important;
+}
+
+.mat-timepicker .mat-mdc-option.mdc-list-item--selected {
+    background-color: var(--md-sys-color-secondary-container) !important;
+    color: var(--md-sys-color-on-secondary-container) !important;
+}
+
+.mat-calendar-body-today:not(.mat-calendar-body-selected) {
+    background-color: var(--md-sys-color-primary-container) !important;
+    color: var(--md-sys-color-on-primary-container) !important;
+}
+
+.mat-calendar-body-selected {
+    background-color: var(--md-sys-color-primary) !important;
+    color: var(--md-sys-color-on-primary) !important;
+}
+
+.mat-calendar-table-header, .mat-calendar-body-label {
+    color: var(--md-sys-color-on-surface) !important;
+}
+
+.mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover {
+    background-color: var(--md-sys-color-surface-container-high) !important;
+}
+
+/* Custom snackbar styles */
+.custom-snackbar {
+    background-color: var(--md-sys-color-inverse-surface) !important;
+    color: var(--md-sys-color-inverse-on-surface) !important;
+    border-radius: 12px !important;
+    opacity: 1 !important;
+    box-shadow: var(--md-sys-elevation-level3) !important;
+}
+
+.custom-snackbar .mat-mdc-snack-bar-label {
+    color: var(--md-sys-color-inverse-on-surface) !important;
+    font-weight: 500 !important;
+}
+
+.custom-snackbar .mat-mdc-snack-bar-action {
+    @extend .md-primary;
+    @extend .md-elevation-0;
+}
+
+.custom-snackbar .mat-mdc-snack-bar-action:hover {
+    background-color: var(--md-sys-color-primary) !important;
+    box-shadow: var(--md-sys-elevation-level2) !important;
+    transform: translateY(-1px);
+}
+
+.success-snackbar {
+    background-color: var(--md-sys-color-primary-container) !important;
+    color: var(--md-sys-color-on-primary-container) !important;
+}
+
+.success-snackbar .mat-mdc-snack-bar-label {
+    color: var(--md-sys-color-on-primary-container) !important;
+}
+
+.success-snackbar .mat-mdc-snack-bar-action {
+    color: var(--md-sys-color-primary) !important;
+}
+
+.success-snackbar .mat-mdc-snack-bar-action:hover {
+    background-color: var(--md-sys-color-primary-container) !important;
+}
+
+.error-snackbar {
+    background-color: var(--md-sys-color-error-container) !important;
+    color: var(--md-sys-color-on-error-container) !important;
+}
+
+.error-snackbar .mat-mdc-snack-bar-label {
+    color: var(--md-sys-color-on-error-container) !important;
+}
+
+.error-snackbar .mat-mdc-snack-bar-action {
+    color: var(--md-sys-color-error) !important;
+}
+
+.error-snackbar .mat-mdc-snack-bar-action:hover {
+    background-color: var(--md-sys-color-error-container) !important;
+}
+
+/* Paginator customization */
+.mat-mdc-paginator .mat-mdc-paginator-page-size {
+    display: none !important;
+}
+
+.mat-mdc-paginator .mat-mdc-paginator-page-size-label {
+    display: none !important;
+}
+
+/* Fix for database table header overlap issue */
+.mat-mdc-table {
+    .mat-mdc-header-row {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background-color: var(--md-sys-color-surface-container-high) !important;
+    }
+    
+    .mat-mdc-header-cell {
+        background-color: var(--md-sys-color-surface-container-high) !important;
+        border-bottom: 1px solid var(--md-sys-color-outline-variant) !important;
+    }
+    
+    .mat-mdc-row {
+        background-color: var(--md-sys-color-surface-container) !important;
+    }
+}

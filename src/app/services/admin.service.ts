@@ -169,4 +169,57 @@ export class AdminService {
       timestamp: string;
     }>(`${this.baseUrl}/docs/regenerate`, {});
   }
+
+  // DB 관리 메서드들
+  addTableRow(
+    tableName: string,
+    data: Record<string, unknown>
+  ): Observable<{ success: boolean; data: { insertId: number } }> {
+    return this.http.post<{ success: boolean; data: { insertId: number } }>(
+      `${this.baseUrl}/database/tables/${tableName}`,
+      { data }
+    );
+  }
+
+  updateTableRow(
+    tableName: string,
+    data: Record<string, unknown>,
+    where: Record<string, unknown>
+  ): Observable<{ success: boolean; data: { affectedRows: number } }> {
+    return this.http.put<{ success: boolean; data: { affectedRows: number } }>(
+      `${this.baseUrl}/database/tables/${tableName}`,
+      { data, where }
+    );
+  }
+
+  deleteTableRow(
+    tableName: string,
+    where: Record<string, unknown>
+  ): Observable<{ success: boolean; data: { affectedRows: number } }> {
+    return this.http.delete<{
+      success: boolean;
+      data: { affectedRows: number };
+    }>(`${this.baseUrl}/database/tables/${tableName}`, { body: { where } });
+  }
+
+  // 로그 관리 메서드들
+  deleteLogFile(
+    filename: string
+  ): Observable<{ success: boolean; message: string }> {
+    return this.http.delete<{ success: boolean; message: string }>(
+      `${this.baseUrl}/logs/${filename}`
+    );
+  }
+
+  clearAllLogs(): Observable<{
+    success: boolean;
+    message: string;
+    data: { clearedFiles: number };
+  }> {
+    return this.http.post<{
+      success: boolean;
+      message: string;
+      data: { clearedFiles: number };
+    }>(`${this.baseUrl}/logs/clear`, {});
+  }
 }

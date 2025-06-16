@@ -14,16 +14,21 @@
       >
         <div class="mb-4 flex shrink-0 items-center justify-between">
           <h2 class="md-typescale-title-large text-md-sys-color-on-surface">
-            로그 파일 목록
+            로그 목록
           </h2>
-          <button
-            class="md-button md-button-text touch-target rounded-full p-3"
-            (click)="refreshLogFiles()"
-          >
-            <mat-icon class="h-5 w-5 text-md-sys-color-primary"
-              >refresh</mat-icon
+          <div class="flex items-center gap-2">
+            <button
+              class="md-button md-button-filled touch-target rounded-full px-4 py-2"
+              (click)="confirmClearAllLogs()"
+              [disabled]="logFiles.length === 0"
             >
-          </button>
+              <mat-icon class="mr-2 h-5 w-5">clear_all</mat-icon>
+              <span class="md-typescale-label-large hidden sm:inline"
+                >로그 비우기</span
+              >
+              <span class="md-typescale-label-large sm:hidden">비우기</span>
+            </button>
+          </div>
         </div>
         <div class="min-h-0 flex-1 overflow-y-hidden pb-4">
           @if (logFiles.length > 0) {
@@ -56,6 +61,17 @@
                       {{ formatDate(file.modified) }}
                     </div>
                   </div>
+                  <button
+                    class="md-button md-button-filled touch-target rounded-full p-2"
+                    (click)="
+                      $event.stopPropagation(); confirmDeleteLogFile(file)
+                    "
+                    title="로그 파일 삭제"
+                  >
+                    <mat-icon class="h-4 w-4 text-md-sys-color-error"
+                      >delete</mat-icon
+                    >
+                  </button>
                 </div>
               }
             </div>
@@ -96,7 +112,7 @@
           @if (selectedFile) {
             <div class="flex items-center gap-2">
               <button
-                class="md-button md-button-text touch-target rounded-full p-3"
+                class="md-button md-button-filled touch-target rounded-full p-3"
                 (click)="loadLogContent()"
                 [disabled]="loadingContent"
               >

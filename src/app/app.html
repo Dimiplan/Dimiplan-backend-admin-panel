@@ -39,46 +39,8 @@
       "
       class="fixed z-50 flex min-h-full flex-col overflow-hidden border-r border-md-sys-color-outline-variant bg-md-sys-color-surface-container transition-all duration-300 ease-in-out lg:relative lg:z-auto lg:min-h-[calc(100vh-4rem)]"
     >
-      @if (!sidenavOpened) {
-        <!-- Collapsed state header -->
-        <div class="flex justify-center p-4">
-          <div
-            class="flex h-10 w-10 items-center justify-center rounded-full bg-md-sys-color-primary"
-          >
-            <mat-icon class="h-6 w-6 text-md-sys-color-on-primary"
-              >admin_panel_settings</mat-icon
-            >
-          </div>
-        </div>
-      } @else {
-        <!-- Expanded state header -->
-        <div class="p-4">
-          <div class="mb-6 flex items-center gap-3">
-            <div
-              class="flex h-8 w-8 items-center justify-center rounded-full bg-md-sys-color-primary"
-            >
-              <mat-icon class="h-5 w-5 text-md-sys-color-on-primary"
-                >admin_panel_settings</mat-icon
-              >
-            </div>
-            <div>
-              <h3
-                class="md-typescale-title-medium text-md-sys-color-on-surface"
-              >
-                관리 메뉴
-              </h3>
-              <p
-                class="md-typescale-body-small text-md-sys-color-on-surface-variant"
-              >
-                시스템 관리
-              </p>
-            </div>
-          </div>
-        </div>
-      }
-
       <div
-        class="space-y-1"
+        class="space-y-1 pt-4"
         [class.px-3]="sidenavOpened"
         [class.px-2]="!sidenavOpened"
       >

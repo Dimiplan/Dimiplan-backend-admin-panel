@@ -4,12 +4,30 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import {
+  MatPaginatorModule,
+  PageEvent,
+  MatPaginatorIntl,
+} from '@angular/material/paginator';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatChipsModule } from '@angular/material/chips';
+import {
+  MatDialogModule,
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatTimepickerModule } from '@angular/material/timepicker';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import {
   AdminService,
   TableInfo,
@@ -31,11 +49,52 @@ import {
     MatBadgeModule,
     MatTooltipModule,
     MatChipsModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatTimepickerModule,
+    MatNativeDateModule,
+    ReactiveFormsModule,
+  ],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'ko-KR' },
+    {
+      provide: MatPaginatorIntl,
+      useFactory: () => {
+        const intl = new MatPaginatorIntl();
+        intl.itemsPerPageLabel = '';
+        intl.nextPageLabel = '';
+        intl.previousPageLabel = '';
+        intl.firstPageLabel = '';
+        intl.lastPageLabel = '';
+        intl.getRangeLabel = (
+          page: number,
+          pageSize: number,
+          length: number
+        ) => {
+          if (length === 0 || pageSize === 0) {
+            return `0 / ${length}`;
+          }
+          const startIndex = page * pageSize;
+          const endIndex =
+            startIndex < length
+              ? Math.min(startIndex + pageSize, length)
+              : startIndex + pageSize;
+          return `${startIndex + 1} - ${endIndex} / ${length}`;
+        };
+        return intl;
+      },
+    },
   ],
   templateUrl: './database.component.html',
 })
 export class DatabaseComponent implements OnInit {
   private adminService = inject(AdminService);
+  private dialog = inject(MatDialog);
+  private snackBar = inject(MatSnackBar);
+  private fb = inject(FormBuilder);
 
   tables: TableInfo[] = [];
   selectedTable: TableInfo | null = null;
@@ -102,6 +161,11 @@ export class DatabaseComponent implements OnInit {
 
   getDisplayedColumns(): string[] {
     return this.tableData ? this.tableData.columns.map(col => col.name) : [];
+  }
+
+  getDisplayedColumnsWithActions(): string[] {
+    const columns = this.getDisplayedColumns();
+    return [...columns, 'actions'];
   }
 
   formatCellValue(value: unknown): string {
@@ -210,10 +274,395 @@ export class DatabaseComponent implements OnInit {
     navigator.clipboard
       .writeText(text)
       .then(() => {
-        console.log('복사됨:', text);
+        this.snackBar.open('클립보드에 복사되었습니다', '닫기', {
+          duration: 4000,
+          panelClass: ['custom-snackbar'],
+        });
       })
       .catch(err => {
         console.error('복사 실패:', err);
+        this.snackBar.open('복사에 실패했습니다', '닫기', {
+          duration: 4000,
+          panelClass: ['custom-snackbar', 'error-snackbar'],
+        });
       });
+  }
+
+  openAddRowDialog() {
+    if (!this.tableData) return;
+
+    const dialogRef = this.dialog.open(DatabaseRowDialogComponent, {
+      width: '600px',
+      data: {
+        mode: 'add',
+        columns: this.tableData.columns,
+        row: null,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.addRow(result);
+      }
+    });
+  }
+
+  openEditRowDialog(row: Record<string, unknown>) {
+    if (!this.tableData) return;
+
+    const dialogRef = this.dialog.open(DatabaseRowDialogComponent, {
+      width: '600px',
+      data: {
+        mode: 'edit',
+        columns: this.tableData.columns,
+        row,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.updateRow(row, result);
+      }
+    });
+  }
+
+  confirmDeleteRow(row: Record<string, unknown>) {
+    if (!this.selectedTable) return;
+
+    const primaryKeys = this.getPrimaryKeys();
+    const whereClause: Record<string, unknown> = {};
+
+    primaryKeys.forEach(key => {
+      whereClause[key] = row[key];
+    });
+
+    if (confirm('정말 이 행을 삭제하시겠습니까?')) {
+      this.deleteRow(whereClause);
+    }
+  }
+
+  private getPrimaryKeys(): string[] {
+    if (!this.tableData) return [];
+
+    // 테이블별 기본 키 설정
+    const tableName = this.selectedTable?.name;
+    if (tableName === 'users') {
+      return ['id'];
+    } else if (tableName === 'userid') {
+      return ['owner'];
+    } else {
+      return ['id', 'owner'];
+    }
+  }
+
+  private addRow(data: Record<string, unknown>) {
+    if (!this.selectedTable) return;
+
+    this.adminService.addTableRow(this.selectedTable.name, data).subscribe({
+      next: response => {
+        if (response.success) {
+          this.snackBar.open('데이터가 추가되었습니다', '닫기', {
+            duration: 5000,
+            panelClass: ['custom-snackbar', 'success-snackbar'],
+          });
+          this.loadTableData();
+        }
+      },
+      error: error => {
+        console.error('데이터 추가 실패:', error);
+        this.snackBar.open('데이터 추가에 실패했습니다', '닫기', {
+          duration: 5000,
+          panelClass: ['custom-snackbar', 'error-snackbar'],
+        });
+      },
+    });
+  }
+
+  private updateRow(
+    originalRow: Record<string, unknown>,
+    newData: Record<string, unknown>
+  ) {
+    if (!this.selectedTable) return;
+
+    const primaryKeys = this.getPrimaryKeys();
+    const whereClause: Record<string, unknown> = {};
+
+    primaryKeys.forEach(key => {
+      whereClause[key] = originalRow[key];
+    });
+
+    this.adminService
+      .updateTableRow(this.selectedTable.name, newData, whereClause)
+      .subscribe({
+        next: response => {
+          if (response.success) {
+            this.snackBar.open('데이터가 수정되었습니다', '닫기', {
+              duration: 5000,
+              panelClass: ['custom-snackbar', 'success-snackbar'],
+            });
+            this.loadTableData();
+          }
+        },
+        error: error => {
+          console.error('데이터 수정 실패:', error);
+          this.snackBar.open('데이터 수정에 실패했습니다', '닫기', {
+            duration: 5000,
+            panelClass: ['custom-snackbar', 'error-snackbar'],
+          });
+        },
+      });
+  }
+
+  private deleteRow(whereClause: Record<string, unknown>) {
+    if (!this.selectedTable) return;
+
+    this.adminService
+      .deleteTableRow(this.selectedTable.name, whereClause)
+      .subscribe({
+        next: response => {
+          if (response.success) {
+            this.snackBar.open('데이터가 삭제되었습니다', '닫기', {
+              duration: 5000,
+              panelClass: ['custom-snackbar', 'success-snackbar'],
+            });
+            this.loadTableData();
+          }
+        },
+        error: error => {
+          console.error('데이터 삭제 실패:', error);
+          this.snackBar.open('데이터 삭제에 실패했습니다', '닫기', {
+            duration: 5000,
+            panelClass: ['custom-snackbar', 'error-snackbar'],
+          });
+        },
+      });
+  }
+}
+
+@Component({
+  selector: 'app-database-row-dialog',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatTimepickerModule,
+    MatNativeDateModule,
+    ReactiveFormsModule,
+  ],
+  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'ko-KR' }],
+  templateUrl: './database-dialog.component.html',
+})
+export class DatabaseRowDialogComponent {
+  data = inject<{
+    mode: 'add' | 'edit';
+    columns: Array<{
+      name: string;
+      type: string;
+      nullable: boolean;
+      key?: string;
+      extra?: string;
+      default?: string;
+    }>;
+    row: Record<string, unknown> | null;
+  }>(MAT_DIALOG_DATA);
+  private dialogRef = inject(MatDialogRef<DatabaseRowDialogComponent>);
+  private fb = inject(FormBuilder);
+
+  form: FormGroup;
+
+  constructor() {
+    this.form = this.createForm();
+  }
+
+  private createForm(): FormGroup {
+    const formControls: Record<string, unknown> = {};
+
+    this.data.columns.forEach(column => {
+      const value =
+        this.data.mode === 'edit' && this.data.row
+          ? this.data.row[column.name]
+          : column.default || '';
+
+      if (
+        column.type.includes('datetime') ||
+        column.type.includes('timestamp')
+      ) {
+        // For datetime fields, create separate date and time controls
+        const dateValue = value ? new Date(value as string) : null;
+        formControls[column.name + '_date'] = [dateValue];
+        formControls[column.name + '_time'] = [dateValue];
+        // Keep the original control for backward compatibility
+        formControls[column.name] = [value];
+      } else {
+        formControls[column.name] = [value];
+      }
+    });
+
+    return this.fb.group(formControls);
+  }
+
+  isReadonly(column: { key?: string; extra?: string }): boolean {
+    // Primary key나 auto increment 컬럼은 편집 모드에서 읽기 전용
+    return (
+      this.data.mode === 'edit' &&
+      (column.key === 'PRI' || column.extra === 'auto_increment')
+    );
+  }
+
+  getColumnIcon(type: string): string {
+    if (
+      type.includes('int') ||
+      type.includes('decimal') ||
+      type.includes('float')
+    ) {
+      return 'numbers';
+    } else if (type.includes('varchar') || type.includes('char')) {
+      return 'text_fields';
+    } else if (type.includes('text')) {
+      return 'subject';
+    } else if (type.includes('datetime') || type.includes('timestamp')) {
+      return 'schedule';
+    } else if (type.includes('date')) {
+      return 'calendar_today';
+    } else if (type.includes('time')) {
+      return 'access_time';
+    } else if (type.includes('boolean') || type.includes('tinyint(1)')) {
+      return 'toggle_on';
+    }
+    return 'data_object';
+  }
+
+  getKeyLabel(key: string): string {
+    switch (key) {
+      case 'PRI':
+        return 'Primary';
+      case 'UNI':
+        return 'Unique';
+      case 'MUL':
+        return 'Index';
+      default:
+        return key;
+    }
+  }
+
+  getFieldLabel(column: {
+    name: string;
+    type: string;
+    nullable: boolean;
+  }): string {
+    return `${column.name} (${column.type})`;
+  }
+
+  getPlaceholder(column: {
+    name: string;
+    type: string;
+    nullable: boolean;
+  }): string {
+    if (column.type.includes('int')) {
+      return '숫자를 입력하세요';
+    } else if (
+      column.type.includes('varchar') ||
+      column.type.includes('char')
+    ) {
+      return '텍스트를 입력하세요';
+    } else if (column.type.includes('text')) {
+      return '긴 텍스트를 입력하세요';
+    } else if (
+      column.type.includes('datetime') ||
+      column.type.includes('timestamp')
+    ) {
+      return 'YYYY-MM-DD HH:MM:SS';
+    } else if (column.type.includes('date')) {
+      return 'YYYY-MM-DD';
+    } else if (column.type.includes('time')) {
+      return 'HH:MM:SS';
+    }
+    return column.nullable ? '값을 입력하세요 (선택사항)' : '값을 입력하세요';
+  }
+
+  getMaxLength(type: string): number | null {
+    const match = type.match(/varchar\((\d+)\)/);
+    return match ? parseInt(match[1], 10) : null;
+  }
+
+  getNumberStep(type: string): string {
+    if (type.includes('decimal') || type.includes('float')) {
+      return '0.01';
+    }
+    return '1';
+  }
+
+  isSenderColumn(column: {
+    name: string;
+    type: string;
+    nullable: boolean;
+  }): boolean {
+    return column.name === 'sender';
+  }
+
+  save() {
+    if (this.form.valid) {
+      const formData = this.form.value;
+      const finalData: Record<string, unknown> = {};
+
+      // Process each column
+      this.data.columns.forEach(column => {
+        const key = column.name;
+
+        if (
+          column.type.includes('datetime') ||
+          column.type.includes('timestamp')
+        ) {
+          // Combine date and time for datetime fields
+          const dateValue = formData[key + '_date'];
+          const timeValue = formData[key + '_time'];
+
+          if (dateValue && timeValue) {
+            const combinedDateTime = new Date(dateValue);
+            const timeDate = new Date(timeValue);
+            combinedDateTime.setHours(timeDate.getHours());
+            combinedDateTime.setMinutes(timeDate.getMinutes());
+            combinedDateTime.setSeconds(timeDate.getSeconds());
+            finalData[key] = combinedDateTime
+              .toISOString()
+              .slice(0, 19)
+              .replace('T', ' ');
+          } else if (dateValue) {
+            // If only date is provided, set time to 00:00:00
+            const dateOnly = new Date(dateValue);
+            finalData[key] = dateOnly.toISOString().slice(0, 10) + ' 00:00:00';
+          } else {
+            finalData[key] = column.nullable ? null : '';
+          }
+        } else {
+          // Handle other field types
+          let value = formData[key];
+
+          if (value === '' || value === null) {
+            finalData[key] = column.nullable ? null : '';
+          } else {
+            // Type conversion for numbers
+            if (column.type.includes('int')) {
+              finalData[key] = parseInt(value, 10);
+            } else if (
+              column.type.includes('decimal') ||
+              column.type.includes('float')
+            ) {
+              finalData[key] = parseFloat(value);
+            } else {
+              finalData[key] = value;
+            }
+          }
+        }
+      });
+
+      this.dialogRef.close(finalData);
+    }
   }
 }
