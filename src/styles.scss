@@ -490,6 +490,20 @@ input:focus {
     border-radius: 12px !important;
 }
 
+/* Floating label padding adjustment for empty inputs */
+.mat-mdc-form-field:not(.mat-mdc-form-field-has-icon-suffix):not(.mat-mdc-form-field-has-icon-prefix) .mat-mdc-form-field-infix {
+    padding: 16px !important;
+}
+
+.mat-mdc-form-field .mat-mdc-floating-label {
+    top: 16px !important;
+}
+
+.mat-mdc-form-field.mat-mdc-form-field-label-always-float .mat-mdc-floating-label,
+.mat-mdc-form-field.mat-focused .mat-mdc-floating-label {
+    top: 8px !important;
+}
+
 /* Hint text styling */
 .mat-mdc-form-field-hint-wrapper {
     padding-top: 8px !important;
@@ -542,6 +556,47 @@ input:focus {
 /* Time picker input field background */
 .mat-timepicker-input {
     background-color: var(--md-sys-color-surface-container-highest) !important;
+}
+
+/* Time picker dropdown/select styling */
+.mat-timepicker-toggle,
+.mat-timepicker .mat-mdc-select,
+.mat-timepicker .mat-mdc-select-panel,
+.mat-timepicker .mat-mdc-option {
+    --mdc-filled-text-field-container-color: var(--md-sys-color-surface-container-low);
+    --mdc-filled-text-field-label-text-color: var(--md-sys-color-on-surface-variant);
+    --mdc-outlined-text-field-outline-color: var(--md-sys-color-outline-variant);
+    --mdc-outlined-text-field-hover-outline-color: var(--md-sys-color-outline);
+    --mdc-outlined-text-field-focus-outline-color: var(--md-sys-color-primary);
+    --mdc-outlined-text-field-label-text-color: var(--md-sys-color-on-surface-variant);
+    --mdc-outlined-text-field-input-text-color: var(--md-sys-color-on-surface);
+    background-color: var(--md-sys-color-surface-container) !important;
+    color: var(--md-sys-color-on-surface) !important;
+}
+
+.mat-timepicker .mat-mdc-select-panel {
+    border-radius: 16px !important;
+    box-shadow: var(--md-sys-elevation-level2) !important;
+}
+
+.mat-timepicker .mat-mdc-option {
+    --mdc-list-list-item-container-color: transparent;
+    --mdc-list-list-item-label-text-color: var(--md-sys-color-on-surface);
+    --mdc-list-list-item-hover-state-layer-color: var(--md-sys-color-surface-container-high);
+    --mdc-list-list-item-selected-container-color: var(--md-sys-color-secondary-container);
+    --mdc-list-list-item-selected-label-text-color: var(--md-sys-color-on-secondary-container);
+    border-radius: 8px !important;
+    margin: 4px 8px !important;
+    transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard) !important;
+}
+
+.mat-timepicker .mat-mdc-option:hover {
+    background-color: var(--md-sys-color-surface-container-high) !important;
+}
+
+.mat-timepicker .mat-mdc-option.mdc-list-item--selected {
+    background-color: var(--md-sys-color-secondary-container) !important;
+    color: var(--md-sys-color-on-secondary-container) !important;
 }
 
 .mat-calendar-body-today:not(.mat-calendar-body-selected) {
