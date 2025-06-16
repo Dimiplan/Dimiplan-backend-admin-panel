@@ -1,140 +1,269 @@
-<div class="admin-layout bg-md-sys-color-surface min-h-screen lg:h-screen lg:overflow-hidden">
-    <!-- Top App Bar -->
-    <div class="bg-md-sys-color-surface-container shadow-elevation-2 border-b border-md-sys-color-outline-variant relative z-50">
-        <div class="flex items-center h-16 px-4">
-            <button class="md-button md-button-text p-3 rounded-full mr-2 touch-target" (click)="toggleSidenav()" aria-label="Toggle navigation">
-                <mat-icon class="w-6 h-6 text-md-sys-color-on-surface">menu</mat-icon>
-            </button>
-            <h1 class="md-typescale-title-large text-md-sys-color-on-surface flex-1 truncate">Dimiplan 관리자 패널</h1>
+<div
+  class="admin-layout min-h-screen bg-md-sys-color-surface lg:h-screen lg:overflow-hidden"
+>
+  <!-- Top App Bar -->
+  <div
+    class="relative z-50 border-b border-md-sys-color-outline-variant bg-md-sys-color-surface-container shadow-elevation-2"
+  >
+    <div class="flex h-16 items-center px-4">
+      <button
+        class="md-button md-button-text touch-target mr-2 rounded-full p-3"
+        (click)="toggleSidenav()"
+        aria-label="Toggle navigation"
+      >
+        <mat-icon class="h-6 w-6 text-md-sys-color-on-surface">menu</mat-icon>
+      </button>
+      <h1
+        class="md-typescale-title-large flex-1 truncate text-md-sys-color-on-surface"
+      >
+        Dimiplan 관리자 패널
+      </h1>
+    </div>
+  </div>
+
+  <div class="relative flex">
+    <!-- Mobile backdrop -->
+    @if (sidenavOpened) {
+      <div
+        class="bg-opacity-50 fixed inset-0 z-40 bg-black lg:hidden"
+        (click)="toggleSidenav()"
+      ></div>
+    }
+
+    <!-- Navigation Rail -->
+    <nav
+      [class]="
+        sidenavOpened
+          ? 'w-80 translate-x-0'
+          : 'w-20 -translate-x-full lg:translate-x-0'
+      "
+      class="fixed z-50 flex min-h-full flex-col overflow-hidden border-r border-md-sys-color-outline-variant bg-md-sys-color-surface-container transition-all duration-300 ease-in-out lg:relative lg:z-auto lg:min-h-[calc(100vh-4rem)]"
+    >
+      @if (!sidenavOpened) {
+        <!-- Collapsed state header -->
+        <div class="flex justify-center p-4">
+          <div
+            class="flex h-10 w-10 items-center justify-center rounded-full bg-md-sys-color-primary"
+          >
+            <mat-icon class="h-6 w-6 text-md-sys-color-on-primary"
+              >admin_panel_settings</mat-icon
+            >
+          </div>
         </div>
-    </div>
+      } @else {
+        <!-- Expanded state header -->
+        <div class="p-4">
+          <div class="mb-6 flex items-center gap-3">
+            <div
+              class="flex h-8 w-8 items-center justify-center rounded-full bg-md-sys-color-primary"
+            >
+              <mat-icon class="h-5 w-5 text-md-sys-color-on-primary"
+                >admin_panel_settings</mat-icon
+              >
+            </div>
+            <div>
+              <h3
+                class="md-typescale-title-medium text-md-sys-color-on-surface"
+              >
+                관리 메뉴
+              </h3>
+              <p
+                class="md-typescale-body-small text-md-sys-color-on-surface-variant"
+              >
+                시스템 관리
+              </p>
+            </div>
+          </div>
+        </div>
+      }
 
-    <div class="flex relative">
-        <!-- Mobile backdrop -->
-        @if (sidenavOpened) {
-            <div class="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden" (click)="toggleSidenav()"></div>
-        }
-
-        <!-- Navigation Rail -->
-        <nav [class]="sidenavOpened ? 'w-80 translate-x-0' : 'w-20 -translate-x-full lg:translate-x-0'"
-             class="bg-md-sys-color-surface-container border-r border-md-sys-color-outline-variant transition-all duration-300 ease-in-out overflow-hidden min-h-full lg:min-h-[calc(100vh-4rem)] flex flex-col fixed lg:relative z-50 lg:z-auto">
-            @if(!sidenavOpened){
-                <!-- Collapsed state header -->
-                <div class="p-4 flex justify-center">
-                    <div class="w-10 h-10 bg-md-sys-color-primary rounded-full flex items-center justify-center">
-                        <mat-icon class="w-6 h-6 text-md-sys-color-on-primary">admin_panel_settings</mat-icon>
-                    </div>
-                </div>
-            } @else {
-                <!-- Expanded state header -->
-                <div class="p-4">
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="w-8 h-8 bg-md-sys-color-primary rounded-full flex items-center justify-center">
-                            <mat-icon class="w-5 h-5 text-md-sys-color-on-primary">admin_panel_settings</mat-icon>
-                        </div>
-                        <div>
-                            <h3 class="md-typescale-title-medium text-md-sys-color-on-surface">관리 메뉴</h3>
-                            <p class="md-typescale-body-small text-md-sys-color-on-surface-variant">시스템 관리</p>
-                        </div>
-                    </div>
-                </div>
+      <div
+        class="space-y-1"
+        [class.px-3]="sidenavOpened"
+        [class.px-2]="!sidenavOpened"
+      >
+        <a
+          routerLink="/dashboard"
+          routerLinkActive="active"
+          class="nav-item group touch-target relative mx-1 flex items-center gap-4 overflow-hidden rounded-2xl p-4 text-md-sys-color-on-surface transition-all duration-200 hover:bg-md-sys-color-surface-container-high"
+          [class.bg-md-sys-color-secondary-container]="
+            router.url === '/dashboard'
+          "
+          [class.text-md-sys-color-on-secondary-container]="
+            router.url === '/dashboard'
+          "
+          [class.shadow-sm]="router.url === '/dashboard'"
+          [title]="!sidenavOpened ? '대시보드' : ''"
+        >
+          <div
+            class="relative z-10 flex items-center"
+            [class.justify-center]="!sidenavOpened"
+            [class.w-full]="!sidenavOpened"
+          >
+            <mat-icon
+              class="h-6 w-6 shrink-0"
+              [class.text-md-sys-color-on-secondary-container]="
+                router.url === '/dashboard'
+              "
+              >dashboard</mat-icon
+            >
+            @if (sidenavOpened) {
+              <span class="md-typescale-label-large ml-4">대시보드</span>
             }
+          </div>
+          @if (router.url === '/dashboard') {
+            <div
+              class="absolute inset-0 bg-gradient-to-r from-md-sys-color-secondary-container/20 to-transparent"
+            ></div>
+          }
+        </a>
 
-            <div class="space-y-1" [class.px-3]="sidenavOpened" [class.px-2]="!sidenavOpened">
-                <a routerLink="/dashboard"
-                    routerLinkActive="active"
-                    class="nav-item group flex items-center gap-4 p-4 mx-1 rounded-2xl transition-all duration-200 text-md-sys-color-on-surface hover:bg-md-sys-color-surface-container-high relative overflow-hidden touch-target"
-                    [class.bg-md-sys-color-secondary-container]="router.url === '/dashboard'"
-                    [class.text-md-sys-color-on-secondary-container]="router.url === '/dashboard'"
-                    [class.shadow-sm]="router.url === '/dashboard'"
-                    [title]="!sidenavOpened ? '대시보드' : ''">
-                    <div class="relative z-10 flex items-center" [class.justify-center]="!sidenavOpened" [class.w-full]="!sidenavOpened">
-                        <mat-icon class="w-6 h-6 flex-shrink-0" [class.text-md-sys-color-on-secondary-container]="router.url === '/dashboard'">dashboard</mat-icon>
-                        @if (sidenavOpened) {
-                            <span class="md-typescale-label-large ml-4">대시보드</span>
-                        }
-                    </div>
-                    @if (router.url === '/dashboard') {
-                        <div class="absolute inset-0 bg-gradient-to-r from-md-sys-color-secondary-container/20 to-transparent"></div>
-                    }
-                </a>
+        <a
+          routerLink="/logs"
+          routerLinkActive="active"
+          class="nav-item group touch-target relative mx-1 flex items-center gap-4 overflow-hidden rounded-2xl p-4 text-md-sys-color-on-surface transition-all duration-200 hover:bg-md-sys-color-surface-container-high"
+          [class.bg-md-sys-color-secondary-container]="router.url === '/logs'"
+          [class.text-md-sys-color-on-secondary-container]="
+            router.url === '/logs'
+          "
+          [class.shadow-sm]="router.url === '/logs'"
+          [title]="!sidenavOpened ? '로그 관리' : ''"
+        >
+          <div
+            class="relative z-10 flex items-center"
+            [class.justify-center]="!sidenavOpened"
+            [class.w-full]="!sidenavOpened"
+          >
+            <mat-icon
+              class="h-6 w-6 shrink-0"
+              [class.text-md-sys-color-on-secondary-container]="
+                router.url === '/logs'
+              "
+              >article</mat-icon
+            >
+            @if (sidenavOpened) {
+              <span class="md-typescale-label-large ml-4">로그 관리</span>
+            }
+          </div>
+          @if (router.url === '/logs') {
+            <div
+              class="absolute inset-0 bg-gradient-to-r from-md-sys-color-secondary-container/20 to-transparent"
+            ></div>
+          }
+        </a>
 
-                <a routerLink="/logs"
-                    routerLinkActive="active"
-                    class="nav-item group flex items-center gap-4 p-4 mx-1 rounded-2xl transition-all duration-200 text-md-sys-color-on-surface hover:bg-md-sys-color-surface-container-high relative overflow-hidden touch-target"
-                    [class.bg-md-sys-color-secondary-container]="router.url === '/logs'"
-                    [class.text-md-sys-color-on-secondary-container]="router.url === '/logs'"
-                    [class.shadow-sm]="router.url === '/logs'"
-                    [title]="!sidenavOpened ? '로그 관리' : ''">
-                    <div class="relative z-10 flex items-center" [class.justify-center]="!sidenavOpened" [class.w-full]="!sidenavOpened">
-                        <mat-icon class="w-6 h-6 flex-shrink-0" [class.text-md-sys-color-on-secondary-container]="router.url === '/logs'">article</mat-icon>
-                        @if (sidenavOpened) {
-                            <span class="md-typescale-label-large ml-4">로그 관리</span>
-                        }
-                    </div>
-                    @if (router.url === '/logs') {
-                        <div class="absolute inset-0 bg-gradient-to-r from-md-sys-color-secondary-container/20 to-transparent"></div>
-                    }
-                </a>
+        <a
+          routerLink="/database"
+          routerLinkActive="active"
+          class="nav-item group touch-target relative mx-1 flex items-center gap-4 overflow-hidden rounded-2xl p-4 text-md-sys-color-on-surface transition-all duration-200 hover:bg-md-sys-color-surface-container-high"
+          [class.bg-md-sys-color-secondary-container]="
+            router.url === '/database'
+          "
+          [class.text-md-sys-color-on-secondary-container]="
+            router.url === '/database'
+          "
+          [class.shadow-sm]="router.url === '/database'"
+          [title]="!sidenavOpened ? '데이터베이스' : ''"
+        >
+          <div
+            class="relative z-10 flex items-center"
+            [class.justify-center]="!sidenavOpened"
+            [class.w-full]="!sidenavOpened"
+          >
+            <mat-icon
+              class="h-6 w-6 shrink-0"
+              [class.text-md-sys-color-on-secondary-container]="
+                router.url === '/database'
+              "
+              >storage</mat-icon
+            >
+            @if (sidenavOpened) {
+              <span class="md-typescale-label-large ml-4">데이터베이스</span>
+            }
+          </div>
+          @if (router.url === '/database') {
+            <div
+              class="absolute inset-0 bg-gradient-to-r from-md-sys-color-secondary-container/20 to-transparent"
+            ></div>
+          }
+        </a>
 
-                <a routerLink="/database"
-                    routerLinkActive="active"
-                    class="nav-item group flex items-center gap-4 p-4 mx-1 rounded-2xl transition-all duration-200 text-md-sys-color-on-surface hover:bg-md-sys-color-surface-container-high relative overflow-hidden touch-target"
-                    [class.bg-md-sys-color-secondary-container]="router.url === '/database'"
-                    [class.text-md-sys-color-on-secondary-container]="router.url === '/database'"
-                    [class.shadow-sm]="router.url === '/database'"
-                    [title]="!sidenavOpened ? '데이터베이스' : ''">
-                    <div class="relative z-10 flex items-center" [class.justify-center]="!sidenavOpened" [class.w-full]="!sidenavOpened">
-                        <mat-icon class="w-6 h-6 flex-shrink-0" [class.text-md-sys-color-on-secondary-container]="router.url === '/database'">storage</mat-icon>
-                        @if (sidenavOpened) {
-                            <span class="md-typescale-label-large ml-4">데이터베이스</span>
-                        }
-                    </div>
-                    @if (router.url === '/database') {
-                        <div class="absolute inset-0 bg-gradient-to-r from-md-sys-color-secondary-container/20 to-transparent"></div>
-                    }
-                </a>
+        <a
+          routerLink="/api-docs"
+          routerLinkActive="active"
+          class="nav-item group touch-target relative mx-1 flex items-center gap-4 overflow-hidden rounded-2xl p-4 text-md-sys-color-on-surface transition-all duration-200 hover:bg-md-sys-color-surface-container-high"
+          [class.bg-md-sys-color-secondary-container]="
+            router.url === '/api-docs'
+          "
+          [class.text-md-sys-color-on-secondary-container]="
+            router.url === '/api-docs'
+          "
+          [class.shadow-sm]="router.url === '/api-docs'"
+          [title]="!sidenavOpened ? 'API 문서' : ''"
+        >
+          <div
+            class="relative z-10 flex items-center"
+            [class.justify-center]="!sidenavOpened"
+            [class.w-full]="!sidenavOpened"
+          >
+            <mat-icon
+              class="h-6 w-6 shrink-0"
+              [class.text-md-sys-color-on-secondary-container]="
+                router.url === '/api-docs'
+              "
+              >code</mat-icon
+            >
+            @if (sidenavOpened) {
+              <span class="md-typescale-label-large ml-4">API 문서</span>
+            }
+          </div>
+          @if (router.url === '/api-docs') {
+            <div
+              class="absolute inset-0 bg-gradient-to-r from-md-sys-color-secondary-container/20 to-transparent"
+            ></div>
+          }
+        </a>
+      </div>
 
-                <a routerLink="/api-docs"
-                    routerLinkActive="active"
-                    class="nav-item group flex items-center gap-4 p-4 mx-1 rounded-2xl transition-all duration-200 text-md-sys-color-on-surface hover:bg-md-sys-color-surface-container-high relative overflow-hidden touch-target"
-                    [class.bg-md-sys-color-secondary-container]="router.url === '/api-docs'"
-                    [class.text-md-sys-color-on-secondary-container]="router.url === '/api-docs'"
-                    [class.shadow-sm]="router.url === '/api-docs'"
-                    [title]="!sidenavOpened ? 'API 문서' : ''">
-                    <div class="relative z-10 flex items-center" [class.justify-center]="!sidenavOpened" [class.w-full]="!sidenavOpened">
-                        <mat-icon class="w-6 h-6 flex-shrink-0" [class.text-md-sys-color-on-secondary-container]="router.url === '/api-docs'">code</mat-icon>
-                        @if (sidenavOpened) {
-                            <span class="md-typescale-label-large ml-4">API 문서</span>
-                        }
-                    </div>
-                    @if (router.url === '/api-docs') {
-                        <div class="absolute inset-0 bg-gradient-to-r from-md-sys-color-secondary-container/20 to-transparent"></div>
-                    }
-                </a>
+      <div
+        class="mt-auto border-t border-md-sys-color-outline-variant/30 pt-6 pb-4"
+      >
+        @if (sidenavOpened) {
+          <div class="px-4">
+            <div
+              class="flex items-center gap-2 rounded-lg bg-md-sys-color-surface-container-low p-2"
+            >
+              <mat-icon class="h-4 w-4 text-md-sys-color-on-surface-variant"
+                >info</mat-icon
+              >
+              <small
+                class="md-typescale-body-small text-md-sys-color-on-surface-variant"
+                >버전 1.0.0</small
+              >
             </div>
-
-            <div class="border-t border-md-sys-color-outline-variant/30 mt-auto pt-6 pb-4">
-                @if(sidenavOpened){
-                    <div class="px-4">
-                        <div class="flex items-center gap-2 p-2 rounded-lg bg-md-sys-color-surface-container-low">
-                            <mat-icon class="w-4 h-4 text-md-sys-color-on-surface-variant">info</mat-icon>
-                            <small class="md-typescale-body-small text-md-sys-color-on-surface-variant">버전 1.0.0</small>
-                        </div>
-                    </div>
-                } @else{
-                    <div class="flex justify-center px-4">
-                        <div class="w-8 h-8 flex items-center justify-center rounded-lg bg-md-sys-color-surface-container-low">
-                            <mat-icon class="w-4 h-4 text-md-sys-color-on-surface-variant" title="버전 1.0.0">info</mat-icon>
-                        </div>
-                    </div>
-                }
+          </div>
+        } @else {
+          <div class="flex justify-center px-4">
+            <div
+              class="flex h-8 w-8 items-center justify-center rounded-lg bg-md-sys-color-surface-container-low"
+            >
+              <mat-icon
+                class="h-4 w-4 text-md-sys-color-on-surface-variant"
+                title="버전 1.0.0"
+                >info</mat-icon
+              >
             </div>
-        </nav>
+          </div>
+        }
+      </div>
+    </nav>
 
-        <!-- Main Content -->
-        <main class="flex-1 bg-md-sys-color-surface min-h-screen lg:min-h-[calc(100vh-4rem)] lg:ml-0 lg:overflow-y-auto overflow-x-hidden" [class.ml-0]="!sidenavOpened">
-            <router-outlet></router-outlet>
-        </main>
-    </div>
+    <!-- Main Content -->
+    <main
+      class="min-h-screen flex-1 overflow-x-hidden bg-md-sys-color-surface lg:ml-0 lg:min-h-[calc(100vh-4rem)] lg:overflow-y-auto"
+      [class.ml-0]="!sidenavOpened"
+    >
+      <router-outlet></router-outlet>
+    </main>
+  </div>
 </div>

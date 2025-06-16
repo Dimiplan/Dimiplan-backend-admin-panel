@@ -1,13 +1,16 @@
 {
   "name": "admin-panel",
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
     "ng": "ng",
     "css": "bunx @tailwindcss/cli --input src/tailwind.css --output src/tailwind-output.css",
-    "start": "bun run css & ng serve",
+    "start": "bun run css && ng serve",
     "build": "bun run css && ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "lint": "eslint \"src/**/*.{ts,html,json,md,yml}\"",
+    "lint:fix": "eslint \"src/**/*.{ts,html,json,md,yml}\" --fix"
   },
   "private": true,
   "dependencies": {
@@ -26,16 +29,30 @@
     "zone.js": "0.15.1"
   },
   "devDependencies": {
+    "@angular-eslint/eslint-plugin": "^20.0.0",
+    "@angular-eslint/eslint-plugin-template": "^20.0.0",
+    "@angular-eslint/template-parser": "^20.0.0",
     "@angular/build": "20.0.2",
     "@angular/cli": "20.0.2",
     "@angular/compiler-cli": "20.0.3",
+    "@hyoban/eslint-plugin-tailwindcss": "^4.0.0-alpha.13",
     "@types/jasmine": "5.1.8",
+    "@typescript-eslint/eslint-plugin": "^8.34.0",
+    "@typescript-eslint/parser": "^8.34.0",
+    "eslint": "^9.29.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-jsonc": "^2.20.1",
+    "eslint-plugin-prettier": "^5.4.1",
     "jasmine-core": "5.8.0",
+    "jsonc-eslint-parser": "^2.4.0",
     "karma": "6.4.4",
     "karma-chrome-launcher": "3.2.0",
     "karma-coverage": "2.2.1",
     "karma-jasmine": "5.1.0",
     "karma-jasmine-html-reporter": "2.1.0",
+    "postcss-scss": "^4.0.9",
+    "prettier": "^3.5.3",
+    "prettier-plugin-tailwindcss": "^0.6.12",
     "tailwindcss": "^4.1.10",
     "typescript": "5.8.3",
     "wrangler": "^4.20.0"

@@ -1,18 +1,31 @@
-<div class="p-8 bg-md-sys-color-surface text-md-sys-color-on-surface rounded-3xl max-w-md mx-auto">
-    <div class="flex items-center justify-center gap-4 mb-6">
-        <mat-icon class="text-4xl text-md-sys-color-error">warning</mat-icon>
-        <h2 class="md-typescale-headline-medium text-md-sys-color-on-surface text-center">인증이 필요합니다</h2>
-    </div>
+<div
+  class="mx-auto max-w-md rounded-3xl bg-md-sys-color-surface p-8 text-md-sys-color-on-surface"
+>
+  <div class="mb-6 flex items-center justify-center gap-4">
+    <mat-icon class="text-4xl text-md-sys-color-error">warning</mat-icon>
+    <h2
+      class="md-typescale-headline-medium text-center text-md-sys-color-on-surface"
+    >
+      인증이 필요합니다
+    </h2>
+  </div>
 
-    <div class="text-center space-y-4 mb-8">
-        <p class="md-typescale-body-large text-md-sys-color-on-surface">관리자 패널에 접근하려면 구글 계정으로 로그인해야 합니다.</p>
-        <p class="md-typescale-body-medium text-md-sys-color-on-surface-variant">로그인 후 현재 페이지로 돌아갑니다.</p>
-    </div>
+  <div class="mb-8 space-y-4 text-center">
+    <p class="md-typescale-body-large text-md-sys-color-on-surface">
+      관리자 패널에 접근하려면 구글 계정으로 로그인해야 합니다.
+    </p>
+    <p class="md-typescale-body-medium text-md-sys-color-on-surface-variant">
+      로그인 후 현재 페이지로 돌아갑니다.
+    </p>
+  </div>
 
-    <div class="flex justify-center">
-        <button class="md-button md-button-filled flex items-center gap-3 px-6 py-3 rounded-full" (click)="loginWithGoogle()">
-            <mat-icon class="text-md-sys-color-on-primary">login</mat-icon>
-            <span class="md-typescale-label-large">구글로 로그인</span>
-        </button>
-    </div>
+  <div class="flex justify-center">
+    <button
+      class="md-button md-button-filled flex items-center gap-3 rounded-full px-6 py-3"
+      (click)="loginWithGoogle()"
+    >
+      <mat-icon class="text-md-sys-color-on-primary">login</mat-icon>
+      <span class="md-typescale-label-large">구글로 로그인</span>
+    </button>
+  </div>
 </div>
