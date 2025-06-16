@@ -405,8 +405,8 @@ export class DatabaseComponent implements OnInit {
   ],
   template: `
     <div class="bg-md-sys-color-surface-container text-md-sys-color-on-surface">
-      <h2 
-        mat-dialog-title 
+      <h2
+        mat-dialog-title
         class="md-typescale-headline-small text-md-sys-color-on-surface border-b border-md-sys-color-outline-variant pb-4 mb-6"
       >
         <mat-icon class="mr-3 text-md-sys-color-primary">
@@ -414,38 +414,49 @@ export class DatabaseComponent implements OnInit {
         </mat-icon>
         {{ data.mode === 'add' ? '행 추가' : '행 편집' }}
       </h2>
-      
+
       <mat-dialog-content class="max-h-[70vh] overflow-y-auto">
         <form [formGroup]="form" class="space-y-6">
           @for (column of data.columns; track column.name) {
-            <div class="rounded-xl bg-md-sys-color-surface-container-low p-4 border border-md-sys-color-outline-variant">
+            <div
+              class="rounded-xl bg-md-sys-color-surface-container-low p-4 border border-md-sys-color-outline-variant"
+            >
               <div class="mb-3 flex items-center gap-2">
                 <mat-icon class="h-5 w-5 text-md-sys-color-primary">
                   {{ getColumnIcon(column.type) }}
                 </mat-icon>
-                <span class="md-typescale-title-medium text-md-sys-color-on-surface font-medium">
+                <span
+                  class="md-typescale-title-medium text-md-sys-color-on-surface font-medium"
+                >
                   {{ column.name }}
                 </span>
                 @if (column.key) {
-                  <span class="rounded-full bg-md-sys-color-primary-container px-2 py-1 text-xs text-md-sys-color-on-primary-container">
+                  <span
+                    class="rounded-full bg-md-sys-color-primary-container px-2 py-1 text-xs text-md-sys-color-on-primary-container"
+                  >
                     {{ getKeyLabel(column.key) }}
                   </span>
                 }
                 @if (!column.nullable) {
-                  <span class="rounded-full bg-md-sys-color-error-container px-2 py-1 text-xs text-md-sys-color-on-error-container">
+                  <span
+                    class="rounded-full bg-md-sys-color-error-container px-2 py-1 text-xs text-md-sys-color-on-error-container"
+                  >
                     필수
                   </span>
                 }
               </div>
-              
-              <mat-form-field 
-                appearance="outline" 
+
+              <mat-form-field
+                appearance="outline"
                 class="w-full"
                 [class.readonly-field]="isReadonly(column)"
               >
                 <mat-label>{{ getFieldLabel(column) }}</mat-label>
-                
-                @if (column.type.includes('text') && !column.type.includes('varchar')) {
+
+                @if (
+                  column.type.includes('text') &&
+                  !column.type.includes('varchar')
+                ) {
                   <textarea
                     matInput
                     [formControlName]="column.name"
@@ -453,7 +464,10 @@ export class DatabaseComponent implements OnInit {
                     rows="3"
                     [placeholder]="getPlaceholder(column)"
                   ></textarea>
-                } @else if (column.type.includes('varchar') || column.type.includes('char')) {
+                } @else if (
+                  column.type.includes('varchar') ||
+                  column.type.includes('char')
+                ) {
                   <input
                     matInput
                     [formControlName]="column.name"
@@ -461,7 +475,11 @@ export class DatabaseComponent implements OnInit {
                     [placeholder]="getPlaceholder(column)"
                     [maxlength]="getMaxLength(column.type)"
                   />
-                } @else if (column.type.includes('int') || column.type.includes('decimal') || column.type.includes('float')) {
+                } @else if (
+                  column.type.includes('int') ||
+                  column.type.includes('decimal') ||
+                  column.type.includes('float')
+                ) {
                   <input
                     matInput
                     type="number"
@@ -470,7 +488,10 @@ export class DatabaseComponent implements OnInit {
                     [placeholder]="getPlaceholder(column)"
                     [step]="getNumberStep(column.type)"
                   />
-                } @else if (column.type.includes('datetime') || column.type.includes('timestamp')) {
+                } @else if (
+                  column.type.includes('datetime') ||
+                  column.type.includes('timestamp')
+                ) {
                   <input
                     matInput
                     type="datetime-local"
@@ -491,8 +512,11 @@ export class DatabaseComponent implements OnInit {
                     [formControlName]="column.name"
                     [readonly]="isReadonly(column)"
                   />
-                } @else if (column.type.includes('boolean') || column.type.includes('tinyint(1)')) {
-                  <mat-select 
+                } @else if (
+                  column.type.includes('boolean') ||
+                  column.type.includes('tinyint(1)')
+                ) {
+                  <mat-select
                     [formControlName]="column.name"
                     [disabled]="isReadonly(column)"
                   >
@@ -508,14 +532,18 @@ export class DatabaseComponent implements OnInit {
                     [placeholder]="getPlaceholder(column)"
                   />
                 }
-                
+
                 @if (isReadonly(column)) {
-                  <mat-icon matSuffix class="text-md-sys-color-outline">lock</mat-icon>
+                  <mat-icon matSuffix class="text-md-sys-color-outline"
+                    >lock</mat-icon
+                  >
                 }
-                
+
                 <mat-hint class="text-md-sys-color-on-surface-variant">
                   <div class="flex items-center gap-2">
-                    <span class="rounded bg-md-sys-color-secondary-container px-2 py-0.5 text-xs text-md-sys-color-on-secondary-container">
+                    <span
+                      class="rounded bg-md-sys-color-secondary-container px-2 py-0.5 text-xs text-md-sys-color-on-secondary-container"
+                    >
                       {{ column.type }}
                     </span>
                     @if (column.default) {
@@ -528,13 +556,13 @@ export class DatabaseComponent implements OnInit {
           }
         </form>
       </mat-dialog-content>
-      
-      <mat-dialog-actions 
-        align="end" 
+
+      <mat-dialog-actions
+        align="end"
         class="border-t border-md-sys-color-outline-variant pt-4 mt-6"
       >
-        <button 
-          mat-button 
+        <button
+          mat-button
           mat-dialog-close
           class="md-button-text text-md-sys-color-on-surface-variant hover:bg-md-sys-color-surface-container-high"
         >
@@ -603,7 +631,11 @@ export class DatabaseRowDialogComponent {
   }
 
   getColumnIcon(type: string): string {
-    if (type.includes('int') || type.includes('decimal') || type.includes('float')) {
+    if (
+      type.includes('int') ||
+      type.includes('decimal') ||
+      type.includes('float')
+    ) {
       return 'numbers';
     } else if (type.includes('varchar') || type.includes('char')) {
       return 'text_fields';
@@ -623,25 +655,43 @@ export class DatabaseRowDialogComponent {
 
   getKeyLabel(key: string): string {
     switch (key) {
-      case 'PRI': return 'Primary';
-      case 'UNI': return 'Unique';
-      case 'MUL': return 'Index';
-      default: return key;
+      case 'PRI':
+        return 'Primary';
+      case 'UNI':
+        return 'Unique';
+      case 'MUL':
+        return 'Index';
+      default:
+        return key;
     }
   }
 
-  getFieldLabel(column: { name: string; type: string; nullable: boolean }): string {
+  getFieldLabel(column: {
+    name: string;
+    type: string;
+    nullable: boolean;
+  }): string {
     return `${column.name} (${column.type})`;
   }
 
-  getPlaceholder(column: { name: string; type: string; nullable: boolean }): string {
+  getPlaceholder(column: {
+    name: string;
+    type: string;
+    nullable: boolean;
+  }): string {
     if (column.type.includes('int')) {
       return '숫자를 입력하세요';
-    } else if (column.type.includes('varchar') || column.type.includes('char')) {
+    } else if (
+      column.type.includes('varchar') ||
+      column.type.includes('char')
+    ) {
       return '텍스트를 입력하세요';
     } else if (column.type.includes('text')) {
       return '긴 텍스트를 입력하세요';
-    } else if (column.type.includes('datetime') || column.type.includes('timestamp')) {
+    } else if (
+      column.type.includes('datetime') ||
+      column.type.includes('timestamp')
+    ) {
       return 'YYYY-MM-DD HH:MM:SS';
     } else if (column.type.includes('date')) {
       return 'YYYY-MM-DD';
@@ -679,7 +729,10 @@ export class DatabaseRowDialogComponent {
         if (column && formData[key] !== null && formData[key] !== '') {
           if (column.type.includes('int')) {
             formData[key] = parseInt(formData[key], 10);
-          } else if (column.type.includes('decimal') || column.type.includes('float')) {
+          } else if (
+            column.type.includes('decimal') ||
+            column.type.includes('float')
+          ) {
             formData[key] = parseFloat(formData[key]);
           }
         }
