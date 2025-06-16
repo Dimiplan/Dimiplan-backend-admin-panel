@@ -104,8 +104,8 @@
                                 <div class="bg-gray-900 rounded-xl h-full pb-4">
                                     @for(line of getFilteredLogLines(); track $index){
                                         <div [class]="'flex items-start gap-3 p-2 font-mono text-sm border-b border-gray-800 hover:bg-gray-800 ' + getLogLineClass(line)">
-                                            <span class="w-8 text-gray-500 text-right select-none flex-shrink-0">{{ $index + 1 }}</span>
-                                            <span class="w-32 text-gray-400 flex-shrink-0">{{ extractTimestamp(line) }}</span>
+                                            <span class="w-4 text-gray-500 text-right select-none flex-shrink-0">{{ $index + 1 }}</span>
+                                            <span class="w-16 text-gray-400 flex-shrink-0">{{ extractTimestamp(line) }}</span>
                                             <span [class]="'w-16 font-bold uppercase flex-shrink-0 text-center ' + getLogLevelColorClass(extractLogLevel(line))">{{ extractLogLevel(line) }}</span>
                                             <span class="flex-1 text-gray-200 break-words whitespace-pre-wrap min-w-0">{{ extractMessage(line) }}</span>
                                         </div>
