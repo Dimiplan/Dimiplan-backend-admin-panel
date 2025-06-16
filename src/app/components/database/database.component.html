@@ -247,7 +247,11 @@
                           >
                             <div
                               class="md-typescale-body-medium max-w-[120px] truncate text-sm text-md-sys-color-on-surface lg:max-w-xs lg:text-base cursor-pointer hover:bg-md-sys-color-surface-container-high rounded px-1 py-0.5"
-                              (click)="copyToClipboard(formatCellValue(row[column.name]))"
+                              (click)="
+                                copyToClipboard(
+                                  formatCellValue(row[column.name])
+                                )
+                              "
                               title="클릭하여 복사"
                             >
                               {{ formatCellValue(row[column.name]) }}

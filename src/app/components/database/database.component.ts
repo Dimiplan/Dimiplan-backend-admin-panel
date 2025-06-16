@@ -207,10 +207,13 @@ export class DatabaseComponent implements OnInit {
   }
 
   copyToClipboard(text: string) {
-    navigator.clipboard.writeText(text).then(() => {
-      console.log('복사됨:', text);
-    }).catch(err => {
-      console.error('복사 실패:', err);
-    });
+    navigator.clipboard
+      .writeText(text)
+      .then(() => {
+        console.log('복사됨:', text);
+      })
+      .catch(err => {
+        console.error('복사 실패:', err);
+      });
   }
 }
