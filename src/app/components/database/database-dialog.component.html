@@ -1,151 +1,177 @@
 <div class="bg-md-sys-color-surface-container text-md-sys-color-on-surface">
-      <h2 
-        mat-dialog-title 
-        class="md-typescale-headline-small text-md-sys-color-on-surface border-b border-md-sys-color-outline-variant pb-4 mb-6"
-      >
-        <mat-icon class="mr-3 text-md-sys-color-primary">
-          {{ data.mode === 'add' ? 'add_circle' : 'edit' }}
-        </mat-icon>
-        {{ data.mode === 'add' ? '행 추가' : '행 편집' }}
-      </h2>
-      
-      <mat-dialog-content class="max-h-[70vh] overflow-y-auto">
-        <form [formGroup]="form" class="space-y-6">
-          @for (column of data.columns; track column.name) {
-            <div class="rounded-xl bg-md-sys-color-surface-container-low p-4 border border-md-sys-color-outline-variant">
-              <div class="mb-3 flex items-center gap-2">
-                <mat-icon class="h-5 w-5 text-md-sys-color-primary">
-                  {{ getColumnIcon(column.type) }}
-                </mat-icon>
-                <span class="md-typescale-title-medium text-md-sys-color-on-surface font-medium">
-                  {{ column.name }}
+  <h2
+    mat-dialog-title
+    class="md-typescale-headline-small text-md-sys-color-on-surface border-b border-md-sys-color-outline-variant pb-4 mb-6"
+  >
+    <mat-icon class="mr-3 text-md-sys-color-primary">
+      {{ data.mode === 'add' ? 'add_circle' : 'edit' }}
+    </mat-icon>
+    {{ data.mode === 'add' ? '행 추가' : '행 편집' }}
+  </h2>
+
+  <mat-dialog-content class="max-h-[70vh] overflow-y-auto">
+    <form [formGroup]="form" class="space-y-6">
+      @for (column of data.columns; track column.name) {
+        <div
+          class="rounded-xl bg-md-sys-color-surface-container-low p-4 border border-md-sys-color-outline-variant"
+        >
+          <div class="mb-3 flex items-center gap-2">
+            <mat-icon class="h-5 w-5 text-md-sys-color-primary">
+              {{ getColumnIcon(column.type) }}
+            </mat-icon>
+            <span
+              class="md-typescale-title-medium text-md-sys-color-on-surface font-medium"
+            >
+              {{ column.name }}
+            </span>
+            @if (column.key) {
+              <span
+                class="rounded-full bg-md-sys-color-primary-container px-2 py-1 text-xs text-md-sys-color-on-primary-container"
+              >
+                {{ getKeyLabel(column.key) }}
+              </span>
+            }
+            @if (!column.nullable) {
+              <span
+                class="rounded-full bg-md-sys-color-error-container px-2 py-1 text-xs text-md-sys-color-on-error-container"
+              >
+                필수
+              </span>
+            }
+          </div>
+
+          <mat-form-field
+            appearance="outline"
+            class="w-full"
+            [class.readonly-field]="isReadonly(column)"
+          >
+            <mat-label>{{ getFieldLabel(column) }}</mat-label>
+
+            @if (
+              column.type.includes('text') && !column.type.includes('varchar')
+            ) {
+              <textarea
+                matInput
+                [formControlName]="column.name"
+                [readonly]="isReadonly(column)"
+                rows="3"
+                [placeholder]="getPlaceholder(column)"
+              ></textarea>
+            } @else if (
+              column.type.includes('varchar') || column.type.includes('char')
+            ) {
+              <input
+                matInput
+                [formControlName]="column.name"
+                [readonly]="isReadonly(column)"
+                [placeholder]="getPlaceholder(column)"
+                [maxlength]="getMaxLength(column.type)"
+              />
+            } @else if (
+              column.type.includes('int') ||
+              column.type.includes('decimal') ||
+              column.type.includes('float')
+            ) {
+              <input
+                matInput
+                type="number"
+                [formControlName]="column.name"
+                [readonly]="isReadonly(column)"
+                [placeholder]="getPlaceholder(column)"
+                [step]="getNumberStep(column.type)"
+              />
+            } @else if (
+              column.type.includes('datetime') ||
+              column.type.includes('timestamp')
+            ) {
+              <input
+                matInput
+                type="datetime-local"
+                [formControlName]="column.name"
+                [readonly]="isReadonly(column)"
+              />
+            } @else if (column.type.includes('date')) {
+              <input
+                matInput
+                type="date"
+                [formControlName]="column.name"
+                [readonly]="isReadonly(column)"
+              />
+            } @else if (column.type.includes('time')) {
+              <input
+                matInput
+                type="time"
+                [formControlName]="column.name"
+                [readonly]="isReadonly(column)"
+              />
+            } @else if (
+              column.type.includes('boolean') ||
+              column.type.includes('tinyint(1)')
+            ) {
+              <mat-select
+                [formControlName]="column.name"
+                [disabled]="isReadonly(column)"
+              >
+                <mat-option [value]="null">NULL</mat-option>
+                <mat-option [value]="true">True</mat-option>
+                <mat-option [value]="false">False</mat-option>
+              </mat-select>
+            } @else {
+              <input
+                matInput
+                [formControlName]="column.name"
+                [readonly]="isReadonly(column)"
+                [placeholder]="getPlaceholder(column)"
+              />
+            }
+
+            @if (isReadonly(column)) {
+              <mat-icon matSuffix class="text-md-sys-color-outline"
+                >lock</mat-icon
+              >
+            }
+
+            <mat-hint class="text-md-sys-color-on-surface-variant">
+              <div class="flex items-center gap-2">
+                <span
+                  class="rounded bg-md-sys-color-secondary-container px-2 py-0.5 text-xs text-md-sys-color-on-secondary-container"
+                >
+                  {{ column.type }}
                 </span>
-                @if (column.key) {
-                  <span class="rounded-full bg-md-sys-color-primary-container px-2 py-1 text-xs text-md-sys-color-on-primary-container">
-                    {{ getKeyLabel(column.key) }}
-                  </span>
-                }
-                @if (!column.nullable) {
-                  <span class="rounded-full bg-md-sys-color-error-container px-2 py-1 text-xs text-md-sys-color-on-error-container">
-                    필수
-                  </span>
+                @if (column.default) {
+                  <span class="text-xs">기본값: {{ column.default }}</span>
                 }
               </div>
-              
-              <mat-form-field 
-                appearance="outline" 
-                class="w-full"
-                [class.readonly-field]="isReadonly(column)"
-              >
-                <mat-label>{{ getFieldLabel(column) }}</mat-label>
-                
-                @if (column.type.includes('text') && !column.type.includes('varchar')) {
-                  <textarea
-                    matInput
-                    [formControlName]="column.name"
-                    [readonly]="isReadonly(column)"
-                    rows="3"
-                    [placeholder]="getPlaceholder(column)"
-                  ></textarea>
-                } @else if (column.type.includes('varchar') || column.type.includes('char')) {
-                  <input
-                    matInput
-                    [formControlName]="column.name"
-                    [readonly]="isReadonly(column)"
-                    [placeholder]="getPlaceholder(column)"
-                    [maxlength]="getMaxLength(column.type)"
-                  />
-                } @else if (column.type.includes('int') || column.type.includes('decimal') || column.type.includes('float')) {
-                  <input
-                    matInput
-                    type="number"
-                    [formControlName]="column.name"
-                    [readonly]="isReadonly(column)"
-                    [placeholder]="getPlaceholder(column)"
-                    [step]="getNumberStep(column.type)"
-                  />
-                } @else if (column.type.includes('datetime') || column.type.includes('timestamp')) {
-                  <input
-                    matInput
-                    type="datetime-local"
-                    [formControlName]="column.name"
-                    [readonly]="isReadonly(column)"
-                  />
-                } @else if (column.type.includes('date')) {
-                  <input
-                    matInput
-                    type="date"
-                    [formControlName]="column.name"
-                    [readonly]="isReadonly(column)"
-                  />
-                } @else if (column.type.includes('time')) {
-                  <input
-                    matInput
-                    type="time"
-                    [formControlName]="column.name"
-                    [readonly]="isReadonly(column)"
-                  />
-                } @else if (column.type.includes('boolean') || column.type.includes('tinyint(1)')) {
-                  <mat-select 
-                    [formControlName]="column.name"
-                    [disabled]="isReadonly(column)"
-                  >
-                    <mat-option [value]="null">NULL</mat-option>
-                    <mat-option [value]="true">True</mat-option>
-                    <mat-option [value]="false">False</mat-option>
-                  </mat-select>
-                } @else {
-                  <input
-                    matInput
-                    [formControlName]="column.name"
-                    [readonly]="isReadonly(column)"
-                    [placeholder]="getPlaceholder(column)"
-                  />
-                }
-                
-                @if (isReadonly(column)) {
-                  <mat-icon matSuffix class="text-md-sys-color-outline">lock</mat-icon>
-                }
-                
-                <mat-hint class="text-md-sys-color-on-surface-variant">
-                  <div class="flex items-center gap-2">
-                    <span class="rounded bg-md-sys-color-secondary-container px-2 py-0.5 text-xs text-md-sys-color-on-secondary-container">
-                      {{ column.type }}
-                    </span>
-                    @if (column.default) {
-                      <span class="text-xs">기본값: {{ column.default }}</span>
-                    }
-                  </div>
-                </mat-hint>
-              </mat-form-field>
-            </div>
-          }
-        </form>
-      </mat-dialog-content>
-      
-      <mat-dialog-actions 
-        align="end" 
-        class="border-t border-md-sys-color-outline-variant pt-4 mt-6"
-      >
-        <button 
-          mat-button 
-          mat-dialog-close
-          class="md-button-text text-md-sys-color-on-surface-variant hover:bg-md-sys-color-surface-container-high"
-        >
-          <mat-icon class="mr-2">close</mat-icon>
-          취소
-        </button>
-        <button
-          mat-flat-button
-          color="primary"
-          (click)="save()"
-          [disabled]="!form.valid"
-          class="md-button-filled bg-md-sys-color-primary text-md-sys-color-on-primary ml-3"
-        >
-          <mat-icon class="mr-2">
-            {{ data.mode === 'add' ? 'add' : 'save' }}
-          </mat-icon>
-          {{ data.mode === 'add' ? '추가' : '수정' }}
-        </button>
-      </mat-dialog-actions>
-    </div>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      }
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions
+    align="end"
+    class="border-t border-md-sys-color-outline-variant pt-4 mt-6"
+  >
+    <button
+      mat-button
+      mat-dialog-close
+      class="md-button-text text-md-sys-color-on-surface-variant hover:bg-md-sys-color-surface-container-high"
+    >
+      <mat-icon class="mr-2">close</mat-icon>
+      취소
+    </button>
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="save()"
+      [disabled]="!form.valid"
+      class="md-button-filled bg-md-sys-color-primary text-md-sys-color-on-primary ml-3"
+    >
+      <mat-icon class="mr-2">
+        {{ data.mode === 'add' ? 'add' : 'save' }}
+      </mat-icon>
+      {{ data.mode === 'add' ? '추가' : '수정' }}
+    </button>
+  </mat-dialog-actions>
+</div>
