@@ -360,7 +360,10 @@ export class ApiDocsComponent implements OnInit, OnDestroy {
     > = {};
 
     returns.forEach(returnItem => {
-      const cleanDescription = sanitizeHtml(returnItem.description, { allowedTags: [], allowedAttributes: {} });
+      const cleanDescription = sanitizeHtml(returnItem.description, {
+        allowedTags: [],
+        allowedAttributes: {},
+      });
       const nameMatch = cleanDescription.match(/([^ -]+)/);
 
       if (nameMatch) {
@@ -423,7 +426,10 @@ export class ApiDocsComponent implements OnInit, OnDestroy {
 
   parseReturnDescription(description: string): string {
     // HTML 태그 제거하고 설명 부분만 추출
-    const cleanDescription = sanitizeHtml(description, { allowedTags: [], allowedAttributes: {} });
+    const cleanDescription = sanitizeHtml(description, {
+      allowedTags: [],
+      allowedAttributes: {},
+    });
 
     // [].property 패턴인 경우 "- 설명" 부분만 추출
     const match = cleanDescription.match(/\[]\.\w+\s*-\s*(.+)/);
