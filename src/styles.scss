@@ -509,6 +509,39 @@ input:focus {
     border-left: none !important;
 }
 
+/* Custom datepicker and timepicker styles */
+.mat-datepicker-popup, .mat-datepicker-content {
+    background-color: var(--md-sys-color-surface-container) !important;
+    color: var(--md-sys-color-on-surface) !important;
+    border-radius: 16px !important;
+    box-shadow: var(--md-sys-elevation-level3) !important;
+}
+
+.mat-timepicker-popup, .mat-timepicker-content {
+    background-color: var(--md-sys-color-surface-container) !important;
+    color: var(--md-sys-color-on-surface) !important;
+    border-radius: 16px !important;
+    box-shadow: var(--md-sys-elevation-level3) !important;
+}
+
+.mat-calendar-body-today:not(.mat-calendar-body-selected) {
+    background-color: var(--md-sys-color-primary-container) !important;
+    color: var(--md-sys-color-on-primary-container) !important;
+}
+
+.mat-calendar-body-selected {
+    background-color: var(--md-sys-color-primary) !important;
+    color: var(--md-sys-color-on-primary) !important;
+}
+
+.mat-calendar-table-header, .mat-calendar-body-label {
+    color: var(--md-sys-color-on-surface) !important;
+}
+
+.mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover {
+    background-color: var(--md-sys-color-surface-container-high) !important;
+}
+
 /* Custom snackbar styles */
 .custom-snackbar {
     background-color: var(--md-sys-color-inverse-surface) !important;
@@ -566,4 +599,13 @@ input:focus {
 
 .error-snackbar .mat-mdc-snack-bar-action:hover {
     background-color: var(--md-sys-color-error-container) !important;
+}
+
+/* Paginator customization */
+.mat-mdc-paginator .mat-mdc-paginator-page-size {
+    display: none !important;
+}
+
+.mat-mdc-paginator .mat-mdc-paginator-page-size-label {
+    display: none !important;
 }
