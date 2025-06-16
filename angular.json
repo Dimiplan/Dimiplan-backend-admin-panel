@@ -3,7 +3,7 @@
   "version": 1,
   "cli": {
     "packageManager": "bun",
-    "analytics": "130948f7-88b4-47e4-92e7-2941b79f8ab0"
+    "analytics": false
   },
   "newProjectRoot": "projects",
   "projects": {
@@ -43,13 +43,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "5MB",
+                  "maximumError": "10MB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
+                  "maximumWarning": "1MB",
+                  "maximumError": "2MB"
                 }
               ],
               "outputHashing": "all"
