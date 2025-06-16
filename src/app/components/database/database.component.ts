@@ -283,7 +283,6 @@ export class DatabaseComponent implements OnInit {
   confirmDeleteRow(row: Record<string, unknown>) {
     if (!this.selectedTable) return;
 
-    const tableName = this.selectedTable.name;
     const primaryKeys = this.getPrimaryKeys();
     const whereClause: Record<string, unknown> = {};
     
@@ -439,7 +438,18 @@ export class DatabaseComponent implements OnInit {
   `,
 })
 export class DatabaseRowDialogComponent {
-  data = inject<any>(MAT_DIALOG_DATA);
+  data = inject<{
+    mode: 'add' | 'edit';
+    columns: Array<{
+      name: string;
+      type: string;
+      nullable: boolean;
+      key?: string;
+      extra?: string;
+      default?: string;
+    }>;
+    row: Record<string, unknown> | null;
+  }>(MAT_DIALOG_DATA);
   private dialogRef = inject(MatDialogRef<DatabaseRowDialogComponent>);
   private fb = inject(FormBuilder);
 
@@ -450,9 +460,9 @@ export class DatabaseRowDialogComponent {
   }
 
   private createForm(): FormGroup {
-    const formControls: Record<string, any> = {};
+    const formControls: Record<string, unknown> = {};
     
-    this.data.columns.forEach((column: any) => {
+    this.data.columns.forEach((column) => {
       const value = this.data.mode === 'edit' && this.data.row
         ? this.data.row[column.name]
         : column.default || '';
@@ -463,7 +473,7 @@ export class DatabaseRowDialogComponent {
     return this.fb.group(formControls);
   }
 
-  isReadonly(column: any): boolean {
+  isReadonly(column: { key?: string; extra?: string }): boolean {
     // Primary key나 auto increment 컬럼은 편집 모드에서 읽기 전용
     return this.data.mode === 'edit' && (column.key === 'PRI' || column.extra === 'auto_increment');
   }
@@ -474,7 +484,7 @@ export class DatabaseRowDialogComponent {
       // null이나 빈 문자열 처리
       Object.keys(formData).forEach(key => {
         if (formData[key] === '' || formData[key] === null) {
-          const column = this.data.columns.find((c: any) => c.name === key);
+          const column = this.data.columns.find((c) => c.name === key);
           if (column?.nullable) {
             formData[key] = null;
           }
