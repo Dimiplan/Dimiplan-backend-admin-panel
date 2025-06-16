@@ -45,7 +45,7 @@
 
             <!-- 로그 내용 뷰어 -->
             <div class="md-card bg-md-sys-color-surface-container text-md-sys-color-on-surface lg:col-span-2 flex flex-col min-h-0">
-                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-2 flex-shrink-0">
+                <div class="flex flex-col mb-4 gap-2 flex-shrink-0">
                     <h2 class="md-typescale-title-large text-md-sys-color-on-surface truncate">
                         {{ selectedFile ? selectedFile.name : '로그 뷰어' }}
                     </h2>
@@ -56,8 +56,7 @@
                             </button>
                             <button class="md-button md-button-tonal px-4 py-2 rounded-full touch-target" (click)="downloadLog()" [disabled]="!logContent">
                                 <mat-icon class="w-5 h-5 mr-2">download</mat-icon>
-                                <span class="md-typescale-label-large hidden sm:inline">다운로드</span>
-                                <span class="md-typescale-label-large sm:hidden">DL</span>
+                                <span class="md-typescale-label-large">다운로드</span>
                             </button>
                         </div>
                     }
