@@ -10,7 +10,12 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatDialogModule, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {
+  MatDialogModule,
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -285,7 +290,7 @@ export class DatabaseComponent implements OnInit {
 
     const primaryKeys = this.getPrimaryKeys();
     const whereClause: Record<string, unknown> = {};
-    
+
     primaryKeys.forEach(key => {
       whereClause[key] = row[key];
     });
@@ -297,7 +302,7 @@ export class DatabaseComponent implements OnInit {
 
   private getPrimaryKeys(): string[] {
     if (!this.tableData) return [];
-    
+
     // 테이블별 기본 키 설정
     const tableName = this.selectedTable?.name;
     if (tableName === 'users') {
@@ -330,53 +335,60 @@ export class DatabaseComponent implements OnInit {
     });
   }
 
-  private updateRow(originalRow: Record<string, unknown>, newData: Record<string, unknown>) {
+  private updateRow(
+    originalRow: Record<string, unknown>,
+    newData: Record<string, unknown>
+  ) {
     if (!this.selectedTable) return;
 
     const primaryKeys = this.getPrimaryKeys();
     const whereClause: Record<string, unknown> = {};
-    
+
     primaryKeys.forEach(key => {
       whereClause[key] = originalRow[key];
     });
 
-    this.adminService.updateTableRow(this.selectedTable.name, newData, whereClause).subscribe({
-      next: response => {
-        if (response.success) {
-          this.snackBar.open('데이터가 수정되었습니다', '닫기', {
+    this.adminService
+      .updateTableRow(this.selectedTable.name, newData, whereClause)
+      .subscribe({
+        next: response => {
+          if (response.success) {
+            this.snackBar.open('데이터가 수정되었습니다', '닫기', {
+              duration: 3000,
+            });
+            this.loadTableData();
+          }
+        },
+        error: error => {
+          console.error('데이터 수정 실패:', error);
+          this.snackBar.open('데이터 수정에 실패했습니다', '닫기', {
             duration: 3000,
           });
-          this.loadTableData();
-        }
-      },
-      error: error => {
-        console.error('데이터 수정 실패:', error);
-        this.snackBar.open('데이터 수정에 실패했습니다', '닫기', {
-          duration: 3000,
-        });
-      },
-    });
+        },
+      });
   }
 
   private deleteRow(whereClause: Record<string, unknown>) {
     if (!this.selectedTable) return;
 
-    this.adminService.deleteTableRow(this.selectedTable.name, whereClause).subscribe({
-      next: response => {
-        if (response.success) {
-          this.snackBar.open('데이터가 삭제되었습니다', '닫기', {
+    this.adminService
+      .deleteTableRow(this.selectedTable.name, whereClause)
+      .subscribe({
+        next: response => {
+          if (response.success) {
+            this.snackBar.open('데이터가 삭제되었습니다', '닫기', {
+              duration: 3000,
+            });
+            this.loadTableData();
+          }
+        },
+        error: error => {
+          console.error('데이터 삭제 실패:', error);
+          this.snackBar.open('데이터 삭제에 실패했습니다', '닫기', {
             duration: 3000,
           });
-          this.loadTableData();
-        }
-      },
-      error: error => {
-        console.error('데이터 삭제 실패:', error);
-        this.snackBar.open('데이터 삭제에 실패했습니다', '닫기', {
-          duration: 3000,
-        });
-      },
-    });
+        },
+      });
   }
 }
 
@@ -399,7 +411,9 @@ export class DatabaseComponent implements OnInit {
         @for (column of data.columns; track column.name) {
           <mat-form-field appearance="outline" class="w-full">
             <mat-label>{{ column.name }}</mat-label>
-            @if (column.type.includes('text') || column.type.includes('varchar')) {
+            @if (
+              column.type.includes('text') || column.type.includes('varchar')
+            ) {
               <input
                 matInput
                 [formControlName]="column.name"
@@ -419,7 +433,9 @@ export class DatabaseComponent implements OnInit {
                 [readonly]="isReadonly(column)"
               />
             }
-            <mat-hint>{{ column.type }} {{ column.nullable ? '' : '(필수)' }}</mat-hint>
+            <mat-hint
+              >{{ column.type }} {{ column.nullable ? '' : '(필수)' }}</mat-hint
+            >
           </mat-form-field>
         }
       </form>
@@ -461,12 +477,13 @@ export class DatabaseRowDialogComponent {
 
   private createForm(): FormGroup {
     const formControls: Record<string, unknown> = {};
-    
-    this.data.columns.forEach((column) => {
-      const value = this.data.mode === 'edit' && this.data.row
-        ? this.data.row[column.name]
-        : column.default || '';
-      
+
+    this.data.columns.forEach(column => {
+      const value =
+        this.data.mode === 'edit' && this.data.row
+          ? this.data.row[column.name]
+          : column.default || '';
+
       formControls[column.name] = [value];
     });
 
@@ -475,7 +492,10 @@ export class DatabaseRowDialogComponent {
 
   isReadonly(column: { key?: string; extra?: string }): boolean {
     // Primary key나 auto increment 컬럼은 편집 모드에서 읽기 전용
-    return this.data.mode === 'edit' && (column.key === 'PRI' || column.extra === 'auto_increment');
+    return (
+      this.data.mode === 'edit' &&
+      (column.key === 'PRI' || column.extra === 'auto_increment')
+    );
   }
 
   save() {
@@ -484,7 +504,7 @@ export class DatabaseRowDialogComponent {
       // null이나 빈 문자열 처리
       Object.keys(formData).forEach(key => {
         if (formData[key] === '' || formData[key] === null) {
-          const column = this.data.columns.find((c) => c.name === key);
+          const column = this.data.columns.find(c => c.name === key);
           if (column?.nullable) {
             formData[key] = null;
           }

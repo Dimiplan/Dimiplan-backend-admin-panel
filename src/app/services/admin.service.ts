@@ -196,10 +196,10 @@ export class AdminService {
     tableName: string,
     where: Record<string, unknown>
   ): Observable<{ success: boolean; data: { affectedRows: number } }> {
-    return this.http.delete<{ success: boolean; data: { affectedRows: number } }>(
-      `${this.baseUrl}/database/tables/${tableName}`,
-      { body: { where } }
-    );
+    return this.http.delete<{
+      success: boolean;
+      data: { affectedRows: number };
+    }>(`${this.baseUrl}/database/tables/${tableName}`, { body: { where } });
   }
 
   // 로그 관리 메서드들

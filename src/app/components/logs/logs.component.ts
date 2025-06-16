@@ -185,7 +185,11 @@ export class LogsComponent implements OnInit {
   }
 
   confirmClearAllLogs() {
-    if (confirm('정말 모든 로그 파일을 비우시겠습니까? 이 작업은 되돌릴 수 없습니다.')) {
+    if (
+      confirm(
+        '정말 모든 로그 파일을 비우시겠습니까? 이 작업은 되돌릴 수 없습니다.'
+      )
+    ) {
       this.clearAllLogs();
     }
   }
@@ -218,9 +222,13 @@ export class LogsComponent implements OnInit {
     this.adminService.clearAllLogs().subscribe({
       next: response => {
         if (response.success) {
-          this.snackBar.open(`${response.data.clearedFiles}개의 로그 파일이 비워졌습니다`, '닫기', {
-            duration: 3000,
-          });
+          this.snackBar.open(
+            `${response.data.clearedFiles}개의 로그 파일이 비워졌습니다`,
+            '닫기',
+            {
+              duration: 3000,
+            }
+          );
           this.loadLogFiles();
           // 현재 선택된 파일의 내용도 새로 로드
           if (this.selectedFile) {

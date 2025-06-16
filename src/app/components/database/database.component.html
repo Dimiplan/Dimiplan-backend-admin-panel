@@ -269,14 +269,16 @@
                           </td>
                         </ng-container>
                       }
-                      <!-- 액션 컬럼 -->  
+                      <!-- 액션 컬럼 -->
                       <ng-container matColumnDef="actions">
                         <th
                           mat-header-cell
                           *matHeaderCellDef
                           class="sticky top-0 z-10 bg-md-sys-color-surface-container-high px-2 lg:px-4 w-32"
                         >
-                          <div class="md-typescale-label-large font-medium text-md-sys-color-on-surface">
+                          <div
+                            class="md-typescale-label-large font-medium text-md-sys-color-on-surface"
+                          >
                             액션
                           </div>
                         </th>
@@ -291,25 +293,36 @@
                               (click)="openEditRowDialog(row)"
                               title="편집"
                             >
-                              <mat-icon class="h-4 w-4 text-md-sys-color-primary">edit</mat-icon>
+                              <mat-icon
+                                class="h-4 w-4 text-md-sys-color-primary"
+                                >edit</mat-icon
+                              >
                             </button>
                             <button
                               class="md-button md-button-text touch-target rounded-full p-2"
                               (click)="confirmDeleteRow(row)"
                               title="삭제"
                             >
-                              <mat-icon class="h-4 w-4 text-md-sys-color-error">delete</mat-icon>
+                              <mat-icon class="h-4 w-4 text-md-sys-color-error"
+                                >delete</mat-icon
+                              >
                             </button>
                           </div>
                         </td>
                       </ng-container>
                       <tr
                         mat-header-row
-                        *matHeaderRowDef="getDisplayedColumnsWithActions(); sticky: true"
+                        *matHeaderRowDef="
+                          getDisplayedColumnsWithActions();
+                          sticky: true
+                        "
                       ></tr>
                       <tr
                         mat-row
-                        *matRowDef="let row; columns: getDisplayedColumnsWithActions()"
+                        *matRowDef="
+                          let row;
+                          columns: getDisplayedColumnsWithActions()
+                        "
                         class="hover:bg-md-sys-color-surface-container-high"
                       ></tr>
                     </table>
