@@ -87,34 +87,35 @@
       <div
         class="md-card flex min-h-0 flex-col bg-md-sys-color-surface-container text-md-sys-color-on-surface lg:col-span-2"
       >
-        <div class="mb-4 flex shrink-0 flex-col gap-2">
-          <h2
-            class="md-typescale-title-large truncate text-md-sys-color-on-surface"
-          >
-            {{ selectedFile ? selectedFile.name : '로그 뷰어' }}
-          </h2>
-          @if (selectedFile) {
-            <div class="flex items-center gap-2">
-              <button
-                class="md-button md-button-text touch-target rounded-full p-3"
-                (click)="loadLogContent()"
-                [disabled]="loadingContent"
+          <div class="mb-4 flex shrink-0 items-center justify-between">
+              <h2
+                      class="md-typescale-title-large truncate text-md-sys-color-on-surface"
               >
-                <mat-icon class="h-5 w-5 text-md-sys-color-primary"
-                  >refresh</mat-icon
-                >
-              </button>
-              <button
-                class="md-button md-button-tonal touch-target rounded-full px-4 py-2"
-                (click)="downloadLog()"
-                [disabled]="!logContent"
-              >
-                <mat-icon class="mr-2 h-5 w-5">download</mat-icon>
-                <span class="md-typescale-label-large">다운로드</span>
-              </button>
-            </div>
-          }
-        </div>
+                  {{ selectedFile ? selectedFile.name : '로그 뷰어' }}
+              </h2>
+              @if (selectedFile) {
+                  <div class="flex items-center gap-2">
+                      <button
+                              class="md-button md-button-text touch-target rounded-full p-3"
+                              (click)="loadLogContent()"
+                              [disabled]="loadingContent"
+                      >
+                          <mat-icon class="h-5 w-5 text-md-sys-color-primary"
+                          >refresh
+                          </mat-icon
+                          >
+                      </button>
+                      <button
+                              class="md-button md-button-tonal touch-target rounded-full px-4 py-2"
+                              (click)="downloadLog()"
+                              [disabled]="!logContent"
+                      >
+                          <mat-icon class="mr-2 h-5 w-5">download</mat-icon>
+                          <span class="md-typescale-label-large">다운로드</span>
+                      </button>
+                  </div>
+              }
+          </div>
         <div
           class="flex max-h-[70vh] min-h-0 flex-1 flex-col overflow-y-scroll"
         >
