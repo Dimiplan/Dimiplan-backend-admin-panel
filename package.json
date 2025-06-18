@@ -57,6 +57,6 @@
     "prettier-plugin-tailwindcss": "^0.6.12",
     "tailwindcss": "^4.1.10",
     "typescript": "5.8.3",
-    "wrangler": "^4.20.0"
+    "wrangler": "^4.20.2"
   }
 }
