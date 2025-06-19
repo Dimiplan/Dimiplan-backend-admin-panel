@@ -1,4 +1,4 @@
-@use "sass:meta";
+@use 'sass:meta';
 /* You can add global styles to this file, and also import other style files */
 
 // Tailwind CSS will be compiled separately and imported via angular.json
@@ -11,551 +11,617 @@
 @include meta.load-css('styles/material-tokens.scss');
 @include meta.load-css('styles/material-you-theme.scss');
 
-html, body {
-    height: 100%;
-    margin: 0;
-    font-family: 'Roboto', "Helvetica Neue", sans-serif;
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Roboto', 'Helvetica Neue', sans-serif;
 }
 
 // Apply Material You theme to the entire application
 body {
-    @apply material-you-theme;
+  @apply material-you-theme;
 }
 
 /* Enhanced Material 3 Design customizations for Angular Material */
 .mat-mdc-card {
-    background-color: var(--md-sys-color-surface-container) !important;
-    color: var(--md-sys-color-on-surface) !important;
-    border-radius: var(--md-sys-shape-corner-medium) !important;
-    box-shadow: var(--md-sys-elevation-level1) !important;
-    transition: box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard) !important;
+  background-color: var(--md-sys-color-surface-container) !important;
+  color: var(--md-sys-color-on-surface) !important;
+  border-radius: var(--md-sys-shape-corner-medium) !important;
+  box-shadow: var(--md-sys-elevation-level1) !important;
+  transition: box-shadow var(--md-sys-motion-duration-short2)
+    var(--md-sys-motion-easing-standard) !important;
 }
 
 .mat-mdc-card:hover {
-    box-shadow: var(--md-sys-elevation-level2) !important;
+  box-shadow: var(--md-sys-elevation-level2) !important;
 }
 
-.mat-mdc-button, .mat-mdc-raised-button, .mat-mdc-outlined-button {
-    text-transform: none !important;
-    border-radius: var(--md-sys-shape-corner-full) !important;
-    font-weight: var(--md-sys-typescale-label-large-weight) !important;
-    font-size: var(--md-sys-typescale-label-large-size) !important;
-    line-height: var(--md-sys-typescale-label-large-line-height) !important;
-    letter-spacing: var(--md-sys-typescale-label-large-tracking) !important;
-    transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard) !important;
+.mat-mdc-button,
+.mat-mdc-raised-button,
+.mat-mdc-outlined-button {
+  text-transform: none !important;
+  border-radius: var(--md-sys-shape-corner-full) !important;
+  font-weight: var(--md-sys-typescale-label-large-weight) !important;
+  font-size: var(--md-sys-typescale-label-large-size) !important;
+  line-height: var(--md-sys-typescale-label-large-line-height) !important;
+  letter-spacing: var(--md-sys-typescale-label-large-tracking) !important;
+  transition: all var(--md-sys-motion-duration-short2)
+    var(--md-sys-motion-easing-standard) !important;
 }
 
 .mat-mdc-raised-button {
-    background-color: var(--md-sys-color-primary) !important;
-    color: var(--md-sys-color-on-primary) !important;
-    box-shadow: var(--md-sys-elevation-level1) !important;
+  background-color: var(--md-sys-color-primary) !important;
+  color: var(--md-sys-color-on-primary) !important;
+  box-shadow: var(--md-sys-elevation-level1) !important;
 }
 
 .mat-mdc-raised-button:hover {
-    box-shadow: var(--md-sys-elevation-level2) !important;
+  box-shadow: var(--md-sys-elevation-level2) !important;
 }
 
 .mat-mdc-outlined-button {
-    border-color: var(--md-sys-color-outline) !important;
-    color: var(--md-sys-color-primary) !important;
-    background-color: transparent !important;
+  border-color: var(--md-sys-color-outline) !important;
+  color: var(--md-sys-color-primary) !important;
+  background-color: transparent !important;
 }
 
 .mat-mdc-outlined-button:hover {
-    background-color: var(--md-sys-color-primary-container) !important;
+  background-color: var(--md-sys-color-primary-container) !important;
 }
 
 .mat-mdc-button:not(.mat-mdc-raised-button):not(.mat-mdc-outlined-button) {
-    color: var(--md-sys-color-primary) !important;
+  color: var(--md-sys-color-primary) !important;
 }
 
-.mat-mdc-button:not(.mat-mdc-raised-button):not(.mat-mdc-outlined-button):hover {
-    background-color: var(--md-sys-color-primary-container) !important;
+.mat-mdc-button:not(.mat-mdc-raised-button):not(
+    .mat-mdc-outlined-button
+  ):hover {
+  background-color: var(--md-sys-color-primary-container) !important;
 }
 
 .mat-mdc-form-field {
-    .mat-mdc-text-field-wrapper {
-        border-radius: var(--md-sys-shape-corner-extra-small) !important;
-        background-color: var(--md-sys-color-surface-container-highest) !important;
-    }
+  .mat-mdc-text-field-wrapper {
+    border-radius: var(--md-sys-shape-corner-extra-small) !important;
+    background-color: var(--md-sys-color-surface-container-highest) !important;
+  }
 
-    .mat-mdc-form-field-focus-overlay {
-        background-color: var(--md-sys-color-primary) !important;
-    }
+  .mat-mdc-form-field-focus-overlay {
+    background-color: var(--md-sys-color-primary) !important;
+  }
 
-    .mdc-text-field--focused .mdc-line-ripple::after {
-        border-bottom-color: var(--md-sys-color-primary) !important;
-    }
+  .mdc-text-field--focused .mdc-line-ripple::after {
+    border-bottom-color: var(--md-sys-color-primary) !important;
+  }
 }
 
 .mat-mdc-menu-panel {
-    border-radius: var(--md-sys-shape-corner-medium) !important;
-    box-shadow: var(--md-sys-elevation-level2) !important;
-    background-color: var(--md-sys-color-surface-container) !important;
+  border-radius: var(--md-sys-shape-corner-medium) !important;
+  box-shadow: var(--md-sys-elevation-level2) !important;
+  background-color: var(--md-sys-color-surface-container) !important;
 }
 
 .mat-mdc-list-item {
-    border-radius: var(--md-sys-shape-corner-small) !important;
-    color: var(--md-sys-color-on-surface) !important;
+  border-radius: var(--md-sys-shape-corner-small) !important;
+  color: var(--md-sys-color-on-surface) !important;
 }
 
 .mat-mdc-list-item:hover {
-    background-color: var(--md-sys-color-surface-container-high) !important;
+  background-color: var(--md-sys-color-surface-container-high) !important;
 }
 
 .mat-expansion-panel {
-    border-radius: var(--md-sys-shape-corner-medium) !important;
-    margin-bottom: var(--md-sys-shape-corner-small) !important;
-    background-color: var(--md-sys-color-surface-container) !important;
-    box-shadow: var(--md-sys-elevation-level1) !important;
+  border-radius: var(--md-sys-shape-corner-medium) !important;
+  margin-bottom: var(--md-sys-shape-corner-small) !important;
+  background-color: var(--md-sys-color-surface-container) !important;
+  box-shadow: var(--md-sys-elevation-level1) !important;
 }
 
 .mat-expansion-panel-header {
-    color: var(--md-sys-color-on-surface) !important;
+  color: var(--md-sys-color-on-surface) !important;
 }
 
 .mat-expansion-panel-body {
-    color: var(--md-sys-color-on-surface-variant) !important;
+  color: var(--md-sys-color-on-surface-variant) !important;
 }
 
 /* Custom scrollbar with Material Design 3 colors */
 ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-    background: var(--md-sys-color-surface-container-low);
-    border-radius: var(--md-sys-shape-corner-extra-small);
+  background: var(--md-sys-color-surface-container-low);
+  border-radius: var(--md-sys-shape-corner-extra-small);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--md-sys-color-outline-variant);
-    border-radius: var(--md-sys-shape-corner-extra-small);
+  background: var(--md-sys-color-outline-variant);
+  border-radius: var(--md-sys-shape-corner-extra-small);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--md-sys-color-outline);
+  background: var(--md-sys-color-outline);
 }
 
 // Enhanced navigation rail styles
 .nav-item {
-    position: relative;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    min-height: 48px;
+  position: relative;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  min-height: 48px;
 
-    // Smooth hover animations
-    &:hover {
-        transform: translateX(2px);
-        transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
-    }
+  // Smooth hover animations
+  &:hover {
+    transform: translateX(2px);
+    transition: all var(--md-sys-motion-duration-short2)
+      var(--md-sys-motion-easing-standard);
+  }
 
-    // Active state with subtle animation
-    &.active,
-    &[class*="bg-md-sys-color-secondary-container"] {
-        &::before {
-            content: '';
-            position: absolute;
-            left: -12px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 4px;
-            height: 24px;
-            background-color: var(--md-sys-color-primary);
-            border-radius: 2px;
-            transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-emphasized);
-        }
+  // Active state with subtle animation
+  &.active,
+  &[class*='bg-md-sys-color-secondary-container'] {
+    &::before {
+      content: '';
+      position: absolute;
+      left: -12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 24px;
+      background-color: var(--md-sys-color-primary);
+      border-radius: 2px;
+      transition: all var(--md-sys-motion-duration-short2)
+        var(--md-sys-motion-easing-emphasized);
     }
+  }
 
-    // Icon container improvements
-    mat-icon {
-        font-size: 24px;
-        transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
-    }
+  // Icon container improvements
+  mat-icon {
+    font-size: 24px;
+    transition: all var(--md-sys-motion-duration-short2)
+      var(--md-sys-motion-easing-standard);
+  }
 
-    // Text fade-in animation when sidebar opens
-    span {
-        opacity: 1;
-        transform: translateX(0);
-        transition: opacity var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard),
-                  transform var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard);
-    }
+  // Text fade-in animation when sidebar opens
+  span {
+    opacity: 1;
+    transform: translateX(0);
+    transition:
+      opacity var(--md-sys-motion-duration-medium2)
+        var(--md-sys-motion-easing-standard),
+      transform var(--md-sys-motion-duration-medium2)
+        var(--md-sys-motion-easing-standard);
+  }
 }
 
 // Menu button improvements
 .md-button {
-    // Enhanced ripple effect
-    position: relative;
-    overflow: hidden;
+  // Enhanced ripple effect
+  position: relative;
+  overflow: hidden;
 
-    &::before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 0;
-        height: 0;
-        border-radius: 50%;
-        background-color: currentColor;
-        opacity: 0.1;
-        transform: translate(-50%, -50%);
-        transition: width var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard),
-                  height var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
-    }
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background-color: currentColor;
+    opacity: 0.1;
+    transform: translate(-50%, -50%);
+    transition:
+      width var(--md-sys-motion-duration-short2)
+        var(--md-sys-motion-easing-standard),
+      height var(--md-sys-motion-duration-short2)
+        var(--md-sys-motion-easing-standard);
+  }
 
-    &:active::before {
-      width: 200px;
-      height: 200px;
-    }
+  &:active::before {
+    width: 200px;
+    height: 200px;
+  }
 }
 
 // Improved accessibility and focus states
 .nav-item:focus-visible,
 .md-button:focus-visible {
-    outline: 2px solid var(--md-sys-color-primary);
-    outline-offset: 2px;
-    border-radius: var(--md-sys-shape-corner-small);
+  outline: 2px solid var(--md-sys-color-primary);
+  outline-offset: 2px;
+  border-radius: var(--md-sys-shape-corner-small);
 }
 
 // Enhanced Material You elevation classes
 .shadow-elevation-1 {
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3),
-                0 1px 3px 1px rgba(0, 0, 0, 0.15);
+  box-shadow:
+    0 1px 2px 0 rgba(0, 0, 0, 0.3),
+    0 1px 3px 1px rgba(0, 0, 0, 0.15);
 }
 
 .shadow-elevation-2 {
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3),
-                0 2px 6px 2px rgba(0, 0, 0, 0.15);
+  box-shadow:
+    0 1px 2px 0 rgba(0, 0, 0, 0.3),
+    0 2px 6px 2px rgba(0, 0, 0, 0.15);
 }
 
 .shadow-elevation-3 {
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3),
-                0 4px 8px 3px rgba(0, 0, 0, 0.15);
+  box-shadow:
+    0 1px 3px 0 rgba(0, 0, 0, 0.3),
+    0 4px 8px 3px rgba(0, 0, 0, 0.15);
 }
 
 // Touch target improvements
 .touch-target {
-    min-height: 44px;
-    min-width: 44px;
+  min-height: 44px;
+  min-width: 44px;
 
-    @media (pointer: coarse) {
-        min-height: 48px;
-        min-width: 48px;
-    }
+  @media (pointer: coarse) {
+    min-height: 48px;
+    min-width: 48px;
+  }
 }
 
 // Animation for gradient backgrounds on active items
 @keyframes gradientShift {
-    0% { opacity: 0.2; }
-    50% { opacity: 0.3; }
-    100% { opacity: 0.2; }
+  0% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 0.2;
+  }
 }
 
-.nav-item[class*="bg-md-sys-color-secondary-container"] .absolute {
-    animation: gradientShift 3s ease-in-out infinite;
+.nav-item[class*='bg-md-sys-color-secondary-container'] .absolute {
+  animation: gradientShift 3s ease-in-out infinite;
 }
 
 // Global card styles
 .md-card {
-    padding: 24px;
-    border-radius: 16px;
-    transition: all 0.3s ease;
+  padding: 24px;
+  border-radius: 16px;
+  transition: all 0.3s ease;
 }
 
 .md-card:hover {
-    transform: translateY(-2px);
+  transform: translateY(-2px);
 }
 
 // Global button styles
 .md-button {
-    border: none;
-    cursor: pointer;
-    text-decoration: none;
-    transition: all 0.2s ease;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .md-button:hover {
-    transform: translateY(-1px);
+  transform: translateY(-1px);
 }
 
 .md-button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: none;
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
 }
 
 // Global input styles
 input:focus {
-    box-shadow: 0 0 0 2px var(--md-sys-color-primary);
+  box-shadow: 0 0 0 2px var(--md-sys-color-primary);
 }
 
 // Global animation for spinning
 @keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .animate-spin {
-    animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite;
 }
 
 // Log level styles
 .error {
-    border-left: 3px solid #ef4444;
-    background-color: rgba(239, 68, 68, 0.1);
+  border-left: 3px solid #ef4444;
+  background-color: rgba(239, 68, 68, 0.1);
 }
 
 .warn {
-    border-left: 3px solid #f59e0b;
-    background-color: rgba(245, 158, 11, 0.1);
+  border-left: 3px solid #f59e0b;
+  background-color: rgba(245, 158, 11, 0.1);
 }
 
 .info {
-    border-left: 3px solid #10b981;
-    background-color: rgba(16, 185, 129, 0.1);
+  border-left: 3px solid #10b981;
+  background-color: rgba(16, 185, 129, 0.1);
 }
 
 .verbose {
-    border-left: 3px solid #3b82f6;
-    background-color: rgba(59, 130, 246, 0.1);
+  border-left: 3px solid #3b82f6;
+  background-color: rgba(59, 130, 246, 0.1);
 }
 
 // Login modal button enhancement
 .md-button:hover {
-    filter: brightness(1.1);
+  filter: brightness(1.1);
 }
 
 // Database and logs page card layout
 .md-card {
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    min-height: 48rem;
-    max-height: 48rem;
-    border-bottom: 2px solid var(--md-sys-color-outline-variant);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  min-height: 48rem;
+  max-height: 48rem;
+  border-bottom: 2px solid var(--md-sys-color-outline-variant);
 }
 
 @media (max-width: 1023px) {
-    .flex.flex-col.lg\:grid {
-        display: flex !important;
-        flex-direction: column !important;
-    }
+  .flex.flex-col.lg\:grid {
+    display: flex !important;
+    flex-direction: column !important;
+  }
 
-    .md-card {
-        min-height: 36rem;
-        margin-bottom: 1rem;
-        border-bottom: 2px solid var(--md-sys-color-outline-variant);
-    }
+  .md-card {
+    min-height: 36rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--md-sys-color-outline-variant);
+  }
 }
 
 /* Database dialog improvements */
 .mat-mdc-dialog-container {
-    background-color: var(--md-sys-color-surface-container) !important;
-    color: var(--md-sys-color-on-surface) !important;
-    border-radius: 24px !important;
-    box-shadow: var(--md-sys-elevation-level3) !important;
+  background-color: var(--md-sys-color-surface-container) !important;
+  color: var(--md-sys-color-on-surface) !important;
+  border-radius: 24px !important;
+  box-shadow: var(--md-sys-elevation-level3) !important;
 }
 
 .mat-mdc-dialog-title {
-    color: var(--md-sys-color-on-surface) !important;
-    font-family: var(--md-sys-typescale-headline-small-font) !important;
-    font-size: var(--md-sys-typescale-headline-small-size) !important;
-    font-weight: var(--md-sys-typescale-headline-small-weight) !important;
-    line-height: var(--md-sys-typescale-headline-small-line-height) !important;
+  color: var(--md-sys-color-on-surface) !important;
+  font-family: var(--md-sys-typescale-headline-small-font) !important;
+  font-size: var(--md-sys-typescale-headline-small-size) !important;
+  font-weight: var(--md-sys-typescale-headline-small-weight) !important;
+  line-height: var(--md-sys-typescale-headline-small-line-height) !important;
 }
 
 .mat-mdc-dialog-content {
-    color: var(--md-sys-color-on-surface) !important;
+  color: var(--md-sys-color-on-surface) !important;
 }
 
 .mat-mdc-dialog-actions {
-    padding: 16px 24px !important;
+  padding: 16px 24px !important;
 }
 
 .mat-mdc-form-field {
-    --mdc-filled-text-field-container-color: var(--md-sys-color-surface-container-low);
-    --mdc-filled-text-field-label-text-color: var(--md-sys-color-on-surface-variant);
-    --mdc-filled-text-field-input-text-color: var(--md-sys-color-on-surface);
-    --mdc-outlined-text-field-outline-color: var(--md-sys-color-outline-variant);
-    --mdc-outlined-text-field-hover-outline-color: var(--md-sys-color-outline);
-    --mdc-outlined-text-field-focus-outline-color: var(--md-sys-color-primary);
-    --mdc-outlined-text-field-label-text-color: var(--md-sys-color-on-surface-variant);
-    --mdc-outlined-text-field-input-text-color: var(--md-sys-color-on-surface);
-    --mdc-outlined-text-field-supporting-text-color: var(--md-sys-color-on-surface-variant);
-    border-radius: 12px !important;
+  --mdc-filled-text-field-container-color: var(
+    --md-sys-color-surface-container-low
+  );
+  --mdc-filled-text-field-label-text-color: var(
+    --md-sys-color-on-surface-variant
+  );
+  --mdc-filled-text-field-input-text-color: var(--md-sys-color-on-surface);
+  --mdc-outlined-text-field-outline-color: var(--md-sys-color-outline-variant);
+  --mdc-outlined-text-field-hover-outline-color: var(--md-sys-color-outline);
+  --mdc-outlined-text-field-focus-outline-color: var(--md-sys-color-primary);
+  --mdc-outlined-text-field-label-text-color: var(
+    --md-sys-color-on-surface-variant
+  );
+  --mdc-outlined-text-field-input-text-color: var(--md-sys-color-on-surface);
+  --mdc-outlined-text-field-supporting-text-color: var(
+    --md-sys-color-on-surface-variant
+  );
+  border-radius: 12px !important;
 }
 
 .mat-mdc-form-field .mdc-notched-outline__leading {
-    border-radius: 0 !important;
-    border-left: none !important;
-    border-right: none !important;
-    border-top: none !important;
-    border-bottom: none !important;
+  border-radius: 0 !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
 }
 
 .mat-mdc-form-field .mdc-notched-outline__notch {
-    border-radius: 12px 0 0 12px !important;
-    border-left: 2px solid rgba(255,255,255,1) !important;
+  border-radius: 12px 0 0 12px !important;
+  border-left: 2px solid rgba(255, 255, 255, 1) !important;
 }
 
 .mat-mdc-form-field .mdc-notched-outline__trailing {
-    border-radius: 0 12px 12px 0 !important;
+  border-radius: 0 12px 12px 0 !important;
 }
 
 .mat-mdc-form-field.readonly-field {
-    --mdc-outlined-text-field-outline-color: var(--md-sys-color-outline-variant);
-    --mdc-outlined-text-field-hover-outline-color: var(--md-sys-color-outline-variant);
-    --mdc-outlined-text-field-focus-outline-color: var(--md-sys-color-outline-variant);
-    opacity: 0.7;
-    
-    .mat-mdc-form-field-infix {
-        background-color: var(--md-sys-color-surface-container-low);
-    }
+  --mdc-outlined-text-field-outline-color: var(--md-sys-color-outline-variant);
+  --mdc-outlined-text-field-hover-outline-color: var(
+    --md-sys-color-outline-variant
+  );
+  --mdc-outlined-text-field-focus-outline-color: var(
+    --md-sys-color-outline-variant
+  );
+  opacity: 0.7;
+
+  .mat-mdc-form-field-infix {
+    background-color: var(--md-sys-color-surface-container-low);
+  }
 }
 
 .mat-mdc-select {
-    --mdc-filled-text-field-container-color: var(--md-sys-color-surface-container-low);
-    --mdc-filled-text-field-label-text-color: var(--md-sys-color-on-surface-variant);
-    --mdc-outlined-text-field-outline-color: var(--md-sys-color-outline-variant);
-    --mdc-outlined-text-field-hover-outline-color: var(--md-sys-color-outline);
-    --mdc-outlined-text-field-focus-outline-color: var(--md-sys-color-primary);
-    --mdc-outlined-text-field-label-text-color: var(--md-sys-color-on-surface-variant);
-    border-radius: 12px !important;
+  --mdc-filled-text-field-container-color: var(
+    --md-sys-color-surface-container-low
+  );
+  --mdc-filled-text-field-label-text-color: var(
+    --md-sys-color-on-surface-variant
+  );
+  --mdc-outlined-text-field-outline-color: var(--md-sys-color-outline-variant);
+  --mdc-outlined-text-field-hover-outline-color: var(--md-sys-color-outline);
+  --mdc-outlined-text-field-focus-outline-color: var(--md-sys-color-primary);
+  --mdc-outlined-text-field-label-text-color: var(
+    --md-sys-color-on-surface-variant
+  );
+  border-radius: 12px !important;
 }
 
 .mat-mdc-select-panel {
-    background-color: var(--md-sys-color-surface-container) !important;
-    border-radius: 16px !important;
-    box-shadow: var(--md-sys-elevation-level2) !important;
+  background-color: var(--md-sys-color-surface-container) !important;
+  border-radius: 16px !important;
+  box-shadow: var(--md-sys-elevation-level2) !important;
 }
 
 .mat-mdc-option {
-    --mdc-list-list-item-container-color: transparent;
-    --mdc-list-list-item-label-text-color: var(--md-sys-color-on-surface);
-    --mdc-list-list-item-hover-state-layer-color: var(--md-sys-color-surface-container-high);
-    --mdc-list-list-item-selected-container-color: var(--md-sys-color-secondary-container);
-    --mdc-list-list-item-selected-label-text-color: var(--md-sys-color-on-secondary-container);
-    border-radius: 8px !important;
-    margin: 4px 8px !important;
-    transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard) !important;
+  --mdc-list-list-item-container-color: transparent;
+  --mdc-list-list-item-label-text-color: var(--md-sys-color-on-surface);
+  --mdc-list-list-item-hover-state-layer-color: var(
+    --md-sys-color-surface-container-high
+  );
+  --mdc-list-list-item-selected-container-color: var(
+    --md-sys-color-secondary-container
+  );
+  --mdc-list-list-item-selected-label-text-color: var(
+    --md-sys-color-on-secondary-container
+  );
+  border-radius: 8px !important;
+  margin: 4px 8px !important;
+  transition: all var(--md-sys-motion-duration-short2)
+    var(--md-sys-motion-easing-standard) !important;
 }
 
 .mat-mdc-option:hover {
-    background-color: var(--md-sys-color-surface-container-high) !important;
+  background-color: var(--md-sys-color-surface-container-high) !important;
 }
 
 .mat-mdc-option.mdc-list-item--selected {
-    background-color: var(--md-sys-color-secondary-container) !important;
-    color: var(--md-sys-color-on-secondary-container) !important;
+  background-color: var(--md-sys-color-secondary-container) !important;
+  color: var(--md-sys-color-on-secondary-container) !important;
 }
 
 .mat-mdc-dialog-actions .mat-mdc-button {
-    --mdc-text-button-label-text-color: var(--md-sys-color-on-surface-variant);
-    --mdc-text-button-hover-state-layer-color: var(--md-sys-color-surface-container-high);
-    border-radius: 20px !important;
-    padding: 8px 16px !important;
-    transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard) !important;
+  --mdc-text-button-label-text-color: var(--md-sys-color-on-surface-variant);
+  --mdc-text-button-hover-state-layer-color: var(
+    --md-sys-color-surface-container-high
+  );
+  border-radius: 20px !important;
+  padding: 8px 16px !important;
+  transition: all var(--md-sys-motion-duration-short2)
+    var(--md-sys-motion-easing-standard) !important;
 }
 
 .mat-mdc-dialog-actions .mat-mdc-unelevated-button {
-    --mdc-filled-button-container-color: var(--md-sys-color-primary);
-    --mdc-filled-button-label-text-color: var(--md-sys-color-on-primary);
-    --mdc-filled-button-hover-state-layer-color: var(--md-sys-color-surface-container-high);
-    border-radius: 20px !important;
-    padding: 8px 16px !important;
-    box-shadow: var(--md-sys-elevation-level1) !important;
-    transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard) !important;
+  --mdc-filled-button-container-color: var(--md-sys-color-primary);
+  --mdc-filled-button-label-text-color: var(--md-sys-color-on-primary);
+  --mdc-filled-button-hover-state-layer-color: var(
+    --md-sys-color-surface-container-high
+  );
+  border-radius: 20px !important;
+  padding: 8px 16px !important;
+  box-shadow: var(--md-sys-elevation-level1) !important;
+  transition: all var(--md-sys-motion-duration-short2)
+    var(--md-sys-motion-easing-standard) !important;
 }
 
 .mat-mdc-dialog-actions .mat-mdc-unelevated-button:hover {
-    box-shadow: var(--md-sys-elevation-level2) !important;
-    transform: translateY(-1px);
+  box-shadow: var(--md-sys-elevation-level2) !important;
+  transform: translateY(-1px);
 }
 
 /* Enhanced textarea styling */
 .mat-mdc-form-field textarea.mat-mdc-input-element {
-    resize: vertical;
-    min-height: 80px;
-    border-radius: 12px !important;
+  resize: vertical;
+  min-height: 80px;
+  border-radius: 12px !important;
 }
 
 /* Field container styling */
 .mat-mdc-form-field .mat-mdc-form-field-infix {
-    padding: 16px !important;
-    border-radius: 12px !important;
+  padding: 16px !important;
+  border-radius: 12px !important;
 }
 
 /* Floating label padding adjustment for empty inputs */
-.mat-mdc-form-field:not(.mat-mdc-form-field-has-icon-suffix):not(.mat-mdc-form-field-has-icon-prefix) .mat-mdc-form-field-infix {
-    padding: 16px !important;
+.mat-mdc-form-field:not(.mat-mdc-form-field-has-icon-suffix):not(
+    .mat-mdc-form-field-has-icon-prefix
+  )
+  .mat-mdc-form-field-infix {
+  padding: 16px !important;
 }
 
 .mat-mdc-form-field .mat-mdc-floating-label {
-    top: 16px !important;
+  top: 16px !important;
 }
 
-.mat-mdc-form-field.mat-mdc-form-field-label-always-float .mat-mdc-floating-label,
+.mat-mdc-form-field.mat-mdc-form-field-label-always-float
+  .mat-mdc-floating-label,
 .mat-mdc-form-field.mat-focused .mat-mdc-floating-label {
-    top: 8px !important;
+  top: 8px !important;
 }
 
 /* Hint text styling */
 .mat-mdc-form-field-hint-wrapper {
-    padding-top: 8px !important;
+  padding-top: 8px !important;
 }
 
 .mat-mdc-form-field-hint {
-    color: var(--md-sys-color-on-surface-variant) !important;
-    font-size: var(--md-sys-typescale-body-small-size) !important;
+  color: var(--md-sys-color-on-surface-variant) !important;
+  font-size: var(--md-sys-typescale-body-small-size) !important;
 }
 
 /* Remove vertical line between outline notch elements */
 .mdc-notched-outline__notch {
-    border-right: none !important;
+  border-right: none !important;
 }
 
 .mdc-notched-outline__trailing {
-    border-left: none !important;
+  border-left: none !important;
 }
 
 /* Custom datepicker and timepicker styles */
-.mat-datepicker-popup, .mat-datepicker-content {
-    background-color: var(--md-sys-color-surface-container) !important;
-    color: var(--md-sys-color-on-surface) !important;
-    border-radius: 16px !important;
-    box-shadow: var(--md-sys-elevation-level3) !important;
+.mat-datepicker-popup,
+.mat-datepicker-content {
+  background-color: var(--md-sys-color-surface-container) !important;
+  color: var(--md-sys-color-on-surface) !important;
+  border-radius: 16px !important;
+  box-shadow: var(--md-sys-elevation-level3) !important;
 }
 
-.mat-timepicker-popup, .mat-timepicker-content {
-    background-color: var(--md-sys-color-surface-container) !important;
-    color: var(--md-sys-color-on-surface) !important;
-    border-radius: 16px !important;
-    box-shadow: var(--md-sys-elevation-level3) !important;
+.mat-timepicker-popup,
+.mat-timepicker-content {
+  background-color: var(--md-sys-color-surface-container) !important;
+  color: var(--md-sys-color-on-surface) !important;
+  border-radius: 16px !important;
+  box-shadow: var(--md-sys-elevation-level3) !important;
 }
 
 /* Fix time picker backdrop to be non-transparent */
 .cdk-overlay-backdrop.mat-timepicker-backdrop {
-    background-color: rgba(0, 0, 0, 0.6) !important;
+  background-color: rgba(0, 0, 0, 0.6) !important;
 }
 
 /* Ensure timepicker panel has solid background */
 .mat-timepicker-panel {
-    background-color: var(--md-sys-color-surface-container) !important;
+  background-color: var(--md-sys-color-surface-container) !important;
 }
 
 /* Time picker dial background */
 .mat-timepicker-dial {
-    background-color: var(--md-sys-color-surface-container-low) !important;
+  background-color: var(--md-sys-color-surface-container-low) !important;
 }
 
 /* Time picker input field background */
 .mat-timepicker-input {
-    background-color: var(--md-sys-color-surface-container-highest) !important;
+  background-color: var(--md-sys-color-surface-container-highest) !important;
 }
 
 /* Time picker dropdown/select styling */
@@ -563,143 +629,157 @@ input:focus {
 .mat-timepicker .mat-mdc-select,
 .mat-timepicker .mat-mdc-select-panel,
 .mat-timepicker .mat-mdc-option {
-    --mdc-filled-text-field-container-color: var(--md-sys-color-surface-container-low);
-    --mdc-filled-text-field-label-text-color: var(--md-sys-color-on-surface-variant);
-    --mdc-outlined-text-field-outline-color: var(--md-sys-color-outline-variant);
-    --mdc-outlined-text-field-hover-outline-color: var(--md-sys-color-outline);
-    --mdc-outlined-text-field-focus-outline-color: var(--md-sys-color-primary);
-    --mdc-outlined-text-field-label-text-color: var(--md-sys-color-on-surface-variant);
-    --mdc-outlined-text-field-input-text-color: var(--md-sys-color-on-surface);
-    background-color: var(--md-sys-color-surface-container) !important;
-    color: var(--md-sys-color-on-surface) !important;
+  --mdc-filled-text-field-container-color: var(
+    --md-sys-color-surface-container-low
+  );
+  --mdc-filled-text-field-label-text-color: var(
+    --md-sys-color-on-surface-variant
+  );
+  --mdc-outlined-text-field-outline-color: var(--md-sys-color-outline-variant);
+  --mdc-outlined-text-field-hover-outline-color: var(--md-sys-color-outline);
+  --mdc-outlined-text-field-focus-outline-color: var(--md-sys-color-primary);
+  --mdc-outlined-text-field-label-text-color: var(
+    --md-sys-color-on-surface-variant
+  );
+  --mdc-outlined-text-field-input-text-color: var(--md-sys-color-on-surface);
+  background-color: var(--md-sys-color-surface-container) !important;
+  color: var(--md-sys-color-on-surface) !important;
 }
 
 .mat-timepicker .mat-mdc-select-panel {
-    border-radius: 16px !important;
-    box-shadow: var(--md-sys-elevation-level2) !important;
+  border-radius: 16px !important;
+  box-shadow: var(--md-sys-elevation-level2) !important;
 }
 
 .mat-timepicker .mat-mdc-option {
-    --mdc-list-list-item-container-color: transparent;
-    --mdc-list-list-item-label-text-color: var(--md-sys-color-on-surface);
-    --mdc-list-list-item-hover-state-layer-color: var(--md-sys-color-surface-container-high);
-    --mdc-list-list-item-selected-container-color: var(--md-sys-color-secondary-container);
-    --mdc-list-list-item-selected-label-text-color: var(--md-sys-color-on-secondary-container);
-    border-radius: 8px !important;
-    margin: 4px 8px !important;
-    transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard) !important;
+  --mdc-list-list-item-container-color: transparent;
+  --mdc-list-list-item-label-text-color: var(--md-sys-color-on-surface);
+  --mdc-list-list-item-hover-state-layer-color: var(
+    --md-sys-color-surface-container-high
+  );
+  --mdc-list-list-item-selected-container-color: var(
+    --md-sys-color-secondary-container
+  );
+  --mdc-list-list-item-selected-label-text-color: var(
+    --md-sys-color-on-secondary-container
+  );
+  border-radius: 8px !important;
+  margin: 4px 8px !important;
+  transition: all var(--md-sys-motion-duration-short2)
+    var(--md-sys-motion-easing-standard) !important;
 }
 
 .mat-timepicker .mat-mdc-option:hover {
-    background-color: var(--md-sys-color-surface-container-high) !important;
+  background-color: var(--md-sys-color-surface-container-high) !important;
 }
 
 .mat-timepicker .mat-mdc-option.mdc-list-item--selected {
-    background-color: var(--md-sys-color-secondary-container) !important;
-    color: var(--md-sys-color-on-secondary-container) !important;
+  background-color: var(--md-sys-color-secondary-container) !important;
+  color: var(--md-sys-color-on-secondary-container) !important;
 }
 
 .mat-calendar-body-today:not(.mat-calendar-body-selected) {
-    background-color: var(--md-sys-color-primary-container) !important;
-    color: var(--md-sys-color-on-primary-container) !important;
+  background-color: var(--md-sys-color-primary-container) !important;
+  color: var(--md-sys-color-on-primary-container) !important;
 }
 
 .mat-calendar-body-selected {
-    background-color: var(--md-sys-color-primary) !important;
-    color: var(--md-sys-color-on-primary) !important;
+  background-color: var(--md-sys-color-primary) !important;
+  color: var(--md-sys-color-on-primary) !important;
 }
 
-.mat-calendar-table-header, .mat-calendar-body-label {
-    color: var(--md-sys-color-on-surface) !important;
+.mat-calendar-table-header,
+.mat-calendar-body-label {
+  color: var(--md-sys-color-on-surface) !important;
 }
 
 .mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover {
-    background-color: var(--md-sys-color-surface-container-high) !important;
+  background-color: var(--md-sys-color-surface-container-high) !important;
 }
 
 /* Custom snackbar styles */
 .custom-snackbar {
-    background-color: var(--md-sys-color-inverse-surface) !important;
-    color: var(--md-sys-color-inverse-on-surface) !important;
-    border-radius: 12px !important;
-    opacity: 1 !important;
-    box-shadow: var(--md-sys-elevation-level3) !important;
+  background-color: var(--md-sys-color-inverse-surface) !important;
+  color: var(--md-sys-color-inverse-on-surface) !important;
+  border-radius: 12px !important;
+  opacity: 1 !important;
+  box-shadow: var(--md-sys-elevation-level3) !important;
 }
 
 .custom-snackbar .mat-mdc-snack-bar-label {
-    color: var(--md-sys-color-inverse-on-surface) !important;
-    font-weight: 500 !important;
+  color: var(--md-sys-color-inverse-on-surface) !important;
+  font-weight: 500 !important;
 }
 
 .custom-snackbar .mat-mdc-snack-bar-action {
-    @extend .md-primary;
-    @extend .md-elevation-0;
+  @extend .md-primary;
+  @extend .md-elevation-0;
 }
 
 .custom-snackbar .mat-mdc-snack-bar-action:hover {
-    background-color: var(--md-sys-color-primary) !important;
-    box-shadow: var(--md-sys-elevation-level2) !important;
-    transform: translateY(-1px);
+  background-color: var(--md-sys-color-primary) !important;
+  box-shadow: var(--md-sys-elevation-level2) !important;
+  transform: translateY(-1px);
 }
 
 .success-snackbar {
-    background-color: var(--md-sys-color-primary-container) !important;
-    color: var(--md-sys-color-on-primary-container) !important;
+  background-color: var(--md-sys-color-primary-container) !important;
+  color: var(--md-sys-color-on-primary-container) !important;
 }
 
 .success-snackbar .mat-mdc-snack-bar-label {
-    color: var(--md-sys-color-on-primary-container) !important;
+  color: var(--md-sys-color-on-primary-container) !important;
 }
 
 .success-snackbar .mat-mdc-snack-bar-action {
-    color: var(--md-sys-color-primary) !important;
+  color: var(--md-sys-color-primary) !important;
 }
 
 .success-snackbar .mat-mdc-snack-bar-action:hover {
-    background-color: var(--md-sys-color-primary-container) !important;
+  background-color: var(--md-sys-color-primary-container) !important;
 }
 
 .error-snackbar {
-    background-color: var(--md-sys-color-error-container) !important;
-    color: var(--md-sys-color-on-error-container) !important;
+  background-color: var(--md-sys-color-error-container) !important;
+  color: var(--md-sys-color-on-error-container) !important;
 }
 
 .error-snackbar .mat-mdc-snack-bar-label {
-    color: var(--md-sys-color-on-error-container) !important;
+  color: var(--md-sys-color-on-error-container) !important;
 }
 
 .error-snackbar .mat-mdc-snack-bar-action {
-    color: var(--md-sys-color-error) !important;
+  color: var(--md-sys-color-error) !important;
 }
 
 .error-snackbar .mat-mdc-snack-bar-action:hover {
-    background-color: var(--md-sys-color-error-container) !important;
+  background-color: var(--md-sys-color-error-container) !important;
 }
 
 /* Paginator customization */
 .mat-mdc-paginator .mat-mdc-paginator-page-size {
-    display: none !important;
+  display: none !important;
 }
 
 .mat-mdc-paginator .mat-mdc-paginator-page-size-label {
-    display: none !important;
+  display: none !important;
 }
 
 /* Fix for database table header overlap issue */
 .mat-mdc-table {
-    .mat-mdc-header-row {
-        position: sticky;
-        top: 0;
-        z-index: 10;
-        background-color: var(--md-sys-color-surface-container-high) !important;
-    }
-    
-    .mat-mdc-header-cell {
-        background-color: var(--md-sys-color-surface-container-high) !important;
-        border-bottom: 1px solid var(--md-sys-color-outline-variant) !important;
-    }
-    
-    .mat-mdc-row {
-        background-color: var(--md-sys-color-surface-container) !important;
-    }
+  .mat-mdc-header-row {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: var(--md-sys-color-surface-container-high) !important;
+  }
+
+  .mat-mdc-header-cell {
+    background-color: var(--md-sys-color-surface-container-high) !important;
+    border-bottom: 1px solid var(--md-sys-color-outline-variant) !important;
+  }
+
+  .mat-mdc-row {
+    background-color: var(--md-sys-color-surface-container) !important;
+  }
 }

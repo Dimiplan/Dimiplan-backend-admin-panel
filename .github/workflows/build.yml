@@ -2,72 +2,72 @@ name: Build
 
 on:
   push:
-    branches: [ main, dev ]
+    branches: [main, dev]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
-    lint-and-format:
-        name: Validate Linting and Formatting
-        runs-on: ubuntu-latest
-        permissions:
-            contents: write
-            security-events: write
-            actions: write
-        steps:
-            - uses: actions/checkout@v4
+  lint-and-format:
+    name: Validate Linting and Formatting
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      security-events: write
+      actions: write
+    steps:
+      - uses: actions/checkout@v4
 
-            - name: Use Bun
-              uses: oven-sh/setup-bun@v2
-              with:
-                bun-version: latest
+      - name: Use Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
 
-            - name: Install Dependencies
-              run: bun install
+      - name: Install Dependencies
+        run: bun install
 
-            - name: Run ESLint Fix
-              if: github.event_name == 'push'
-              run: bun run lint:fix
-
-            - name: Run ESLint Check
-              if: github.event_name == 'pull_request'
-              run: bun run lint
-
-            - name: Commit Back
-              if: github.event_name == 'push'
-              uses: stefanzweifel/git-auto-commit-action@v6
-              with:
-                  commit_message: Prettified Code!
-                  commit_options: "--no-verify --signoff"
-
-    build:
+      - name: Run ESLint Fix
         if: github.event_name == 'push'
-        needs: lint-and-format
-        runs-on: ubuntu-latest
-        permissions:
-            contents: write
-            actions: write
-            deployments: write
+        run: bun run lint:fix
 
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v4
+      - name: Run ESLint Check
+        if: github.event_name == 'pull_request'
+        run: bun run lint
 
-            - name: Setup Bun
-              uses: oven-sh/setup-bun@v2
-              with:
-                bun-version: latest
+      - name: Commit Back
+        if: github.event_name == 'push'
+        uses: stefanzweifel/git-auto-commit-action@v6
+        with:
+          commit_message: Prettified Code!
+          commit_options: '--no-verify --signoff'
 
-            - name: Install dependencies
-              run: bun install
+  build:
+    if: github.event_name == 'push'
+    needs: lint-and-format
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: write
+      deployments: write
 
-            - name: Build application
-              run: bun run build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-            - name: Deploy on Cloudflare Pages
-              uses: cloudflare/wrangler-action@v3
-              with:
-                apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-                accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-                command: pages deploy dist/admin-panel/browser --project-name='dimiplan-backend-admin-panel'
-                gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Build application
+        run: bun run build
+
+      - name: Deploy on Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist/admin-panel/browser --project-name='dimiplan-backend-admin-panel'
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}

@@ -1,130 +1,162 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
-    --default-dark-mode: system;
-    --color-md-sys-color-primary: var(--md-sys-color-primary);
-    --color-md-sys-color-on-primary: var(--md-sys-color-on-primary);
-    --color-md-sys-color-primary-container: var(--md-sys-color-primary-container);
-    --color-md-sys-color-on-primary-container: var(--md-sys-color-on-primary-container);
+  --default-dark-mode: system;
+  --color-md-sys-color-primary: var(--md-sys-color-primary);
+  --color-md-sys-color-on-primary: var(--md-sys-color-on-primary);
+  --color-md-sys-color-primary-container: var(--md-sys-color-primary-container);
+  --color-md-sys-color-on-primary-container: var(
+    --md-sys-color-on-primary-container
+  );
 
-    --color-md-sys-color-secondary: var(--md-sys-color-secondary);
-    --color-md-sys-color-on-secondary: var(--md-sys-color-on-secondary);
-    --color-md-sys-color-secondary-container: var(--md-sys-color-secondary-container);
-    --color-md-sys-color-on-secondary-container: var(--md-sys-color-on-secondary-container);
+  --color-md-sys-color-secondary: var(--md-sys-color-secondary);
+  --color-md-sys-color-on-secondary: var(--md-sys-color-on-secondary);
+  --color-md-sys-color-secondary-container: var(
+    --md-sys-color-secondary-container
+  );
+  --color-md-sys-color-on-secondary-container: var(
+    --md-sys-color-on-secondary-container
+  );
 
-    --color-md-sys-color-tertiary: var(--md-sys-color-tertiary);
-    --color-md-sys-color-on-tertiary: var(--md-sys-color-on-tertiary);
-    --color-md-sys-color-tertiary-container: var(--md-sys-color-tertiary-container);
-    --color-md-sys-color-on-tertiary-container: var(--md-sys-color-on-tertiary-container);
+  --color-md-sys-color-tertiary: var(--md-sys-color-tertiary);
+  --color-md-sys-color-on-tertiary: var(--md-sys-color-on-tertiary);
+  --color-md-sys-color-tertiary-container: var(
+    --md-sys-color-tertiary-container
+  );
+  --color-md-sys-color-on-tertiary-container: var(
+    --md-sys-color-on-tertiary-container
+  );
 
-    --color-md-sys-color-error: var(--md-sys-color-error);
-    --color-md-sys-color-on-error: var(--md-sys-color-on-error);
-    --color-md-sys-color-error-container: var(--md-sys-color-error-container);
-    --color-md-sys-color-on-error-container: var(--md-sys-color-on-error-container);
+  --color-md-sys-color-error: var(--md-sys-color-error);
+  --color-md-sys-color-on-error: var(--md-sys-color-on-error);
+  --color-md-sys-color-error-container: var(--md-sys-color-error-container);
+  --color-md-sys-color-on-error-container: var(
+    --md-sys-color-on-error-container
+  );
 
-    --color-md-sys-color-surface: var(--md-sys-color-surface);
-    --color-md-sys-color-on-surface: var(--md-sys-color-on-surface);
-    --color-md-sys-color-surface-variant: var(--md-sys-color-surface-variant);
-    --color-md-sys-color-on-surface-variant: var(--md-sys-color-on-surface-variant);
-    --color-md-sys-color-surface-container-highest: var(--md-sys-color-surface-container-highest);
-    --color-md-sys-color-surface-container-high: var(--md-sys-color-surface-container-high);
-    --color-md-sys-color-surface-container: var(--md-sys-color-surface-container);
-    --color-md-sys-color-surface-container-low: var(--md-sys-color-surface-container-low);
-    --color-md-sys-color-surface-container-lowest: var(--md-sys-color-surface-container-lowest);
-    --color-md-sys-color-surface-dim: var(--md-sys-color-surface-dim);
-    --color-md-sys-color-surface-bright: var(--md-sys-color-surface-bright);
+  --color-md-sys-color-surface: var(--md-sys-color-surface);
+  --color-md-sys-color-on-surface: var(--md-sys-color-on-surface);
+  --color-md-sys-color-surface-variant: var(--md-sys-color-surface-variant);
+  --color-md-sys-color-on-surface-variant: var(
+    --md-sys-color-on-surface-variant
+  );
+  --color-md-sys-color-surface-container-highest: var(
+    --md-sys-color-surface-container-highest
+  );
+  --color-md-sys-color-surface-container-high: var(
+    --md-sys-color-surface-container-high
+  );
+  --color-md-sys-color-surface-container: var(--md-sys-color-surface-container);
+  --color-md-sys-color-surface-container-low: var(
+    --md-sys-color-surface-container-low
+  );
+  --color-md-sys-color-surface-container-lowest: var(
+    --md-sys-color-surface-container-lowest
+  );
+  --color-md-sys-color-surface-dim: var(--md-sys-color-surface-dim);
+  --color-md-sys-color-surface-bright: var(--md-sys-color-surface-bright);
 
-    --color-md-sys-color-outline: var(--md-sys-color-outline);
-    --color-md-sys-color-outline-variant: var(--md-sys-color-outline-variant);
+  --color-md-sys-color-outline: var(--md-sys-color-outline);
+  --color-md-sys-color-outline-variant: var(--md-sys-color-outline-variant);
 
-    --color-md-sys-color-shadow: var(--md-sys-color-shadow);
-    --color-md-sys-color-scrim: var(--md-sys-color-scrim);
-    --color-md-sys-color-inverse-surface: var(--md-sys-color-inverse-surface);
-    --color-md-sys-color-inverse-on-surface: var(--md-sys-color-inverse-on-surface);
-    --color-md-sys-color-inverse-primary: var(--md-sys-color-inverse-primary);
+  --color-md-sys-color-shadow: var(--md-sys-color-shadow);
+  --color-md-sys-color-scrim: var(--md-sys-color-scrim);
+  --color-md-sys-color-inverse-surface: var(--md-sys-color-inverse-surface);
+  --color-md-sys-color-inverse-on-surface: var(
+    --md-sys-color-inverse-on-surface
+  );
+  --color-md-sys-color-inverse-primary: var(--md-sys-color-inverse-primary);
 
-    --radius-none: 0px;
-    --radius-xs: 4px;
-    --radius-sm: 8px;
-    --radius-md: 12px;
-    --radius-lg: 16px;
-    --radius-xl: 20px;
-    --radius-2xl: 24px;
-    --radius-3xl: 28px;
-    --radius-full: 9999px;
+  --radius-none: 0px;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-3xl: 28px;
+  --radius-full: 9999px;
 
-    --spacing-0: 0px;
-    --spacing-1: 4px;
-    --spacing-2: 8px;
-    --spacing-3: 12px;
-    --spacing-4: 16px;
-    --spacing-5: 20px;
-    --spacing-6: 24px;
-    --spacing-7: 28px;
-    --spacing-8: 32px;
-    --spacing-10: 40px;
-    --spacing-12: 48px;
-    --spacing-16: 64px;
-    --spacing-20: 80px;
-    --spacing-24: 96px;
-    --spacing-32: 128px;
+  --spacing-0: 0px;
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-7: 28px;
+  --spacing-8: 32px;
+  --spacing-10: 40px;
+  --spacing-12: 48px;
+  --spacing-16: 64px;
+  --spacing-20: 80px;
+  --spacing-24: 96px;
+  --spacing-32: 128px;
 
-    --shadow-elevation-1: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-    --shadow-elevation-2: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 2px 6px 2px rgba(0, 0, 0, 0.15);
-    --shadow-elevation-3: 0px 1px 3px 0px rgba(0, 0, 0, 0.3), 0px 4px 8px 3px rgba(0, 0, 0, 0.15);
-    --shadow-elevation-4: 0px 2px 3px 0px rgba(0, 0, 0, 0.3), 0px 6px 10px 4px rgba(0, 0, 0, 0.15);
-    --shadow-elevation-5: 0px 4px 4px 0px rgba(0, 0, 0, 0.3), 0px 8px 12px 6px rgba(0, 0, 0, 0.15);
+  --shadow-elevation-1:
+    0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+  --shadow-elevation-2:
+    0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 2px 6px 2px rgba(0, 0, 0, 0.15);
+  --shadow-elevation-3:
+    0px 1px 3px 0px rgba(0, 0, 0, 0.3), 0px 4px 8px 3px rgba(0, 0, 0, 0.15);
+  --shadow-elevation-4:
+    0px 2px 3px 0px rgba(0, 0, 0, 0.3), 0px 6px 10px 4px rgba(0, 0, 0, 0.15);
+  --shadow-elevation-5:
+    0px 4px 4px 0px rgba(0, 0, 0, 0.3), 0px 8px 12px 6px rgba(0, 0, 0, 0.15);
 }
 
 /* Mobile-specific improvements */
 @media (max-width: 767px) {
-    .md-card {
-        padding: 16px !important;
-        min-height: auto !important;
-    }
+  .md-card {
+    padding: 16px !important;
+    min-height: auto !important;
+  }
 
-    .md-typescale-headline-large {
-        font-size: 1.75rem !important;
-    }
+  .md-typescale-headline-large {
+    font-size: 1.75rem !important;
+  }
 
-    .md-typescale-title-large {
-        font-size: 1.375rem !important;
-    }
+  .md-typescale-title-large {
+    font-size: 1.375rem !important;
+  }
 
-    .md-typescale-title-medium {
-        font-size: 1.125rem !important;
-    }
+  .md-typescale-title-medium {
+    font-size: 1.125rem !important;
+  }
 }
 
 /* Touch improvements */
 @media (pointer: coarse) {
-    .md-button, .touch-target {
-        min-height: 48px;
-        min-width: 48px;
-    }
+  .md-button,
+  .touch-target {
+    min-height: 48px;
+    min-width: 48px;
+  }
 
-    input, select, textarea {
-        min-height: 44px;
-    }
+  input,
+  select,
+  textarea {
+    min-height: 44px;
+  }
 }
 
 /* Scrollable table wrapper for mobile */
 .table-responsive {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Better text wrapping */
 .break-words {
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    word-break: break-word;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
 }
 
 /* Safe area for mobile devices with notches */
 @supports (padding: max(0px)) {
-    .safe-area-inset {
-        padding-left: max(16px, env(safe-area-inset-left));
-        padding-right: max(16px, env(safe-area-inset-right));
-    }
+  .safe-area-inset {
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+  }
 }

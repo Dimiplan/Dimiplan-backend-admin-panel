@@ -9,7 +9,6 @@ import prettierConfig from 'eslint-config-prettier';
 import jsonc from 'eslint-plugin-jsonc';
 import jsoncParser from 'jsonc-eslint-parser';
 import globals from 'globals';
-import path from "path";
 
 export default [
   js.configs.recommended,
