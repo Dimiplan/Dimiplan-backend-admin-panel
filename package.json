@@ -9,8 +9,8 @@
     "build": "bun run css && ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "eslint \"src/**/*.{ts,html,json,md,yml}\"",
-    "lint:fix": "eslint \"src/**/*.{ts,html,json,md,yml}\" --fix"
+    "lint": "eslint \"src/**/*.{ts,html,json,md,yml}\" && prettier --check .",
+    "lint:fix": "eslint \"src/**/*.{ts,html,json,md,yml}\" --fix && prettier -w ."
   },
   "private": true,
   "dependencies": {

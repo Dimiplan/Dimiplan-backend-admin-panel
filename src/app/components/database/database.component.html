@@ -31,7 +31,7 @@
               @for (table of tables; track $index) {
                 <div
                   [class]="
-                    'flex items-center gap-3 p-3 rounded-xl cursor-pointer transition-all duration-200 ' +
+                    'flex cursor-pointer items-center gap-3 rounded-xl p-3 transition-all duration-200 ' +
                     (selectedTable?.name === table.name
                       ? 'bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container'
                       : 'hover:bg-md-sys-color-surface-container-high')
@@ -256,7 +256,7 @@
                             class="border-b border-md-sys-color-outline-variant px-2 lg:px-4"
                           >
                             <div
-                              class="md-typescale-body-medium max-w-[120px] truncate text-sm text-md-sys-color-on-surface lg:max-w-xs lg:text-base cursor-pointer hover:bg-md-sys-color-surface-container-high rounded px-1 py-0.5"
+                              class="md-typescale-body-medium max-w-[120px] cursor-pointer truncate rounded px-1 py-0.5 text-sm text-md-sys-color-on-surface hover:bg-md-sys-color-surface-container-high lg:max-w-xs lg:text-base"
                               (click)="
                                 copyToClipboard(
                                   formatCellValue(row[column.name])
@@ -274,7 +274,7 @@
                         <th
                           mat-header-cell
                           *matHeaderCellDef
-                          class="sticky top-0 z-10 bg-md-sys-color-surface-container-high px-2 lg:px-4 w-32"
+                          class="sticky top-0 z-10 w-32 bg-md-sys-color-surface-container-high px-2 lg:px-4"
                         >
                           <div
                             class="md-typescale-label-large font-medium text-md-sys-color-on-surface"

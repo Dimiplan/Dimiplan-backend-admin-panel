@@ -36,7 +36,7 @@
               @for (file of logFiles; track $index) {
                 <div
                   [class]="
-                    'flex items-center gap-3 p-3 rounded-xl cursor-pointer transition-all duration-200 ' +
+                    'flex cursor-pointer items-center gap-3 rounded-xl p-3 transition-all duration-200 ' +
                     (selectedFile?.name === file.name
                       ? 'bg-md-sys-color-secondary-container text-md-sys-color-on-secondary-container'
                       : 'hover:bg-md-sys-color-surface-container-high')
@@ -179,7 +179,7 @@
                 <div class="flex flex-wrap gap-1">
                   <button
                     [class]="
-                      'px-3 py-1 text-xs rounded-full transition-all ' +
+                      'rounded-full px-3 py-1 text-xs transition-all ' +
                       (logFilter === 'all'
                         ? 'bg-md-sys-color-primary text-md-sys-color-on-primary'
                         : 'bg-md-sys-color-surface-container text-md-sys-color-on-surface hover:bg-md-sys-color-surface-container-high')
@@ -190,7 +190,7 @@
                   </button>
                   <button
                     [class]="
-                      'px-3 py-1 text-xs rounded-full transition-all ' +
+                      'rounded-full px-3 py-1 text-xs transition-all ' +
                       (logFilter === 'error'
                         ? 'bg-md-sys-color-error text-md-sys-color-on-error'
                         : 'bg-md-sys-color-surface-container text-md-sys-color-on-surface hover:bg-md-sys-color-surface-container-high')
@@ -201,7 +201,7 @@
                   </button>
                   <button
                     [class]="
-                      'px-3 py-1 text-xs rounded-full transition-all ' +
+                      'rounded-full px-3 py-1 text-xs transition-all ' +
                       (logFilter === 'warn'
                         ? 'bg-md-sys-color-tertiary text-md-sys-color-on-tertiary'
                         : 'bg-md-sys-color-surface-container text-md-sys-color-on-surface hover:bg-md-sys-color-surface-container-high')
@@ -212,7 +212,7 @@
                   </button>
                   <button
                     [class]="
-                      'px-3 py-1 text-xs rounded-full transition-all ' +
+                      'rounded-full px-3 py-1 text-xs transition-all ' +
                       (logFilter === 'info'
                         ? 'bg-md-sys-color-secondary text-md-sys-color-on-secondary'
                         : 'bg-md-sys-color-surface-container text-md-sys-color-on-surface hover:bg-md-sys-color-surface-container-high')
@@ -228,7 +228,7 @@
                   @for (line of getFilteredLogLines(); track $index) {
                     <div
                       [class]="
-                        'flex items-start gap-3 p-2 font-mono text-sm border-b border-gray-800 hover:bg-gray-800 ' +
+                        'flex items-start gap-3 border-b border-gray-800 p-2 font-mono text-sm hover:bg-gray-800 ' +
                         getLogLineClass(line)
                       "
                     >
@@ -241,7 +241,7 @@
                       }}</span>
                       <span
                         [class]="
-                          'w-16 font-bold uppercase flex-shrink-0 text-center ' +
+                          'w-16 flex-shrink-0 text-center font-bold uppercase ' +
                           getLogLevelColorClass(extractLogLevel(line))
                         "
                         >{{ extractLogLevel(line) }}</span

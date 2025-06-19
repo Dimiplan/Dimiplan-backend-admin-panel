@@ -1,7 +1,7 @@
 <div class="bg-md-sys-color-surface-container text-md-sys-color-on-surface">
   <h2
     mat-dialog-title
-    class="md-typescale-headline-small text-md-sys-color-on-surface border-b border-md-sys-color-outline-variant pb-4 mb-6"
+    class="md-typescale-headline-small mb-6 border-b border-md-sys-color-outline-variant pb-4 text-md-sys-color-on-surface"
   >
     <mat-icon class="mr-3 text-md-sys-color-primary">
       {{ data.mode === 'add' ? 'add_circle' : 'edit' }}
@@ -13,14 +13,14 @@
     <form [formGroup]="form" class="space-y-6">
       @for (column of data.columns; track column.name) {
         <div
-          class="rounded-xl bg-md-sys-color-surface-container-low p-4 border border-md-sys-color-outline-variant"
+          class="rounded-xl border border-md-sys-color-outline-variant bg-md-sys-color-surface-container-low p-4"
         >
           <div class="mb-3 flex items-center gap-2">
             <mat-icon class="h-5 w-5 text-md-sys-color-primary">
               {{ getColumnIcon(column.type) }}
             </mat-icon>
             <span
-              class="md-typescale-title-medium text-md-sys-color-on-surface font-medium"
+              class="md-typescale-title-medium font-medium text-md-sys-color-on-surface"
             >
               {{ column.name }}
             </span>
@@ -200,7 +200,7 @@
 
   <mat-dialog-actions
     align="end"
-    class="border-t border-md-sys-color-outline-variant pt-4 mt-6"
+    class="mt-6 border-t border-md-sys-color-outline-variant pt-4"
   >
     <button
       mat-button
@@ -215,7 +215,7 @@
       color="primary"
       (click)="save()"
       [disabled]="!form.valid"
-      class="md-button-filled bg-md-sys-color-primary text-md-sys-color-on-primary ml-3"
+      class="md-button-filled ml-3 bg-md-sys-color-primary text-md-sys-color-on-primary"
     >
       <mat-icon class="mr-2">
         {{ data.mode === 'add' ? 'add' : 'save' }}
