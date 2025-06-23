@@ -1,0 +1,7 @@
+{
+  "name": "admin",
+  "assets": {
+    "directory": "./dist/admin-panel/browser"
+  },
+  "compatibility_date": "2025-06-23"
+}

@@ -1,0 +1,42 @@
+name: Lint and Format Code
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-and-format:
+    name: Validate Linting and Formatting
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      security-events: write
+      actions: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install Dependencies
+        run: bun install
+
+      - name: Run ESLint Fix
+        if: github.event_name == 'push'
+        run: bun run lint:fix
+
+      - name: Run ESLint Check
+        if: github.event_name == 'pull_request'
+        run: bun run lint
+
+      - name: Commit Back
+        if: github.event_name == 'push'
+        uses: stefanzweifel/git-auto-commit-action@v6
+        with:
+          commit_message: Prettified Code!
+          commit_options: '--no-verify --signoff'
