@@ -783,3 +783,66 @@ input:focus {
     background-color: var(--md-sys-color-surface-container) !important;
   }
 }
+
+
+.mat-mdc-dialog-surface {
+  background-color: transparent !important; 
+}
+// Login Modal Dark Mode Support
+.login-modal-container {
+  background-color: var(--md-sys-color-surface-container) !important;
+  color: var(--md-sys-color-surface-container-high) !important;
+  border: 1px solid var(--md-sys-color-outline-variant);
+  box-shadow: var(--md-sys-elevation-level3) !important;
+  transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
+
+  // Enhanced warning icon styling
+  mat-icon {
+    transition: color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
+  }
+
+  // Button specific styling for login modal
+  .md-button {
+    background-color: var(--md-sys-color-primary) !important;
+    color: var(--md-sys-color-on-primary) !important;
+    box-shadow: var(--md-sys-elevation-level1) !important;
+    transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
+
+    &:hover {
+      background-color: var(--md-sys-color-primary) !important;
+      box-shadow: var(--md-sys-elevation-level2) !important;
+      transform: translateY(-1px);
+      filter: brightness(1.1);
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: var(--md-sys-elevation-level1) !important;
+    }
+
+    mat-icon {
+      color: var(--md-sys-color-on-primary) !important;
+    }
+  }
+
+  // Enhanced text styling for better readability in dark mode
+  h2 {
+    color: var(--md-sys-color-on-surface) !important;
+    font-weight: var(--md-sys-typescale-headline-medium-weight) !important;
+  }
+
+  p {
+    &.md-typescale-body-large {
+      color: var(--md-sys-color-on-surface) !important;
+    }
+    
+    &.md-typescale-body-medium {
+      color: var(--md-sys-color-on-surface-variant) !important;
+    }
+  }
+
+  // Warning icon specific styling
+  .text-md-sys-color-error {
+    color: var(--md-sys-color-error) !important;
+  }
+}
