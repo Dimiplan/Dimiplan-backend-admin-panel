@@ -44,7 +44,7 @@
     "eslint": "^9.29.0",
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-jsonc": "^2.20.1",
-    "eslint-plugin-prettier": "^5.5.0",
+    "eslint-plugin-prettier": "^5.5.1",
     "jasmine-core": "5.8.0",
     "jsonc-eslint-parser": "^2.4.0",
     "karma": "6.4.4",
