@@ -25,7 +25,7 @@
         "@angular-eslint/template-parser": "^20.1.1",
         "@angular/build": "20.0.3",
         "@angular/cli": "20.0.3",
-        "@angular/compiler-cli": "20.0.4",
+        "@angular/compiler-cli": "20.0.5",
         "@hyoban/eslint-plugin-tailwindcss": "^4.0.0-alpha.13",
         "@types/jasmine": "5.1.8",
         "@types/sanitize-html": "^2.16.0",
@@ -82,7 +82,7 @@
 
     "@angular/compiler": ["@angular/compiler@20.0.4", "", { "dependencies": { "tslib": "^2.3.0" } }, "sha512-1bP3P8Ll/KUYMPiE6TDjkMXkqCDVgSUAUsVCgzAxz4mcMuc9PnlbhQazpWHCkCDIjGFZ5XIAsS49V7tfaTbLDw=="],
 
-    "@angular/compiler-cli": ["@angular/compiler-cli@20.0.4", "", { "dependencies": { "@babel/core": "7.27.4", "@jridgewell/sourcemap-codec": "^1.4.14", "chokidar": "^4.0.0", "convert-source-map": "^1.5.1", "reflect-metadata": "^0.2.0", "semver": "^7.0.0", "tslib": "^2.3.0", "yargs": "^18.0.0" }, "peerDependencies": { "@angular/compiler": "20.0.4", "typescript": ">=5.8 <5.9" }, "optionalPeers": ["typescript"], "bin": { "ngc": "bundles/src/bin/ngc.js", "ng-xi18n": "bundles/src/bin/ng_xi18n.js" } }, "sha512-2FP1WMRexAMcDPNE3YO3zB++sCgND9O/qJC5rgKbAebpbmOrCDMUBRlftkwiLT+UhTM9PjhTtAGtK7C+2iwx1g=="],
+    "@angular/compiler-cli": ["@angular/compiler-cli@20.0.5", "", { "dependencies": { "@babel/core": "7.27.4", "@jridgewell/sourcemap-codec": "^1.4.14", "chokidar": "^4.0.0", "convert-source-map": "^1.5.1", "reflect-metadata": "^0.2.0", "semver": "^7.0.0", "tslib": "^2.3.0", "yargs": "^18.0.0" }, "peerDependencies": { "@angular/compiler": "20.0.5", "typescript": ">=5.8 <5.9" }, "optionalPeers": ["typescript"], "bin": { "ngc": "bundles/src/bin/ngc.js", "ng-xi18n": "bundles/src/bin/ng_xi18n.js" } }, "sha512-v0DSeUU7cid7jqfK9RTkyhbZGNIiOyxRYeaqZMsu4UiYGwABIanM7lOcX++OYapfWj/TEPky+5wtbV8ScqAxiw=="],
 
     "@angular/core": ["@angular/core@20.0.4", "", { "dependencies": { "tslib": "^2.3.0" }, "peerDependencies": { "@angular/compiler": "20.0.4", "rxjs": "^6.5.3 || ^7.4.0", "zone.js": "~0.15.0" }, "optionalPeers": ["@angular/compiler", "zone.js"] }, "sha512-JhSl3B6CrJ9kegLffgWVFGF4D4bWLV/9r8R0+h78vU+ppdPFPWDha7WnirF31cPIg3pBzy6wn103Kcy9Ri5M5w=="],
 
