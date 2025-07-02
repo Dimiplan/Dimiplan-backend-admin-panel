@@ -17,6 +17,7 @@ jobs:
         with:
           version: latest
       - name: Run Biome
+        if: github.event_name == 'pull_request'
         run: biome ci .
       - name: Apply Biome
         if: github.event_name == 'push'
