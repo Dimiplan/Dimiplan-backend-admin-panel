@@ -1,8 +1,8 @@
 {
-    "name": "admin",
-    "assets": {
-        "not_found_handling": "single-page-application",
-        "directory": "./dist/admin-panel/browser/"
-    },
-    "compatibility_date": "2025-06-23"
+  "name": "admin",
+  "assets": {
+    "not_found_handling": "single-page-application",
+    "directory": "./dist/admin-panel/browser/"
+  },
+  "compatibility_date": "2025-06-23"
 }
