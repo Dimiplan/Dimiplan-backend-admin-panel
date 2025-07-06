@@ -6,7 +6,7 @@
     "ng": "ng",
     "css": "tailwindcss --input src/tailwind.css --output src/tailwind-output.css",
     "start": "bun run css && ng serve",
-    "build": "bun run css && ng build --source-map --configuration production",
+    "build": "bun run css && ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "eslint \"src/**/*.{ts,html,json,md,yml}\" && prettier --check .",
