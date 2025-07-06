@@ -1,9 +1,9 @@
-import { baseUrl } from './../../services/base-url';
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { baseUrl } from './../../services/base-url';
 @Component({
   selector: 'app-login-modal',
   standalone: true,
