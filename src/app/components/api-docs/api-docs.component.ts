@@ -13,6 +13,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import sanitizeHtml from 'sanitize-html';
 import { AdminService, type ApiDoc } from '../../services/admin.service';
+import { baseUrl } from '../../services/base-url';
 
 @Component({
   selector: 'app-api-docs',
@@ -172,8 +173,7 @@ export class ApiDocsComponent implements OnInit, OnDestroy {
   }
 
   generateCurlExample(doc: ApiDoc): string {
-    const baseUrl = 'https://api-dev.dimiplan.com';
-    let url = `${baseUrl}${doc.path}`;
+    let url = `${baseUrl.replace('/admin', '')}${doc.path}`;
 
     // Replace route parameters with example values
     if (doc.routeParams && doc.routeParams.length > 0) {

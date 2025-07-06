@@ -42,3 +42,4 @@ testem.log
 Thumbs.db
 .claude/
 tailwind-output.css
+base-url.ts

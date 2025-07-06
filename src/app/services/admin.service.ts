@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import type { Observable } from 'rxjs';
+import { baseUrl } from './base-url';
 
 export interface SystemStatus {
   uptime: number;
@@ -94,23 +95,21 @@ export interface ApiDoc {
 export class AdminService {
   private http = inject(HttpClient);
 
-  private baseUrl = 'https://api-dev.dimiplan.com/api/admin';
-
   getSystemStatus(): Observable<{ success: boolean; data: SystemStatus }> {
     return this.http.get<{ success: boolean; data: SystemStatus }>(
-      `${this.baseUrl}/system-status`
+      `${baseUrl}/system-status`
     );
   }
 
   getAiUsage(): Observable<{ success: boolean; data: AiUsage }> {
     return this.http.get<{ success: boolean; data: AiUsage }>(
-      `${this.baseUrl}/ai-usage`
+      `${baseUrl}/ai-usage`
     );
   }
 
   getLogFiles(): Observable<{ success: boolean; data: LogFile[] }> {
     return this.http.get<{ success: boolean; data: LogFile[] }>(
-      `${this.baseUrl}/logs`
+      `${baseUrl}/logs`
     );
   }
 
@@ -123,14 +122,14 @@ export class AdminService {
       params['lines'] = lines.toString();
     }
     return this.http.get<{ success: boolean; data: LogContent }>(
-      `${this.baseUrl}/logs/${filename}`,
+      `${baseUrl}/logs/${filename}`,
       Object.keys(params).length > 0 ? { params } : {}
     );
   }
 
   getDatabaseTables(): Observable<{ success: boolean; data: TableInfo[] }> {
     return this.http.get<{ success: boolean; data: TableInfo[] }>(
-      `${this.baseUrl}/database/tables`
+      `${baseUrl}/database/tables`
     );
   }
 
@@ -141,20 +140,20 @@ export class AdminService {
   ): Observable<{ success: boolean; data: TableData }> {
     const params = { page: page.toString(), limit: limit.toString() };
     return this.http.get<{ success: boolean; data: TableData }>(
-      `${this.baseUrl}/database/tables/${tableName}`,
+      `${baseUrl}/database/tables/${tableName}`,
       { params }
     );
   }
 
   getUserStats(): Observable<{ success: boolean; data: UserStats }> {
     return this.http.get<{ success: boolean; data: UserStats }>(
-      `${this.baseUrl}/stats/users`
+      `${baseUrl}/stats/users`
     );
   }
 
   getApiDocs(): Observable<{ success: boolean; data: ApiDoc[] }> {
     return this.http.get<{ success: boolean; data: ApiDoc[] }>(
-      `${this.baseUrl}/docs`
+      `${baseUrl}/docs`
     );
   }
 
@@ -167,7 +166,7 @@ export class AdminService {
       success: boolean;
       message: string;
       timestamp: string;
-    }>(`${this.baseUrl}/docs/regenerate`, {});
+    }>(`${baseUrl}/docs/regenerate`, {});
   }
 
   // DB 관리 메서드들
@@ -176,7 +175,7 @@ export class AdminService {
     data: Record<string, unknown>
   ): Observable<{ success: boolean; data: { insertId: number } }> {
     return this.http.post<{ success: boolean; data: { insertId: number } }>(
-      `${this.baseUrl}/database/tables/${tableName}`,
+      `${baseUrl}/database/tables/${tableName}`,
       { data }
     );
   }
@@ -189,7 +188,7 @@ export class AdminService {
     return this.http.put<{
       success: boolean;
       data: { affectedRows: number };
-    }>(`${this.baseUrl}/database/tables/${tableName}`, { data, where });
+    }>(`${baseUrl}/database/tables/${tableName}`, { data, where });
   }
 
   deleteTableRow(
@@ -199,7 +198,7 @@ export class AdminService {
     return this.http.delete<{
       success: boolean;
       data: { affectedRows: number };
-    }>(`${this.baseUrl}/database/tables/${tableName}`, { body: { where } });
+    }>(`${baseUrl}/database/tables/${tableName}`, { body: { where } });
   }
 
   // 로그 관리 메서드들
@@ -207,7 +206,7 @@ export class AdminService {
     filename: string
   ): Observable<{ success: boolean; message: string }> {
     return this.http.delete<{ success: boolean; message: string }>(
-      `${this.baseUrl}/logs/${filename}`
+      `${baseUrl}/logs/${filename}`
     );
   }
 
@@ -220,6 +219,6 @@ export class AdminService {
       success: boolean;
       message: string;
       data: { clearedFiles: number };
-    }>(`${this.baseUrl}/logs/clear`, {});
+    }>(`${baseUrl}/logs/clear`, {});
   }
 }
