@@ -20,8 +20,9 @@
           />
           <mat-icon
             class="absolute top-1/2 right-3 h-5 w-5 -translate-y-1/2 text-md-sys-color-on-surface-variant"
-            >search</mat-icon
           >
+            search
+          </mat-icon>
         </div>
       </div>
 
@@ -56,13 +57,12 @@
                 (click)="selectFile('')"
                 class="flex w-full items-center gap-2 px-4 py-3 text-left text-md-sys-color-on-surface transition-all hover:bg-md-sys-color-surface-container-high"
               >
-                <mat-icon class="h-5 w-5 text-md-sys-color-on-surface-variant"
-                  >select_all</mat-icon
-                >
-                <span
-                  class="md-typescale-body-medium text-md-sys-color-on-surface"
-                  >모든 경로</span
-                >
+                <mat-icon class="h-5 w-5 text-md-sys-color-on-surface-variant">
+                  select_all
+                </mat-icon>
+                <span class="md-typescale-body-medium text-md-sys-color-on-surface">
+                  모든 경로
+                </span>
               </button>
               @for (file of getUniqueFiles(); track $index) {
                 <button
@@ -81,8 +81,9 @@
                         ? 'text-md-sys-color-primary'
                         : 'text-md-sys-color-on-surface-variant'
                     "
-                    >description</mat-icon
                   >
+                    description
+                  </mat-icon>
                   <span class="truncate font-mono text-sm">{{ file }}</span>
                 </button>
               }
@@ -104,9 +105,9 @@
           [disabled]="loading"
           title="JSDoc 재생성"
         >
-          <mat-icon class="h-5 w-5 text-md-sys-color-primary"
-            >autorenew</mat-icon
-          >
+          <mat-icon class="h-5 w-5 text-md-sys-color-primary">
+            autorenew
+          </mat-icon>
         </button>
         <button
           class="md-button md-button-filled touch-target rounded-full px-4 py-2"
@@ -128,9 +129,9 @@
     </div>
   } @else if (filteredDocs.length === 0 && apiDocs.length > 0) {
     <div class="flex flex-col items-center justify-center py-20">
-      <mat-icon class="mb-4 h-16 w-16 text-md-sys-color-outline"
-        >search_off</mat-icon
-      >
+      <mat-icon class="mb-4 h-16 w-16 text-md-sys-color-outline">
+        search_off
+      </mat-icon>
       <p class="md-typescale-body-large text-md-sys-color-on-surface-variant">
         검색 결과가 없습니다.
       </p>
@@ -240,9 +241,9 @@
                     <h4
                       class="md-typescale-title-small flex items-center gap-2 text-md-sys-color-on-surface"
                     >
-                      <mat-icon class="h-5 w-5 text-md-sys-color-primary"
-                        >route</mat-icon
-                      >
+                      <mat-icon class="h-5 w-5 text-md-sys-color-primary">
+                        route
+                      </mat-icon>
                       경로 파라미터
                     </h4>
                     <div class="space-y-3">
@@ -281,9 +282,9 @@
                     <h4
                       class="md-typescale-title-small flex items-center gap-2 text-md-sys-color-on-surface"
                     >
-                      <mat-icon class="h-5 w-5 text-md-sys-color-primary"
-                        >settings</mat-icon
-                      >
+                      <mat-icon class="h-5 w-5 text-md-sys-color-primary">
+                        settings
+                      </mat-icon>
                       {{
                         doc.method.toUpperCase() === 'GET'
                           ? '쿼리 파라미터'
@@ -335,9 +336,9 @@
                     <h4
                       class="md-typescale-title-small flex items-center gap-2 text-md-sys-color-on-surface"
                     >
-                      <mat-icon class="h-5 w-5 text-md-sys-color-primary"
-                        >keyboard_return</mat-icon
-                      >
+                      <mat-icon class="h-5 w-5 text-md-sys-color-primary">
+                        keyboard_return
+                      </mat-icon>
                       반환값
                     </h4>
                     <div class="space-y-4">
@@ -464,9 +465,9 @@
                     <h4
                       class="md-typescale-title-small flex items-center gap-2 text-md-sys-color-on-surface"
                     >
-                      <mat-icon class="h-5 w-5 text-md-sys-color-primary"
-                        >code</mat-icon
-                      >
+                      <mat-icon class="h-5 w-5 text-md-sys-color-primary">
+                        code
+                      </mat-icon>
                       사용 예시
                     </h4>
                     <div

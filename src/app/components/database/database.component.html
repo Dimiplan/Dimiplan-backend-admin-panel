@@ -20,9 +20,9 @@
             class="md-button md-button-filled touch-target rounded-full p-3"
             (click)="refreshTables()"
           >
-            <mat-icon class="h-5 w-5 text-md-sys-color-primary"
-              >refresh</mat-icon
-            >
+            <mat-icon class="h-5 w-5 text-md-sys-color-primary">
+              refresh
+            </mat-icon>
           </button>
         </div>
         <div class="min-h-0 flex-1 overflow-y-auto">
@@ -43,8 +43,9 @@
                     [class.text-md-sys-color-on-secondary-container]="
                       selectedTable?.name === table.name
                     "
-                    >table_chart</mat-icon
                   >
+                    table_chart
+                  </mat-icon>
                   <div class="flex-1">
                     <div class="md-typescale-body-large font-medium">
                       {{ table.name }}
@@ -98,9 +99,9 @@
                 (click)="loadTableData()"
                 [disabled]="loadingData"
               >
-                <mat-icon class="h-5 w-5 text-md-sys-color-primary"
-                  >refresh</mat-icon
-                >
+                <mat-icon class="h-5 w-5 text-md-sys-color-primary">
+                  refresh
+                </mat-icon>
               </button>
               <button
                 class="md-button md-button-filled touch-target rounded-full px-4 py-2"
@@ -132,9 +133,9 @@
               class="flex h-full items-center justify-center text-md-sys-color-on-surface-variant"
             >
               <div class="text-center">
-                <mat-icon class="mb-4 h-16 w-16 text-md-sys-color-outline"
-                  >table_view</mat-icon
-                >
+                <mat-icon class="mb-4 h-16 w-16 text-md-sys-color-outline">
+                  table_view
+                </mat-icon>
                 <p class="md-typescale-body-large">
                   왼쪽에서 테이블을 선택해주세요.
                 </p>
@@ -156,9 +157,9 @@
                 <h3
                   class="md-typescale-title-medium mb-3 flex items-center gap-2 text-md-sys-color-on-surface"
                 >
-                  <mat-icon class="h-5 w-5 text-md-sys-color-primary"
-                    >info</mat-icon
-                  >
+                  <mat-icon class="h-5 w-5 text-md-sys-color-primary">
+                    info
+                  </mat-icon>
                   컬럼 정보
                 </h3>
                 <div
@@ -213,9 +214,9 @@
                 <h3
                   class="md-typescale-title-medium mb-3 flex shrink-0 items-center gap-2 text-md-sys-color-on-surface"
                 >
-                  <mat-icon class="h-5 w-5 text-md-sys-color-primary"
-                    >table_rows</mat-icon
-                  >
+                  <mat-icon class="h-5 w-5 text-md-sys-color-primary">
+                    table_rows
+                  </mat-icon>
                   데이터 ({{ tableData?.pagination?.totalCount || 0 }}개 레코드)
                 </h3>
                 <div
@@ -293,19 +294,18 @@
                               (click)="openEditRowDialog(row)"
                               title="편집"
                             >
-                              <mat-icon
-                                class="h-4 w-4 text-md-sys-color-primary"
-                                >edit</mat-icon
-                              >
+                              <mat-icon class="h-4 w-4 text-md-sys-color-primary">
+                                edit
+                              </mat-icon>
                             </button>
                             <button
                               class="md-button md-button-filled touch-target rounded-full p-2"
                               (click)="confirmDeleteRow(row)"
                               title="삭제"
                             >
-                              <mat-icon class="h-4 w-4 text-md-sys-color-error"
-                                >delete</mat-icon
-                              >
+                              <mat-icon class="h-4 w-4 text-md-sys-color-error">
+                                delete
+                              </mat-icon>
                             </button>
                           </div>
                         </td>

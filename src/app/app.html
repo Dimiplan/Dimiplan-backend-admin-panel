@@ -11,7 +11,9 @@
         (click)="toggleSidenav()"
         aria-label="Toggle navigation"
       >
-        <mat-icon class="h-6 w-6 text-md-sys-color-on-surface">menu</mat-icon>
+        <mat-icon class="h-6 w-6 text-md-sys-color-on-surface">
+          menu
+        </mat-icon>
       </button>
       <h1
         class="md-typescale-title-large flex-1 truncate text-md-sys-color-on-surface"
@@ -67,8 +69,9 @@
               [class.text-md-sys-color-on-secondary-container]="
                 router.url === '/dashboard'
               "
-              >dashboard</mat-icon
             >
+              dashboard
+            </mat-icon>
             @if (sidenavOpened) {
               <span class="md-typescale-label-large ml-4">대시보드</span>
             }
@@ -101,8 +104,9 @@
               [class.text-md-sys-color-on-secondary-container]="
                 router.url === '/logs'
               "
-              >article</mat-icon
             >
+              article
+            </mat-icon>
             @if (sidenavOpened) {
               <span class="md-typescale-label-large ml-4">로그 관리</span>
             }
@@ -137,8 +141,9 @@
               [class.text-md-sys-color-on-secondary-container]="
                 router.url === '/database'
               "
-              >storage</mat-icon
             >
+              storage
+            </mat-icon>
             @if (sidenavOpened) {
               <span class="md-typescale-label-large ml-4">데이터베이스</span>
             }
@@ -173,8 +178,9 @@
               [class.text-md-sys-color-on-secondary-container]="
                 router.url === '/api-docs'
               "
-              >code</mat-icon
             >
+              code
+            </mat-icon>
             @if (sidenavOpened) {
               <span class="md-typescale-label-large ml-4">API 문서</span>
             }
@@ -195,9 +201,9 @@
             <div
               class="flex items-center gap-2 rounded-lg bg-md-sys-color-surface-container-low p-2"
             >
-              <mat-icon class="h-4 w-4 text-md-sys-color-on-surface-variant"
-                >info</mat-icon
-              >
+              <mat-icon class="h-4 w-4 text-md-sys-color-on-surface-variant">
+                info
+              </mat-icon>
               <small
                 class="md-typescale-body-small text-md-sys-color-on-surface-variant"
                 >버전 1.0.0</small
@@ -212,8 +218,9 @@
               <mat-icon
                 class="h-4 w-4 text-md-sys-color-on-surface-variant"
                 title="버전 1.0.0"
-                >info</mat-icon
               >
+                info
+              </mat-icon>
             </div>
           </div>
         }
