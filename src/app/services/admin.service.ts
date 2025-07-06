@@ -97,13 +97,13 @@ export class AdminService {
 
   getSystemStatus(): Observable<{ success: boolean; data: SystemStatus }> {
     return this.http.get<{ success: boolean; data: SystemStatus }>(
-      `${baseUrl}/system-status`
+      `${baseUrl}/system/status`
     );
   }
 
   getAiUsage(): Observable<{ success: boolean; data: AiUsage }> {
     return this.http.get<{ success: boolean; data: AiUsage }>(
-      `${baseUrl}/ai-usage`
+      `${baseUrl}/system/ai-usage`
     );
   }
 
