@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "ng": "ng",
-    "css": "bunx @tailwindcss/cli --input src/tailwind.css --output src/tailwind-output.css",
+    "css": "tailwindcss --input src/tailwind.css --output src/tailwind-output.css",
     "start": "bun run css && ng serve",
     "build": "bun run css && ng build --source-map --configuration production",
     "watch": "ng build --watch --configuration development",
