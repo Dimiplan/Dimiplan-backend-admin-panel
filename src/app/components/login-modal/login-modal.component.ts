@@ -14,6 +14,6 @@ export class LoginModalComponent {
   dialogRef = inject<MatDialogRef<LoginModalComponent>>(MatDialogRef);
 
   loginWithGoogle(): void {
-    window.location.href = `${baseUrl}/auth/google`;
+    window.location.href = `${baseUrl.replace('/admin', '/auth')}/admin/google`;
   }
 }
