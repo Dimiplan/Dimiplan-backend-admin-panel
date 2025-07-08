@@ -84,10 +84,10 @@ export class ApiDocsComponent implements OnInit, OnDestroy {
       next: response => {
         if (response.success) {
           this.apiDocs = response.data.sort((a, b) => {
-            if (a.file !== b.file) {
-              return a.file.localeCompare(b.file);
+            if (a.path !== b.path) {
+              return a.path.localeCompare(b.path);
             }
-            return a.path.localeCompare(b.path);
+            return a.method.localeCompare(b.method);
           });
           this.filterApis();
         }
@@ -163,7 +163,7 @@ export class ApiDocsComponent implements OnInit, OnDestroy {
         return 'primary';
       case 'POST':
         return 'accent';
-      case 'PUT':
+      case 'PATCH':
         return 'warn';
       case 'DELETE':
         return 'warn';
