@@ -88,8 +88,10 @@ export class ApiDocsComponent implements OnInit, OnDestroy {
             if (a.path !== b.path) {
               return a.path.localeCompare(b.path);
             }
-            return methodOrder.indexOf(a.method.toUpperCase()) -
-                   methodOrder.indexOf(b.method.toUpperCase());
+            return (
+              methodOrder.indexOf(a.method.toUpperCase()) -
+              methodOrder.indexOf(b.method.toUpperCase())
+            );
           });
           this.filterApis();
         }
