@@ -33,7 +33,7 @@
     "@angular/build": "20.0.5",
     "@angular/cli": "20.0.5",
     "@angular/compiler-cli": "20.0.6",
-    "@biomejs/biome": "2.0.6",
+    "@biomejs/biome": "2.1.0",
     "@types/jasmine": "5.1.8",
     "@types/sanitize-html": "^2.16.0",
     "jasmine-core": "5.8.0",
