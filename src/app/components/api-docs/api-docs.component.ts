@@ -83,11 +83,13 @@ export class ApiDocsComponent implements OnInit, OnDestroy {
     this.adminService.getApiDocs().subscribe({
       next: response => {
         if (response.success) {
+          const methodOrder = ['GET', 'POST', 'PATCH', 'DELETE'];
           this.apiDocs = response.data.sort((a, b) => {
             if (a.path !== b.path) {
               return a.path.localeCompare(b.path);
             }
-            return a.method.localeCompare(b.method);
+            return methodOrder.indexOf(a.method.toUpperCase()) -
+                   methodOrder.indexOf(b.method.toUpperCase());
           });
           this.filterApis();
         }
