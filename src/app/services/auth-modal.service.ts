@@ -1,12 +1,14 @@
 import { Injectable, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginModalComponent } from '../components/login-modal/login-modal.component';
+import { DOCUMENT } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthModalService {
   private dialog = inject(MatDialog);
+  private document = inject(DOCUMENT);
 
   openLoginModal(): void {
     // Open the login modal dialog
@@ -15,5 +17,8 @@ export class AuthModalService {
       width: '400px',
       panelClass: 'login-modal',
     });
+  }
+  redirectToForbiddenPage(): void {
+    this.document.location.href = 'https://dimiplan.com/';
   }
 }

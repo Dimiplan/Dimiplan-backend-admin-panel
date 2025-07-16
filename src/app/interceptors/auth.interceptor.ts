@@ -18,8 +18,11 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(authReq).pipe(
     catchError((error: HttpErrorResponse) => {
-      if (error.status !== 200) {
+      if (error.status === 401) {
         authModalService.openLoginModal();
+      }
+      else if (error.status === 403) {
+        authModalService.redirectToForbiddenPage();
       }
       return throwError(() => error);
     })
