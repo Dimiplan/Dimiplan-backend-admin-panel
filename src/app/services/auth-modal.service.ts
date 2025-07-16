@@ -1,7 +1,7 @@
+import { DOCUMENT } from '@angular/common';
 import { Injectable, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginModalComponent } from '../components/login-modal/login-modal.component';
-import { DOCUMENT } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
