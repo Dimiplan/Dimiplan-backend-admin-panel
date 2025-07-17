@@ -21,7 +21,7 @@
       },
       "devDependencies": {
         "@angular/build": "20.1.0",
-        "@angular/cli": "20.1.0",
+        "@angular/cli": "20.1.1",
         "@angular/compiler-cli": "20.1.0",
         "@biomejs/biome": "2.1.1",
         "@types/jasmine": "5.1.8",
@@ -40,13 +40,39 @@
     },
   },
   "packages": {
+    "@algolia/client-abtesting": ["@algolia/client-abtesting@5.32.0", "", { "dependencies": { "@algolia/client-common": "5.32.0", "@algolia/requester-browser-xhr": "5.32.0", "@algolia/requester-fetch": "5.32.0", "@algolia/requester-node-http": "5.32.0" } }, "sha512-HG/6Eib6DnJYm/B2ijWFXr4txca/YOuA4K7AsEU0JBrOZSB+RU7oeDyNBPi3c0v0UDDqlkBqM3vBU/auwZlglA=="],
+
+    "@algolia/client-analytics": ["@algolia/client-analytics@5.32.0", "", { "dependencies": { "@algolia/client-common": "5.32.0", "@algolia/requester-browser-xhr": "5.32.0", "@algolia/requester-fetch": "5.32.0", "@algolia/requester-node-http": "5.32.0" } }, "sha512-8Y9MLU72WFQOW3HArYv16+Wvm6eGmsqbxxM1qxtm0hvSASJbxCm+zQAZe5stqysTlcWo4BJ82KEH1PfgHbJAmQ=="],
+
+    "@algolia/client-common": ["@algolia/client-common@5.32.0", "", {}, "sha512-w8L+rgyXMCPBKmEdOT+RfgMrF0mT6HK60vPYWLz8DBs/P7yFdGo7urn99XCJvVLMSKXrIbZ2FMZ/i50nZTXnuQ=="],
+
+    "@algolia/client-insights": ["@algolia/client-insights@5.32.0", "", { "dependencies": { "@algolia/client-common": "5.32.0", "@algolia/requester-browser-xhr": "5.32.0", "@algolia/requester-fetch": "5.32.0", "@algolia/requester-node-http": "5.32.0" } }, "sha512-AdWfynhUeX7jz/LTiFU3wwzJembTbdLkQIOLs4n7PyBuxZ3jz4azV1CWbIP8AjUOFmul6uXbmYza+KqyS5CzOA=="],
+
+    "@algolia/client-personalization": ["@algolia/client-personalization@5.32.0", "", { "dependencies": { "@algolia/client-common": "5.32.0", "@algolia/requester-browser-xhr": "5.32.0", "@algolia/requester-fetch": "5.32.0", "@algolia/requester-node-http": "5.32.0" } }, "sha512-bTupJY4xzGZYI4cEQcPlSjjIEzMvv80h7zXGrXY1Y0KC/n/SLiMv84v7Uy+B6AG1Kiy9FQm2ADChBLo1uEhGtQ=="],
+
+    "@algolia/client-query-suggestions": ["@algolia/client-query-suggestions@5.32.0", "", { "dependencies": { "@algolia/client-common": "5.32.0", "@algolia/requester-browser-xhr": "5.32.0", "@algolia/requester-fetch": "5.32.0", "@algolia/requester-node-http": "5.32.0" } }, "sha512-if+YTJw1G3nDKL2omSBjQltCHUQzbaHADkcPQrGFnIGhVyHU3Dzq4g46uEv8mrL5sxL8FjiS9LvekeUlL2NRqw=="],
+
+    "@algolia/client-search": ["@algolia/client-search@5.32.0", "", { "dependencies": { "@algolia/client-common": "5.32.0", "@algolia/requester-browser-xhr": "5.32.0", "@algolia/requester-fetch": "5.32.0", "@algolia/requester-node-http": "5.32.0" } }, "sha512-kmK5nVkKb4DSUgwbveMKe4X3xHdMsPsOVJeEzBvFJ+oS7CkBPmpfHAEq+CcmiPJs20YMv6yVtUT9yPWL5WgAhg=="],
+
+    "@algolia/ingestion": ["@algolia/ingestion@1.32.0", "", { "dependencies": { "@algolia/client-common": "5.32.0", "@algolia/requester-browser-xhr": "5.32.0", "@algolia/requester-fetch": "5.32.0", "@algolia/requester-node-http": "5.32.0" } }, "sha512-PZTqjJbx+fmPuT2ud1n4vYDSF1yrT//vOGI9HNYKNA0PM0xGUBWigf5gRivHsXa3oBnUlTyHV9j7Kqx5BHbVHQ=="],
+
+    "@algolia/monitoring": ["@algolia/monitoring@1.32.0", "", { "dependencies": { "@algolia/client-common": "5.32.0", "@algolia/requester-browser-xhr": "5.32.0", "@algolia/requester-fetch": "5.32.0", "@algolia/requester-node-http": "5.32.0" } }, "sha512-kYYoOGjvNQAmHDS1v5sBj+0uEL9RzYqH/TAdq8wmcV+/22weKt/fjh+6LfiqkS1SCZFYYrwGnirrUhUM36lBIQ=="],
+
+    "@algolia/recommend": ["@algolia/recommend@5.32.0", "", { "dependencies": { "@algolia/client-common": "5.32.0", "@algolia/requester-browser-xhr": "5.32.0", "@algolia/requester-fetch": "5.32.0", "@algolia/requester-node-http": "5.32.0" } }, "sha512-jyIBLdskjPAL7T1g57UMfUNx+PzvYbxKslwRUKBrBA6sNEsYCFdxJAtZSLUMmw6MC98RDt4ksmEl5zVMT5bsuw=="],
+
+    "@algolia/requester-browser-xhr": ["@algolia/requester-browser-xhr@5.32.0", "", { "dependencies": { "@algolia/client-common": "5.32.0" } }, "sha512-eDp14z92Gt6JlFgiexImcWWH+Lk07s/FtxcoDaGrE4UVBgpwqOO6AfQM6dXh1pvHxlDFbMJihHc/vj3gBhPjqQ=="],
+
+    "@algolia/requester-fetch": ["@algolia/requester-fetch@5.32.0", "", { "dependencies": { "@algolia/client-common": "5.32.0" } }, "sha512-rnWVglh/K75hnaLbwSc2t7gCkbq1ldbPgeIKDUiEJxZ4mlguFgcltWjzpDQ/t1LQgxk9HdIFcQfM17Hid3aQ6Q=="],
+
+    "@algolia/requester-node-http": ["@algolia/requester-node-http@5.32.0", "", { "dependencies": { "@algolia/client-common": "5.32.0" } }, "sha512-LbzQ04+VLkzXY4LuOzgyjqEv/46Gwrk55PldaglMJ4i4eDXSRXGKkwJpXFwsoU+c1HMQlHIyjJBhrfsfdyRmyQ=="],
+
     "@ampproject/remapping": ["@ampproject/remapping@2.3.0", "", { "dependencies": { "@jridgewell/gen-mapping": "^0.3.5", "@jridgewell/trace-mapping": "^0.3.24" } }, "sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw=="],
 
     "@angular-devkit/architect": ["@angular-devkit/architect@0.2001.0", "", { "dependencies": { "@angular-devkit/core": "20.1.0", "rxjs": "7.8.2" } }, "sha512-IDBG+YP0nPaA/tIjtJ1ZPh0VEfbxSn0yCvbS7dTfqyrnmanPUFpU5qsT9vJTU6yzkuzBEhNFRzkUCQaUAziLRA=="],
 
-    "@angular-devkit/core": ["@angular-devkit/core@20.1.0", "", { "dependencies": { "ajv": "8.17.1", "ajv-formats": "3.0.1", "jsonc-parser": "3.3.1", "picomatch": "4.0.2", "rxjs": "7.8.2", "source-map": "0.7.4" }, "peerDependencies": { "chokidar": "^4.0.0" }, "optionalPeers": ["chokidar"] }, "sha512-i2t22bklvKsqdwmUtjXltRyxmJ+lJW8isrdc7XeN0N6VW/lDHSJqFlucT1+pO9+FxXJQyz3Hc1dpRd6G65mGyw=="],
+    "@angular-devkit/core": ["@angular-devkit/core@20.1.1", "", { "dependencies": { "ajv": "8.17.1", "ajv-formats": "3.0.1", "jsonc-parser": "3.3.1", "picomatch": "4.0.2", "rxjs": "7.8.2", "source-map": "0.7.4" }, "peerDependencies": { "chokidar": "^4.0.0" }, "optionalPeers": ["chokidar"] }, "sha512-5rKL/WfMhZOi0MyYWXK95kPwxSd7zhZieyo3Idtg0B1VMFP4jIa4jRkV7uz55HRPOl5/kK3aIrsxgtKuxQg50Q=="],
 
-    "@angular-devkit/schematics": ["@angular-devkit/schematics@20.1.0", "", { "dependencies": { "@angular-devkit/core": "20.1.0", "jsonc-parser": "3.3.1", "magic-string": "0.30.17", "ora": "8.2.0", "rxjs": "7.8.2" } }, "sha512-0UtJAptrqsfABi0DxrY7cyvlGe5kHRiqVwB+h3g2DEv3ikXKZh1dOFR3o2bK+sVhUqgFaV8qgSnCmR9a48xY0g=="],
+    "@angular-devkit/schematics": ["@angular-devkit/schematics@20.1.1", "", { "dependencies": { "@angular-devkit/core": "20.1.1", "jsonc-parser": "3.3.1", "magic-string": "0.30.17", "ora": "8.2.0", "rxjs": "7.8.2" } }, "sha512-G87e0u3V9E2iqwoV8nBIuLNtMUAnb/A62LNq9eTJguyVEC0HSRWQnByhUvmv6mlABLa4worZJnE5vMbXW1LeQg=="],
 
     "@angular/animations": ["@angular/animations@20.1.0", "", { "dependencies": { "tslib": "^2.3.0" }, "peerDependencies": { "@angular/common": "20.1.0", "@angular/core": "20.1.0" } }, "sha512-5ILngsvu5VPQYaIm7lRyegZaDaAEtLUIPSS8h1dzWPaCxBIJ4uwzx9RDMiF32zhbxi+q0mAO2w2FdDlzWTT3og=="],
 
@@ -54,7 +80,7 @@
 
     "@angular/cdk": ["@angular/cdk@20.1.0", "", { "dependencies": { "parse5": "^7.1.2", "tslib": "^2.3.0" }, "peerDependencies": { "@angular/common": "^20.0.0 || ^21.0.0", "@angular/core": "^20.0.0 || ^21.0.0", "rxjs": "^6.5.3 || ^7.4.0" } }, "sha512-JhgbSOv7xZqWNZjuCh8A3A7pGv0mhtmGjHo36157LrxRO6R7x2yJJjxC5nQeroKZWhgN+X/jG/EJlzEvl9PxTw=="],
 
-    "@angular/cli": ["@angular/cli@20.1.0", "", { "dependencies": { "@angular-devkit/architect": "0.2001.0", "@angular-devkit/core": "20.1.0", "@angular-devkit/schematics": "20.1.0", "@inquirer/prompts": "7.6.0", "@listr2/prompt-adapter-inquirer": "2.0.22", "@modelcontextprotocol/sdk": "1.13.3", "@schematics/angular": "20.1.0", "@yarnpkg/lockfile": "1.1.0", "ini": "5.0.0", "jsonc-parser": "3.3.1", "listr2": "8.3.3", "npm-package-arg": "12.0.2", "npm-pick-manifest": "10.0.0", "pacote": "21.0.0", "resolve": "1.22.10", "semver": "7.7.2", "yargs": "18.0.0", "zod": "3.25.75" }, "bin": { "ng": "bin/ng.js" } }, "sha512-jZudpHlPVAvrywVZuhUkUr5K7ThW/6CPjT7qxZBSdOvu7cD49JPpDivCdlMh0kCBSHsJ0ZbLx35oi6zF8PegiA=="],
+    "@angular/cli": ["@angular/cli@20.1.1", "", { "dependencies": { "@angular-devkit/architect": "0.2001.1", "@angular-devkit/core": "20.1.1", "@angular-devkit/schematics": "20.1.1", "@inquirer/prompts": "7.6.0", "@listr2/prompt-adapter-inquirer": "2.0.22", "@modelcontextprotocol/sdk": "1.13.3", "@schematics/angular": "20.1.1", "@yarnpkg/lockfile": "1.1.0", "algoliasearch": "5.32.0", "ini": "5.0.0", "jsonc-parser": "3.3.1", "listr2": "8.3.3", "npm-package-arg": "12.0.2", "npm-pick-manifest": "10.0.0", "pacote": "21.0.0", "resolve": "1.22.10", "semver": "7.7.2", "yargs": "18.0.0", "zod": "3.25.75" }, "bin": { "ng": "bin/ng.js" } }, "sha512-/lS7haW6YWy+KWkITtmfcKqq9Qsi2PP5mnPnZ2CqPgnYe6PCw+yx57tsU3qHHmYNGWnqHIvZWafBbabie18g8g=="],
 
     "@angular/common": ["@angular/common@20.1.0", "", { "dependencies": { "tslib": "^2.3.0" }, "peerDependencies": { "@angular/core": "20.1.0", "rxjs": "^6.5.3 || ^7.4.0" } }, "sha512-RsHClHJux+4lXrHdGHVw22wekRbSjYtx6Xwjox2S+IRPP51CbX0KskAALZ9ZmtCttkYSFVtvr0S+SQrU2cu5WA=="],
 
@@ -438,7 +464,7 @@
 
     "@rollup/rollup-win32-x64-msvc": ["@rollup/rollup-win32-x64-msvc@4.44.1", "", { "os": "win32", "cpu": "x64" }, "sha512-J8o22LuF0kTe7m+8PvW9wk3/bRq5+mRo5Dqo6+vXb7otCm3TPhYOJqOaQtGU9YMWQSL3krMnoOxMr0+9E6F3Ug=="],
 
-    "@schematics/angular": ["@schematics/angular@20.1.0", "", { "dependencies": { "@angular-devkit/core": "20.1.0", "@angular-devkit/schematics": "20.1.0", "jsonc-parser": "3.3.1" } }, "sha512-sAEwygjY/j0tvo+EDFUAc54Hfp++K43ISe1/fdCU/M3Pseuf7oPPIm6VxxTrRc6fu4Lp5DBaD/PBkXNt/FqZpg=="],
+    "@schematics/angular": ["@schematics/angular@20.1.1", "", { "dependencies": { "@angular-devkit/core": "20.1.1", "@angular-devkit/schematics": "20.1.1", "jsonc-parser": "3.3.1" } }, "sha512-eOEKBRcxt68xzZmqlgMJ5m9FOClzZumyltQhiBeAQfCrMAjxJZaB+pbyYreI+2DL91d/VkldJ9D/UcHZrhfLnQ=="],
 
     "@sigstore/bundle": ["@sigstore/bundle@3.1.0", "", { "dependencies": { "@sigstore/protobuf-specs": "^0.4.0" } }, "sha512-Mm1E3/CmDDCz3nDhFKTuYdB47EdRFRQMOE/EAbiG1MJW77/w1b3P7Qx7JSrVJs8PfwOLOVcKQCHErIwCTyPbag=="],
 
@@ -519,6 +545,8 @@
     "ajv": ["ajv@8.17.1", "", { "dependencies": { "fast-deep-equal": "^3.1.3", "fast-uri": "^3.0.1", "json-schema-traverse": "^1.0.0", "require-from-string": "^2.0.2" } }, "sha512-B/gBuNg5SiMTrPkC+A2+cW0RszwxYmn6VYxB/inlBStS5nx6xHIt/ehKRhIMhqusl7a8LjQoZnjCs5vhwxOQ1g=="],
 
     "ajv-formats": ["ajv-formats@3.0.1", "", { "dependencies": { "ajv": "^8.0.0" } }, "sha512-8iUql50EUR+uUcdRQ3HDqa6EVyo3docL8g5WJ3FNcWmu62IbkGUue/pEyLBW8VGKKucTPgqeks4fIU1DA4yowQ=="],
+
+    "algoliasearch": ["algoliasearch@5.32.0", "", { "dependencies": { "@algolia/client-abtesting": "5.32.0", "@algolia/client-analytics": "5.32.0", "@algolia/client-common": "5.32.0", "@algolia/client-insights": "5.32.0", "@algolia/client-personalization": "5.32.0", "@algolia/client-query-suggestions": "5.32.0", "@algolia/client-search": "5.32.0", "@algolia/ingestion": "1.32.0", "@algolia/monitoring": "1.32.0", "@algolia/recommend": "5.32.0", "@algolia/requester-browser-xhr": "5.32.0", "@algolia/requester-fetch": "5.32.0", "@algolia/requester-node-http": "5.32.0" } }, "sha512-84xBncKNPBK8Ae89F65+SyVcOihrIbm/3N7to+GpRBHEUXGjA3ydWTMpcRW6jmFzkBQ/eqYy/y+J+NBpJWYjBg=="],
 
     "ansi-escapes": ["ansi-escapes@4.3.2", "", { "dependencies": { "type-fest": "^0.21.3" } }, "sha512-gKXj5ALrKWQLsYG9jlTRmR/xKluxHV+Z9QEwNIgCfM1/uwPMCuzVVnh5mwTd+OuBZcwSIMbqssNWRm1lE51QaQ=="],
 
@@ -1288,7 +1316,11 @@
 
     "zone.js": ["zone.js@0.15.1", "", {}, "sha512-XE96n56IQpJM7NAoXswY3XRLcWFW83xe0BiAOeMD7K5k5xecOeul3Qcpx6GqEeeHNkW5DWL5zOyTbEfB4eti8w=="],
 
+    "@angular-devkit/architect/@angular-devkit/core": ["@angular-devkit/core@20.1.0", "", { "dependencies": { "ajv": "8.17.1", "ajv-formats": "3.0.1", "jsonc-parser": "3.3.1", "picomatch": "4.0.2", "rxjs": "7.8.2", "source-map": "0.7.4" }, "peerDependencies": { "chokidar": "^4.0.0" }, "optionalPeers": ["chokidar"] }, "sha512-i2t22bklvKsqdwmUtjXltRyxmJ+lJW8isrdc7XeN0N6VW/lDHSJqFlucT1+pO9+FxXJQyz3Hc1dpRd6G65mGyw=="],
+
     "@angular-devkit/core/source-map": ["source-map@0.7.4", "", {}, "sha512-l3BikUxvPOcn5E74dZiq5BGsTb5yEwhaTSzccU6t4sDOH8NWJCstKO5QT2CvtFoK6F0saL7p9xHAqHOlCPJygA=="],
+
+    "@angular/cli/@angular-devkit/architect": ["@angular-devkit/architect@0.2001.1", "", { "dependencies": { "@angular-devkit/core": "20.1.1", "rxjs": "7.8.2" } }, "sha512-jU+fvaiS5bjh3znpHLEeKQIYb+ZVKNP0xRu3+E9EmweyG4E8AdvZnLvKTe61Ikhul2zBTFBUv46er7CHjAGEEg=="],
 
     "@angular/compiler-cli/@babel/core": ["@babel/core@7.28.0", "", { "dependencies": { "@ampproject/remapping": "^2.2.0", "@babel/code-frame": "^7.27.1", "@babel/generator": "^7.28.0", "@babel/helper-compilation-targets": "^7.27.2", "@babel/helper-module-transforms": "^7.27.3", "@babel/helpers": "^7.27.6", "@babel/parser": "^7.28.0", "@babel/template": "^7.27.2", "@babel/traverse": "^7.28.0", "@babel/types": "^7.28.0", "convert-source-map": "^2.0.0", "debug": "^4.1.0", "gensync": "^1.0.0-beta.2", "json5": "^2.2.3", "semver": "^6.3.1" } }, "sha512-UlLAnTPrFdNGoFtbSXwcGFQBtQZJCNjaN6hQNP3UPvuNXT1i82N26KL3dZeIpNalWywr9IuQuncaAfUaS1g6sQ=="],
 
@@ -1509,6 +1541,8 @@
     "wrap-ansi-cjs/strip-ansi": ["strip-ansi@6.0.1", "", { "dependencies": { "ansi-regex": "^5.0.1" } }, "sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A=="],
 
     "youch/cookie": ["cookie@1.0.2", "", {}, "sha512-9Kr/j4O16ISv8zBBhJoi4bXOYNTkFLOqSL3UDB0njXxCXNezjeyVrJyGOWtgfs/q2km1gwBcfH8q1yEGoMYunA=="],
+
+    "@angular-devkit/architect/@angular-devkit/core/source-map": ["source-map@0.7.4", "", {}, "sha512-l3BikUxvPOcn5E74dZiq5BGsTb5yEwhaTSzccU6t4sDOH8NWJCstKO5QT2CvtFoK6F0saL7p9xHAqHOlCPJygA=="],
 
     "@angular/compiler-cli/@babel/core/convert-source-map": ["convert-source-map@2.0.0", "", {}, "sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg=="],
 
