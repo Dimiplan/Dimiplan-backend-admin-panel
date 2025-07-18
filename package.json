@@ -21,7 +21,7 @@
     "@angular/core": "20.1.0",
     "@angular/forms": "20.1.1",
     "@angular/material": "20.1.2",
-    "@angular/platform-browser": "20.1.1",
+    "@angular/platform-browser": "20.1.2",
     "@angular/router": "20.1.1",
     "@tailwindcss/cli": "^4.1.11",
     "rxjs": "7.8.2",
