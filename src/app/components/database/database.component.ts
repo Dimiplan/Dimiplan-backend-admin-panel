@@ -98,7 +98,6 @@ export class DatabaseComponent implements OnInit {
   private adminService = inject(AdminService);
   private dialog = inject(MatDialog);
   private snackBar = inject(MatSnackBar);
-  private fb = inject(FormBuilder);
 
   tables: TableInfo[] = [];
   selectedTable: TableInfo | null = null;
