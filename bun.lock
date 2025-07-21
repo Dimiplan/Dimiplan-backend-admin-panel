@@ -26,7 +26,7 @@
         "@biomejs/biome": "2.1.2",
         "@types/jasmine": "5.1.8",
         "@types/sanitize-html": "^2.16.0",
-        "jasmine-core": "5.8.0",
+        "jasmine-core": "5.9.0",
         "karma": "6.4.4",
         "karma-chrome-launcher": "3.2.0",
         "karma-coverage": "2.2.1",
@@ -868,7 +868,7 @@
 
     "jackspeak": ["jackspeak@3.4.3", "", { "dependencies": { "@isaacs/cliui": "^8.0.2" }, "optionalDependencies": { "@pkgjs/parseargs": "^0.11.0" } }, "sha512-OGlZQpz2yfahA/Rd1Y8Cd9SIEsqvXkLVoSw/cgwhnhFMDbsQFeZYoJJ7bIZBS9BcamUW96asq/npPWugM+RQBw=="],
 
-    "jasmine-core": ["jasmine-core@5.8.0", "", {}, "sha512-Q9dqmpUAfptwyueW3+HqBOkSuYd9I/clZSSfN97wXE/Nr2ROFNCwIBEC1F6kb3QXS9Fcz0LjFYSDQT+BiwjuhA=="],
+    "jasmine-core": ["jasmine-core@5.9.0", "", {}, "sha512-OMUvF1iI6+gSRYOhMrH4QYothVLN9C3EJ6wm4g7zLJlnaTl8zbaPOr0bTw70l7QxkoM7sVFOWo83u9B2Fe2Zng=="],
 
     "jiti": ["jiti@2.4.2", "", { "bin": { "jiti": "lib/jiti-cli.mjs" } }, "sha512-rg9zJN+G4n2nfJl5MW3BMygZX56zKPNVEYYqq7adpmMh4Jn2QNEwhvQlFy6jPVdcod7txZtKHWnyZiA3a0zP7A=="],
 
