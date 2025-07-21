@@ -185,7 +185,7 @@ export class AdminService {
     data: Record<string, unknown>,
     where: Record<string, unknown>
   ): Observable<{ success: boolean; data: { affectedRows: number } }> {
-    return this.http.put<{
+    return this.http.patch<{
       success: boolean;
       data: { affectedRows: number };
     }>(`${baseUrl}/database/tables/${tableName}`, { data, where });
