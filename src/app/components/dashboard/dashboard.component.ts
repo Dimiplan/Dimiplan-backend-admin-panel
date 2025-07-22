@@ -104,7 +104,7 @@ export class DashboardComponent implements OnInit {
 
   getCpuUsagePercent(): number {
     if (!this.systemStatus || !this.systemStatus.loadavg) return 0;
-    return this.systemStatus.loadavg * 100;
+    return this.systemStatus.loadavg;
   }
 
   round(value: number): number {
