@@ -45,6 +45,6 @@
     "postcss-scss": "^4.0.9",
     "tailwindcss": "^4.1.11",
     "typescript": "5.9.2",
-    "wrangler": "^4.28.0"
+    "wrangler": "^4.28.1"
   }
 }
