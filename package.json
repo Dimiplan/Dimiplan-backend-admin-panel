@@ -33,7 +33,7 @@
     "@angular/build": "20.1.5",
     "@angular/cli": "20.1.5",
     "@angular/compiler-cli": "20.1.6",
-    "@biomejs/biome": "2.1.4",
+    "@biomejs/biome": "2.2.0",
     "@types/jasmine": "5.1.8",
     "@types/sanitize-html": "^2.16.0",
     "jasmine-core": "5.9.0",
@@ -45,6 +45,6 @@
     "postcss-scss": "^4.0.9",
     "tailwindcss": "^4.1.11",
     "typescript": "5.9.2",
-    "wrangler": "^4.29.0"
+    "wrangler": "^4.29.1"
   }
 }
